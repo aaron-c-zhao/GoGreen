@@ -21,3 +21,20 @@ Run `maven install` ([Intellij](https://www.jetbrains.com/help/idea/2016.3/getti
 
 **Checkstyle**:  
 Run `maven site`
+
+Group members:
+
+- Alin Prundeanu
+    ![]()
+- Atanas Marinov
+    ![]()
+- Chengrui Zhao
+    ![]()
+- Giovanni Fincato de Loureiro
+    ![]()
+- Jan Pieter Kroeb
+    ![]()
+- Nik Kapitonenko
+    ![](member_images/nkapitonenko.png)
+- Rahul Kalaria
+    ![]()
