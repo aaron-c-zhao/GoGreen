@@ -1,6 +1,6 @@
 # CSE1105 Template Repository
 
-This a template repository to help you get started on making the best project possible!
+This a template repository to help you get started on making the best project possible!Ha!
 
 You can download the latest version [here](https://github.com/SERG-Delft/TI1216/releases)
 
