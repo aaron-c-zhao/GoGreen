@@ -25,7 +25,7 @@ Run `maven site`
 Group members:
 
 - Alin Prundeanu  
-    ![]hi!!(member_images/alin's_photo.png)
+    ![]hi!!(member_images/alin's photo.png)
 - Atanas Marinov  
     ![]()
 - Chengrui Zhao
