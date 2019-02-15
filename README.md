@@ -33,7 +33,7 @@ Group members:
 - Giovanni Fincato de Loureiro
     ![]()
 - Jan Pieter Kroeb
-    ![](member_images/jpkroeb.png)
+    ![](member_images/jpkroeb.jpg)
 - Nik Kapitonenko
     ![](member_images/nkapitonenko.png)
 - Rahul Kalaria  
