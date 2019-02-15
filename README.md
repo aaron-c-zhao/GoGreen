@@ -37,4 +37,5 @@ Group members:
 - Nik Kapitonenko  
     ![](member_images/nkapitonenko.png)
 - Rahul Kalaria  
-    ![]()
+    ![](member_images/RahulPic.jpg)
+    
