@@ -2,7 +2,7 @@
 
 This is the personal development plan of **Rahul Crunal Kalaria**, member of **group 82**.
 
-#### My String Points 
+#### My Strong Points 
 
 * Goal-oriented 
 	* I set a personal goal of getting a high grade in Computer Organisation. 
