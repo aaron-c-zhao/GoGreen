@@ -29,7 +29,7 @@ Group members:
 - Atanas Marinov  
     ![](member_images/aimarinov.png)
 - Chengrui Zhao
-    ![](member_images/zhao.jpg)
+    ![](member_images/zhao.JPG)
 - Giovanni Fincato de Loureiro  
     ![](https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/52556910_1815626165208721_6424712978175623168_n.jpg?_nc_cat=101&_nc_ht=scontent-amt2-1.xx&oh=42618466c98669afc203db47b9c46dad&oe=5CE1BFAD)
 - Jan Pieter Kroeb  
