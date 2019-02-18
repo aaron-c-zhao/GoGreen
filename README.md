@@ -21,21 +21,41 @@ Run `maven install` ([Intellij](https://www.jetbrains.com/help/idea/2016.3/getti
 
 **Checkstyle**:  
 Run `maven site`
+	
+		Project #GoGreen
 
-Group members:
+	Our goal:
 
-- Alin Prundeanu  
+	Environmental issues are harmful effects of human activity on the biophysical environment. Environmental protection is a practice of protecting the natural environment on individual, organizational or governmental levels, for the benefit of both the environment and humans. Our project is focused on each individual person and especially on the ecological footprint per person, as its level in the Netherlands is particularly high. We are building Java application that enables users to enter their ecological choices. They get an overview of what they can do and see how much greener they can still go. To stimulate more green activities, we are integrating a gamification aspect to the application. Through it the users will be able to compare their progress with their friends. Based on your score and your achievements you will be placed in a rank group, which differentiate from each other on specially created badges.
+
+	Our team on this project:
+
+- Alin Prundeanu
+	Romanian Project Manager
+	NetID: aprundeanu  
     ![](member_images/Alin.png)
-- Atanas Marinov  
+- Atanas Marinov
+	Bulgarian Front-end Developer  
+	NetID: aimarinov
     ![](member_images/aimarinov.png)
 - Chengrui Zhao
+	Chinese Back-end Developer
+	NetID: aaronzhao
     ![](member_images/zhao.JPG)
-- Giovanni Fincato de Loureiro  
-    ![](https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/52556910_1815626165208721_6424712978175623168_n.jpg?_nc_cat=101&_nc_ht=scontent-amt2-1.xx&oh=42618466c98669afc203db47b9c46dad&oe=5CE1BFAD)
-- Jan Pieter Kroeb  
+- Giovanni Fincato de Loureiro 
+	Italian Front-end Developer 
+	NetID: gfincatodelour
+    ![](member_images/Giovanni.jpg)
+- Jan Pieter Kroeb 
+	Dutch Back-end Developer 
+	NetID: jkroeb
     ![](member_images/jpkroeb.jpg)
-- Nik Kapitonenko  
+- Nik Kapitonenko
+	Ukrainan Database Engineer
+	NetID: nkapitonenko  
     ![](member_images/nkapitonenko.png)
-- Rahul Kalaria  
+- Rahul Kalaria 
+	Indian Database Engineer 
+	NetID: rkalaria
     ![](member_images/Rahul.jpg)
 
