@@ -33,29 +33,29 @@ Run `maven site`
 - Alin Prundeanu
 	Romanian Project Manager
 	NetID: aprundeanu  
-    ![](member_images/Alin.png)
+    ![](doc/member_images/Alin.png)
 - Atanas Marinov
 	Bulgarian Front-end Developer  
 	NetID: aimarinov
-    ![](member_images/aimarinov.png)
+    ![](doc/member_images/aimarinov.png)
 - Chengrui Zhao
 	Chinese Back-end Developer
 	NetID: aaronzhao
-    ![](member_images/zhao.JPG)
+    ![](doc/member_images/zhao.jpeg)
 - Giovanni Fincato de Loureiro 
 	Italian Front-end Developer 
 	NetID: gfincatodelour
-    ![](member_images/Giovanni.jpg)
+    ![](doc/member_images/Giovanni.jpeg)
 - Jan Pieter Kroeb 
 	Dutch Back-end Developer 
 	NetID: jkroeb
-    ![](member_images/jpkroeb.jpg)
+    ![](doc/member_images/jpkroeb.jpeg)
 - Nik Kapitonenko
 	Ukrainan Database Engineer
 	NetID: nkapitonenko  
-    ![](member_images/nkapitonenko.png)
+    ![](doc/member_images/nkapitonenko.png)
 - Rahul Kalaria 
 	Indian Database Engineer 
 	NetID: rkalaria
-    ![](member_images/Rahul.jpg)
+    ![](doc/member_images/Rahul.jpeg)
 
