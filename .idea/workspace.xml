@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58636a17-5526-4233-870c-ac3a29a69040" name="Default Changelist" comment="" />
+    <list default="true" id="58636a17-5526-4233-870c-ac3a29a69040" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/doc/member_images/Giovanni.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/member_images/Rahul.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/member_images/jpkroeb.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/member_images/zhao.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/Alin.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/member_images/Alin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/Giovanni.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/Rahul.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/aimarinov.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/member_images/aimarinov.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/jpkroeb.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/nkapitonenko.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/member_images/nkapitonenko.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/member_images/zhao.jpg" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,15 +25,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="103" selection-start-line="3" selection-start-column="103" selection-end-line="3" selection-end-column="103" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+      </list>
+    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -30,10 +65,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="20" />
-    <option name="y" value="40" />
+    <option name="x" value="72" />
+    <option name="y" value="154" />
     <option name="width" value="2376" />
-    <option name="height" value="1360" />
+    <option name="height" value="786" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -48,6 +83,22 @@
             <path>
               <item name="OOP-Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOP_project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOP-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOP_project" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOP-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOP_project" type="462c0819:PsiDirectoryNode" />
+              <item name="doc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOP-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOP_project" type="462c0819:PsiDirectoryNode" />
+              <item name="doc" type="462c0819:PsiDirectoryNode" />
+              <item name="meetings" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -82,7 +133,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="20" width="1188" height="680" extended-state="1" />
+    <frame x="36" y="77" width="1188" height="393" extended-state="1" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -112,11 +163,18 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="103" selection-start-line="3" selection-start-column="103" selection-end-line="3" selection-end-column="103" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
