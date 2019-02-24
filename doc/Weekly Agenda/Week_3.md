@@ -1,4 +1,5 @@
 1) Highlight the general ideas of our Spring client-server implementation and present our first demo for client:
+
 a) Review the web service code
 b) Make sure it is explained and understood by everyone in our team
 c) Think about next steps for extending our web service
