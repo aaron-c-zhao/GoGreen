@@ -1,4 +1,6 @@
-# Maven ignores
+##########################
+#Maven ignores
+##########################
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -8,8 +10,16 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
+##########################
+#IntelliJ
+##########################
 .idea/
-OOP-Project.iml
+*.iml
+
+##########################
+#Eclipse
+##########################
 .classpath
 .project
 .settings/
