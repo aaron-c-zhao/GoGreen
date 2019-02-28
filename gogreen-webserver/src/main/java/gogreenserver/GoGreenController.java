@@ -1,4 +1,4 @@
-package nl.tudelft.gogreenserver;
+package gogreenserver;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class GoGreenController {
-	
-	@GetMapping("/greeting/{name}")
-	public Greeting greeting(@PathVariable(value = "name") String name) {
-		return new Greeting(name);
-	}
+
+    @GetMapping("/greeting/{name}")
+    public Greeting greeting(@PathVariable(value = "name") String name) {
+        return new Greeting(name);
+    }
 }
