@@ -29,7 +29,7 @@ public class Hello {
     @Override
     public String toString() {
         return "Hello " + name +
-            "\nIt's" + time.toString() + " now";
+            "\nIt's " + time.toString() + " now";
     }
 
 }
