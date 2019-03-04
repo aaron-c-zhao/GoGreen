@@ -102,7 +102,7 @@
          <children>
             <ImageView fitHeight="112.0" fitWidth="110.0" layoutX="76.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../background.png" />
+                  <Image url="@../resources/background.png" />
                </image>
             </ImageView>
          </children>

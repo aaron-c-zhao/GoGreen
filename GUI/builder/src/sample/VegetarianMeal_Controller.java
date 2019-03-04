@@ -33,7 +33,7 @@ public class VegetarianMeal_Controller {
     @FXML
     public JFXComboBox insteadOfMeal_Box;
 
-
+    //list for the tree view
     ObservableList<String> mealList= FXCollections.observableArrayList("Potato sandwich","Beef sandwich");
 
     @FXML
