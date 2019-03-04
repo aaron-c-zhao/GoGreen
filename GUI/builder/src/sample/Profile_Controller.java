@@ -9,6 +9,10 @@ import javafx.scene.control.PasswordField;
 
 import java.awt.*;
 
+/**
+ * this is test class don't look at it
+ * really
+ */
 public class Profile_Controller {
     @FXML
     public TextField textField;

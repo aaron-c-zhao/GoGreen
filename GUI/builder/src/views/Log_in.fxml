@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="650.0" fitWidth="895.0" layoutX="-4.0">
          <image>
-            <Image url="@../login_background.png" />
+            <Image url="@../resources/login_background.png" />
          </image>
       </ImageView>
       <Pane layoutX="36.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
@@ -31,7 +31,7 @@
             </Label>
             <ImageView fitHeight="74.0" fitWidth="74.0" layoutX="128.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../background.png" />
+                  <Image url="@../resources/background.png" />
                </image>
             </ImageView>
          </children>

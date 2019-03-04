@@ -28,7 +28,7 @@
          <children>
             <ImageView fitHeight="91.0" fitWidth="92.0" layoutX="9.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../badge.png" />
+                  <Image url="@../resources/badge.png" />
                </image>
             </ImageView>
          </children>
@@ -110,7 +110,7 @@
          <children>
             <ImageView fitHeight="112.0" fitWidth="110.0" layoutX="76.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../background.png" />
+                  <Image url="@../resources/background.png" />
                </image>
             </ImageView>
          </children>
