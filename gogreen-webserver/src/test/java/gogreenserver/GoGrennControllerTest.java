@@ -21,14 +21,14 @@ public class GoGrennControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void greeting_basic() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders
-            .get("/api/greeting/zhao")
-            .accept(MediaType.APPLICATION_JSON);
-        MvcResult result = mockMvc.perform(request)
-            .andExpect(status().is(200))
-            .andExpect(content().json("{\"name\":\"zhao\"}"))
-            .andReturn();
-    }
+//    @Test
+//    public void greeting_basic() throws Exception {
+//        RequestBuilder request = MockMvcRequestBuilders
+//            .get("/api/greeting/zhao")
+//            .accept(MediaType.APPLICATION_JSON);
+//        MvcResult result = mockMvc.perform(request)
+//            .andExpect(status().is(200))
+//            .andExpect(content().json("{\"name\":\"zhao\"}"))
+//            .andReturn();
+//    }
 }
