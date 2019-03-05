@@ -36,11 +36,11 @@ public class FoodEmissionController {
 		return service.findById(foodName);
 	}
 	
-	@DeleteMapping("/foodEmission/{food_name}")
-	public String deleteFoodEmission(@PathVariable("food_name") String foodName) {
-		service.deleteFoodEmissionById(foodName);
-		return "Food emission data has been deleted of food with name + " +foodName;
-	}
+// 	@DeleteMapping("/foodEmission/{food_name}")
+// 	public String deleteFoodEmission(@PathVariable("food_name") String foodName) {
+// 		service.deleteFoodEmissionById(foodName);
+// 		return "Food emission data has been deleted of food with name + " +foodName;
+// 	}
 	
 	@PostMapping("/foodEmission")
 	public FoodEmission addFoodEmission(@RequestBody FoodEmission foodEmission) {
