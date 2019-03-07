@@ -2,33 +2,24 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import gogreenclient.config.AppConfig;
-import gogreenclient.screens.DialogPrototype.Dialog;
-import gogreenclient.screens.DialogPrototype.DialogController;
-import gogreenclient.screens.DialogPrototype.FXMLDialog;
+import gogreenclient.screens.Window.Windows;
+import gogreenclient.screens.Window.WindowController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class LoginController implements DialogController {
+public class LoginController implements WindowController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
     private ScreenConfiguration screens;
-    private Dialog dialog;
+    private Windows dialog;
 
 
     @Override
-    public void setDialog(Dialog dialog) {
+    public void setWindow(Windows dialog) {
         this.dialog = dialog;
     }
 

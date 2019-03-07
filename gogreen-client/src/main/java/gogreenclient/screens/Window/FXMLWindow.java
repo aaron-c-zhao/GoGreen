@@ -1,4 +1,4 @@
-package gogreenclient.screens.DialogPrototype;
+package gogreenclient.screens.Window;
 
 
 import javafx.fxml.FXMLLoader;
@@ -15,8 +15,10 @@ import java.net.URL;
 /**
  * Every dialog is a individual stage. This class is the factory class of the dialogs.
  */
-public class FXMLDialog extends Dialog {
-    public FXMLDialog(final DialogController controller, URL fxml, Window owner, StageStyle style) {
+public class FXMLWindow extends Windows {
+
+
+    public FXMLWindow(final WindowController controller, URL fxml, Window owner, StageStyle style) {
         super(style);
         initOwner(owner);
         initModality(Modality.WINDOW_MODAL);
@@ -28,10 +30,11 @@ public class FXMLDialog extends Dialog {
                     return controller;
                 }
             });
-            controller.setDialog(this);
+            controller.setWindow(this);
             setScene(new Scene((Parent) loader.load()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }

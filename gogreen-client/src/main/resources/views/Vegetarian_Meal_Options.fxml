@@ -11,13 +11,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Vegetarian_Meal_Controller">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.FoodController">
    <children>
       <AnchorPane prefHeight="90.0" prefWidth="796.0" style="-fx-background-color: #00FA9A;">
          <children>
             <ImageView fitHeight="86.0" fitWidth="103.0" layoutX="318.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/background.png" />
+                  <Image url="@../static/background.png" />
                </image>
             </ImageView>
             <Label layoutX="259.0" layoutY="6.0" text="#G" textFill="#fffbfb">

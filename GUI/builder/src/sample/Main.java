@@ -24,9 +24,9 @@ public class Main extends Application {
         Parent create_layout = FXMLLoader.load(getClass().getResource("../gogreen.gogreenclient.views/Create_account.fxml"));
 
         //creating the scenes from the layouts
-        food=new Scene(food_lay,480,640);
-        menu=new Scene(root,480,640);
-        login=new Scene(login_layout,480,640);
+//        food=new Scene(food_lay,480,640);
+//        menu=new Scene(root,480,640);
+//        login=new Scene(login_layout,480,640);
         create=new Scene(create_layout,480,644);
         vegetarian_meal=new Scene(vegetarian);
 

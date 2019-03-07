@@ -1,7 +1,7 @@
 package gogreenclient.screens;
 
-import gogreenclient.screens.DialogPrototype.ConfirmDialogController;
-import gogreenclient.screens.DialogPrototype.Dialog;
+import gogreenclient.screens.Window.ConfirmDialogController;
+import gogreenclient.screens.Window.Windows;
 import javafx.application.Platform;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,14 +9,14 @@ public class ExitController implements ConfirmDialogController {
 
     @Autowired
     private ScreenConfiguration screens;
-    private Dialog dialog;
+    private Windows dialog;
 
     public ExitController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
     @Override
-    public void setDialog(Dialog dialog) {
+    public void setWindow(Windows dialog) {
         this.dialog = dialog;
     }
 

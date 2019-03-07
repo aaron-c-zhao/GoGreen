@@ -72,7 +72,7 @@
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
-            <JFXButton fx:id="homeMenu_button" buttonType="RAISED" layoutX="8.0" prefHeight="56.0" prefWidth="246.0" style="-fx-background-color: #00FF7F;" text="Home options" textFill="#732f7c">
+            <JFXButton fx:id="friends" buttonType="RAISED" layoutX="8.0" prefHeight="56.0" prefWidth="246.0" style="-fx-background-color: #00FF7F;" text="Friends" textFill="#732f7c">
                <effect>
                   <DropShadow />
                </effect>
@@ -84,7 +84,7 @@
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <JFXButton fx:id="transportMenu_button" buttonType="RAISED" layoutX="8.0" prefHeight="56.0" prefWidth="246.0" style="-fx-background-color: #00FF7F;" text="Transport options" textFill="#732f7c">
+            <JFXButton fx:id="statistic" buttonType="RAISED" layoutX="8.0" prefHeight="56.0" prefWidth="246.0" style="-fx-background-color: #00FF7F;" text="Statistic" textFill="#732f7c">
                <effect>
                   <DropShadow />
                </effect>
@@ -96,7 +96,7 @@
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <JFXButton fx:id="foodMenu_button" buttonType="RAISED" layoutX="8.0" layoutY="-7.0" onAction="#switchToFood" prefHeight="56.0" prefWidth="246.0" ripplerFill="#ffc0f5" style="-fx-background-color: #00FF7F;" text="Food options" textFill="#732f7c">
+            <JFXButton fx:id="input_activities" buttonType="RAISED" layoutX="8.0" layoutY="-7.0" onAction="#switchToFood" prefHeight="56.0" prefWidth="246.0" ripplerFill="#ffc0f5" style="-fx-background-color: #00FF7F;" text="GoGreener" textFill="#732f7c">
                <effect>
                   <DropShadow />
                </effect>

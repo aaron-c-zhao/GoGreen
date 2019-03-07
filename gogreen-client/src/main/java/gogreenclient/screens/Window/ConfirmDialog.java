@@ -1,4 +1,4 @@
-package gogreenclient.screens.DialogPrototype;
+package gogreenclient.screens.Window;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,7 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-public class ConfirmDialog extends Dialog {
+public class ConfirmDialog extends Windows {
 
 
     public ConfirmDialog(final ConfirmDialogController controller, Window owner, StageStyle style, String title, String message){
@@ -45,7 +45,7 @@ public class ConfirmDialog extends Dialog {
         layout.getChildren().addAll(label,buttons);
         layout.setAlignment(Pos.CENTER);
 
-        controller.setDialog(this);
+        controller.setWindow(this);
         setScene(new Scene(layout));
     }
 }
