@@ -13,7 +13,7 @@
             <security:password-encoder hash="bcrypt"/>
             <security:user-service>
                 <security:user name="manager" password="password" authorities="ROLE_MANAGER"/>
-                <security:user name="employee" password="lol" authorities="ROLE_EMPLOYEE"/>
+                <security:user name="gogreen" password="{bcrypt}zhao" authorities="ROLE_EMPLOYEE"/>
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>

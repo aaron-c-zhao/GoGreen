@@ -2,17 +2,21 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.config.AppConfig;
 import gogreenclient.screens.DialogPrototype.DialogController;
 import gogreenclient.screens.DialogPrototype.FXMLDialog;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class LoginController implements DialogController {
 
@@ -43,17 +47,19 @@ public class LoginController implements DialogController {
 
     @FXML
     public void switchToMenu() {
-        Authentication authToken = new UsernamePasswordAuthenticationToken(username.getText(), password.getText());
-        try {
-            authToken = authenticationManager.authenticate(authToken);
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-        } catch (AuthenticationException e) {
-            combination_label.setVisible(true);
-            return;
-        }
+//        PasswordEncoder encoder = new BCryptPasswordEncoder();
+//        System.out.println(encoder.encode("zhao"));
+//        Authentication authToken = new UsernamePasswordAuthenticationToken(username.getText(), encoder.encode(password.getText()));
+//        try {
+//            authToken = authenticationManager.authenticate(authToken);
+//            SecurityContextHolder.getContext().setAuthentication(authToken);
+//        } catch (AuthenticationException e) {
+//            combination_label.setVisible(true);
+//            return;
+//        }
 
         dialog.close();
-//      gogreenclient.views.showSreeen(gogreenclient.views.sampleScreen());
+        screens.sampleDialog().show();
     }
 
     @FXML
@@ -61,4 +67,5 @@ public class LoginController implements DialogController {
         combination_label.setVisible(false);
 //        gogreenclient.views.showSreeen(gogreenclient.views.menu());
     }
+
 }

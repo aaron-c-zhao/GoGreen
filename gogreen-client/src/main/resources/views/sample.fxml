@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Sample_Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.SampleController">
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00FA9A;">
          <effect>
@@ -110,7 +110,7 @@
          <children>
             <ImageView fitHeight="112.0" fitWidth="110.0" layoutX="76.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/background.png" />
+                  <Image url="@../static/background.png" />
                </image>
             </ImageView>
          </children>

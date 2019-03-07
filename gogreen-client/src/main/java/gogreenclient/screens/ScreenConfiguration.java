@@ -32,7 +32,7 @@ public class ScreenConfiguration {
     @Bean
     @Scope("prototype")
     public FXMLDialog loginDialog() {
-        return new FXMLDialog(loginController(), getClass().getResource("/views/Log_in.fxml"), primaryStage, StageStyle.UNDECORATED);
+        return new FXMLDialog(loginController(), getClass().getResource("/views/Log_in.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
@@ -41,4 +41,13 @@ public class ScreenConfiguration {
         return new LoginController(this);
     }
 
+    @Bean
+    public FXMLDialog sampleDialog() {
+        return new FXMLDialog(sampleController(), getClass().getResource("/views/sample.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    SampleController sampleController(){
+        return new SampleController(this);
+    }
 }

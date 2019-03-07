@@ -13,6 +13,9 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Every dialog is a individual stage. This class is the factory class of the dialogs.
+ */
 public class FXMLDialog extends Stage {
     public FXMLDialog(final DialogController controller, URL fxml, Window owner, StageStyle style) {
         super(style);
