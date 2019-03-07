@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" style="-fx-background-image: url('login_background.png');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Create_Account_Controller">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="895.0" layoutX="-175.0" layoutY="-3.0">
+         <image>
+            <Image url="@../static/login_background.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="36.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
+         <children>
+            <Label layoutX="61.0" layoutY="20.0" text="#G" textFill="#fffbfb">
+               <font>
+                  <Font name="Agency FB" size="70.0" />
+               </font>
+            </Label>
+            <Label layoutX="202.0" layoutY="20.0" prefHeight="84.0" prefWidth="147.0" text="GREEN" textFill="#fffbfb">
+               <font>
+                  <Font name="Agency FB" size="70.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="74.0" fitWidth="74.0" layoutX="128.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../static/background.png" />
+               </image>
+            </ImageView>
+         </children>
+         <effect>
+            <DropShadow color="#229d0c80" />
+         </effect>
+      </Pane>
+      <Pane layoutX="36.0" layoutY="150.0" prefHeight="481.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
+         <children>
+            <Label layoutX="82.0" layoutY="6.0" text="Create an account" textFill="#fffbfb">
+               <font>
+                  <Font name="Segoe UI" size="30.0" />
+               </font>
+            </Label>
+            <JFXButton buttonType="RAISED" layoutX="227.0" layoutY="416.0" onAction="#switchToLogin" prefHeight="51.0" prefWidth="163.0" ripplerFill="#f8fffb" style="-fx-background-color: FF6347;" text="Back" textFill="#fffbfb" />
+            <Label fx:id="combination_label" layoutX="60.0" layoutY="318.0" text="Incorrect username/password combination" textFill="#ff1515" visible="false" />
+            <Label layoutX="21.0" layoutY="49.0" prefHeight="64.0" prefWidth="365.0" text="To create an account, please fill the following form      (all of the filds are required)" textAlignment="CENTER" textFill="#fffbfb" wrapText="true">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font></Label>
+            <GridPane layoutX="21.0" layoutY="103.0" prefHeight="261.0" prefWidth="365.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="132.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="24.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="197.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="0.0" prefWidth="18.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="39.0" minHeight="9.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="25.0" prefWidth="174.0" text="Username:" textAlignment="RIGHT" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font></Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="174.0" text="Password:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="34.0" prefWidth="174.0" text="Repeat password:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="174.0" text="Birthdate:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="174.0" text="Nationality:" textFill="WHITE" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="username" focusColor="#fbfcff" promptText="username" unFocusColor="SEAGREEN" GridPane.columnIndex="2" />
+                  <JFXPasswordField fx:id="password" focusColor="#fbfcff" promptText="password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <JFXPasswordField fx:id="repeat_password" focusColor="#fbfcff" promptText="repeat password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <JFXTextField fx:id="nationality" focusColor="#fbfcff" prefHeight="25.0" prefWidth="204.0" promptText="nationality" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <DatePicker fx:id="bday" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+               </children>
+            </GridPane>
+            <Label fx:id="incorrect" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="377.0" prefHeight="31.0" prefWidth="397.0" text="The passwords don't match" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
+            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="416.0" onAction="#createAccount" prefHeight="51.0" prefWidth="157.0" ripplerFill="#f8fffb" style="-fx-background-color: #3CB371;" text="Create " textFill="#fffbfb" />
+         </children>
+         <effect>
+            <DropShadow color="#229d0c80" />
+         </effect>
+      </Pane>
+   </children>
+</AnchorPane>
