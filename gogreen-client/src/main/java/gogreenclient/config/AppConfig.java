@@ -1,5 +1,6 @@
 package gogreenclient.config;
 
+import gogreenclient.dataModel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,6 +17,13 @@ import org.springframework.web.client.RestTemplate;
 @ImportResource("classpath:applicationContext-security.xml")
 public class AppConfig {
 
+
+    @Bean
+    UserModel userModel(){
+        UserModel userModel = new UserModel();
+        userModel.setRestTemplate(restTemplate(new RestTemplateBuilder()));
+        return userModel;
+    }
 
     /**
      * The restTemplateBuilder will be auto injected by Spring.

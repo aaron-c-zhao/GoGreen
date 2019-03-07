@@ -2,17 +2,23 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.dataModel.User;
+import gogreenclient.dataModel.UserModel;
 import gogreenclient.screens.Window.WindowController;
 import gogreenclient.screens.Window.Windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public class CreateAccountController implements WindowController {
 
     @Autowired
     private ScreenConfiguration screens;
+    @Autowired
+    private UserModel userModel;
     private Windows dialog;
 
     @Override
@@ -53,12 +59,17 @@ public class CreateAccountController implements WindowController {
             }
             // else(if everything is correct) print(for now) all the filled information
             else {
-                System.out.println(username.getText());
-                System.out.println(password.getText());
-                System.out.println(bday.getValue());
-                System.out.println(nationality.getText());
-                dialog.close();
-                screens.loginDialog().show();
+                ResponseEntity<User> response = null;
+                try {
+                    response = userModel.addUser(username.getText(), password.getText(), bday.getValue(), nationality.getText());
+                } catch (Exception e) {
+                    System.out.println("Wrong URI");
+                    return;
+                }
+               if(response != null && response.getStatusCode() == HttpStatus.OK){
+                   dialog.close();
+                   screens.loginDialog().show();
+               }else return;
             }
         }
     }
