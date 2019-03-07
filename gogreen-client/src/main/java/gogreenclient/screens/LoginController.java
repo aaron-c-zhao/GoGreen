@@ -57,7 +57,8 @@ public class LoginController implements WindowController {
     @FXML
     public void switchToCreate() {
         combination_label.setVisible(false);
-//        gogreenclient.views.showSreeen(gogreenclient.views.menu());
+        dialog.close();
+        screens.createAccountDialog().show();
     }
 
 }

@@ -102,5 +102,15 @@ public class ScreenConfiguration {
         return new FoodController(this);
     }
 
+    @Bean
+    CreateAccountController createAccountController(){
+        return new CreateAccountController(this);
+    }
+
+    @Bean
+    public FXMLWindow createAccountDialog(){
+        return new FXMLWindow(createAccountController(), getClass().getResource("/views/Create_account.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
 
 }
