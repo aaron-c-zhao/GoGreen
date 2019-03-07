@@ -1,5 +1,6 @@
 package gogreenclient.screens;
 
+import gogreenclient.screens.DialogPrototype.Dialog;
 import gogreenclient.screens.DialogPrototype.DialogController;
 import gogreenclient.screens.DialogPrototype.FXMLDialog;
 import javafx.fxml.FXML;
@@ -9,14 +10,14 @@ public class SampleController implements DialogController {
 
     @Autowired
     private ScreenConfiguration screens;
-    private FXMLDialog dialog;
+    private Dialog dialog;
 
     public SampleController(ScreenConfiguration screens){
         this.screens = screens;
     }
 
     @Override
-    public void setDialog(FXMLDialog dialog) {
+    public void setDialog(Dialog dialog) {
         this.dialog = dialog;
     }
 
@@ -29,7 +30,6 @@ public class SampleController implements DialogController {
     //close the program + call the pop-up
     @FXML
     public void closeProgram(){
-//        Boolean answer = Exit_ConfirmBox.display("GoGreen close","Are you sure you want to close the window?");
-//        if (answer) Main.window.close();
+        screens.exitDialog().show();
     }
 }

@@ -3,6 +3,7 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.config.AppConfig;
+import gogreenclient.screens.DialogPrototype.Dialog;
 import gogreenclient.screens.DialogPrototype.DialogController;
 import gogreenclient.screens.DialogPrototype.FXMLDialog;
 import javafx.fxml.FXML;
@@ -23,11 +24,11 @@ public class LoginController implements DialogController {
     @Autowired
     private AuthenticationManager authenticationManager;
     private ScreenConfiguration screens;
-    private FXMLDialog dialog;
+    private Dialog dialog;
 
 
     @Override
-    public void setDialog(FXMLDialog dialog) {
+    public void setDialog(Dialog dialog) {
         this.dialog = dialog;
     }
 

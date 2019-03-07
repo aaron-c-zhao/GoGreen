@@ -1,5 +1,6 @@
 package gogreenclient.screens;
 
+import gogreenclient.screens.DialogPrototype.ConfirmDialog;
 import gogreenclient.screens.DialogPrototype.FXMLDialog;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,7 +48,19 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    SampleController sampleController(){
+    SampleController sampleController() {
         return new SampleController(this);
+    }
+
+    @Bean
+    @Scope("prototype")
+    public ConfirmDialog exitDialog() {
+        return new ConfirmDialog(exitController(), primaryStage, StageStyle.DECORATED, "GoGreen Close", "Are you sure you want to close the window?");
+    }
+
+    @Bean
+    @Scope("prototype")
+    ExitController exitController() {
+        return new ExitController(this);
     }
 }
