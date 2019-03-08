@@ -1,0 +1,25 @@
+image: maven:3.6.0-jdk-11
+
+cache:
+    paths:
+        - .m2/
+
+variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+    
+before_script:
+    - mvn clean install
+
+stages:
+    - build
+    - test
+
+compile:
+    stage: build
+    script:
+        - mvn compile
+    
+test:
+    stage: test
+    script:
+        - mvn test
