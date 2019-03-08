@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.User;
 import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.window.WindowController;
-import gogreenclient.screens.window.windows;
+import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -33,14 +33,14 @@ public class CreateAccountController implements WindowController {
     private ScreenConfiguration screens;
     @Autowired
     private UserModel userModel;
-    private windows dialog;
+    private Windows dialog;
 
     public CreateAccountController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
     @Override
-    public void setWindow(windows dialog) {
+    public void setWindow(Windows dialog) {
         this.dialog = dialog;
     }
 

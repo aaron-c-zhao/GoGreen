@@ -28,8 +28,8 @@ public class FoodEmissionService {
         return repo.save(foodEmission);
     }
 
-    public void deleteFoodEmissionById(String food_name) {
-        repo.deleteById(food_name);
+    public void deleteFoodEmissionById(String foodName) {
+        repo.deleteById(foodName);
     }
 
 

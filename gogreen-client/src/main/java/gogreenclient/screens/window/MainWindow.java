@@ -4,7 +4,7 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-public class MainWindow extends gogreenclient.screens.window.windows {
+public class MainWindow extends gogreenclient.screens.window.Windows {
     /**
      * The main window of the application, which is able to switch between different scenes.
      *

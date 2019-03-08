@@ -10,7 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-public class ConfirmDialog extends gogreenclient.screens.window.windows {
+public class ConfirmDialog extends gogreenclient.screens.window.Windows {
 
     /**
      * Model class of all confirming dialogs which has a yes button and a no button.
