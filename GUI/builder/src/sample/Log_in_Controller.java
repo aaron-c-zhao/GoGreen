@@ -1,12 +1,10 @@
 package sample;
 
-    import com.jfoenix.controls.JFXPasswordField;
-    import com.jfoenix.controls.JFXTextField;
-    import javafx.fxml.FXML;
-    import javafx.scene.control.Hyperlink;
-    import javafx.scene.control.Label;
-
-    import java.awt.*;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 
 public class Log_in_Controller {
     @FXML
@@ -21,7 +19,7 @@ public class Log_in_Controller {
     /**
      * switching to create an account view + setting the label message to not visible
      */
-    public void switchToCreate(){
+    public void switchToCreate() {
         combination_label.setVisible(false);
         Main.window.setScene(Main.create);
     }
@@ -29,14 +27,17 @@ public class Log_in_Controller {
     /**
      * go to menu (for now only print to the console the username and password)
      */
-    public void switchToMenu(){
+    public void switchToMenu() {
         //if the password is 123 (made it just to illustrate) proceed
-        if(password.getText().equals("123")){
+        if (password.getText().equals("123")) {
             System.out.println(username.getText());
             System.out.println(password.getText());
-            Main.window.setScene(Main.menu);}
+            Main.window.setScene(Main.menu);
+        }
         //else show the label for incorrect password
-        else combination_label.setVisible(true);
+        else {
+            combination_label.setVisible(true);
+        }
     }
 
 }

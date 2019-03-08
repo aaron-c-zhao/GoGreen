@@ -1,23 +1,16 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
-
-import java.awt.*;
 
 /**
  * this is test class don't look at it
  * really
  */
 public class Profile_Controller {
+    final PasswordField pb = new PasswordField();
     @FXML
     public TextField textField;
-
-    final PasswordField pb = new PasswordField();
 
    /* textField.textProperty().addListener(new ChangeListener<String>() {
         @Override

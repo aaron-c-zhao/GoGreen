@@ -1,9 +1,9 @@
 package gogreenclient.screens;
 
-import gogreenclient.screens.Window.ConfirmDialog;
-import gogreenclient.screens.Window.FXMLWindow;
-import gogreenclient.screens.Window.MainWindow;
-import gogreenclient.screens.Window.SwitchabScene;
+import gogreenclient.screens.window.ConfirmDialog;
+import gogreenclient.screens.window.FxmlWindow;
+import gogreenclient.screens.window.MainWindow;
+import gogreenclient.screens.window.SwitchabScene;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
 @Configuration
@@ -25,10 +24,6 @@ public class ScreenConfiguration {
 
     private Stage primaryStage;
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
     public void showSreeen(Scene screen) {
         primaryStage.setScene(screen);
         primaryStage.show();
@@ -38,14 +33,18 @@ public class ScreenConfiguration {
         return primaryStage.getScene().getRoot();
     }
 
-    public Stage getPrimaryStage(){
+    public Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 
     @Bean
-    public FXMLWindow loginDialog() {
-        return new FXMLWindow(loginController(), getClass().getResource("/views/Log_in.fxml"), primaryStage, StageStyle.DECORATED);
+    public FxmlWindow loginDialog() {
+        return new FxmlWindow(loginController(), getClass().getResource("/views/Log_in.fxml"),
+            primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
@@ -55,8 +54,9 @@ public class ScreenConfiguration {
 
     @Bean
     @Scope("prototype")
-    public FXMLWindow sampleDialog() {
-        return new FXMLWindow(sampleController(), getClass().getResource("/views/sample.fxml"), primaryStage, StageStyle.DECORATED);
+    public FxmlWindow sampleDialog() {
+        return new FxmlWindow(sampleController(), getClass()
+            .getResource("/views/sample.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
@@ -68,7 +68,8 @@ public class ScreenConfiguration {
     @Bean
     @Scope("prototype")
     public ConfirmDialog exitDialog() {
-        return new ConfirmDialog(exitController(), primaryStage, StageStyle.DECORATED, "GoGreen Close", "Are you sure you want to close the window?");
+        return new ConfirmDialog(exitController(), primaryStage, StageStyle.DECORATED,
+            "GoGreen Close", "Are you sure you want to close the window?");
     }
 
     @Bean
@@ -93,8 +94,9 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    public SwitchabScene foodScene(){
-        return new SwitchabScene(foodController(), getClass().getResource("/views/Vegetarian_Meal_Options.fxml"), "mainSecene");
+    public SwitchabScene foodScene() {
+        return new SwitchabScene(foodController(), getClass()
+            .getResource("/views/Vegetarian_Meal_Options.fxml"), "mainSecene");
     }
 
     @Bean
@@ -103,13 +105,14 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    CreateAccountController createAccountController(){
+    CreateAccountController createAccountController() {
         return new CreateAccountController(this);
     }
 
     @Bean
-    public FXMLWindow createAccountDialog(){
-        return new FXMLWindow(createAccountController(), getClass().getResource("/views/Create_account.fxml"), primaryStage, StageStyle.DECORATED);
+    public FxmlWindow createAccountDialog() {
+        return new FxmlWindow(createAccountController(), getClass()
+            .getResource("/views/Create_account.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
 

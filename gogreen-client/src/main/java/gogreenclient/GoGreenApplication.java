@@ -4,11 +4,8 @@ import gogreenclient.config.AppConfig;
 import gogreenclient.screens.ScreenConfiguration;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Import;
 
 /**
  * Client side of #GoGreen project. The application is able to send HTTP requests throw HTTPS

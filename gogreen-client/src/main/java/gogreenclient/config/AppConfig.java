@@ -1,6 +1,6 @@
 package gogreenclient.config;
 
-import gogreenclient.dataModel.UserModel;
+import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
@@ -19,7 +18,7 @@ public class AppConfig {
 
 
     @Bean
-    UserModel userModel(){
+    UserModel userModel() {
         UserModel userModel = new UserModel();
         userModel.setRestTemplate(restTemplate(new RestTemplateBuilder()));
         return userModel;
@@ -28,7 +27,7 @@ public class AppConfig {
     /**
      * The restTemplateBuilder will be auto injected by Spring.
      *
-     * @param builder
+     * @param builder a standard restTemplateBuilder
      * @return Object restTemplate
      */
     @Bean
