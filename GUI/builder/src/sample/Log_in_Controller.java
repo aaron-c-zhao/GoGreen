@@ -1,12 +1,12 @@
 package sample;
 
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+    import com.jfoenix.controls.JFXPasswordField;
+    import com.jfoenix.controls.JFXTextField;
+    import javafx.fxml.FXML;
+    import javafx.scene.control.Hyperlink;
+    import javafx.scene.control.Label;
 
-import java.awt.*;
+    import java.awt.*;
 
 public class Log_in_Controller {
     @FXML
@@ -32,9 +32,9 @@ public class Log_in_Controller {
     public void switchToMenu(){
         //if the password is 123 (made it just to illustrate) proceed
         if(password.getText().equals("123")){
-        System.out.println(username.getText());
-        System.out.println(password.getText());
-        Main.window.setScene(Main.menu);}
+            System.out.println(username.getText());
+            System.out.println(password.getText());
+            Main.window.setScene(Main.menu);}
         //else show the label for incorrect password
         else combination_label.setVisible(true);
     }
