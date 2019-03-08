@@ -1,4 +1,4 @@
-package gogreenclient.screens.Window;
+package gogreenclient.screens.window;
 
 public interface ConfirmDialogController extends WindowController {
 

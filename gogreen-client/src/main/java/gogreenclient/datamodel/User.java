@@ -1,4 +1,4 @@
-package gogreenclient.dataModel;
+package gogreenclient.datamodel;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -19,13 +19,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name", nullable= true)
+    @Column(name = "first_name", nullable = true)
     private String email;
 
-    @Column(name = "email", nullable= true)
+    @Column(name = "email", nullable = true)
     private String firstName;
 
-    @Column(name = "last_name", nullable= true)
+    @Column(name = "last_name", nullable = true)
     private String lastName;
 
     @Column(name = "bdate")
