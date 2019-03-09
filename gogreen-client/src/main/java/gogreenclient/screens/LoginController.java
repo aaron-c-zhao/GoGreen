@@ -3,7 +3,7 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.WindowController;
-import gogreenclient.screens.window.windows;
+import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -23,14 +23,14 @@ public class LoginController implements WindowController {
     @Autowired
     private AuthenticationManager authenticationManager;
     private ScreenConfiguration screens;
-    private windows dialog;
+    private Windows dialog;
 
     public LoginController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
     @Override
-    public void setWindow(windows dialog) {
+    public void setWindow(Windows dialog) {
         this.dialog = dialog;
     }
 

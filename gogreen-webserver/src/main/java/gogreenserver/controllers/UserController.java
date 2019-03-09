@@ -3,8 +3,16 @@ package gogreenserver.controllers;
 import gogreenserver.entity.User;
 import gogreenserver.services.UserCareerService;
 import gogreenserver.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+//import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,22 +42,6 @@ public class UserController {
         return userService.findById(userName);
     }
 
-//    @PostMapping("/users")
-//    public User createNewUser(@RequestParam String username,
-//                              @RequestParam String password,
-//                              @RequestParam String email,
-//                              @RequestParam String firstname,
-//                              @RequestParam String lastname){
-//
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(password);
-//        user.setEmail(email);
-//        user.setFirstName(firstname);
-//        user.setLastName(lastname);
-//        return userService.createUser(user);
-//    }
-
     // This method creates a new User entry in the "User" table 
     @PostMapping("/user")
     public User addUser(@RequestBody User theUser) {
@@ -65,7 +57,10 @@ public class UserController {
         return "successfully deleted user with user name = " + userName;
     }
 
-    //     This is a deleteUserById endoing that uses JSON for communication
+    /**Endpoint that uses JSON for communication.
+     * @param theUser the JSON passed to this method must be in User Format
+     * @return success string
+     */
     @DeleteMapping("/user")
     public String deleteUser(@RequestBody User theUser) {
         String userName = theUser.getUsername();

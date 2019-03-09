@@ -16,7 +16,7 @@ import java.net.URL;
 /**
  * Every dialog is a individual stage. This class is the factory class of the dialogs.
  */
-public class FxmlWindow extends gogreenclient.screens.window.windows {
+public class FxmlWindow extends gogreenclient.screens.window.Windows {
 
 
     /**

@@ -22,6 +22,10 @@ public class UserCareer {
 
     }
 
+    /**Constructor for UserCareer
+     * @param username Primary key. Foreign key and refers to User.userName
+     * @param co2saved total career co2 saved by a particular user.
+     */
     public UserCareer(String username, int co2saved) {
         super();
         this.username = username;

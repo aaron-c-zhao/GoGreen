@@ -1,7 +1,7 @@
 package gogreenclient.screens;
 
 import gogreenclient.screens.window.WindowController;
-import gogreenclient.screens.window.windows;
+import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,14 +9,14 @@ public class SampleController implements WindowController {
 
     @Autowired
     private ScreenConfiguration screens;
-    private windows dialog;
+    private Windows dialog;
 
     public SampleController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
     @Override
-    public void setWindow(windows dialog) {
+    public void setWindow(Windows dialog) {
         this.dialog = dialog;
     }
 
