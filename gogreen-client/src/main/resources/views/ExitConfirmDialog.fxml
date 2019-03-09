@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="400.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.ExitController">
+   <children>
+      <Label alignment="CENTER" layoutX="43.0" layoutY="27.0" text="Are you sure you want to close the application?" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="27.0" />
+      <JFXButton layoutX="65.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="103.0" ripplerFill="#33ff73" style="-fx-background-color: #eaeaea; -fx-border-color: black;" text="Yes" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="70.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton layoutX="234.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="103.0" ripplerFill="#ff2828" style="-fx-background-color: #eaeaea; -fx-border-color: black;" text="No" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="70.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>
