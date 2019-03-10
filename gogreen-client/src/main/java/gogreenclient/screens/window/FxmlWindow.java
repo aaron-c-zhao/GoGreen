@@ -1,5 +1,6 @@
 package gogreenclient.screens.window;
 
+import gogreenclient.screens.ScreenConfiguration;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +20,8 @@ import java.net.URL;
  */
 public class FxmlWindow extends gogreenclient.screens.window.Windows {
 
+    @Autowired
+    private ScreenConfiguration screens;
 
     /**
      * The model of all the stages that will load a fxml file and will not change it's
@@ -45,6 +49,10 @@ public class FxmlWindow extends gogreenclient.screens.window.Windows {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        setOnCloseRequest(e -> {
+            e.consume();
+            screens.exitDialog().showAndWait();
+        });
     }
 
 }
