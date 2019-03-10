@@ -7,14 +7,12 @@ cache:
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2"
 
-before_script:
-  - mvn clean install
-
 stages:
   - build
   - test
+  - codeQuality
 
-compile:
+Build:
   stage: build
   script:
     - mvn compile
@@ -23,3 +21,8 @@ test:
   stage: test
   script:
     - mvn test
+    
+Code Quality:
+  stage: codeQuality
+  script:
+    - mvn -B checkstyle:check
