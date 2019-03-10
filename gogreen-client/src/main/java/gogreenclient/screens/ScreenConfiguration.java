@@ -68,8 +68,7 @@ public class ScreenConfiguration {
     @Bean
     @Scope("prototype")
     public ConfirmDialog exitDialog() {
-        return new ConfirmDialog(exitController(), primaryStage, StageStyle.DECORATED,
-            "GoGreen Close", "Are you sure you want to close the window?");
+        return new ConfirmDialog(exitController(),  getClass().getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
