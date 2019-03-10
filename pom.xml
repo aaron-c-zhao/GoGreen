@@ -56,7 +56,6 @@
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
-                    <maxAllowedViolations>5</maxAllowedViolations>
                     <consoleOutput>true</consoleOutput>
                 </configuration>
                 <dependencies>
