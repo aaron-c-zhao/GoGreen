@@ -49,7 +49,7 @@ public class FxmlWindow extends gogreenclient.screens.window.Windows {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        setOnCloseRequest(e-> {
+        setOnCloseRequest(e -> {
             e.consume();
             screens.exitDialog().showAndWait();
         });

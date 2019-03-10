@@ -68,7 +68,8 @@ public class ScreenConfiguration {
     @Bean
     @Scope("prototype")
     public ConfirmDialog exitDialog() {
-        return new ConfirmDialog(exitController(),  getClass().getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
+        return new ConfirmDialog(exitController(),  getClass()
+                .getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean

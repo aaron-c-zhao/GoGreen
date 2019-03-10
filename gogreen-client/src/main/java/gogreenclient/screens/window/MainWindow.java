@@ -23,7 +23,7 @@ public class MainWindow extends gogreenclient.screens.window.Windows {
         initOwner(owner);
         initModality(Modality.WINDOW_MODAL);
         controller.setWindow(this);
-        setOnCloseRequest(e-> {
+        setOnCloseRequest(e -> {
             e.consume();
             screens.exitDialog().showAndWait();
         });
