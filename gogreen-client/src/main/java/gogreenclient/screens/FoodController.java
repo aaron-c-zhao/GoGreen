@@ -3,6 +3,7 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.SceneController;
+import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,8 +35,14 @@ public class FoodController implements SceneController {
     private HashMap<String, Scene> sceneMap;
     private Scene scene;
 
+    private Windows dialog;
+
     public FoodController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    public void setWindow(Windows dialog) {
+        this.dialog = dialog;
     }
 
     public void setScene(Scene scene) {
@@ -54,7 +61,7 @@ public class FoodController implements SceneController {
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() {
+    public void submit() throws NoSuchFieldException {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
             || date.getValue() == null || cost.getText().trim().isEmpty()) {
             fillAll.setVisible(true);
@@ -65,7 +72,9 @@ public class FoodController implements SceneController {
             System.out.println(cost.getText());
             System.out.println(date.getValue().toString());
             fillAll.setVisible(false);
-
+            //  SubmitMealPopController.class.getDeclaredField("calc_use")
+            //        .setText(takenMealBox.getValue().toString());
+            screens.submitMealDialog().showAndWait();
         }
     }
 
@@ -74,8 +83,8 @@ public class FoodController implements SceneController {
      */
     @FXML
     public void backToFood() {
-        System.out.println("will have pop up saying don't you want switch ");
-
+       // dialog.close();
+       // screens.activityScreen().show();
     }
 
 }

@@ -79,6 +79,19 @@ public class ScreenConfiguration {
     }
 
     @Bean
+    @Scope("prototype")
+    public ConfirmDialog submitMealDialog() {
+        return new ConfirmDialog(exitController(),  getClass()
+                .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    @Scope("prototype")
+    SubmitMealPopController submitMealController() {
+        return new SubmitMealPopController(this);
+    }
+
+    @Bean
     ActivityController activityController() {
         return new ActivityController(this);
     }
