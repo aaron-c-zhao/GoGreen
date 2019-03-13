@@ -2,35 +2,35 @@ package gogreenserver.services;
 
 import gogreenserver.entity.FoodEmission;
 import gogreenserver.repositories.FoodEmissionRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 @Service
 public class FoodEmissionService {
 
-    private FoodEmissionRepository repo;
+  private FoodEmissionRepository repo;
 
-    public FoodEmissionService(FoodEmissionRepository repo) {
-        this.repo = repo;
-    }
+  public FoodEmissionService(FoodEmissionRepository repo) {
+    this.repo = repo;
+  }
 
-    public List<FoodEmission> findAll() {
-        return repo.findAll();
-    }
+  public List<FoodEmission> findAll() {
+    return repo.findAll();
+  }
 
-    public Optional<FoodEmission> findById(String food) {
-        return repo.findById(food);
-    }
+  public Optional<FoodEmission> findById(String food) {
+    return repo.findById(food);
+  }
 
-    public FoodEmission createFoodEmission(FoodEmission foodEmission) {
-        return repo.save(foodEmission);
-    }
+  public FoodEmission createFoodEmission(FoodEmission foodEmission) {
+    return repo.save(foodEmission);
+  }
 
-    public void deleteFoodEmissionById(String foodName) {
-        repo.deleteById(foodName);
-    }
-
+  public void deleteFoodEmissionById(String foodName) {
+    repo.deleteById(foodName);
+  }
 
 }
