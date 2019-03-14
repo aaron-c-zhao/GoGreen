@@ -1,9 +1,11 @@
 package gogreenclient.screens.window;
 
 import gogreenclient.screens.ScreenConfiguration;
+
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MainWindow extends gogreenclient.screens.window.Windows {

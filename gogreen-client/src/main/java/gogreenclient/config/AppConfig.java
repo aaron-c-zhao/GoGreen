@@ -2,6 +2,7 @@ package gogreenclient.config;
 
 import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

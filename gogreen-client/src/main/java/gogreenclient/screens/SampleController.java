@@ -2,7 +2,9 @@ package gogreenclient.screens;
 
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
+
 import javafx.fxml.FXML;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SampleController implements WindowController {

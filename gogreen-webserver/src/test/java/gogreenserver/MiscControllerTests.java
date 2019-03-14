@@ -18,17 +18,17 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @WebMvcTest(MiscController.class)
 public class MiscControllerTests {
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @Test
-  public void echo() throws Exception {
-    // generate random name?
-    String name = Integer.toHexString(new Object().hashCode());
+    @Test
+    public void echo() throws Exception {
+        // generate random name?
+        String name = Integer.toHexString(new Object().hashCode());
 
-    RequestBuilder request = MockMvcRequestBuilders.get("/api/greeting/" + name)
-        .accept(MediaType.APPLICATION_JSON);
-    mockMvc.perform(request).andExpect(status().is(200))
-        .andExpect(content().json("{\"name\":\"" + name + "\"}")).andReturn();
-  }
+        RequestBuilder request = MockMvcRequestBuilders.get("/api/greeting/" + name)
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request).andExpect(status().is(200))
+                .andExpect(content().json("{\"name\":\"" + name + "\"}")).andReturn();
+    }
 }

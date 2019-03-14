@@ -1,6 +1,10 @@
 package gogreenclient.screens.window;
 
 import gogreenclient.screens.ExitController;
+
+import java.io.IOException;
+import java.net.URL;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,9 +12,6 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Callback;
-
-import java.io.IOException;
-import java.net.URL;
 
 public class ConfirmDialog extends gogreenclient.screens.window.Windows {
 

@@ -1,13 +1,13 @@
 package gogreenclient.datamodel;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.time.LocalDate;
 
 public class UserModel {
 
