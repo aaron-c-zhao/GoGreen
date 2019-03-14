@@ -4,6 +4,7 @@ import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,18 +15,22 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
+import java.security.KeyStore;
 
 
 @Configuration
 @Import( {ScreenConfiguration.class})
 @EnableAutoConfiguration
-@PropertySource("classpath:application.yml")
 public class AppConfig {
 
-    @Value("classpath:clienttrust.p12")
+    @Value("classpath:truststore.jks")
     private Resource trustStore;
     @Value("group82")
     private String trustStorePassword;
+    @Value("classpath:identity.jks")
+    private Resource keyStore;
+    @Value("group82")
+    private String keyStorePassword;
 
     @Bean
     UserModel userModel() throws Exception {
@@ -42,6 +47,8 @@ public class AppConfig {
     @Bean
     public RestTemplate restTemplate() throws Exception {
         SSLContext sslContext = new SSLContextBuilder()
+            //TODO
+            .loadKeyMaterial(keyStore.getURL(), keyStorePassword.toCharArray(), null)
             .loadTrustMaterial(trustStore.getURL(), trustStorePassword.toCharArray())
             .build();
         SSLConnectionSocketFactory socketFactory =
