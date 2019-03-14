@@ -20,8 +20,8 @@ public class LoginController implements WindowController {
     public Label combinationLabel;
     @FXML
     Hyperlink create;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
     private ScreenConfiguration screens;
     private Windows dialog;
 

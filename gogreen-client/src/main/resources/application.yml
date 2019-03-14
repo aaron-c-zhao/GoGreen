@@ -1,0 +1,5 @@
+client:
+  ssl:
+    enabled: true
+    trust-store: gogreen.p12
+    trust-store-password: group82
