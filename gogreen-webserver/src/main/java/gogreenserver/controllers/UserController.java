@@ -3,9 +3,7 @@ package gogreenserver.controllers;
 import gogreenserver.entity.User;
 import gogreenserver.services.UserCareerService;
 import gogreenserver.services.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+
+//import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -57,7 +57,9 @@ public class UserController {
         return "successfully deleted user with user name = " + userName;
     }
 
-    /**Endpoint that uses JSON for communication.
+    /**
+     * Endpoint that uses JSON for communication.
+     *
      * @param theUser the JSON passed to this method must be in User Format
      * @return success string
      */
