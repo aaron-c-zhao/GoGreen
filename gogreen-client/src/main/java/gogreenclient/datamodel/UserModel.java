@@ -34,7 +34,7 @@ public class UserModel {
         user.setPassword(password);
         user.setBdate(bdate);
         user.setNationality(nationality);
-        return postRequest(user, new URI("http://localhost:8082/api/user"),
+        return postRequest(user, new URI("https://localhost:8443/api/user"),
             MediaType.APPLICATION_JSON);
     }
 

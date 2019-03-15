@@ -38,13 +38,15 @@ public class User {
 
     }
 
-    /**Constructor for User
-     * @param username Primary Key. 
-     * @param password Password.
-     * @param email Email.
-     * @param firstName First name of user.
-     * @param lastName Last name of user.
-     * @param bdate Birthdate of user.
+    /**
+     * Constructor for User
+     *
+     * @param username    Primary Key.
+     * @param password    Password.
+     * @param email       Email.
+     * @param firstName   First name of user.
+     * @param lastName    Last name of user.
+     * @param bdate       Birthdate of user.
      * @param nationality Nationality of user.
      */
     public User(String username, String password, String email, String firstName,

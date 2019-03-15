@@ -32,7 +32,7 @@ public class FoodController implements SceneController {
     public Label total;
     //list for the tree view
     ObservableList<String> mealList = FXCollections
-            .observableArrayList("Potato sandwich", "Beef sandwich");
+        .observableArrayList("Potato sandwich", "Beef sandwich");
     @Autowired
     private ScreenConfiguration screens;
     @Autowired
@@ -70,8 +70,8 @@ public class FoodController implements SceneController {
     @FXML
     public void submit() throws NoSuchFieldException {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
-                || date.getValue() == null || costTaken.getText().trim().isEmpty()
-                || costInstead.getText().trim().isEmpty()) {
+            || date.getValue() == null || costTaken.getText().trim().isEmpty()
+            || costInstead.getText().trim().isEmpty()) {
             fillAll.setVisible(true);
         } else {
             //TODO
