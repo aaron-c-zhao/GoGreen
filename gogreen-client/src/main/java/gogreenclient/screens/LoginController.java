@@ -3,7 +3,6 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.config.AppConfig;
-import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -47,7 +46,7 @@ public class LoginController implements WindowController {
      * method of the button login.
      */
     @FXML
-    public void switchToMenu() throws Exception{
+    public void switchToMenu() throws Exception {
         combinationLabel.setVisible(false);
         appConfig.setUsername(username.getText());
         appConfig.setPassword(password.getText());
@@ -63,8 +62,7 @@ public class LoginController implements WindowController {
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             dialog.close();
             screens.sampleDialog().show();
-        }
-        else{
+        } else {
             combinationLabel.setVisible(true);
             return;
         }
