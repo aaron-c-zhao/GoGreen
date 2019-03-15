@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 
+import static gogreenclient.datamodel.FoodEmissionModel.compareFood;
+
 public class FoodController implements SceneController {
 
     @FXML
@@ -75,6 +77,15 @@ public class FoodController implements SceneController {
             fillAll.setVisible(true);
         } else {
             //TODO
+            String eatenFood = takenMealBox.getValue().toString();
+            String usualFood = insteadOfMealBox.getValue().toString();
+            int eatenCost = Integer.parseInt(costTaken.getText());
+            int usualCost = Integer.parseInt(costInstead.getText());
+
+            String C02DifferenceResult = compareFood(eatenFood, usualFood, eatenCost, usualCost);
+
+            System.out.println(C02DifferenceResult);
+
             System.out.println(takenMealBox.getValue().toString());
             System.out.println(insteadOfMealBox.getValue().toString());
             System.out.println(costTaken.getText());

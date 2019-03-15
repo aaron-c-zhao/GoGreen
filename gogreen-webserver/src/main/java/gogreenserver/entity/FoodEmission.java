@@ -20,12 +20,11 @@ public class FoodEmission {
     @Column(name = "miles")
     private String miles;
 
-    // define constructor
-
-    public FoodEmission() {
-
+    public FoodEmission(){
+        food = null;
+        emission = null;
+        miles = null;
     }
-
     /**Constructor for FoodEmission.
      * @param food Primary key. This is Food name.
      * @param emission The emission of that particular food.

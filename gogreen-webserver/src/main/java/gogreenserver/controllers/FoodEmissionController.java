@@ -1,6 +1,8 @@
 package gogreenserver.controllers;
 
 import gogreenserver.entity.FoodEmission;
+import gogreenserver.repositories.FoodEmissionRepository;
+import gogreenserver.responses.*;
 import gogreenserver.services.FoodEmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,25 +22,19 @@ import java.util.Optional;
 public class FoodEmissionController {
 
     private FoodEmissionService service;
-
     @Autowired
-    public FoodEmissionController(FoodEmissionService service) {
-        this.service = service;
+    public FoodEmissionController(FoodEmissionService foodService) {
+        this.service = foodService;
     }
 
-    @GetMapping("/foodEmission")
-    public List<FoodEmission> getAllFoodEmission() {
-        return service.findAll();
-    }
-
-    @GetMapping("/foodEmission/{food_name}")
-    public Optional<FoodEmission> getFoodEmissionById(@PathVariable("food_name") String foodName) {
-        return service.findById(foodName);
-    }
-
+    // Returns the food emission object
     @PostMapping("/foodEmission")
-    public FoodEmission addFoodEmission(@RequestBody FoodEmission foodEmission) {
-        return service.createFoodEmission(foodEmission);
+    public Optional<FoodEmission> addFoodEmission(
+            @RequestBody String foodName
+    ) {
+        Optional<FoodEmission> foodEmissionResponse = service.findById(foodName);
+
+        return foodEmissionResponse;
     }
 
 

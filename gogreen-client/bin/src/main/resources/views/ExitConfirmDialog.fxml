@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="380.0" style="-fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.ExitController">
+   <children>
+      <Label alignment="CENTER" layoutX="25.0" prefHeight="67.0" prefWidth="330.0" text="Are you sure you want to close the application?" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Segoe UI Light" size="17.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="42.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#yes" prefHeight="34.0" prefWidth="95.0" ripplerFill="#33ff73" style="-fx-background-color: #F0F0F0; -fx-border-color: #b8b8b8;" text="Yes" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="71.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Segoe UI Light" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="236.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#no" prefHeight="34.0" prefWidth="95.0" ripplerFill="#ff2828" style="-fx-background-color: #F0F0F0; -fx-border-color: #b8b8b8;" text="No" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="71.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Segoe UI Light" size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+   <effect>
+      <DropShadow height="48.99" radius="15.4425" width="14.78" />
+   </effect>
+</AnchorPane>
