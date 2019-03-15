@@ -26,10 +26,12 @@ public class FoodEmission {
 
     }
 
-    /**Constructor for FoodEmission.
-     * @param food Primary key. This is Food name.
+    /**
+     * Constructor for FoodEmission.
+     *
+     * @param food     Primary key. This is Food name.
      * @param emission The emission of that particular food.
-     * @param miles The equivalent Co2 produced by driving X number of miles.
+     * @param miles    The equivalent Co2 produced by driving X number of miles.
      */
     public FoodEmission(String food, String emission, String miles) {
         super();
