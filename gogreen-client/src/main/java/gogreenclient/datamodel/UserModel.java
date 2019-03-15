@@ -38,8 +38,9 @@ public class UserModel {
             MediaType.APPLICATION_JSON);
     }
 
-    public boolean userLogin() {
-        return true;
+    public ResponseEntity<String> login() throws URISyntaxException {
+        return getRequest(new URI("https://localhost:8443/api/login"),
+            MediaType.APPLICATION_JSON);
     }
 
     private ResponseEntity<User> postRequest(User myRequestBody, URI uri, MediaType mediaType) {
@@ -49,6 +50,15 @@ public class UserModel {
             .body(myRequestBody);
         ResponseEntity<User> reponse = restTemplate.exchange(request, User.class);
         return reponse;
+    }
+
+    private ResponseEntity<String> getRequest(URI uri, MediaType mediaType) {
+        RequestEntity<Void> request = RequestEntity
+            .get(uri)
+            .accept(mediaType)
+            .build();
+        ResponseEntity<String> response = restTemplate.exchange(request, String.class);
+        return response;
     }
 
 }

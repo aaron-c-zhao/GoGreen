@@ -51,19 +51,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .exceptionHandling()
-            .authenticationEntryPoint(restAuthenticationEntryPoint)
+        http.authorizeRequests()
+            .antMatchers("/api/createuser").permitAll()
+            .anyRequest().authenticated()
             .and()
-            .authorizeRequests()
-            .antMatchers("/api/users").authenticated()
-            .antMatchers("/api/career").authenticated()
-            .and()
-            .formLogin()
-            .successHandler(mySuccessHandler)
-            .failureHandler(myFailureHandleer)
-            .and()
-            .logout();
+            .httpBasic()
+            .authenticationEntryPoint(restAuthenticationEntryPoint);
     }
 }
