@@ -5,8 +5,6 @@ import gogreenclient.screens.window.FxmlWindow;
 import gogreenclient.screens.window.MainWindow;
 import gogreenclient.screens.window.SwitchabScene;
 
-import java.util.HashMap;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+
+import java.util.HashMap;
 
 @Configuration
 /**

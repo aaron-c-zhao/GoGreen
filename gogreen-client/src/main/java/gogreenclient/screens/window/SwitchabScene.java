@@ -1,12 +1,12 @@
 package gogreenclient.screens.window;
 
-import java.io.IOException;
-import java.net.URL;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.util.Callback;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class SwitchabScene {
 

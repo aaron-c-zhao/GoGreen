@@ -2,9 +2,6 @@ package gogreenclient.screens.window;
 
 import gogreenclient.screens.ScreenConfiguration;
 
-import java.io.IOException;
-import java.net.URL;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +11,9 @@ import javafx.stage.Window;
 import javafx.util.Callback;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
+import java.net.URL;
 
 ;
 

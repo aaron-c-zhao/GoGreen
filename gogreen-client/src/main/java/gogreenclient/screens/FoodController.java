@@ -1,9 +1,10 @@
 package gogreenclient.screens;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
+
 import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.Windows;
-
-import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
 
 public class FoodController implements SceneController {
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.controllers.UserController;
-import gogreenserver.repositories.UserRepository;
 import gogreenserver.services.UserService;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -34,7 +32,9 @@ public class UserControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
-    
+
+    // What I think is happening here, is that Spring replaces our UserService with
+    // a dummy service for mocking. Kind of useless right now.
     @MockBean
     private UserService service;
 
@@ -45,9 +45,9 @@ public class UserControllerTests {
         MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
 
         JsonNode list = (new ObjectMapper()).readTree(res.getResponse().getContentAsString());
-        
+
         LOGGER.error(list);
-        
+
         for (JsonNode user : list) {
             LOGGER.debug(user);
             RequestBuilder userReq = MockMvcRequestBuilders.get("/api/users/" + user.asText())
