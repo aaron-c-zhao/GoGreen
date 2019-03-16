@@ -57,6 +57,7 @@
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
                     <consoleOutput>true</consoleOutput>
+                    <excludes>**/jacoco-aggregate/**</excludes>
                 </configuration>
                 <dependencies>
                     <dependency>
