@@ -1,5 +1,7 @@
 package gogreenclient.config;
 
+import gogreenclient.datamodel.FoodEmissionModel;
+import gogreenclient.datamodel.HttpRequestService;
 import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
@@ -15,9 +17,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
 import java.security.KeyStore;
-import javax.net.ssl.SSLContext;
 
 
 @Configuration
@@ -37,8 +39,22 @@ public class AppConfig {
     @Bean
     UserModel userModel() throws Exception {
         UserModel userModel = new UserModel();
-        userModel.setRestTemplate(restTemplate());
+        userModel.setHttpRequestService(httpRequestService());
         return userModel;
+    }
+
+    /**
+     * A Bean that spring will hold and can be instantiated anywhere.This is the
+     * right way to use spring and dataModel.
+     *
+     * @return an instance of FoodEmissionModel.
+     * @throws Exception
+     */
+    @Bean
+    FoodEmissionModel foodEmissionModel() throws Exception {
+        FoodEmissionModel foodEmissionModel = new FoodEmissionModel();
+        foodEmissionModel.setRestTemplate(restTemplate());
+        return foodEmissionModel;
     }
 
     /**
@@ -61,6 +77,11 @@ public class AppConfig {
         HttpComponentsClientHttpRequestFactory factory =
             new HttpComponentsClientHttpRequestFactory(httpClient);
         return new RestTemplate(factory);
+    }
+
+    @Bean
+    public HttpRequestService httpRequestService() {
+        return new HttpRequestService();
     }
 
 

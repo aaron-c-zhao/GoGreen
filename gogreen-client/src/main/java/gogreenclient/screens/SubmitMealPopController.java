@@ -18,11 +18,13 @@ public class SubmitMealPopController implements ConfirmDialogController {
     public SubmitMealPopController(ScreenConfiguration screens) {
         this.screens = screens;
     }
-    /* TODO
-    public  void initialize() throws NoSuchFieldException {
-    calcUse.setText((FoodController.class.getDeclaredField("takenMealBox").toString())+
-            " - " + FoodController.class.getDeclaredField("insteadOfMealBox").toString());
-    }*/
+
+
+    public void initialize() {
+        String result = (screens.submitMealDialog().getInformation() == null) ? "null" :
+            screens.submitMealDialog().getInformation();
+        calcUse.setText(result + "KG CO2");
+    }
 
     @Override
     public void setWindow(Windows dialog) {

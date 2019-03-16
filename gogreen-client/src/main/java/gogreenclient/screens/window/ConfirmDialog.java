@@ -14,6 +14,8 @@ import java.net.URL;
 
 public class ConfirmDialog extends gogreenclient.screens.window.Windows {
 
+    private String information;
+
     /**
      * Model class of all confirming dialogs which has a yes button and a no button.
      *
@@ -21,7 +23,7 @@ public class ConfirmDialog extends gogreenclient.screens.window.Windows {
      * @param owner      your stage owner.
      * @param style      your stage style.
      */
-    public ConfirmDialog(final ExitController controller, URL fxml,
+    public ConfirmDialog(final ConfirmDialogController controller, URL fxml,
                          Window owner, StageStyle style) {
         super(style);
         initOwner(owner);
@@ -39,5 +41,13 @@ public class ConfirmDialog extends gogreenclient.screens.window.Windows {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setInformation(String information){
+        this.information = information;
+    }
+
+    public String getInformation(){
+        return information;
     }
 }

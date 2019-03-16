@@ -2,6 +2,7 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -12,9 +13,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
-
-import static gogreenclient.datamodel.FoodEmissionModel.compareFood;
 
 public class FoodController implements SceneController {
 
@@ -38,7 +36,7 @@ public class FoodController implements SceneController {
     @Autowired
     private ScreenConfiguration screens;
     @Autowired
-    private HashMap<String, Scene> sceneMap;
+    private FoodEmissionModel foodEmissionModel;
     private Scene scene;
 
     private Windows dialog;
@@ -53,7 +51,7 @@ public class FoodController implements SceneController {
 
     public void setScene(Scene scene) {
         this.scene = scene;
-        sceneMap.put("food", scene);
+//        sceneMap.put("food", scene);
     }
 
     /**
@@ -70,31 +68,23 @@ public class FoodController implements SceneController {
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() throws NoSuchFieldException {
+    public void submit() {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
             || date.getValue() == null || costTaken.getText().trim().isEmpty()
             || costInstead.getText().trim().isEmpty()) {
             fillAll.setVisible(true);
         } else {
-            //TODO
             String eatenFood = takenMealBox.getValue().toString();
             String usualFood = insteadOfMealBox.getValue().toString();
             int eatenCost = Integer.parseInt(costTaken.getText());
             int usualCost = Integer.parseInt(costInstead.getText());
 
-            String C02DifferenceResult = compareFood(eatenFood, usualFood, eatenCost, usualCost);
-
-            System.out.println(C02DifferenceResult);
-
-            System.out.println(takenMealBox.getValue().toString());
-            System.out.println(insteadOfMealBox.getValue().toString());
-            System.out.println(costTaken.getText());
-            System.out.println(costInstead.getText());
-            System.out.println(date.getValue().toString());
+            String C02DifferenceResult = foodEmissionModel.compareFood(eatenFood, usualFood, eatenCost, usualCost);
             fillAll.setVisible(false);
             //  SubmitMealPopController.class.getDeclaredField("calc_use")
             //        .setText(takenMealBox.getValue().toString());
             screens.submitMealDialog().showAndWait();
+            screens.submitMealDialog().setInformation(C02DifferenceResult);
         }
     }
 
