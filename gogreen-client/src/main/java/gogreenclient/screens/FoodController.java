@@ -37,6 +37,9 @@ public class FoodController implements SceneController {
     private ScreenConfiguration screens;
     @Autowired
     private FoodEmissionModel foodEmissionModel;
+
+    private String co2Saved;
+
     private Scene scene;
 
     private Windows dialog;
@@ -64,6 +67,14 @@ public class FoodController implements SceneController {
         total.setText("total");
     }
 
+    public String getCo2Saved() {
+        return co2Saved;
+    }
+
+    public void setCo2Saved(String co2Saved) {
+        this.co2Saved = co2Saved;
+    }
+
     /**
      * method for submit button, which will send the data to the server.
      */
@@ -79,11 +90,10 @@ public class FoodController implements SceneController {
             int eatenCost = Integer.parseInt(costTaken.getText());
             int usualCost = Integer.parseInt(costInstead.getText());
 
-            String C02DifferenceResult = foodEmissionModel.compareFood(eatenFood, usualFood, eatenCost, usualCost);
+            co2Saved = foodEmissionModel.compareFood(eatenFood, usualFood, eatenCost, usualCost);
             fillAll.setVisible(false);
             //  SubmitMealPopController.class.getDeclaredField("calc_use")
             //        .setText(takenMealBox.getValue().toString());
-            screens.setCo2Saved(C02DifferenceResult);
             screens.submitMealDialog().showAndWait();
 
         }

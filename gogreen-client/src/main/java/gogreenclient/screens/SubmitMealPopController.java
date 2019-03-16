@@ -15,13 +15,16 @@ public class SubmitMealPopController implements ConfirmDialogController {
     private ScreenConfiguration screens;
     private Windows dialog;
 
+    @Autowired
+    private FoodController foodController;
+
     public SubmitMealPopController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
 
     public void initialize() {
-        String result = (screens.getCo2Saved() == null) ? "null" :
+        String result = (foodController.getCo2Saved() == null) ? "null" :
             screens.submitMealDialog().getInformation();
         calcUse.setText(result + "KG CO2");
     }

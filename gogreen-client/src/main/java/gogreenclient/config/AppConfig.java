@@ -23,7 +23,7 @@ import java.security.KeyStore;
 
 
 @Configuration
-@Import( {ScreenConfiguration.class})
+@Import( {ScreenConfiguration.class, MailManConfig.class})
 @EnableAutoConfiguration
 public class AppConfig {
 
@@ -83,6 +83,7 @@ public class AppConfig {
     public HttpRequestService httpRequestService() {
         return new HttpRequestService();
     }
+
 
 
 }
