@@ -40,13 +40,13 @@ public class UserCareerController {
     @PostMapping("/career")
     public String addUserCareer(@RequestBody UserCareer career) {
         service.createUserCareer(career);
-        return "successfully added career for user with user name = " + career.getusername();
+        return "successfully added career for user with user name = " + career.getUsername();
     }
 
     @DeleteMapping("/career")
     public String deleteCareer(@RequestBody UserCareer career) {
-        service.deleteById(career.getusername());
-        return "successfully deleted career for user with user name = " + career.getusername();
+        service.deleteById(career.getUsername());
+        return "successfully deleted career for user with user name = " + career.getUsername();
     }
 
 }

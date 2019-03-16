@@ -39,7 +39,7 @@ public class User {
     }
 
     /**
-     * Constructor for User
+     * Constructor for User.
      *
      * @param username    Primary Key.
      * @param password    Password.
