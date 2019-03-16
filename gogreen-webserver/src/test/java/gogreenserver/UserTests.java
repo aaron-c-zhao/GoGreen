@@ -47,7 +47,7 @@ import javax.transaction.Transactional;
 @AutoConfigureTestDatabase
 @AutoConfigureTestEntityManager
 @Transactional
-public class UserControllerTests {
+public class UserTests {
 
     // for debugging purposes
     private static final Logger LOGGER = LogManager.getLogger("Tests");
