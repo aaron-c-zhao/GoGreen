@@ -23,6 +23,17 @@ public class HttpRequestService {
         return reponse;
     }
 
+    protected ResponseEntity<UserCareer> postRequest(UserCareer myRequestBody,
+                                                     URI uri, MediaType mediaType){
+        RequestEntity<UserCareer> request = RequestEntity
+            .post(uri)
+            .accept(mediaType)
+            .body(myRequestBody);
+        ResponseEntity<UserCareer> response = restTemplate.exchange(request, UserCareer.class);
+        return response;
+    }
+
+
     protected ResponseEntity<String> getReuest(URI uri, MediaType mediaType) {
         RequestEntity<Void> request = RequestEntity
             .get(uri)

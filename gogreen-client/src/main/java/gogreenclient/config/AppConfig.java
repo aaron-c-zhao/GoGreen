@@ -3,6 +3,7 @@ package gogreenclient.config;
 import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.HttpRequestService;
 import gogreenclient.datamodel.UserModel;
+import gogreenclient.screens.Co2SavedMailMan;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -36,12 +38,20 @@ public class AppConfig {
     @Value("group82")
     private String keyStorePassword;
 
+    private Co2SavedMailMan mailMan;
+
+    public void setMailMan(Co2SavedMailMan mailMan) {
+        this.mailMan = mailMan;
+    }
+
     @Bean
     UserModel userModel() throws Exception {
         UserModel userModel = new UserModel();
         userModel.setHttpRequestService(httpRequestService());
         return userModel;
     }
+
+
 
     /**
      * A Bean that spring will hold and can be instantiated anywhere.This is the
@@ -84,6 +94,10 @@ public class AppConfig {
         return new HttpRequestService();
     }
 
-
+    @Bean
+    @Lazy
+    public  Co2SavedMailMan co2MailMan(){
+        return mailMan;
+    }
 
 }

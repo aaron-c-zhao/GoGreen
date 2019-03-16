@@ -1,7 +1,14 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Optional;
 
 public class FoodEmissionModel {
     /* TODO Add every 'CO2 Saving Instance' to each user savings and return a pass or fail for response
@@ -14,6 +21,11 @@ public class FoodEmissionModel {
     */
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private HttpRequestService httpRequestService;
+
+    private int changedCO2;
+
 
     public void setRestTemplate(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
@@ -36,7 +48,7 @@ public class FoodEmissionModel {
         FoodEmission mealEaten = getFoodEmissions(eatenFood);
         FoodEmission mealUsual = getFoodEmissions(usualFood);
 
-        int changedCO2 = mealUsual.getEmission() - mealEaten.getEmission();
+        changedCO2 = mealUsual.getEmission() - mealEaten.getEmission();
 
         if (changedCO2 > 0) {
             return "You have saved " + changedCO2 + " kg of CO2.";
@@ -46,6 +58,56 @@ public class FoodEmissionModel {
         } else {
             return "You haven't saved anything with this meal.";
         }
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    public UserCareer updateUserCareer(String username){
+        //TODO for now username is hardcoded, it will be able to retrive
+        //username from the login information in the future
+        username = "zhao";
+        final String uri = "https://localhost:8443/api/career";
+        UserCareer userCareer = restTemplate.getForObject(uri+"/"+ username, UserCareer.class);
+        UserCareer finalCareer = null;
+        if(userCareer == null){
+            UserCareer career = new UserCareer();
+            career.setUsername(username);
+            career.setCo2saved(changedCO2);
+            try{
+                 ResponseEntity<UserCareer> response = httpRequestService
+                     .postRequest(career, new URI(uri), MediaType.APPLICATION_JSON);
+                 if(response.getStatusCode() == HttpStatus.OK){
+                     finalCareer = response.getBody();
+                 };
+            }catch (URISyntaxException e){
+                System.out.println("wrong URI");
+            }
+        }else{
+            userCareer.setCo2saved(userCareer.getCo2saved()+changedCO2);
+            try {
+                ResponseEntity<UserCareer> response = httpRequestService
+                    .postRequest(userCareer, new URI(uri+"update"), MediaType.APPLICATION_JSON);
+                if (response.getStatusCode() == HttpStatus.OK)
+                    finalCareer = userCareer;
+                else {
+                    //TODO an exception should be threw here
+                    System.out.println("something worng with the server");
+                }
+            }catch (URISyntaxException e){
+                System.out.println("wrong URI");
+            }
+        }
+        return finalCareer;
+    }
+    //TODO what if can not find the username in database, exception handler needed
+    public UserCareer getCareer(String username){
+        username = "zhao";
+        final String uri = "https://localhost:8443/api/career";
+        UserCareer userCareer = restTemplate.getForObject(uri+"/"+ username, UserCareer.class);
+        return userCareer;
     }
 
 

@@ -2,7 +2,9 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.FoodEmissionModel;
+import gogreenclient.datamodel.UserCareer;
 import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -11,9 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 
 public class FoodController implements SceneController {
@@ -32,18 +32,20 @@ public class FoodController implements SceneController {
     public Label fillAll;
     @FXML
     public Label total;
+
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("Potato sandwich", "Beef sandwich");
     @Autowired
     private ScreenConfiguration screens;
+
     @Autowired
     private FoodEmissionModel foodEmissionModel;
 
     @Autowired
-    private BeanFactory factory;
+    private AppConfig appConfig;
 
-    private int co2Saved;
+    private UserCareer career;
 
     private Scene scene;
 
@@ -69,7 +71,8 @@ public class FoodController implements SceneController {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        total.setText("total");
+        total.setText(String.valueOf(foodEmissionModel
+            .getCareer("zhao").getCo2saved()));
     }
 
 
@@ -87,11 +90,13 @@ public class FoodController implements SceneController {
             String usualFood = insteadOfMealBox.getValue().toString();
             int eatenCost = Integer.parseInt(costTaken.getText());
             int usualCost = Integer.parseInt(costInstead.getText());
-            co2SavedMailMan mailMan = factory.getBean(co2SavedMailMan.class, foodEmissionModel.compareFood(eatenFood, usualFood, eatenCost, usualCost));
-            System.out.println(mailMan.getCo2Saved());
+            String co2Saved = foodEmissionModel.compareFood(eatenFood,
+                usualFood, eatenCost, usualCost);
+            career = foodEmissionModel.updateUserCareer("zhao");
+            String totalSaved = String.valueOf(career.getCo2saved());
+            appConfig.setMailMan(new Co2SavedMailMan(co2Saved, career));
             fillAll.setVisible(false);
-            //  SubmitMealPopController.class.getDeclaredField("calc_use")
-            //        .setText(takenMealBox.getValue().toString());
+            total.setText(totalSaved);
             screens.submitMealDialog().showAndWait();
 
         }

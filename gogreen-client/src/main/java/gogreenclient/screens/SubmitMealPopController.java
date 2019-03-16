@@ -17,10 +17,8 @@ public class SubmitMealPopController implements ConfirmDialogController {
     private Windows dialog;
 
     @Autowired
-    private FoodController foodController;
+    private Co2SavedMailMan co2MailMan;
 
-    @Autowired
-    private BeanFactory factory;
 
     public SubmitMealPopController(ScreenConfiguration screens) {
         this.screens = screens;
@@ -28,9 +26,9 @@ public class SubmitMealPopController implements ConfirmDialogController {
 
 
     public void initialize() {
-        co2SavedMailMan mailMan = factory.getBean(co2SavedMailMan.class);
-        String co2Saved = mailMan.getCo2Saved();
+        String co2Saved = co2MailMan.getCo2Saved();
         calcUse.setText(co2Saved);
+
     }
 
     @Override
