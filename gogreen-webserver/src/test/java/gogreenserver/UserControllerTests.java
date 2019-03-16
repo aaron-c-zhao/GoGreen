@@ -6,25 +6,37 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.controllers.UserController;
-import gogreenserver.services.UserService;
+import gogreenserver.entity.User;
+
+import net.bytebuddy.utility.RandomString;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(UserController.class)
+import java.time.LocalDate;
+import java.util.Random;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+@AutoConfigureWebMvc
+@AutoConfigureMockMvc
+@ContextConfiguration
 public class UserControllerTests {
 
     // for debugging purposes
@@ -33,10 +45,25 @@ public class UserControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    // What I think is happening here, is that Spring replaces our UserService with
-    // a dummy service for mocking. Kind of useless right now.
-    @MockBean
-    private UserService service;
+    @Autowired
+    private UserController controller;
+
+    /**
+     * Setup mock db.
+     */
+    @Before
+    public void setupH2() {
+        controller.addUser(createDummyUser("Alice"));
+        controller.addUser(createDummyUser("Bob"));
+        controller.addUser(createDummyUser("Charlie"));
+    }
+
+    private User createDummyUser(String name) {
+        var rgn = new Random(name.hashCode());
+        return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
+                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
+                RandomString.hashOf(name.hashCode()));
+    }
 
     @Test
     public void checkUsers() throws Exception {
@@ -46,7 +73,7 @@ public class UserControllerTests {
 
         JsonNode list = (new ObjectMapper()).readTree(res.getResponse().getContentAsString());
 
-        LOGGER.error(list);
+        LOGGER.debug(list);
 
         for (JsonNode user : list) {
             LOGGER.debug(user);
