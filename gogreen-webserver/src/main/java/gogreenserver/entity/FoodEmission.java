@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The data model of food emission.
+ */
 @Entity
 @Table(name = "food_emission")
 public class FoodEmission {
@@ -20,6 +23,10 @@ public class FoodEmission {
     @Column(name = "miles")
     private String miles;
 
+    /**
+     * constructor of foodEmission class. Each of the attributes will be initialized
+     * to null.
+     */
     public FoodEmission() {
         food = null;
         emission = null;

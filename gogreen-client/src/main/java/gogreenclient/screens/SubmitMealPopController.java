@@ -23,7 +23,9 @@ public class SubmitMealPopController implements ConfirmDialogController {
         this.screens = screens;
     }
 
-
+    /**
+     * initialize this screen.
+     */
     public void initialize() {
         String co2Saved = co2MailMan.getCo2Saved();
         calcUse.setText(co2Saved);

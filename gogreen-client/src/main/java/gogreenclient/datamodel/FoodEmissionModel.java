@@ -10,7 +10,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class FoodEmissionModel {
-    /* TODO Add every 'CO2 Saving Instance' to each user savings and return a pass or fail for response
+    /* TODO Add every 'CO2 Saving Instance' to each user savings and return
+    a pass or fail for response
     public static String CO2SavedTransfer(String CO2){
         final String uri = "http://localhost:8080/api/foodEmission";
         RestTemplate restTemplate = new RestTemplate();
@@ -30,7 +31,9 @@ public class FoodEmissionModel {
         this.restTemplate = restTemplate;
     }
 
-    // Sending a String with the food name, then it crosschecks if the food name is found on the list.
+    /**Sending a String with the food name, then it crosschecks if the food
+     * name is found on the list.
+     */
     public FoodEmission getFoodEmissions(String foodName) {
         final String uri = "https://localhost:8443/api/foodEmission";
         FoodEmission response = restTemplate.postForObject(uri, foodName, FoodEmission.class);
@@ -38,7 +41,15 @@ public class FoodEmissionModel {
     }
 
     // TODO (quantity of both)
-    // Does a comparison between the usage of CO2 between foods
+
+    /** Does a comparison between the usage of CO2 between foods
+     *
+     * @param eatenFood the food you chose to eat.
+     * @param usualFood usually what food you will eat
+     * @param eatenFoodQuantity quantity of the food.
+     * @param usualFoodQuantity quantity of the food.
+     * @return return a statement about how much CO2 you have saved.
+     */
     public String compareFood(String eatenFood, String usualFood,
                               int eatenFoodQuantity, int usualFoodQuantity) {
         if ((eatenFood == usualFood) && (eatenFoodQuantity == usualFoodQuantity)) {
@@ -60,8 +71,10 @@ public class FoodEmissionModel {
     }
 
     /**
-     * @param username
-     * @return
+     * A method which will update your career in the databse.
+     *
+     * @param username username which can distinguish this user from others.
+     * @return object of usercareer.
      */
     public UserCareer updateUserCareer(String username) {
         //TODO for now username is hardcoded, it will be able to retrive
@@ -80,7 +93,6 @@ public class FoodEmissionModel {
                 if (response.getStatusCode() == HttpStatus.OK) {
                     finalCareer = response.getBody();
                 }
-                ;
             } catch (URISyntaxException e) {
                 System.out.println("wrong URI");
             }
@@ -103,6 +115,13 @@ public class FoodEmissionModel {
     }
 
     //TODO what if can not find the username in database, exception handler needed
+
+    /**
+     * retrive user's career from server.
+     *
+     * @param username username.
+     * @return an instance of UserCareer class.
+     */
     public UserCareer getCareer(String username) {
         username = "zhao";
         final String uri = "https://localhost:8443/api/career";

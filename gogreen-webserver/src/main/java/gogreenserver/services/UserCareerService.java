@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service layer of user entity.
+ */
 @Service
 public class UserCareerService {
 
@@ -34,6 +37,12 @@ public class UserCareerService {
         userCareerRepo.deleteById(theUserName);
     }
 
+    /**
+     * update user's career.
+     *
+     * @param userCareer an usercareer instance which contains the information to be updated.
+     * @return If successfully update, will return true.otherwise, false.
+     */
     public boolean updataCareer(UserCareer userCareer) {
         UserCareer career = userCareerRepo.findById(userCareer.getusername()).orElse(null);
         System.out.println(userCareer.getusername());
