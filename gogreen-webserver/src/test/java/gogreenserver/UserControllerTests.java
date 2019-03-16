@@ -6,14 +6,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import gogreenserver.controllers.UserController;
 import gogreenserver.entity.User;
 
 import net.bytebuddy.utility.RandomString;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,25 +51,16 @@ public class UserControllerTests {
 
     // for debugging purposes
     private static final Logger LOGGER = LogManager.getLogger("Tests");
-    private static User[] dummyUsers;
+
+    // the ObjectMapper that Spring uses for its object->json conversions
+    @Autowired
+    private ObjectMapper springsDefaultMapper;
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private TestEntityManager manager;
-
-    /**
-     * Setup mock db.
-     */
-    @Before
-    public void setupH2() {
-        dummyUsers = new User[3];
-        dummyUsers[0] = manager.persist(createDummyUser("alice"));
-        dummyUsers[1] = manager.persist(createDummyUser("bob"));
-        dummyUsers[2] = manager.persist(createDummyUser("charlie"));
-        LOGGER.debug("Set up the 3 dummy users");
-    }
 
     private User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
@@ -80,13 +69,31 @@ public class UserControllerTests {
                 RandomString.hashOf(name.hashCode()));
     }
 
+    /**
+     * <ol>
+     * <li>If {@code /api/users/} works.
+     * <li>for each entry in the returned json, if {@code /api/user/<username>}
+     * exists.
+     * <li>Whether {@code /api/user/<username>} returns the same entry as what is
+     * stored in the db.
+     * <li>Whether the amount of entries is correct.
+     * </ol>
+     */
     @Test
     public void checkUsers() throws Exception {
+
+        User[] dummyUsers = new User[3];
+        dummyUsers[0] = manager.persist(createDummyUser("Alice"));
+        dummyUsers[1] = manager.persist(createDummyUser("Bob"));
+        dummyUsers[2] = manager.persist(createDummyUser("Charlie"));
+        manager.flush();
+        LOGGER.debug("Set up the 3 dummy users");
+
         RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
 
-        JsonNode list = (new ObjectMapper()).readTree(res.getResponse().getContentAsString());
+        JsonNode list = springsDefaultMapper.readTree(res.getResponse().getContentAsString());
 
         LOGGER.debug("Returned Json: " + list);
 
@@ -98,9 +105,42 @@ public class UserControllerTests {
                     .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
 
+            assertThat(ures.getResponse().getContentAsString())
+                    .isEqualTo(springsDefaultMapper.writeValueAsString(dummyUsers[usercount]));
+
             usercount++;
         }
         LOGGER.debug("User amount: " + usercount);
         assertThat(usercount).isEqualTo(3);
+
+        manager.clear();
+    }
+
+    @Test
+    public void addUser() throws Exception {
+        User dummy = createDummyUser("Danny");
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(springsDefaultMapper.writeValueAsString(dummy));
+        mockMvc.perform(req).andExpect(status().is(200));
+
+        assertThat(manager.find(User.class, dummy.getUsername()))
+                .isEqualToComparingFieldByField(dummy);
+
+        manager.clear();
+    }
+
+    @Test
+    public void removeUser() throws Exception {
+        String name = "Ellen";
+        User dummy = createDummyUser(name);
+        manager.persistAndFlush(dummy);
+        RequestBuilder req = MockMvcRequestBuilders.delete("/api/user/" + name);
+        mockMvc.perform(req).andExpect(status().is(200));
+
+        assertThat(manager.find(User.class, dummy.getUsername())).isNull();
+        
+        //TODO maybe check if the db is properly empty somehow?
+        manager.clear();
     }
 }

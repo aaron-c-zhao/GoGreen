@@ -3,6 +3,8 @@ package gogreenserver.controllers;
 import gogreenserver.entity.User;
 import gogreenserver.services.UserService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserController {
 
+    private static final Logger LOGGER = LogManager.getLogger("GoGreen");
+
     private UserService userService;
 
     @Autowired
@@ -30,18 +34,23 @@ public class UserController {
     // This method returns a list of ALL the users that are present in the database
     @GetMapping("/users")
     public List<User> getAllUsers() {
+        LOGGER.debug("Accessed api/users");
         return userService.findAll();
     }
 
     // This method returns a single user according to their UserName
     @GetMapping("/user/{user_name}")
     public Optional<User> getUserById(@PathVariable("user_name") String userName) {
+        LOGGER.debug("Accessed api/user/" + userName);
         return userService.findById(userName);
     }
 
-    // This method creates a new User entry in the "User" table
+    /**
+     *  This method creates a new User entry in the "User" table.
+     */
     @PostMapping("/user")
     public User addUser(@RequestBody User theUser) {
+        LOGGER.debug("Accessed api/user/");
         userService.createUser(theUser);
         return theUser;
     }
