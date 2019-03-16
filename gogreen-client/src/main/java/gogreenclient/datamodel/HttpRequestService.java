@@ -24,7 +24,7 @@ public class HttpRequestService {
     }
 
     protected ResponseEntity<UserCareer> postRequest(UserCareer myRequestBody,
-                                                     URI uri, MediaType mediaType){
+                                                     URI uri, MediaType mediaType) {
         RequestEntity<UserCareer> request = RequestEntity
             .post(uri)
             .accept(mediaType)

@@ -1,8 +1,6 @@
 package gogreenclient.screens;
 
-import gogreenclient.datamodel.User;
 import gogreenclient.datamodel.UserCareer;
-import org.springframework.stereotype.Component;
 
 
 public class Co2SavedMailMan {
@@ -15,10 +13,6 @@ public class Co2SavedMailMan {
         this.career = career;
     }
 
-    public void setCo2Saved(String co2Saved) {
-        this.co2Saved = co2Saved;
-    }
-
     public UserCareer getCareer() {
         return career;
     }
@@ -29,5 +23,9 @@ public class Co2SavedMailMan {
 
     public String getCo2Saved() {
         return co2Saved;
+    }
+
+    public void setCo2Saved(String co2Saved) {
+        this.co2Saved = co2Saved;
     }
 }

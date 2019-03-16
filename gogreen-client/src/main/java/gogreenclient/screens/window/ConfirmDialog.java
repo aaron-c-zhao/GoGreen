@@ -1,6 +1,5 @@
 package gogreenclient.screens.window;
 
-import gogreenclient.screens.ExitController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -43,11 +42,11 @@ public class ConfirmDialog extends gogreenclient.screens.window.Windows {
         }
     }
 
-    public void setInformation(String information){
-        this.information = information;
+    public String getInformation() {
+        return information;
     }
 
-    public String getInformation(){
-        return information;
+    public void setInformation(String information) {
+        this.information = information;
     }
 }

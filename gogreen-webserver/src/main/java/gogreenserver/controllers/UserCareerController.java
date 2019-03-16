@@ -50,7 +50,7 @@ public class UserCareerController {
     }
 
     @PostMapping("/careerupdate")
-    public UserCareer updateCareer(@RequestBody UserCareer career){
+    public UserCareer updateCareer(@RequestBody UserCareer career) {
         service.updataCareer(career);
         return career;
     }

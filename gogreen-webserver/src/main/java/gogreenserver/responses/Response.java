@@ -5,11 +5,11 @@ public class Response {
     private boolean okMessage;
     private Object data;
 
-    public Response(boolean okMessage){
+    public Response(boolean okMessage) {
         this.okMessage = okMessage;
     }
 
-    public Response(boolean okMessage, Object data){
+    public Response(boolean okMessage, Object data) {
         this.okMessage = okMessage;
         this.data = data;
     }

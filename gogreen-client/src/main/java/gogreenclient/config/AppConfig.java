@@ -52,7 +52,6 @@ public class AppConfig {
     }
 
 
-
     /**
      * A Bean that spring will hold and can be instantiated anywhere.This is the
      * right way to use spring and dataModel.
@@ -96,7 +95,7 @@ public class AppConfig {
 
     @Bean
     @Lazy
-    public  Co2SavedMailMan co2MailMan(){
+    public Co2SavedMailMan co2MailMan() {
         return mailMan;
     }
 

@@ -1,12 +1,7 @@
 package gogreenclient.datamodel;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,7 +11,7 @@ public class UserModel {
 
     private HttpRequestService httpRequestService;
 
-    public void setHttpRequestService(HttpRequestService httpRequestService){
+    public void setHttpRequestService(HttpRequestService httpRequestService) {
         this.httpRequestService = httpRequestService;
     }
 

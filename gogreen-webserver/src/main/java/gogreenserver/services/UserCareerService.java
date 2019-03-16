@@ -34,15 +34,16 @@ public class UserCareerService {
         userCareerRepo.deleteById(theUserName);
     }
 
-    public boolean updataCareer(UserCareer userCareer){
+    public boolean updataCareer(UserCareer userCareer) {
         UserCareer career = userCareerRepo.findById(userCareer.getusername()).orElse(null);
         System.out.println(userCareer.getusername());
-        if(career != null){
-            career.setco2saved((int)userCareer.getco2saved());
+        if (career != null) {
+            career.setco2saved((int) userCareer.getco2saved());
             userCareerRepo.saveAndFlush(career);
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
 }

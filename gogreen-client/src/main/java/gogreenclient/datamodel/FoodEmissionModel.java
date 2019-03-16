@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Optional;
 
 public class FoodEmissionModel {
     /* TODO Add every 'CO2 Saving Instance' to each user savings and return a pass or fail for response
@@ -27,12 +26,12 @@ public class FoodEmissionModel {
     private int changedCO2;
 
 
-    public void setRestTemplate(RestTemplate restTemplate){
+    public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     // Sending a String with the food name, then it crosschecks if the food name is found on the list.
-    public  FoodEmission getFoodEmissions(String foodName) {
+    public FoodEmission getFoodEmissions(String foodName) {
         final String uri = "https://localhost:8443/api/foodEmission";
         FoodEmission response = restTemplate.postForObject(uri, foodName, FoodEmission.class);
         return response;
@@ -40,8 +39,8 @@ public class FoodEmissionModel {
 
     // TODO (quantity of both)
     // Does a comparison between the usage of CO2 between foods
-    public  String compareFood(String eatenFood, String usualFood,
-                                     int eatenFoodQuantity, int usualFoodQuantity) {
+    public String compareFood(String eatenFood, String usualFood,
+                              int eatenFoodQuantity, int usualFoodQuantity) {
         if ((eatenFood == usualFood) && (eatenFoodQuantity == usualFoodQuantity)) {
             return "There is no difference in CO2 between both meals.";
         }
@@ -61,52 +60,53 @@ public class FoodEmissionModel {
     }
 
     /**
-     *
      * @param username
      * @return
      */
-    public UserCareer updateUserCareer(String username){
+    public UserCareer updateUserCareer(String username) {
         //TODO for now username is hardcoded, it will be able to retrive
         //username from the login information in the future
         username = "zhao";
         final String uri = "https://localhost:8443/api/career";
-        UserCareer userCareer = restTemplate.getForObject(uri+"/"+ username, UserCareer.class);
+        UserCareer userCareer = restTemplate.getForObject(uri + "/" + username, UserCareer.class);
         UserCareer finalCareer = null;
-        if(userCareer == null){
+        if (userCareer == null) {
             UserCareer career = new UserCareer();
             career.setUsername(username);
             career.setCo2saved(changedCO2);
-            try{
-                 ResponseEntity<UserCareer> response = httpRequestService
-                     .postRequest(career, new URI(uri), MediaType.APPLICATION_JSON);
-                 if(response.getStatusCode() == HttpStatus.OK){
-                     finalCareer = response.getBody();
-                 };
-            }catch (URISyntaxException e){
-                System.out.println("wrong URI");
-            }
-        }else{
-            userCareer.setCo2saved(userCareer.getCo2saved()+changedCO2);
             try {
                 ResponseEntity<UserCareer> response = httpRequestService
-                    .postRequest(userCareer, new URI(uri+"update"), MediaType.APPLICATION_JSON);
-                if (response.getStatusCode() == HttpStatus.OK)
+                    .postRequest(career, new URI(uri), MediaType.APPLICATION_JSON);
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    finalCareer = response.getBody();
+                }
+                ;
+            } catch (URISyntaxException e) {
+                System.out.println("wrong URI");
+            }
+        } else {
+            userCareer.setCo2saved(userCareer.getCo2saved() + changedCO2);
+            try {
+                ResponseEntity<UserCareer> response = httpRequestService
+                    .postRequest(userCareer, new URI(uri + "update"), MediaType.APPLICATION_JSON);
+                if (response.getStatusCode() == HttpStatus.OK) {
                     finalCareer = userCareer;
-                else {
+                } else {
                     //TODO an exception should be threw here
                     System.out.println("something worng with the server");
                 }
-            }catch (URISyntaxException e){
+            } catch (URISyntaxException e) {
                 System.out.println("wrong URI");
             }
         }
         return finalCareer;
     }
+
     //TODO what if can not find the username in database, exception handler needed
-    public UserCareer getCareer(String username){
+    public UserCareer getCareer(String username) {
         username = "zhao";
         final String uri = "https://localhost:8443/api/career";
-        UserCareer userCareer = restTemplate.getForObject(uri+"/"+ username, UserCareer.class);
+        UserCareer userCareer = restTemplate.getForObject(uri + "/" + username, UserCareer.class);
         return userCareer;
     }
 

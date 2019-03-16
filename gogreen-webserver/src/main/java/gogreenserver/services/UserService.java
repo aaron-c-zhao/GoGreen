@@ -1,7 +1,6 @@
 package gogreenserver.services;
 
 import gogreenserver.entity.User;
-import gogreenserver.entity.UserCareer;
 import gogreenserver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
