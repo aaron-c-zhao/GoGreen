@@ -2,12 +2,14 @@ package gogreenclient.screens;
 
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
-
 import javafx.fxml.FXML;
-
+import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SampleController implements WindowController {
+
+    @FXML
+    public Label total;
 
     @Autowired
     private ScreenConfiguration screens;
@@ -15,6 +17,11 @@ public class SampleController implements WindowController {
 
     public SampleController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    public void initialize() {
+        //TODO  set the value for the text field displaying the total
+        total.setText("total");
     }
 
     @Override

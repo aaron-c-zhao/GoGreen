@@ -4,12 +4,10 @@ import gogreenclient.screens.window.ConfirmDialog;
 import gogreenclient.screens.window.FxmlWindow;
 import gogreenclient.screens.window.MainWindow;
 import gogreenclient.screens.window.SwitchabScene;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -70,8 +68,8 @@ public class ScreenConfiguration {
     @Bean
     @Scope("prototype")
     public ConfirmDialog exitDialog() {
-        return new ConfirmDialog(exitController(),  getClass()
-                .getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
+        return new ConfirmDialog(exitController(), getClass()
+            .getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
@@ -83,8 +81,8 @@ public class ScreenConfiguration {
     @Bean
     @Scope("prototype")
     public ConfirmDialog submitMealDialog() {
-        return new ConfirmDialog(exitController(),  getClass()
-                .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
+        return new ConfirmDialog(exitController(), getClass()
+            .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean

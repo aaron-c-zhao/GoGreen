@@ -2,16 +2,11 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 
 public class LoginController implements WindowController {
 
@@ -23,8 +18,8 @@ public class LoginController implements WindowController {
     public Label combinationLabel;
     @FXML
     Hyperlink create;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    //    @Autowired
+    //    private AuthenticationManager authenticationManager;
     private ScreenConfiguration screens;
     private Windows dialog;
 

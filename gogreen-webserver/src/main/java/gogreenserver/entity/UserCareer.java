@@ -23,8 +23,8 @@ public class UserCareer {
     }
 
     /**
-     * Constructor for UserCareer.
-     * 
+     * Constructor for UserCareer
+     *
      * @param username Primary key. Foreign key and refers to User.userName
      * @param co2saved total career co2 saved by a particular user.
      */
@@ -56,5 +56,6 @@ public class UserCareer {
     public String toString() {
         return "UserCareer [username=" + username + ", co2saved=" + co2saved + "]";
     }
+
 
 }

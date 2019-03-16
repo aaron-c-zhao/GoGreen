@@ -28,7 +28,7 @@ public class FoodEmission {
 
     /**
      * Constructor for FoodEmission.
-     * 
+     *
      * @param food     Primary key. This is Food name.
      * @param emission The emission of that particular food.
      * @param miles    The equivalent Co2 produced by driving X number of miles.
@@ -71,5 +71,6 @@ public class FoodEmission {
     public String toString() {
         return "FoodEmission [food=" + food + ", emission=" + emission + ", miles=" + miles + "]";
     }
+
 
 }

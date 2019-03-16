@@ -21,7 +21,7 @@ test:
   stage: test
   script:
     - mvn test
-    
+
 Code Quality:
   stage: codeQuality
   script:
