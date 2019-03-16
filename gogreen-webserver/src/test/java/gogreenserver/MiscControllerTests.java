@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @WebMvcTest(MiscController.class)
 public class MiscControllerTests {
     
-    private static final Logger LOGGER = LogManager.getLogger("Tests.Misc");
+    private static final Logger LOGGER = LogManager.getLogger("Tests");
     
     @Autowired
     private MockMvc mockMvc;

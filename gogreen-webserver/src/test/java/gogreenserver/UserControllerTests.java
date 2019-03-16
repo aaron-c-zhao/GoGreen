@@ -21,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -35,11 +34,10 @@ import java.util.Random;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureWebMvc
 @AutoConfigureMockMvc
-@ContextConfiguration
 public class UserControllerTests {
 
     // for debugging purposes
-    private static final Logger LOGGER = LogManager.getLogger("Tests.User");
+    private static final Logger LOGGER = LogManager.getLogger("Tests");
 
     @Autowired
     private MockMvc mockMvc;
