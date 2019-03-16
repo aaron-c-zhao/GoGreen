@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import gogreenserver.controllers.MiscController;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @WebMvcTest(MiscController.class)
 public class MiscControllerTests {
+    
+    private static final Logger LOGGER = LogManager.getLogger("Tests.Misc");
+    
     @Autowired
     private MockMvc mockMvc;
 
@@ -25,6 +30,8 @@ public class MiscControllerTests {
     public void echo() throws Exception {
         // generate random name?
         String name = Integer.toHexString(new Object().hashCode());
+        
+        LOGGER.debug("Random string used: " + name);
 
         RequestBuilder request = MockMvcRequestBuilders.get("/api/greeting/" + name)
                 .accept(MediaType.APPLICATION_JSON);

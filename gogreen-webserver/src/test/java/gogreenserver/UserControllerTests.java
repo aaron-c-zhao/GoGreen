@@ -22,7 +22,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -40,7 +39,7 @@ import java.util.Random;
 public class UserControllerTests {
 
     // for debugging purposes
-    private static final Logger LOGGER = LogManager.getLogger("UserController Tester");
+    private static final Logger LOGGER = LogManager.getLogger("Tests.User");
 
     @Autowired
     private MockMvc mockMvc;
@@ -56,10 +55,11 @@ public class UserControllerTests {
         controller.addUser(createDummyUser("Alice"));
         controller.addUser(createDummyUser("Bob"));
         controller.addUser(createDummyUser("Charlie"));
+        LOGGER.debug("Set up the 3 dummy users");
     }
 
     private User createDummyUser(String name) {
-        var rgn = new Random(name.hashCode());
+        Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
                 LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
                 RandomString.hashOf(name.hashCode()));
