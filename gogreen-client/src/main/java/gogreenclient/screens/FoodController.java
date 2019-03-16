@@ -11,7 +11,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 
 public class FoodController implements SceneController {
@@ -38,7 +40,10 @@ public class FoodController implements SceneController {
     @Autowired
     private FoodEmissionModel foodEmissionModel;
 
-    private String co2Saved;
+    @Autowired
+    private BeanFactory factory;
+
+    private int co2Saved;
 
     private Scene scene;
 
@@ -67,13 +72,6 @@ public class FoodController implements SceneController {
         total.setText("total");
     }
 
-    public String getCo2Saved() {
-        return co2Saved;
-    }
-
-    public void setCo2Saved(String co2Saved) {
-        this.co2Saved = co2Saved;
-    }
 
     /**
      * method for submit button, which will send the data to the server.
@@ -89,8 +87,8 @@ public class FoodController implements SceneController {
             String usualFood = insteadOfMealBox.getValue().toString();
             int eatenCost = Integer.parseInt(costTaken.getText());
             int usualCost = Integer.parseInt(costInstead.getText());
-
-            co2Saved = foodEmissionModel.compareFood(eatenFood, usualFood, eatenCost, usualCost);
+            co2SavedMailMan mailMan = factory.getBean(co2SavedMailMan.class, foodEmissionModel.compareFood(eatenFood, usualFood, eatenCost, usualCost));
+            System.out.println(mailMan.getCo2Saved());
             fillAll.setVisible(false);
             //  SubmitMealPopController.class.getDeclaredField("calc_use")
             //        .setText(takenMealBox.getValue().toString());

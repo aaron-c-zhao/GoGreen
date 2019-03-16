@@ -23,7 +23,7 @@ import java.security.KeyStore;
 
 
 @Configuration
-@Import( {ScreenConfiguration.class, MailManConfig.class})
+@Import( {ScreenConfiguration.class})
 @EnableAutoConfiguration
 public class AppConfig {
 
