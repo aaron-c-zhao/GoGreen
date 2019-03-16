@@ -21,7 +21,7 @@ public class SubmitMealPopController implements ConfirmDialogController {
 
 
     public void initialize() {
-        String result = (screens.submitMealDialog().getInformation() == null) ? "null" :
+        String result = (screens.getCo2Saved() == null) ? "null" :
             screens.submitMealDialog().getInformation();
         calcUse.setText(result + "KG CO2");
     }

@@ -83,8 +83,9 @@ public class FoodController implements SceneController {
             fillAll.setVisible(false);
             //  SubmitMealPopController.class.getDeclaredField("calc_use")
             //        .setText(takenMealBox.getValue().toString());
+            screens.setCo2Saved(C02DifferenceResult);
             screens.submitMealDialog().showAndWait();
-            screens.submitMealDialog().setInformation(C02DifferenceResult);
+
         }
     }
 
