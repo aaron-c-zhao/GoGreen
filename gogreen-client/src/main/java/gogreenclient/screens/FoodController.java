@@ -2,6 +2,9 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.config.AppConfig;
+import gogreenclient.datamodel.FoodEmissionModel;
+import gogreenclient.datamodel.UserCareer;
 import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -12,7 +15,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 
 public class FoodController implements SceneController {
 
@@ -30,13 +32,21 @@ public class FoodController implements SceneController {
     public Label fillAll;
     @FXML
     public Label total;
+
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("Potato sandwich", "Beef sandwich");
     @Autowired
     private ScreenConfiguration screens;
+
     @Autowired
-    private HashMap<String, Scene> sceneMap;
+    private FoodEmissionModel foodEmissionModel;
+
+    @Autowired
+    private AppConfig appConfig;
+
+    private UserCareer career;
+
     private Scene scene;
 
     private Windows dialog;
@@ -51,7 +61,7 @@ public class FoodController implements SceneController {
 
     public void setScene(Scene scene) {
         this.scene = scene;
-        sceneMap.put("food", scene);
+        //        sceneMap.put("food", scene);
     }
 
     /**
@@ -61,29 +71,34 @@ public class FoodController implements SceneController {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        total.setText("total");
+        total.setText(String.valueOf(foodEmissionModel
+            .getCareer("zhao").getCo2saved()));
     }
+
 
     /**
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() throws NoSuchFieldException {
+    public void submit() {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
             || date.getValue() == null || costTaken.getText().trim().isEmpty()
             || costInstead.getText().trim().isEmpty()) {
             fillAll.setVisible(true);
         } else {
-            //TODO
-            System.out.println(takenMealBox.getValue().toString());
-            System.out.println(insteadOfMealBox.getValue().toString());
-            System.out.println(costTaken.getText());
-            System.out.println(costInstead.getText());
-            System.out.println(date.getValue().toString());
+            String eatenFood = takenMealBox.getValue().toString();
+            String usualFood = insteadOfMealBox.getValue().toString();
+            int eatenCost = Integer.parseInt(costTaken.getText());
+            int usualCost = Integer.parseInt(costInstead.getText());
+            String co2Saved = foodEmissionModel.compareFood(eatenFood,
+                usualFood, eatenCost, usualCost);
+            career = foodEmissionModel.updateUserCareer("zhao");
+            String totalSaved = String.valueOf(career.getCo2saved());
+            appConfig.setMailMan(new Co2SavedMailMan(co2Saved, career));
             fillAll.setVisible(false);
-            //  SubmitMealPopController.class.getDeclaredField("calc_use")
-            //        .setText(takenMealBox.getValue().toString());
+            total.setText(totalSaved);
             screens.submitMealDialog().showAndWait();
+
         }
     }
 

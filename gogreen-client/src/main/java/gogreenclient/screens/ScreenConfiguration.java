@@ -24,6 +24,16 @@ public class ScreenConfiguration {
 
     private Stage primaryStage;
 
+    private String co2Saved;
+
+    public String getCo2Saved() {
+        return co2Saved;
+    }
+
+    public void setCo2Saved(String co2Saved) {
+        this.co2Saved = co2Saved;
+    }
+
     public void showSreeen(Scene screen) {
         primaryStage.setScene(screen);
         primaryStage.show();
@@ -79,14 +89,12 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    @Scope("prototype")
     public ConfirmDialog submitMealDialog() {
-        return new ConfirmDialog(exitController(), getClass()
+        return new ConfirmDialog(submitMealController(), getClass()
             .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
-    @Scope("prototype")
     SubmitMealPopController submitMealController() {
         return new SubmitMealPopController(this);
     }
