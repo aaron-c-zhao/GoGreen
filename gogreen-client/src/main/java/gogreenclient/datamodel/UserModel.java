@@ -40,9 +40,4 @@ public class UserModel {
         return true;
     }
 
-
-    public RestTemplate getRestTemplate() {
-        return restTemplate;
-    }
-
 }
