@@ -2,6 +2,7 @@ package gogreenclient;
 
 import javafx.application.Application;
 import org.junit.Test;
+import org.springframework.context.annotation.Import;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.logging.Level;
@@ -9,6 +10,7 @@ import java.util.logging.Logger;
 
 import static org.junit.Assert.assertTrue;
 
+@Import(GoGreenApplication.class)
 public class GoGreenApplicationTest {
 
     private volatile boolean test = false;
@@ -32,11 +34,6 @@ public class GoGreenApplicationTest {
         });
         thread.setDaemon(true);
         thread.start();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         thread.interrupt();
         try {
             thread.join(1000);
