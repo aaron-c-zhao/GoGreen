@@ -38,15 +38,21 @@ public class UserCareerController {
     }
 
     @PostMapping("/career")
-    public String addUserCareer(@RequestBody UserCareer career) {
+    public UserCareer addUserCareer(@RequestBody UserCareer career) {
         service.createUserCareer(career);
-        return "successfully added career for user with user name = " + career.getusername();
+        return career;
     }
 
     @DeleteMapping("/career")
     public String deleteCareer(@RequestBody UserCareer career) {
         service.deleteById(career.getusername());
         return "successfully deleted career for user with user name = " + career.getusername();
+    }
+
+    @PostMapping("/careerupdate")
+    public UserCareer updateCareer(@RequestBody UserCareer career) {
+        service.updataCareer(career);
+        return career;
     }
 
 }
