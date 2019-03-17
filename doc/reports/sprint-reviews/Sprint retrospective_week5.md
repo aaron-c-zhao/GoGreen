@@ -21,7 +21,7 @@ my understanding of the database connection to the server is limited so I was st
 less focus will be applied in the actual database xml for next week, since the functionalities are now completed. Instead, I will focus on making the API files compatible with the new database functionalities and schema
 
 ### Adjustments from previous sprint:
-What I would do better for next week, is being careful with what I do while committing; I noticed that one small mistake can ruin a whole bunch of code, fortunately I had a backup ready for this, so the issue was soon resolved, but preventing a code issue is better than fixing the issue.
+more work was done inside the database itself in order to achieve maximum functionality in the xml and stability through thorough testing
 
 # Nik
 
