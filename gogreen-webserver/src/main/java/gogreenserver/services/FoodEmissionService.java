@@ -2,6 +2,7 @@ package gogreenserver.services;
 
 import gogreenserver.entity.FoodEmission;
 import gogreenserver.repositories.FoodEmissionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class FoodEmissionService {
 
     private FoodEmissionRepository repo;
 
+    @Autowired
     public FoodEmissionService(FoodEmissionRepository repo) {
         this.repo = repo;
     }
