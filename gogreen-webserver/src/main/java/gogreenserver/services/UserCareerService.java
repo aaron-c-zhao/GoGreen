@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class UserCareerService {
 
-    private static final Logger LOGGER = LogManager.getLogger("GoGreen Server");
+    private static final Logger LOGGER = LogManager.getLogger("GoGreen");
 
     private UserCareerRepository userCareerRepo;
 
