@@ -1,6 +1,7 @@
 package gogreenserver;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import gogreenserver.entity.User;
 import gogreenserver.entity.UserCareer;
 
+import gogreenserver.services.UserCareerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -58,6 +60,9 @@ public class UserCareerTests {
 
     @Autowired
     private TestEntityManager manager;
+
+    @Autowired
+    private UserCareerService service;
 
     @Test
     public void checkCareers() throws Exception {
@@ -146,7 +151,14 @@ public class UserCareerTests {
         LOGGER.debug("Saved career: " + mapper.writeValueAsString(save));
         
         assertThat(dummyNew).isEqualToComparingFieldByField(save);
+    }
 
+    @Test
+    public void updateCareer_Null(){
+        UserCareer meHere = createDummyCareer("Andy");
+        UserCareer imNotHere = createDummyCareer("Rudolph");
+        service.createUserCareer(meHere);
+        assertFalse(service.updateCareer(imNotHere));
     }
 
     private UserCareer createDummyCareer(String user) {
