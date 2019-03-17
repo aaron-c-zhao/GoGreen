@@ -2,13 +2,16 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+
 import gogreenclient.datamodel.User;
 import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

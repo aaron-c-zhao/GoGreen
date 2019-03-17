@@ -2,6 +2,7 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.UserCareer;
 import gogreenserver.services.UserCareerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 //import org.springframework.web.bind.annotation.*;
 
@@ -45,13 +48,13 @@ public class UserCareerController {
 
     @DeleteMapping("/career")
     public String deleteCareer(@RequestBody UserCareer career) {
-        service.deleteById(career.getusername());
-        return "successfully deleted career for user with user name = " + career.getusername();
+        service.deleteById(career.getUsername());
+        return "successfully deleted career for user with user name = " + career.getUsername();
     }
 
     @PostMapping("/careerupdate")
-    public UserCareer updateCareer(@RequestBody UserCareer career) {
-        service.updataCareer(career);
+    public UserCareer updateCareer(@RequestBody UserCareer career, HttpServletResponse resp) {
+        service.updateCareer(career);
         return career;
     }
 

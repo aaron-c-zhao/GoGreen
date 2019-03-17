@@ -1,6 +1,7 @@
 package gogreenclient.screens.window;
 
 import gogreenclient.screens.ScreenConfiguration;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Callback;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;

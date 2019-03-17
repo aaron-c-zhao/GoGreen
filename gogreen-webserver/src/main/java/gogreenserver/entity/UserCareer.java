@@ -23,7 +23,7 @@ public class UserCareer {
     }
 
     /**
-     * Constructor for UserCareer
+     * Constructor for UserCareer.
      *
      * @param username Primary key. Foreign key and refers to User.userName
      * @param co2saved total career co2 saved by a particular user.
@@ -35,7 +35,7 @@ public class UserCareer {
     }
 
     // define getters and setter
-    public String getusername() {
+    public String getUsername() {
         return username;
     }
 
@@ -43,7 +43,7 @@ public class UserCareer {
         this.username = username;
     }
 
-    public float getco2saved() {
+    public int getco2saved() {
         return co2saved;
     }
 

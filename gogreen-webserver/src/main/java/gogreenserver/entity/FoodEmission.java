@@ -78,6 +78,4 @@ public class FoodEmission {
     public String toString() {
         return "FoodEmission [food=" + food + ", emission=" + emission + ", miles=" + miles + "]";
     }
-
-
 }
