@@ -102,7 +102,7 @@ public class UserCareerTests {
         UserCareer result = manager.find(UserCareer.class, dummy.getUsername());
         LOGGER.debug("Stored value: " + mapper.writeValueAsString(result));
         LOGGER.debug("Dummy value: " + mapper.writeValueAsString(dummy));
-        
+
         assertThat(result).isEqualToComparingFieldByField(dummy);
 
         manager.clear();
@@ -121,6 +121,32 @@ public class UserCareerTests {
 
         // TODO maybe check if the db is properly empty somehow?
         manager.clear();
+    }
+
+    @Test
+    public void updateCareer() throws Exception {
+        UserCareer dummy = createDummyCareer("Frank");
+        LOGGER.debug("Old career: " + mapper.writeValueAsString(dummy));
+        manager.persistAndFlush(dummy);
+
+        // new career with a different co2 save
+        UserCareer dummyNew = new UserCareer(dummy.getUsername(), dummy.getco2saved()
+                + new Random(dummy.getUsername().hashCode()).nextInt(Integer.MAX_VALUE));
+        
+        LOGGER.debug("New career: " + mapper.writeValueAsString(dummyNew));
+
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/careerupdate")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(dummyNew));
+
+        mockMvc.perform(req).andExpect(status().is(200)).andReturn();
+
+        UserCareer save = manager.find(UserCareer.class, dummy.getUsername());
+
+        LOGGER.debug("Saved career: " + mapper.writeValueAsString(save));
+        
+        assertThat(dummyNew).isEqualToComparingFieldByField(save);
+
     }
 
     private UserCareer createDummyCareer(String user) {

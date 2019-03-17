@@ -2,6 +2,9 @@ package gogreenserver.services;
 
 import gogreenserver.entity.UserCareer;
 import gogreenserver.repositories.UserCareerRepository;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,8 @@ import java.util.Optional;
  */
 @Service
 public class UserCareerService {
+
+    private static final Logger LOGGER = LogManager.getLogger("GoGreen Server");
 
     private UserCareerRepository userCareerRepo;
 
@@ -40,17 +45,24 @@ public class UserCareerService {
     /**
      * update user's career.
      *
-     * @param userCareer an usercareer instance which contains the information to be updated.
+     * @param newcareer an usercareer instance which contains the information to be
+     *                  updated.
      * @return If successfully update, will return true.otherwise, false.
      */
-    public boolean updataCareer(UserCareer userCareer) {
-        UserCareer career = userCareerRepo.findById(userCareer.getusername()).orElse(null);
-        System.out.println(userCareer.getusername());
-        if (career != null) {
-            career.setco2saved((int) userCareer.getco2saved());
-            userCareerRepo.saveAndFlush(career);
+    public boolean updateCareer(UserCareer newcareer) {
+        UserCareer oldcareer = userCareerRepo.findById(newcareer.getUsername()).orElse(null);
+        LOGGER.debug("Career updated of user " + newcareer.getUsername());
+
+        if (oldcareer != null) {
+
+            LOGGER.debug("Old: " + oldcareer.getco2saved());
+            LOGGER.debug("New:" + newcareer.getco2saved());
+
+            oldcareer.setco2saved((int) newcareer.getco2saved());
+            userCareerRepo.saveAndFlush(oldcareer);
             return true;
         } else {
+            LOGGER.warn(newcareer.getUsername() + " has no career.");
             return false;
         }
     }

@@ -3,7 +3,6 @@ package gogreenserver;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.FoodEmission;
@@ -60,49 +59,25 @@ public class FoodEmissionTests {
 
     @Test
     public void checkFood() throws Exception {
-        FoodEmission[] dummyEmmisions = new FoodEmission[3];
-        dummyEmmisions[0] = manager.persist(createDummyEmssion("Artichoke"));
-        dummyEmmisions[1] = manager.persist(createDummyEmssion("Beans"));
-        dummyEmmisions[2] = manager.persist(createDummyEmssion("Cheese"));
-        manager.flush();
+        String name = "Apple";
+        FoodEmission dummy = createDummyEmssion(name);
 
-        RequestBuilder listreq = MockMvcRequestBuilders.get("/api/foodEmission")
-                .accept(MediaType.APPLICATION_JSON);
+        manager.persistAndFlush(dummy);
 
-        MvcResult listres = mockMvc.perform(listreq).andExpect(status().is(200)).andReturn();
-
-        JsonNode list = mapper.readTree(listres.getResponse().getContentAsString());
-
-        LOGGER.debug("Returned Json: " + list);
-
-        int counter = 0;
-        for (JsonNode career : list) {
-            LOGGER.debug("Emission " + counter + ": " + career);
-            RequestBuilder req = MockMvcRequestBuilders
-                    .get("/api/foodEmission/" + career.get("food").asText())
-                    .accept(MediaType.APPLICATION_JSON);
-            MvcResult res = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
-
-            assertThat(res.getResponse().getContentAsString())
-                    .isEqualTo(mapper.writeValueAsString(dummyEmmisions[counter]));
-
-            counter++;
-        }
-
-    }
-
-    @Test
-    public void addFood() throws Exception {
-        FoodEmission dummy = createDummyEmssion("Drop");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/foodEmission")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
-        mockMvc.perform(req).andExpect(status().is(200));
+                .contentType(MediaType.TEXT_PLAIN).content(name);
+        MvcResult resp = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
-        FoodEmission result = manager.find(FoodEmission.class, dummy.getFood());
-        LOGGER.debug("Stored value: " + mapper.writeValueAsString(result));
-        LOGGER.debug("Dummy value: " + mapper.writeValueAsString(dummy));
-        
-        assertThat(result).isEqualToComparingFieldByField(dummy);
+        String webresult = resp.getResponse().getContentAsString();
+        String dbresult = mapper
+                .writeValueAsString(manager.find(FoodEmission.class, dummy.getFood()));
+        String actresult = mapper.writeValueAsString(dummy);
+
+        LOGGER.debug("Retrieved value: " + webresult);
+        LOGGER.debug("Stored value: " + dbresult);
+        LOGGER.debug("Actual value: " + actresult);
+
+        assertThat(webresult).isEqualTo(dbresult).isEqualTo(actresult);
 
         manager.clear();
     }
@@ -112,4 +87,3 @@ public class FoodEmissionTests {
     }
 
 }
-

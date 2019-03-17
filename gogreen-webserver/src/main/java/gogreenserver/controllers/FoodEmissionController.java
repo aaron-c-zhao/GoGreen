@@ -26,7 +26,7 @@ public class FoodEmissionController {
     }
 
     /**
-     * Returns the food emission object
+     * Returns the food emission object.
      * @param foodName the name of the food that you ate.
      * @return a responseEntity.
      */
