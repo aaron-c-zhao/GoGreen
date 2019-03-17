@@ -51,4 +51,8 @@ public class UserModel {
         return reponse;
     }
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
 }
