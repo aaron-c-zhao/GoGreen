@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.UserCareer;
+import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -36,6 +37,8 @@ public class FoodController implements SceneController {
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("Potato sandwich", "Beef sandwich");
+
+
     @Autowired
     private ScreenConfiguration screens;
 
@@ -44,6 +47,9 @@ public class FoodController implements SceneController {
 
     @Autowired
     private AppConfig appConfig;
+
+    @Autowired
+    private UserCareerService userCareerService;
 
     private UserCareer career;
 
@@ -71,8 +77,12 @@ public class FoodController implements SceneController {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        total.setText(String.valueOf(foodEmissionModel
-            .getCareer("zhao").getCo2saved()));
+        try{
+            total.setText(String.valueOf(userCareerService
+                .getCareer().getCo2saved()));
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
 
@@ -92,9 +102,13 @@ public class FoodController implements SceneController {
             int usualCost = Integer.parseInt(costInstead.getText());
             String co2Saved = foodEmissionModel.compareFood(eatenFood,
                 usualFood, eatenCost, usualCost);
-            career = foodEmissionModel.updateUserCareer("zhao");
+            try{
+                career = userCareerService.updateUserCareer(foodEmissionModel.getChangedCO2());
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                return;
+            }
             String totalSaved = String.valueOf(career.getCo2saved());
-            appConfig.setMailMan(new Co2SavedMailMan(co2Saved, career));
             fillAll.setVisible(false);
             total.setText(totalSaved);
             screens.submitMealDialog().showAndWait();

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 /**
  * MVC controller for miscellaneous end points.
- *
  */
 @RestController
 @RequestMapping("/api")
@@ -17,10 +16,10 @@ public class MiscController {
 
     /**
      * A simple echo end point.
-     * 
+     *
      * @param name The value to echo back.
      * @return A {@link Greeting} class, converted to JSON, containing the name and
-     *         date.
+     * date.
      */
     @GetMapping("/greeting/{name}")
     public Greeting greeting(@PathVariable(value = "name") String name) {

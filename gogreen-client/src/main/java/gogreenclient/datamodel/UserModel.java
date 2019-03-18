@@ -1,18 +1,20 @@
 package gogreenclient.datamodel;
 
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
 public class UserModel {
 
-    private HttpRequestService httpRequestService;
 
-    public void setHttpRequestService(HttpRequestService httpRequestService) {
-        this.httpRequestService = httpRequestService;
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     /**
@@ -25,6 +27,7 @@ public class UserModel {
      * @return this method will return a responseEntity
      * @throws Exception throw IOException
      */
+    @SuppressWarnings("unchecked")
     public ResponseEntity<User> addUser(String username, String password, LocalDate bdate,
                                         String nationality) throws URISyntaxException {
         User user = new User();
@@ -32,13 +35,8 @@ public class UserModel {
         user.setPassword(password);
         user.setBdate(bdate);
         user.setNationality(nationality);
-        return httpRequestService.postRequest(user, new URI("https://localhost:8443/api/user"),
-            MediaType.APPLICATION_JSON);
-    }
-
-    public ResponseEntity<String> login() throws URISyntaxException {
-        return httpRequestService.getRequest(new URI("https://localhost:8443/api/login"),
-            MediaType.APPLICATION_JSON);
+        return restTemplate.postForEntity("https://localhost:8443/api/user", user,
+            User.class);
     }
 
 }

@@ -1,14 +1,8 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.FoodEmission;
-
 import net.bytebuddy.utility.RandomString;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -30,6 +24,9 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.transaction.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -65,12 +62,12 @@ public class FoodEmissionTests {
         manager.persistAndFlush(dummy);
 
         RequestBuilder req = MockMvcRequestBuilders.post("/api/foodEmission")
-                .contentType(MediaType.TEXT_PLAIN).content(name);
+            .contentType(MediaType.TEXT_PLAIN).content(name);
         MvcResult resp = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
         String webresult = resp.getResponse().getContentAsString();
         String dbresult = mapper
-                .writeValueAsString(manager.find(FoodEmission.class, dummy.getFood()));
+            .writeValueAsString(manager.find(FoodEmission.class, dummy.getFood()));
         String actresult = mapper.writeValueAsString(dummy);
 
         LOGGER.debug("Retrieved value: " + webresult);

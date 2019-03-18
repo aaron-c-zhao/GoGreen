@@ -1,9 +1,8 @@
 package gogreenclient.config;
 
 import gogreenclient.datamodel.FoodEmissionModel;
-import gogreenclient.datamodel.HttpRequestService;
+import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserModel;
-import gogreenclient.screens.Co2SavedMailMan;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -14,9 +13,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -27,8 +28,10 @@ import java.security.KeyStore;
 
 
 @Configuration
+@ComponentScan("gogreenclient.datamodel")
 @Import( {ScreenConfiguration.class})
 @EnableAutoConfiguration
+@Lazy
 public class AppConfig {
 
     @Value("classpath:truststore.jks")
@@ -43,6 +46,9 @@ public class AppConfig {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
+    private RestTemplate restTemplate;
+
+
     private String username;
     private String password;
 
@@ -54,20 +60,16 @@ public class AppConfig {
         this.password = password;
     }
 
-    private Co2SavedMailMan mailMan;
-
-    public void setMailMan(Co2SavedMailMan mailMan) {
-        this.mailMan = mailMan;
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Bean
-    @Lazy
     UserModel userModel() throws Exception {
         UserModel userModel = new UserModel();
-        userModel.setHttpRequestService(httpRequestService());
+        userModel.setRestTemplate(restTemplate());
         return userModel;
     }
-
 
     /**
      * A Bean that spring will hold and can be instantiated anywhere.This is the
@@ -83,14 +85,21 @@ public class AppConfig {
         return foodEmissionModel;
     }
 
+
+    @Bean
+    UserCareerService userCareerService(){
+        UserCareerService userCareerService = new UserCareerService();
+        userCareerService.setUsername(username);
+        return userCareerService;
+    }
     /**
      * The restTemplateBuilder will be auto injected by Spring.
      *
      * @return Object restTemplate
      */
     @Bean
-    @Lazy
-    public RestTemplate restTemplate() throws Exception {
+    @Scope("prototype")
+    public RestTemplate LoginrestTemplate() throws Exception {
         KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
         ks.load(new FileInputStream(keyStore.getFile()), keyStorePassword.toCharArray());
         SSLContext sslContext = new SSLContextBuilder()
@@ -99,14 +108,8 @@ public class AppConfig {
             .build();
         SSLConnectionSocketFactory socketFactory =
             new SSLConnectionSocketFactory(sslContext);
-//        CredentialsProvider provider =
-//            new BasicCredentialsProvider();
-//        UsernamePasswordCredentials credentials =
-//            new UsernamePasswordCredentials(username, password);
-//        provider.setCredentials(AuthScope.ANY, credentials);
         HttpClient httpClient = HttpClients.custom()
             .setSSLSocketFactory(socketFactory)
-//            .setDefaultCredentialsProvider(provider)
             .build();
         HttpComponentsClientHttpRequestFactory factory =
             new HttpComponentsClientHttpRequestFactory(httpClient);
@@ -114,18 +117,15 @@ public class AppConfig {
             .basicAuthentication(username, password).build();
         restTemplate.setRequestFactory(factory);
         return restTemplate;
-
     }
 
     @Bean
-    public HttpRequestService httpRequestService() {
-        return new HttpRequestService();
+    public RestTemplate restTemplate(){
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate = this.restTemplate;
+        return restTemplate;
     }
 
-    @Bean
-    @Lazy
-    public Co2SavedMailMan co2MailMan() {
-        return mailMan;
-    }
+
 
 }

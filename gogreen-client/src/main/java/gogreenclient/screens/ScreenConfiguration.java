@@ -15,42 +15,40 @@ import org.springframework.context.annotation.Scope;
 
 import java.util.HashMap;
 
-@Configuration
 /**
- * beans in a lazy manner, only instantiate when used.
+ * Configurations of all the GUI relative elements, including stages, scenes, and controllers. All
+ * of these elements will be a Bean and can be used by dependency injection.
+ *
+ * If you want to add a stage or scene please add it here.
  */
+@Configuration
 @Lazy
 public class ScreenConfiguration {
 
     private Stage primaryStage;
 
-    private String co2Saved;
-
-    public String getCo2Saved() {
-        return co2Saved;
-    }
-
-    public void setCo2Saved(String co2Saved) {
-        this.co2Saved = co2Saved;
-    }
-
-    public void showSreeen(Scene screen) {
-        primaryStage.setScene(screen);
+    /**
+     * Change the scene that shown on the primary stage.
+     *
+     * @param scene the scene to be shown on the primary stage.
+     */
+    public void showScene(Scene scene) {
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public Parent getParent() {
-        return primaryStage.getScene().getRoot();
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
+    //-----------------------------------------stages----------------------------------------------
+
+    /**
+     * Login window which is a individual stage.
+     *
+     * @return a singleton instance of LoginDialog.
+     */
     @Bean
     public FxmlWindow loginDialog() {
         return new FxmlWindow(loginController(), getClass().getResource("/views/Log_in.fxml"),
@@ -60,6 +58,47 @@ public class ScreenConfiguration {
     @Bean
     LoginController loginController() {
         return new LoginController(this);
+    }
+
+    /**
+     * A pop up exit window which is a individual stage.
+     *
+     * @return a singleton instance of ExitDialog which is a confirmDialog.
+     */
+    @Bean
+    public ConfirmDialog exitDialog() {
+        return new ConfirmDialog(exitController(), getClass()
+            .getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    ExitController exitController() {
+        return new ExitController(this);
+    }
+
+    /**
+     * A pop up submit window on which will show how much CO2 has been saved by a particular
+     * activity of the user and how much CO2 has been saved in total by that user.
+     *
+     * @return a singleton instance of submitDialog which is a confirmDialog.
+     */
+    @Bean
+    public ConfirmDialog submitMealDialog() {
+        return new ConfirmDialog(submitMealController(), getClass()
+            .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    SubmitMealPopController submitMealController() {
+        return new SubmitMealPopController(this);
+    }
+
+    //---------------------------------------------scenes------------------------------------------
+
+
+    @Bean
+    public HashMap<String, Scene> sceneMap() {
+        return new HashMap<>();
     }
 
     @Bean
@@ -76,30 +115,6 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    @Scope("prototype")
-    public ConfirmDialog exitDialog() {
-        return new ConfirmDialog(exitController(), getClass()
-            .getResource("/views/ExitConfirmDialog.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    @Scope("prototype")
-    ExitController exitController() {
-        return new ExitController(this);
-    }
-
-    @Bean
-    public ConfirmDialog submitMealDialog() {
-        return new ConfirmDialog(submitMealController(), getClass()
-            .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    SubmitMealPopController submitMealController() {
-        return new SubmitMealPopController(this);
-    }
-
-    @Bean
     ActivityController activityController() {
         return new ActivityController(this);
     }
@@ -107,11 +122,6 @@ public class ScreenConfiguration {
     @Bean
     public MainWindow activityScreen() {
         return new MainWindow(activityController(), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    public HashMap<String, Scene> sceneMap() {
-        return new HashMap<>();
     }
 
     @Bean

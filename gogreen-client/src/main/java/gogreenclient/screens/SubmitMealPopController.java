@@ -1,5 +1,6 @@
 package gogreenclient.screens;
 
+import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -16,7 +17,7 @@ public class SubmitMealPopController implements ConfirmDialogController {
     private Windows dialog;
 
     @Autowired
-    private Co2SavedMailMan co2MailMan;
+    private FoodEmissionModel foodEmissionModel;
 
 
     public SubmitMealPopController(ScreenConfiguration screens) {
@@ -27,7 +28,7 @@ public class SubmitMealPopController implements ConfirmDialogController {
      * initialize this screen.
      */
     public void initialize() {
-        String co2Saved = co2MailMan.getCo2Saved();
+        String co2Saved = String.valueOf(foodEmissionModel.getChangedCO2());
         calcUse.setText(co2Saved);
 
     }

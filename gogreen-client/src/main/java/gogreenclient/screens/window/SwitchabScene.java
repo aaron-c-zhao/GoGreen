@@ -57,7 +57,7 @@ public class SwitchabScene {
                     return controller;
                 }
             });
-            Parent parent = (Parent) loader.load();
+            Parent parent = loader.load();
             scene = new Scene(parent);
             controller.setScene(scene);
         } catch (IOException e) {

@@ -1,15 +1,9 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.User;
 import gogreenserver.entity.UserCareer;
-
 import gogreenserver.services.UserCareerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,9 +25,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.transaction.Transactional;
 import java.util.Random;
 
-import javax.transaction.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -73,7 +70,7 @@ public class UserCareerTests {
         manager.flush();
 
         RequestBuilder listreq = MockMvcRequestBuilders.get("/api/career")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult listres = mockMvc.perform(listreq).andExpect(status().is(200)).andReturn();
 
@@ -85,12 +82,12 @@ public class UserCareerTests {
         for (JsonNode career : list) {
             LOGGER.debug("Career " + counter + ": " + career);
             RequestBuilder req = MockMvcRequestBuilders
-                    .get("/api/career/" + career.get("username").asText())
-                    .accept(MediaType.APPLICATION_JSON);
+                .get("/api/career/" + career.get("username").asText())
+                .accept(MediaType.APPLICATION_JSON);
             MvcResult res = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
             assertThat(res.getResponse().getContentAsString())
-                    .isEqualTo(mapper.writeValueAsString(dummyCareers[counter]));
+                .isEqualTo(mapper.writeValueAsString(dummyCareers[counter]));
 
             counter++;
         }
@@ -101,7 +98,7 @@ public class UserCareerTests {
     public void addCareer() throws Exception {
         UserCareer dummy = createDummyCareer("Danny");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/career")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200));
 
         UserCareer result = manager.find(UserCareer.class, dummy.getUsername());
@@ -119,7 +116,7 @@ public class UserCareerTests {
         UserCareer dummy = createDummyCareer(name);
         manager.persistAndFlush(dummy);
         RequestBuilder req = MockMvcRequestBuilders.delete("/api/career")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200));
 
         assertThat(manager.find(User.class, dummy.getUsername())).isNull();
@@ -136,25 +133,25 @@ public class UserCareerTests {
 
         // new career with a different co2 save
         UserCareer dummyNew = new UserCareer(dummy.getUsername(), dummy.getco2saved()
-                + new Random(dummy.getUsername().hashCode()).nextInt(Integer.MAX_VALUE));
-        
+            + new Random(dummy.getUsername().hashCode()).nextInt(Integer.MAX_VALUE));
+
         LOGGER.debug("New career: " + mapper.writeValueAsString(dummyNew));
 
         RequestBuilder req = MockMvcRequestBuilders.post("/api/careerupdate")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(dummyNew));
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(dummyNew));
 
         mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
         UserCareer save = manager.find(UserCareer.class, dummy.getUsername());
 
         LOGGER.debug("Saved career: " + mapper.writeValueAsString(save));
-        
+
         assertThat(dummyNew).isEqualToComparingFieldByField(save);
     }
 
     @Test
-    public void updateCareer_Null(){
+    public void updateCareer_Null() {
         UserCareer meHere = createDummyCareer("Andy");
         UserCareer imNotHere = createDummyCareer("Rudolph");
         service.createUserCareer(meHere);

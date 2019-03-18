@@ -6,6 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Second Screen - 1.
+ *
+ *
+ */
 public class SampleController implements WindowController {
 
     @FXML

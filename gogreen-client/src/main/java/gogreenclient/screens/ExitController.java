@@ -2,9 +2,7 @@ package gogreenclient.screens;
 
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
-
 import javafx.application.Platform;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ExitController implements ConfirmDialogController {

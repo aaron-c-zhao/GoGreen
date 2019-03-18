@@ -2,12 +2,9 @@ package gogreenclient.datamodel;
 
 import gogreenclient.config.AppConfig;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.validation.constraints.AssertTrue;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @ContextConfiguration(classes = AppConfig.class)
 public class FoodEmissionModelTest {

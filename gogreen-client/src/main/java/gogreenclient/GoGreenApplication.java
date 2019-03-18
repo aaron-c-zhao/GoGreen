@@ -2,10 +2,8 @@ package gogreenclient;
 
 import gogreenclient.config.AppConfig;
 import gogreenclient.screens.ScreenConfiguration;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
