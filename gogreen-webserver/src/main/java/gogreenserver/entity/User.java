@@ -1,10 +1,10 @@
 package gogreenserver.entity;
 
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "user")
@@ -39,7 +39,7 @@ public class User {
     }
 
     /**
-     * Constructor for User
+     * Constructor for User.
      *
      * @param username    Primary Key.
      * @param password    Password.

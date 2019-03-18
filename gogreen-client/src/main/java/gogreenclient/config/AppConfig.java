@@ -1,6 +1,9 @@
 package gogreenclient.config;
 
+import gogreenclient.datamodel.FoodEmissionModel;
+import gogreenclient.datamodel.HttpRequestService;
 import gogreenclient.datamodel.UserModel;
+import gogreenclient.screens.Co2SavedMailMan;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -51,12 +54,33 @@ public class AppConfig {
         this.password = password;
     }
 
+    private Co2SavedMailMan mailMan;
+
+    public void setMailMan(Co2SavedMailMan mailMan) {
+        this.mailMan = mailMan;
+    }
+
     @Bean
     @Lazy
     UserModel userModel() throws Exception {
         UserModel userModel = new UserModel();
-        userModel.setRestTemplate(restTemplate());
+        userModel.setHttpRequestService(httpRequestService());
         return userModel;
+    }
+
+
+    /**
+     * A Bean that spring will hold and can be instantiated anywhere.This is the
+     * right way to use spring and dataModel.
+     *
+     * @return an instance of FoodEmissionModel.
+     * @throws Exception normal exception.
+     */
+    @Bean
+    FoodEmissionModel foodEmissionModel() throws Exception {
+        FoodEmissionModel foodEmissionModel = new FoodEmissionModel();
+        foodEmissionModel.setRestTemplate(restTemplate());
+        return foodEmissionModel;
     }
 
     /**
@@ -93,5 +117,15 @@ public class AppConfig {
 
     }
 
+    @Bean
+    public HttpRequestService httpRequestService() {
+        return new HttpRequestService();
+    }
+
+    @Bean
+    @Lazy
+    public Co2SavedMailMan co2MailMan() {
+        return mailMan;
+    }
 
 }

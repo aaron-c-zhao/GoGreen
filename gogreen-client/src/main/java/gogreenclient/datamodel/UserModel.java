@@ -1,9 +1,7 @@
 package gogreenclient.datamodel;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,10 +9,10 @@ import java.time.LocalDate;
 
 public class UserModel {
 
-    private RestTemplate restTemplate;
+    private HttpRequestService httpRequestService;
 
-    public void setRestTemplate(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public void setHttpRequestService(HttpRequestService httpRequestService) {
+        this.httpRequestService = httpRequestService;
     }
 
     /**
@@ -34,31 +32,13 @@ public class UserModel {
         user.setPassword(password);
         user.setBdate(bdate);
         user.setNationality(nationality);
-        return postRequest(user, new URI("https://localhost:8443/api/user"),
+        return httpRequestService.postRequest(user, new URI("https://localhost:8443/api/user"),
             MediaType.APPLICATION_JSON);
     }
 
     public ResponseEntity<String> login() throws URISyntaxException {
-        return getRequest(new URI("https://localhost:8443/api/login"),
+        return httpRequestService.getRequest(new URI("https://localhost:8443/api/login"),
             MediaType.APPLICATION_JSON);
-    }
-
-    private ResponseEntity<User> postRequest(User myRequestBody, URI uri, MediaType mediaType) {
-        RequestEntity<User> request = RequestEntity
-            .post(uri)
-            .accept(mediaType)
-            .body(myRequestBody);
-        ResponseEntity<User> reponse = restTemplate.exchange(request, User.class);
-        return reponse;
-    }
-
-    private ResponseEntity<String> getRequest(URI uri, MediaType mediaType) {
-        RequestEntity<Void> request = RequestEntity
-            .get(uri)
-            .accept(mediaType)
-            .build();
-        ResponseEntity<String> response = restTemplate.exchange(request, String.class);
-        return response;
     }
 
 }

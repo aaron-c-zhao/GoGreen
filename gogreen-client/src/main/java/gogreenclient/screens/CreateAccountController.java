@@ -35,6 +35,7 @@ public class CreateAccountController implements WindowController {
     private UserModel userModel;
     private Windows dialog;
 
+
     public CreateAccountController(ScreenConfiguration screens) {
         this.screens = screens;
     }
@@ -42,6 +43,10 @@ public class CreateAccountController implements WindowController {
     @Override
     public void setWindow(Windows dialog) {
         this.dialog = dialog;
+    }
+
+    public Windows getWindow() {
+        return dialog;
     }
 
     /**
@@ -90,4 +95,3 @@ public class CreateAccountController implements WindowController {
         screens.loginDialog().show();
     }
 }
-

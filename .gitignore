@@ -23,6 +23,7 @@ buildNumber.properties
 .classpath
 .project
 .settings/
+.checkstyle
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
