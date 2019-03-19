@@ -99,7 +99,7 @@ public class AppConfig {
      */
     @Bean
     @Scope("prototype")
-    public RestTemplate LoginrestTemplate() throws Exception {
+    public RestTemplate LoginRestTemplate() throws Exception {
         KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
         ks.load(new FileInputStream(keyStore.getFile()), keyStorePassword.toCharArray());
         SSLContext sslContext = new SSLContextBuilder()
@@ -121,8 +121,6 @@ public class AppConfig {
 
     @Bean
     public RestTemplate restTemplate(){
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate = this.restTemplate;
         return restTemplate;
     }
 

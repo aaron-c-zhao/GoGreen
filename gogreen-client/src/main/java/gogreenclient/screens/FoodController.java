@@ -2,7 +2,6 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.UserCareer;
 import gogreenclient.datamodel.UserCareerService;
@@ -46,9 +45,6 @@ public class FoodController implements SceneController {
     private FoodEmissionModel foodEmissionModel;
 
     @Autowired
-    private AppConfig appConfig;
-
-    @Autowired
     private UserCareerService userCareerService;
 
     private UserCareer career;
@@ -77,10 +73,10 @@ public class FoodController implements SceneController {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        try{
+        try {
             total.setText(String.valueOf(userCareerService
                 .getCareer().getCo2saved()));
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -102,9 +98,10 @@ public class FoodController implements SceneController {
             int usualCost = Integer.parseInt(costInstead.getText());
             String co2Saved = foodEmissionModel.compareFood(eatenFood,
                 usualFood, eatenCost, usualCost);
-            try{
+            System.out.println("++++++++++++++++++++++++++++++" + co2Saved);
+            try {
                 career = userCareerService.updateUserCareer(foodEmissionModel.getChangedCO2());
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return;
             }

@@ -12,7 +12,7 @@ public class ExitController implements ConfirmDialogController {
     private Windows dialog;
 
     public ExitController(ScreenConfiguration screens) {
-        this.screens = screens;
+            this.screens = screens;
     }
 
     @Override

@@ -83,7 +83,7 @@ public class LoginController implements WindowController {
         appConfig.setUsername(username.getText());
         appConfig.setPassword(password.getText());
         ResponseEntity<String> response = null;
-        RestTemplate restTemplate = appConfig.LoginrestTemplate();
+        RestTemplate restTemplate = appConfig.LoginRestTemplate();
         try {
             response = restTemplate
                 .getForEntity(new URI("https://localhost:8443/api/login"),
@@ -91,20 +91,26 @@ public class LoginController implements WindowController {
         } catch (URISyntaxException e) {
             //TODO exception handler
             System.out.println("wrong URI");
-        }catch(HttpClientErrorException e){
-            if(e instanceof HttpClientErrorException.Unauthorized){
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.Unauthorized) {
                 combinationLabel.setVisible(true);
                 return;
-            }else{
+            } else {
                 System.out.println(e.getMessage());
                 return;
             }
+        } catch (Exception e) {
+            //TODO Network failed pop up window
+            System.out.println(e.getMessage());
+            return;
         }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             appConfig.setRestTemplate(restTemplate);
             dialog.close();
             screens.sampleDialog().show();
-        }else return;
+        } else {
+            return;
+        }
     }
 
 
