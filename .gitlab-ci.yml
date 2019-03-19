@@ -21,6 +21,7 @@ test:
   stage: test
   script:
     - mvn test
+  allow_failure: true
 
 Code Quality:
   stage: codeQuality
