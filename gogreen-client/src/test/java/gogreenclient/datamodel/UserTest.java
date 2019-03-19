@@ -5,14 +5,14 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class UserTest {
 
     private User user;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         user = new User();
     }
 
@@ -30,7 +30,7 @@ public class UserTest {
 
     @Test
     public void getBdate() {
-        LocalDate date = LocalDate.of(1996,07,10);
+        LocalDate date = LocalDate.of(1996, 07, 10);
         user.setBdate(date);
         assertEquals(date, user.getBdate());
     }

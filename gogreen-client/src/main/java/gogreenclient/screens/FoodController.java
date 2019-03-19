@@ -2,9 +2,9 @@ package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.UserCareer;
+import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -36,6 +36,8 @@ public class FoodController implements SceneController {
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("Potato sandwich", "Beef sandwich");
+
+
     @Autowired
     private ScreenConfiguration screens;
 
@@ -43,7 +45,7 @@ public class FoodController implements SceneController {
     private FoodEmissionModel foodEmissionModel;
 
     @Autowired
-    private AppConfig appConfig;
+    private UserCareerService userCareerService;
 
     private UserCareer career;
 
@@ -67,12 +69,12 @@ public class FoodController implements SceneController {
     /**
      * sets the combo box elements.
      */
-    public void initialize() {
+    public void initialize() throws Exception {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        total.setText(String.valueOf(foodEmissionModel
-            .getCareer("zhao").getCo2saved()));
+        total.setText(String.valueOf(userCareerService
+            .getCareer().getCo2saved()));
     }
 
 
@@ -80,7 +82,7 @@ public class FoodController implements SceneController {
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() {
+    public void submit() throws Exception {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
             || date.getValue() == null || costTaken.getText().trim().isEmpty()
             || costInstead.getText().trim().isEmpty()) {
@@ -90,15 +92,13 @@ public class FoodController implements SceneController {
             String usualFood = insteadOfMealBox.getValue().toString();
             int eatenCost = Integer.parseInt(costTaken.getText());
             int usualCost = Integer.parseInt(costInstead.getText());
-            String co2Saved = foodEmissionModel.compareFood(eatenFood,
+            int co2Saved = foodEmissionModel.compareFood(eatenFood,
                 usualFood, eatenCost, usualCost);
-            career = foodEmissionModel.updateUserCareer("zhao");
+            career = userCareerService.updateUserCareer(co2Saved);
             String totalSaved = String.valueOf(career.getCo2saved());
-            appConfig.setMailMan(new Co2SavedMailMan(co2Saved, career));
             fillAll.setVisible(false);
             total.setText(totalSaved);
             screens.submitMealDialog().showAndWait();
-
         }
     }
 
@@ -107,8 +107,8 @@ public class FoodController implements SceneController {
      */
     @FXML
     public void backToFood() {
-        // dialog.close();
-        // screens.activityScreen().show();
+        dialog.close();
+        screens.sampleDialog().show();
     }
 
 }

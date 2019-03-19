@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-//import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -35,6 +34,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/login")
+    public void login() {
+    }
+
+    ;
 
     // This method returns a single user according to their UserName
     @GetMapping("/user/{user_name}")
@@ -43,7 +47,7 @@ public class UserController {
     }
 
     // This method creates a new User entry in the "User" table 
-    @PostMapping("/user")
+    @PostMapping("/createUser")
     public User addUser(@RequestBody User theUser) {
         userService.createUser(theUser);
         return theUser;

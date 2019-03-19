@@ -1,15 +1,9 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.User;
-
 import net.bytebuddy.utility.RandomString;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -30,10 +24,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Random;
 
-import javax.transaction.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -65,8 +61,8 @@ public class UserTests {
     private User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
-                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
-                RandomString.hashOf(name.hashCode()));
+            LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
+            RandomString.hashOf(name.hashCode()));
     }
 
     /**
@@ -89,7 +85,7 @@ public class UserTests {
         manager.flush();
 
         RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
         MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
 
         JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
@@ -100,12 +96,12 @@ public class UserTests {
         for (JsonNode user : list) {
             LOGGER.debug("User " + usercount + ": " + user);
             RequestBuilder userReq = MockMvcRequestBuilders
-                    .get("/api/user/" + user.get("username").asText())
-                    .accept(MediaType.APPLICATION_JSON);
+                .get("/api/user/" + user.get("username").asText())
+                .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
 
             assertThat(ures.getResponse().getContentAsString())
-                    .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
+                .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
 
             usercount++;
         }
@@ -119,12 +115,12 @@ public class UserTests {
     public void addUser() throws Exception {
         User dummy = createDummyUser("Danny");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/user")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(dummy));
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200));
 
         assertThat(manager.find(User.class, dummy.getUsername()))
-                .isEqualToComparingFieldByField(dummy);
+            .isEqualToComparingFieldByField(dummy);
 
         manager.clear();
     }
@@ -138,7 +134,7 @@ public class UserTests {
         mockMvc.perform(req).andExpect(status().is(200));
 
         assertThat(manager.find(User.class, dummy.getUsername())).isNull();
-        
+
         //TODO maybe check if the db is properly empty somehow?
         manager.clear();
     }

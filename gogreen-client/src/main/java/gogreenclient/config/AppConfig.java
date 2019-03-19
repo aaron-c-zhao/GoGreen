@@ -1,20 +1,23 @@
 package gogreenclient.config;
 
 import gogreenclient.datamodel.FoodEmissionModel;
-import gogreenclient.datamodel.HttpRequestService;
+import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserModel;
-import gogreenclient.screens.Co2SavedMailMan;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -24,9 +27,16 @@ import java.security.KeyStore;
 import javax.net.ssl.SSLContext;
 
 
+/**
+ * Configuration of all the client side spring elements, namely Beans. These Beans will be
+ * instantiated in a lazy manner, because some of the fields needed to be initialized by
+ * user's input, and some Beans need those values to acting normally.
+ */
 @Configuration
+@ComponentScan("gogreenclient.datamodel")
 @Import( {ScreenConfiguration.class})
 @EnableAutoConfiguration
+@Lazy
 public class AppConfig {
 
     @Value("classpath:truststore.jks")
@@ -38,19 +48,33 @@ public class AppConfig {
     @Value("group82")
     private String keyStorePassword;
 
-    private Co2SavedMailMan mailMan;
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
 
-    public void setMailMan(Co2SavedMailMan mailMan) {
-        this.mailMan = mailMan;
+    private RestTemplate restTemplate;
+
+
+    private String username;
+    private String password;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Bean
     UserModel userModel() throws Exception {
         UserModel userModel = new UserModel();
-        userModel.setHttpRequestService(httpRequestService());
+        userModel.setRestTemplate(restTemplate());
         return userModel;
     }
-
 
     /**
      * A Bean that spring will hold and can be instantiated anywhere.This is the
@@ -66,13 +90,22 @@ public class AppConfig {
         return foodEmissionModel;
     }
 
+
+    @Bean
+    UserCareerService userCareerService() {
+        UserCareerService userCareerService = new UserCareerService();
+        userCareerService.setUsername(username);
+        return userCareerService;
+    }
+
     /**
      * The restTemplateBuilder will be auto injected by Spring.
      *
      * @return Object restTemplate
      */
     @Bean
-    public RestTemplate restTemplate() throws Exception {
+    @Scope("prototype")
+    public RestTemplate loginRestTemplate() throws Exception {
         KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
         ks.load(new FileInputStream(keyStore.getFile()), keyStorePassword.toCharArray());
         SSLContext sslContext = new SSLContextBuilder()
@@ -82,21 +115,26 @@ public class AppConfig {
         SSLConnectionSocketFactory socketFactory =
             new SSLConnectionSocketFactory(sslContext);
         HttpClient httpClient = HttpClients.custom()
-            .setSSLSocketFactory(socketFactory).build();
+            .setSSLSocketFactory(socketFactory)
+            .build();
         HttpComponentsClientHttpRequestFactory factory =
             new HttpComponentsClientHttpRequestFactory(httpClient);
-        return new RestTemplate(factory);
+        RestTemplate restTemplate = restTemplateBuilder
+            .basicAuthentication(username, password).build();
+        restTemplate.setRequestFactory(factory);
+        return restTemplate;
     }
 
+    /**
+     * This Bean will provide the final resTemplate which contains all the information about
+     * TLS context and authentication.
+     *
+     * @return restTemplate.
+     */
     @Bean
-    public HttpRequestService httpRequestService() {
-        return new HttpRequestService();
+    public RestTemplate restTemplate() {
+        return restTemplate;
     }
 
-    @Bean
-    @Lazy
-    public Co2SavedMailMan co2MailMan() {
-        return mailMan;
-    }
 
 }

@@ -18,7 +18,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
-#logging:
-#  level:
-#    root: info
-#    gogreen-webserver: debug
+logging:
+  level:
+    root: info
+    gogreen-webserver: info

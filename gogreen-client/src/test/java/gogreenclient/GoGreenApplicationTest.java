@@ -3,7 +3,6 @@ package gogreenclient;
 import javafx.application.Application;
 import org.junit.Test;
 import org.springframework.context.annotation.Import;
-import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +23,7 @@ public class GoGreenApplicationTest {
                     Application.launch(GoGreenApplication.class);
                     test = true;
                 } catch (Throwable t) {
-                    if(t.getCause() != null && t.getCause().getClass().equals(InterruptedException.class)){
+                    if (t.getCause() != null && t.getCause().getClass().equals(InterruptedException.class)) {
                         test = true;
                         return;
                     }

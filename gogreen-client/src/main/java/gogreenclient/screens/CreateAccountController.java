@@ -40,13 +40,13 @@ public class CreateAccountController implements WindowController {
         this.screens = screens;
     }
 
+    public Windows getWindow() {
+        return dialog;
+    }
+
     @Override
     public void setWindow(Windows dialog) {
         this.dialog = dialog;
-    }
-
-    public Windows getWindow() {
-        return dialog;
     }
 
     /**
