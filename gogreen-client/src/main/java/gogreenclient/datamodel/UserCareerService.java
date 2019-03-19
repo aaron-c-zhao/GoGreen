@@ -2,8 +2,12 @@ package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 /**
  * A service class which will provide the service of retrieving user career from database,
@@ -42,7 +46,7 @@ public class UserCareerService {
         }
     }
 
-    public ResponseEntity<UserCareer> createUserCareer() {
+    public ResponseEntity<UserCareer> createUserCareer() throws Exception{
         UserCareer career = new UserCareer();
         career.setUsername(username);
         career.setCo2saved(0);
