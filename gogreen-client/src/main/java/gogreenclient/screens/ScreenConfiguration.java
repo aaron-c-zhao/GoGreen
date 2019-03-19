@@ -4,7 +4,6 @@ import gogreenclient.screens.window.ConfirmDialog;
 import gogreenclient.screens.window.FxmlWindow;
 import gogreenclient.screens.window.MainWindow;
 import gogreenclient.screens.window.SwitchabScene;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,7 +18,7 @@ import java.util.HashMap;
  * Configurations of all the GUI relative elements, including stages, scenes, and controllers. All
  * of these elements will be a Bean and can be used by dependency injection.
  *
- * If you want to add a stage or scene please add it here.
+ * <p>If you want to add a stage or scene please add it here.
  */
 @Configuration
 @Lazy

@@ -19,14 +19,14 @@ import java.net.URISyntaxException;
 
 /**
  * First Screen.
- * <p>
- * Login controller, the entry point of client side application. User can login with their
+ *
+ * <p>Login controller, the entry point of client side application. User can login with their
  * userName and password, if the account exists then it will be directed to the main menu.Otherwise,
  * there will be a sign which will tell user the userName & password combination is not right.
- * <p>
- * User can create an account by clicking the link.
- * <p>
- * TODO remember me implementation.
+ *
+ * <p>User can create an account by clicking the link.
+ *
+ * <p>TODO remember me implementation.
  */
 public class LoginController implements WindowController {
 
@@ -67,8 +67,8 @@ public class LoginController implements WindowController {
      * The method which is connected to the "Login" button on login screen. Click on the login
      * button this method will collect username and password entered by user, and pass it to
      * the singleton bean appConfig.
-     * <p>
-     * Because this screen is the entry point of the application,and all of the Beans in
+     *
+     * <p>Because this screen is the entry point of the application,and all of the Beans in
      * appConfig is Lazy, so when RestTemplateBuilder Bean is instantiated,username and password
      * fields are already set to user's input. Those Beans are also singleton, so it will be shared
      * every time it's called. Thus, the username and password is contained in every instance of
@@ -83,7 +83,7 @@ public class LoginController implements WindowController {
         appConfig.setUsername(username.getText());
         appConfig.setPassword(password.getText());
         ResponseEntity<String> response = null;
-        RestTemplate restTemplate = appConfig.LoginRestTemplate();
+        RestTemplate restTemplate = appConfig.loginRestTemplate();
         try {
             response = restTemplate
                 .getForEntity(new URI("https://localhost:8443/api/login"),
@@ -99,10 +99,6 @@ public class LoginController implements WindowController {
                 System.out.println(e.getMessage());
                 return;
             }
-        } catch (Exception e) {
-            //TODO Network failed pop up window
-            System.out.println(e.getMessage());
-            return;
         }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             appConfig.setRestTemplate(restTemplate);

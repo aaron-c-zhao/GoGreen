@@ -13,12 +13,12 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
         this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
     public List<User> findAll() {
@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

@@ -1,6 +1,5 @@
 package gogreenserver.config;
 
-import gogreenserver.security.MySavedRequestAwareAuthenticationSuccessHandler;
 import gogreenserver.security.RestAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,14 +25,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    @Autowired
-    private MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler;
 
     private SimpleUrlAuthenticationFailureHandler myFailureHandleer =
         new SimpleUrlAuthenticationFailureHandler();
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder bcryptPasswordEncoder() {
         return new BCryptPasswordEncoder(11);
     }
 
@@ -46,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(bcryptPasswordEncoder());
     }
 
     @Override

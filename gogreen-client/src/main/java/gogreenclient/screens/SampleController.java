@@ -11,15 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Second Screen - 1.
- *
- *
  */
 public class SampleController implements WindowController {
 
     @FXML
     public Label total;
 
-    @FXML Label username;
+    @FXML
+    Label username;
 
     @Autowired
     private ScreenConfiguration screens;
@@ -37,7 +36,13 @@ public class SampleController implements WindowController {
         this.screens = screens;
     }
 
-    public void initialize()throws Exception{
+    /**
+     * Initializing sampleScreen retrieve userCareer in the database, show user's username and
+     * totally saved CO2 at the bottom of the screen.
+     *
+     * @throws Exception threw by restTemplate.
+     */
+    public void initialize() throws Exception {
         UserCareer career = userCareerService.getCareer();
         total.setText(String.valueOf(career.getCo2saved()));
         username.setText("Hello, " + career.getUsername());

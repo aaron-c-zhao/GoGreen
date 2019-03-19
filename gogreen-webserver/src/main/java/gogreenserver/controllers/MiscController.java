@@ -18,8 +18,7 @@ public class MiscController {
      * A simple echo end point.
      *
      * @param name The value to echo back.
-     * @return A {@link Greeting} class, converted to JSON, containing the name and
-     * date.
+     * @return A {@link Greeting} class, converted to JSON, containing the name and date.
      */
     @GetMapping("/greeting/{name}")
     public Greeting greeting(@PathVariable(value = "name") String name) {

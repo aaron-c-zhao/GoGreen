@@ -1,13 +1,7 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class FoodEmissionModel {
 
@@ -47,7 +41,7 @@ public class FoodEmissionModel {
      * @return return a statement about how much CO2 you have saved.
      */
     public int compareFood(String eatenFood, String usualFood,
-                              int eatenFoodQuantity, int usualFoodQuantity) {
+                           int eatenFoodQuantity, int usualFoodQuantity) {
         if ((eatenFood == usualFood) && (eatenFoodQuantity == usualFoodQuantity)) {
             return 0;
         }

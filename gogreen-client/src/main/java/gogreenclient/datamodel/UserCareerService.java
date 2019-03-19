@@ -2,12 +2,8 @@ package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.URI;
 
 /**
  * A service class which will provide the service of retrieving user career from database,
@@ -16,12 +12,10 @@ import java.net.URI;
 
 public class UserCareerService {
 
+    private final String url;
     @Autowired
     private RestTemplate restTemplate;
-
     private String username;
-
-    final private String url;
 
     public UserCareerService() {
         this.url = "https://localhost:8443/api/career";
@@ -75,7 +69,7 @@ public class UserCareerService {
      * @return the updated userCareer
      * @throws Exception threw by restTemplate.
      */
-    public UserCareer updateUserCareer(int changedCO2) throws Exception{
+    public UserCareer updateUserCareer(int changedCO2) throws Exception {
         UserCareer userCareer = getCareer();
         UserCareer finalCareer = null;
         userCareer.setCo2saved(userCareer.getCo2saved() + changedCO2);

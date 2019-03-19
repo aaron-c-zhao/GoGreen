@@ -69,16 +69,12 @@ public class FoodController implements SceneController {
     /**
      * sets the combo box elements.
      */
-    public void initialize() {
+    public void initialize() throws Exception {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        try {
-            total.setText(String.valueOf(userCareerService
-                .getCareer().getCo2saved()));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        total.setText(String.valueOf(userCareerService
+            .getCareer().getCo2saved()));
     }
 
 
@@ -86,7 +82,7 @@ public class FoodController implements SceneController {
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() {
+    public void submit() throws Exception {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
             || date.getValue() == null || costTaken.getText().trim().isEmpty()
             || costInstead.getText().trim().isEmpty()) {
@@ -98,12 +94,7 @@ public class FoodController implements SceneController {
             int usualCost = Integer.parseInt(costInstead.getText());
             int co2Saved = foodEmissionModel.compareFood(eatenFood,
                 usualFood, eatenCost, usualCost);
-            try {
-                career = userCareerService.updateUserCareer(co2Saved);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return;
-            }
+            career = userCareerService.updateUserCareer(co2Saved);
             String totalSaved = String.valueOf(career.getCo2saved());
             fillAll.setVisible(false);
             total.setText(totalSaved);
@@ -117,7 +108,7 @@ public class FoodController implements SceneController {
     @FXML
     public void backToFood() {
         dialog.close();
-         screens.sampleDialog().show();
+        screens.sampleDialog().show();
     }
 
 }

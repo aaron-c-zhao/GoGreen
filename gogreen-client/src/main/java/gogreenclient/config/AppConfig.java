@@ -22,9 +22,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
 import java.security.KeyStore;
+import javax.net.ssl.SSLContext;
 
 
 /**
@@ -92,11 +92,12 @@ public class AppConfig {
 
 
     @Bean
-    UserCareerService userCareerService(){
+    UserCareerService userCareerService() {
         UserCareerService userCareerService = new UserCareerService();
         userCareerService.setUsername(username);
         return userCareerService;
     }
+
     /**
      * The restTemplateBuilder will be auto injected by Spring.
      *
@@ -104,7 +105,7 @@ public class AppConfig {
      */
     @Bean
     @Scope("prototype")
-    public RestTemplate LoginRestTemplate() throws Exception {
+    public RestTemplate loginRestTemplate() throws Exception {
         KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
         ks.load(new FileInputStream(keyStore.getFile()), keyStorePassword.toCharArray());
         SSLContext sslContext = new SSLContextBuilder()
@@ -131,10 +132,9 @@ public class AppConfig {
      * @return restTemplate.
      */
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return restTemplate;
     }
-
 
 
 }
