@@ -31,6 +31,13 @@ public class UserCareerService {
         this.username = username;
     }
 
+    /**
+     * Get userCareer from database. If there is no usrCareer existing in the database,
+     * then a new userCareer tuple will be created with the username logged in.
+     *
+     * @return userCareer of the current user who has logged in.
+     * @throws Exception threw by restTemplate.
+     */
     public UserCareer getCareer() throws Exception {
         UserCareer userCareer = restTemplate.getForObject(url + "/" + username, UserCareer.class);
         ResponseEntity<UserCareer> response = null;
@@ -46,7 +53,12 @@ public class UserCareerService {
         }
     }
 
-    public ResponseEntity<UserCareer> createUserCareer() throws Exception{
+    /**
+     * Create a new user career tuple in the database.
+     *
+     * @return HttpResponseEntity of UserCareer.
+     */
+    public ResponseEntity<UserCareer> createUserCareer() {
         UserCareer career = new UserCareer();
         career.setUsername(username);
         career.setCo2saved(0);
@@ -55,6 +67,14 @@ public class UserCareerService {
         return response;
     }
 
+    /**
+     * Update one's career, first it will retrieve the current status of this user's career,
+     * then it will update the amount of CO2 saved by this user.
+     *
+     * @param changedCO2 the amount saved by user's activity.
+     * @return the updated userCareer
+     * @throws Exception threw by restTemplate.
+     */
     public UserCareer updateUserCareer(int changedCO2) throws Exception{
         UserCareer userCareer = getCareer();
         UserCareer finalCareer = null;
