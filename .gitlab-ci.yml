@@ -26,4 +26,4 @@ test:
 Code Quality:
   stage: codeQuality
   script:
-    - mvn install -B checkstyle:check
+    - mvn -B checkstyle:check
