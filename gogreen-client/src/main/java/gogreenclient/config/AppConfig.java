@@ -119,6 +119,12 @@ public class AppConfig {
         return restTemplate;
     }
 
+    /**
+     * This Bean will provide the final resTemplate which contains all the information about
+     * TLS context and authentication.
+     *
+     * @return restTemplate.
+     */
     @Bean
     public RestTemplate restTemplate(){
         return restTemplate;

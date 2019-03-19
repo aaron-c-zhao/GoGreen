@@ -41,8 +41,8 @@
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00FA9A;" GridPane.columnIndex="1"
               GridPane.rowIndex="10">
             <children>
-                <Label contentDisplay="CENTER" layoutX="72.0" layoutY="14.0" prefHeight="40.0" prefWidth="146.0"
-                       text="User_name" textFill="#a48da0">
+                <Label fx:id="username" contentDisplay="CENTER" layoutX="72.0" layoutY="14.0" prefHeight="40.0" prefWidth="146.0"
+                       text="" textFill="#a48da0">
                     <font>
                         <Font name="Segoe UI Semibold" size="23.0"/>
                     </font>
@@ -53,7 +53,7 @@
                         <Font name="Segoe UI Semibold" size="21.0"/>
                     </font>
                 </Label>
-                <Label fx:id="total" layoutX="207.0" layoutY="54.0" prefHeight="40.0" prefWidth="55.0" text="total"
+                <Label fx:id="total" layoutX="207.0" layoutY="54.0" prefHeight="40.0" prefWidth="55.0" text=""
                        textFill="#a48da0">
                     <font>
                         <Font name="Segoe UI Semibold" size="23.0"/>

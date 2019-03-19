@@ -28,6 +28,7 @@ public class ActivityController implements WindowController {
     public void setWindow(Windows window) {
         this.window = window;
         window.setScene(screens.foodScene().getScene());
+        screens.foodController().setWindow(window);
     }
 
 

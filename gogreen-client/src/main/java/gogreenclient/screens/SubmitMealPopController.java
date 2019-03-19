@@ -1,6 +1,7 @@
 package gogreenclient.screens;
 
 import gogreenclient.datamodel.FoodEmissionModel;
+import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -12,12 +13,18 @@ public class SubmitMealPopController implements ConfirmDialogController {
     @FXML
     Label calcUse;
 
+    @FXML
+    Label totalSaved;
+
     @Autowired
     private ScreenConfiguration screens;
     private Windows dialog;
 
     @Autowired
     private FoodEmissionModel foodEmissionModel;
+
+    @Autowired
+    private UserCareerService userCareerService;
 
 
     public SubmitMealPopController(ScreenConfiguration screens) {
@@ -27,11 +34,20 @@ public class SubmitMealPopController implements ConfirmDialogController {
     /**
      * initialize this screen.
      */
-    public void initialize() {
-        String co2Saved = String.valueOf(foodEmissionModel.getChangedCO2());
-        calcUse.setText(co2Saved);
-
+    public void initialize() throws Exception{
+        int co2Saved = foodEmissionModel.getChangedCO2();
+        calcUse.setText(messager(co2Saved));
+        totalSaved.setText(String.valueOf(userCareerService.getCareer().getCo2saved()));
     }
+
+    private String messager(int co2Saved){
+        if(co2Saved > 0)
+            return "Good Job!" + co2Saved + " KG CO2 emission have been saved by you!";
+        else if(co2Saved == 0)
+            return "Hmmm, nothing happened.";
+        else return "Oh, my friend! You just produced " + co2Saved*-1 + "more CO2.";
+    }
+
 
     @Override
     public void setWindow(Windows dialog) {

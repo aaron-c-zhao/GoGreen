@@ -96,11 +96,10 @@ public class FoodController implements SceneController {
             String usualFood = insteadOfMealBox.getValue().toString();
             int eatenCost = Integer.parseInt(costTaken.getText());
             int usualCost = Integer.parseInt(costInstead.getText());
-            String co2Saved = foodEmissionModel.compareFood(eatenFood,
+            int co2Saved = foodEmissionModel.compareFood(eatenFood,
                 usualFood, eatenCost, usualCost);
-            System.out.println("++++++++++++++++++++++++++++++" + co2Saved);
             try {
-                career = userCareerService.updateUserCareer(foodEmissionModel.getChangedCO2());
+                career = userCareerService.updateUserCareer(co2Saved);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return;
@@ -109,7 +108,6 @@ public class FoodController implements SceneController {
             fillAll.setVisible(false);
             total.setText(totalSaved);
             screens.submitMealDialog().showAndWait();
-
         }
     }
 
@@ -118,8 +116,8 @@ public class FoodController implements SceneController {
      */
     @FXML
     public void backToFood() {
-        // dialog.close();
-        // screens.activityScreen().show();
+        dialog.close();
+         screens.sampleDialog().show();
     }
 
 }
