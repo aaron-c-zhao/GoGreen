@@ -39,4 +39,7 @@ public class UserModel {
             User.class);
     }
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
 }
