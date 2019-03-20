@@ -1,5 +1,6 @@
 package gogreenclient.screens;
 
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.User;
@@ -26,7 +27,7 @@ public class CreateAccountController implements WindowController {
     @FXML
     JFXTextField nationality;
     @FXML
-    DatePicker bday;
+    JFXDatePicker bday;
     @FXML
     Label incorrect;
     @Autowired
