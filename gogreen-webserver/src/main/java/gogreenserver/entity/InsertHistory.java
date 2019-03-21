@@ -156,7 +156,7 @@ public class InsertHistory {
     }
 
     // Define toString
-    
+
     @Override
     public String toString() {
         return "InsertHistory{" +
