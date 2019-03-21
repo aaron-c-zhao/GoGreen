@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecordsService {
@@ -21,8 +22,8 @@ public class RecordsService {
         return recordsRepo.findAll();
     }
 
-    public Records findById(String userName){
+    public Optional<Records> findById(String userName){
         return recordsRepo.findById(userName);
     }
-    
+
 }
