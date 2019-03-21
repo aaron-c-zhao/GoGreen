@@ -83,5 +83,9 @@ public class UserCareerService {
         return finalCareer;
     }
 
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
 
 }

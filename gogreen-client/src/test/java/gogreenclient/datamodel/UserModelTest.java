@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -24,11 +25,9 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-@RestClientTest
 public class UserModelTest {
 
-    @Autowired
-    RestTemplate template;
+    private RestTemplate template = new RestTemplate();
     @Autowired
     private UserModel userModel;
     @Autowired
@@ -38,6 +37,7 @@ public class UserModelTest {
 
     @Before
     public void setUp() throws Exception {
+        userModel.setRestTemplate(template);
         userz = new User();
         userz.setUsername("Alin");
         userz.setPassword("alin");
@@ -54,9 +54,4 @@ public class UserModelTest {
         assertEquals(userz.getUsername(), userModel
             .addUser(userz.getUsername(), userz.getPassword(), null, null).getBody().getUsername());
     }
-
-//    @Test
-//    public void userLogin() throws Exception{
-//        assertTrue(userModel.login());
-//    }
 }
