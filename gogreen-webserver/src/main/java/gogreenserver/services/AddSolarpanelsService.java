@@ -19,7 +19,7 @@ public class AddSolarpanelsService {
     }
 
     public List<AddSolarpanels> findAll(){
-        addSolarpanelsRepo.findAll();
+       return addSolarpanelsRepo.findAll();
     }
 
     public AddSolarpanels createAddSolarpanels(AddSolarpanels addSolarpanels){
