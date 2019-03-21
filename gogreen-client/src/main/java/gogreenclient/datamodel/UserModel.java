@@ -11,10 +11,10 @@ public class UserModel {
 
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate loginRestTemplate;
 
     public void setRestTemplate(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+        this.loginRestTemplate = restTemplate;
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserModel {
         user.setPassword(password);
         user.setBdate(bdate);
         user.setNationality(nationality);
-        return restTemplate.postForEntity("https://localhost:8443/api/user", user,
+        return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser", user,
             User.class);
     }
 

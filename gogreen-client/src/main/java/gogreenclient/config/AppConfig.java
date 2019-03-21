@@ -119,8 +119,13 @@ public class AppConfig {
             .build();
         HttpComponentsClientHttpRequestFactory factory =
             new HttpComponentsClientHttpRequestFactory(httpClient);
-        RestTemplate restTemplate = restTemplateBuilder
-            .basicAuthentication(username, password).build();
+        RestTemplate restTemplate;
+        if (username != null && password != null) {
+            restTemplate = restTemplateBuilder
+                .basicAuthentication(username, password).build();
+        } else {
+            restTemplate = restTemplateBuilder.build();
+        }
         restTemplate.setRequestFactory(factory);
         return restTemplate;
     }
