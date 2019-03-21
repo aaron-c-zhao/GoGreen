@@ -38,7 +38,6 @@ public class UserController {
     public void login() {
     }
 
-    ;
 
     // This method returns a single user according to their UserName
     @GetMapping("/user/{user_name}")
