@@ -27,6 +27,7 @@ import java.io.FileInputStream;
 import java.security.KeyStore;
 
 
+
 /**
  * Configuration of all the client side spring elements, namely Beans. These Beans will be
  * instantiated in a lazy manner, because some of the fields needed to be initialized by

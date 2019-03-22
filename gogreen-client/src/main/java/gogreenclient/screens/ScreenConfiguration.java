@@ -75,6 +75,35 @@ public class ScreenConfiguration {
         return new ExitController(this);
     }
 
+    @Bean
+    public ConfirmDialog addFoodDialog() {
+        return new ConfirmDialog(addFoodController(), getClass()
+            .getResource("/views/Add_FoodActivity.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    public ConfirmDialog addTransportDialog() {
+        return new ConfirmDialog(addFoodController(), getClass()
+            .getResource("/views/Add_TransportActivity.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    public ConfirmDialog addRoomDialog() {
+        return new ConfirmDialog(addFoodController(), getClass()
+            .getResource("/views/Add_RoomHeating.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    public ConfirmDialog addSolarDialog() {
+        return new ConfirmDialog(addFoodController(), getClass()
+            .getResource("/views/Add_SolarPanel.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    AddFoodController addFoodController() {
+        return new AddFoodController(this);
+    }
+
     /**
      * A pop up submit window on which will show how much CO2 has been saved by a particular
      * activity of the user and how much CO2 has been saved in total by that user.
@@ -111,6 +140,30 @@ public class ScreenConfiguration {
     @Scope("prototype")
     SampleController sampleController() {
         return new SampleController(this);
+    }
+
+    @Scope("prototype")
+    public FxmlWindow startDialog() {
+        return new FxmlWindow(startController(), getClass()
+            .getResource("/views/StartView_Alt.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    @Scope("prototype")
+    StartController startController() {
+        return new StartController(this);
+    }
+
+    @Scope("prototype")
+    public FxmlWindow achievementsDialog() {
+        return new FxmlWindow(achieveController(), getClass()
+            .getResource("/views/Achievements.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    @Scope("prototype")
+    AchievementsController achieveController() {
+        return new AchievementsController(this);
     }
 
     @Bean
