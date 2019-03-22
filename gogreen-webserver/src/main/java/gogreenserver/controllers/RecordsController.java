@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +28,7 @@ public class RecordsController {
     }
 
     @GetMapping(value = "/record/{user_Name}")
-    public Records findById(@PathVariable("user_Name") String userName){
-        this.recordsService.findById(userName);
+    public Optional<Records> findById(@PathVariable("user_Name") String userName){
+       return this.recordsService.findById(userName);
     }
 }
