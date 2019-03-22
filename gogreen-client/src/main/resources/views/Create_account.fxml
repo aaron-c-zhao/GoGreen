@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -17,10 +17,10 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
             prefHeight="644.0" prefWidth="480.0"
-            style="-fx-background-image: url('static/login_background.png');" xmlns="http://javafx.com/javafx/8"
+            style="-fx-background-image: url('static/login_background.png');" xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="gogreenclient.screens.CreateAccountController">
     <children>
-        <ImageView fitHeight="650.0" fitWidth="895.0" layoutX="-175.0" layoutY="-3.0">
+        <ImageView fitHeight="650.0" fitWidth="658.0" layoutX="-175.0" layoutY="-3.0">
             <image>
                 <Image url="@../static/login_background.png"/>
             </image>
@@ -78,15 +78,15 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="0.0" prefWidth="18.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="39.0" minHeight="9.0" prefHeight="24.0" vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES"/>
-                        <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="36.2" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="9.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="36.2" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="36.2" vgrow="SOMETIMES"/>
                         <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="36.2" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="36.2" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
                         <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="25.0" prefWidth="174.0"
@@ -128,7 +128,8 @@
                         <JFXTextField fx:id="nationality" focusColor="#fbfcff" prefHeight="25.0" prefWidth="204.0"
                                       promptText="nationality" unFocusColor="SEAGREEN" GridPane.columnIndex="2"
                                       GridPane.rowIndex="8"/>
-                        <DatePicker fx:id="bday" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+                        <JFXDatePicker fx:id="bday" defaultColor="SEAGREEN" prefHeight="28.0" prefWidth="206.0"
+                                       GridPane.columnIndex="2" GridPane.rowIndex="6"/>
                     </children>
                 </GridPane>
                 <Label fx:id="incorrect" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="377.0"

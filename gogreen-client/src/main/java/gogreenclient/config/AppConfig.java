@@ -27,6 +27,7 @@ import java.security.KeyStore;
 import javax.net.ssl.SSLContext;
 
 
+
 /**
  * Configuration of all the client side spring elements, namely Beans. These Beans will be
  * instantiated in a lazy manner, because some of the fields needed to be initialized by

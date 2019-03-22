@@ -24,6 +24,6 @@ public class GoGreenApplication extends Application {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ScreenConfiguration screens = context.getBean(ScreenConfiguration.class);
         screens.setPrimaryStage(stage);
-        screens.loginDialog().show();
+        screens.startDialog().show();
     }
 }
