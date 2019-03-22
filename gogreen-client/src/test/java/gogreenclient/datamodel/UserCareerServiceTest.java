@@ -5,7 +5,6 @@ import gogreenclient.config.AppConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -13,15 +12,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.test.web.client.ResponseCreator;
 import org.springframework.web.client.RestTemplate;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -55,7 +57,7 @@ public class UserCareerServiceTest {
     }
 
     @Test
-    public void getCareer_NewUser() throws Exception{
+    public void getCareer_NewUser() throws Exception {
         UserCareerService spyService = spy(UserCareerService.class);
         spyService.setRestTemplate(template);
         UserCareer im_null = null;
@@ -70,7 +72,7 @@ public class UserCareerServiceTest {
     }
 
     @Test()
-    public void getCareerBadRequest() throws Exception{
+    public void getCareerBadRequest() throws Exception {
         UserCareerService spyService = spy(UserCareerService.class);
         spyService.setRestTemplate(template);
         UserCareer im_null = null;
@@ -81,7 +83,7 @@ public class UserCareerServiceTest {
         doReturn(new ResponseEntity<>(newOne, HttpStatus.BAD_REQUEST)).when(spyService).createUserCareer();
         setUp_Get(server, uri + "/" + "Aladdin", null_json);
         boolean thrown = false;
-        try{
+        try {
             spyService.getCareer();
             fail();
         } catch (Exception e) {
@@ -91,7 +93,7 @@ public class UserCareerServiceTest {
     }
 
     @Test
-    public void createUserCareer() throws Exception{
+    public void createUserCareer() throws Exception {
         service.setUsername("Gregor");
         UserCareer career = new UserCareer();
         career.setUsername("Gregor");
@@ -102,7 +104,7 @@ public class UserCareerServiceTest {
     }
 
     @Test
-    public void updateUserCareer() throws Exception{
+    public void updateUserCareer() throws Exception {
         UserCareerService spyService = spy(UserCareerService.class);
         spyService.setRestTemplate(template);
         UserCareer userCareer = new UserCareer();
@@ -118,7 +120,7 @@ public class UserCareerServiceTest {
     }
 
     @Test
-    public void updateUserCareer_BadRequest() throws Exception{
+    public void updateUserCareer_BadRequest() throws Exception {
         UserCareerService spyService = spy(UserCareerService.class);
         spyService.setRestTemplate(template);
         UserCareer userCareer = new UserCareer();
@@ -130,9 +132,9 @@ public class UserCareerServiceTest {
         String updatedJson = objectMapper.writeValueAsString(updated);
         doReturn(userCareer).when(spyService).getCareer();
         server.expect(requestTo(uri + "update"))
-                .andExpect(method(HttpMethod.POST))
-                .andExpect(content().string(updatedJson))
-                .andRespond(withStatus(HttpStatus.BAD_REQUEST));
+            .andExpect(method(HttpMethod.POST))
+            .andExpect(content().string(updatedJson))
+            .andRespond(withStatus(HttpStatus.BAD_REQUEST));
         boolean error = false;
         try {
             spyService.updateUserCareer(5);
@@ -145,15 +147,15 @@ public class UserCareerServiceTest {
     public void setUp_Post(MockRestServiceServer server, String uri, String content, String json) throws Exception {
         server.reset();
         server.expect(requestTo(uri))
-                .andExpect(method(HttpMethod.POST))
-                .andExpect(content().string(content))
-                .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
+            .andExpect(method(HttpMethod.POST))
+            .andExpect(content().string(content))
+            .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
     }
 
-    public  void setUp_Get(MockRestServiceServer server, String uri, String json) throws Exception {
+    public void setUp_Get(MockRestServiceServer server, String uri, String json) throws Exception {
         server.reset();
         server.expect(requestTo(uri))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
     }
 }

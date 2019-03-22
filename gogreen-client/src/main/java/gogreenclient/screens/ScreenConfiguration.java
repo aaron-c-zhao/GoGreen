@@ -78,23 +78,25 @@ public class ScreenConfiguration {
     @Bean
     public ConfirmDialog addFoodDialog() {
         return new ConfirmDialog(addFoodController(), getClass()
-                .getResource("/views/Add_FoodActivity.fxml"), primaryStage, StageStyle.DECORATED);
+            .getResource("/views/Add_FoodActivity.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
     public ConfirmDialog addTransportDialog() {
         return new ConfirmDialog(addFoodController(), getClass()
-                .getResource("/views/Add_TransportActivity.fxml"), primaryStage, StageStyle.DECORATED);
+            .getResource("/views/Add_TransportActivity.fxml"), primaryStage, StageStyle.DECORATED);
     }
+
     @Bean
     public ConfirmDialog addRoomDialog() {
         return new ConfirmDialog(addFoodController(), getClass()
-                .getResource("/views/Add_RoomHeating.fxml"), primaryStage, StageStyle.DECORATED);
+            .getResource("/views/Add_RoomHeating.fxml"), primaryStage, StageStyle.DECORATED);
     }
+
     @Bean
     public ConfirmDialog addSolarDialog() {
         return new ConfirmDialog(addFoodController(), getClass()
-                .getResource("/views/Add_SolarPanel.fxml"), primaryStage, StageStyle.DECORATED);
+            .getResource("/views/Add_SolarPanel.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
@@ -143,7 +145,7 @@ public class ScreenConfiguration {
     @Scope("prototype")
     public FxmlWindow startDialog() {
         return new FxmlWindow(startController(), getClass()
-                .getResource("/views/StartView_Alt.fxml"), primaryStage, StageStyle.DECORATED);
+            .getResource("/views/StartView_Alt.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
@@ -155,7 +157,7 @@ public class ScreenConfiguration {
     @Scope("prototype")
     public FxmlWindow achievementsDialog() {
         return new FxmlWindow(achieveController(), getClass()
-                .getResource("/views/Achievements.fxml"), primaryStage, StageStyle.DECORATED);
+            .getResource("/views/Achievements.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean

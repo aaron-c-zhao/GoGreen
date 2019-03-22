@@ -12,9 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
@@ -32,7 +35,7 @@ public class FoodEmissionModelTest {
     private FoodEmission yummy_and_healthy = new FoodEmission();
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         template = new RestTemplate();
         uri = "https://localhost:8443/api/foodEmission";
         model.setRestTemplate(template);
@@ -43,9 +46,9 @@ public class FoodEmissionModelTest {
         yummy.setFood(food);
         String yummy_json = objectMapper.writeValueAsString(yummy);
         server.expect(requestTo(uri))
-                .andExpect(method(HttpMethod.POST))
-                .andExpect(content().string(food))
-                .andRespond(withSuccess(yummy_json, MediaType.APPLICATION_JSON));
+            .andExpect(method(HttpMethod.POST))
+            .andExpect(content().string(food))
+            .andRespond(withSuccess(yummy_json, MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -61,16 +64,16 @@ public class FoodEmissionModelTest {
     }
 
     @Test
-    public void compareFood_saved() throws  Exception{
-        assertEquals(5 , setUp(5, 10));
+    public void compareFood_saved() throws Exception {
+        assertEquals(5, setUp(5, 10));
     }
 
     @Test
-    public void compareFood_lost() throws Exception{
+    public void compareFood_lost() throws Exception {
         assertEquals(-5, setUp(10, 5));
     }
 
-    public int setUp(int f1, int f2) throws Exception{
+    public int setUp(int f1, int f2) throws Exception {
         yum.setFood("apple");
         yum.setEmission(f1);
         String yum_json = objectMapper.writeValueAsString(yum);
@@ -86,14 +89,14 @@ public class FoodEmissionModelTest {
 
     public void setUp_Post(MockRestServiceServer server, String uri, String content, String json) throws Exception {
         server.expect(requestTo(uri))
-                .andExpect(method(HttpMethod.POST))
-                .andExpect(content().string(content))
-                .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
+            .andExpect(method(HttpMethod.POST))
+            .andExpect(content().string(content))
+            .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
     }
 
-    public  void setUp_Get(MockRestServiceServer server, String uri, String json) throws Exception {
+    public void setUp_Get(MockRestServiceServer server, String uri, String json) throws Exception {
         server.expect(requestTo(uri))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
     }
 }

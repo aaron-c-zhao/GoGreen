@@ -23,22 +23,27 @@ public class AddFoodController implements ConfirmDialogController {
     public void no() {
 
     }
-    public void switchFood(){
+
+    public void switchFood() {
         dialog.close();
         screens.addFoodDialog().show();
     }
-    public void switchTransport(){
+
+    public void switchTransport() {
         dialog.close();
         screens.addTransportDialog().show();
     }
-    public void switchRoom(){
+
+    public void switchRoom() {
         dialog.close();
         screens.addRoomDialog().show();
     }
-    public void switchSolar(){
+
+    public void switchSolar() {
         dialog.close();
         screens.addSolarDialog().show();
     }
+
     @Override
     public void setWindow(Windows dialog) {
         this.dialog = dialog;

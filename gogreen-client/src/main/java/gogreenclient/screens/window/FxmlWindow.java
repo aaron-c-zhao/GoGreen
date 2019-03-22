@@ -45,7 +45,7 @@ public class FxmlWindow extends gogreenclient.screens.window.Windows {
                 }
             });
             controller.setWindow(this);
-            Scene scene=new Scene((Parent) loader.load());
+            Scene scene = new Scene((Parent) loader.load());
             scene.getStylesheets().add("/static/hover.css");
             setScene(scene);
         } catch (IOException e) {
