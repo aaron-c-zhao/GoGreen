@@ -37,24 +37,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager();
+        return authenticationManager(); //use default auth manager
     }
 
 
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        //set the user to use bcrypt password encoding.
         auth.userDetailsService(userDetailsService).passwordEncoder(bcryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            .csrf().disable() //disable any crosssite scripting
             .authorizeRequests()
-            .antMatchers("/api/createUser").permitAll()
-            .anyRequest().authenticated()
+            .antMatchers("/api/createUser").permitAll() //disable auth on api/createUser
+            .anyRequest().authenticated() //but enable on everything else
             .and()
-            .httpBasic()
-            .authenticationEntryPoint(restAuthenticationEntryPoint);
+            .httpBasic() //when using http built in auth
+            .authenticationEntryPoint(restAuthenticationEntryPoint); //always 401
     }
 }
