@@ -21,19 +21,21 @@ public class AddSolarpanelsController {
     private AddSolarpanelsService addSolarpanelsService;
 
     @Autowired
-    public AddSolarpanelsController(AddSolarpanelsService addSolarpanelsService){
+    public AddSolarpanelsController(AddSolarpanelsService addSolarpanelsService) {
         this.addSolarpanelsService = addSolarpanelsService;
     }
 
     @GetMapping(value = "/addSolarpanels")
-    public List<AddSolarpanels> findAll(){
+    public List<AddSolarpanels> findAll() {
         return this.addSolarpanelsService.findAll();
     }
 
     @PostMapping(value = "/addSolarpanel")
-    public ResponseEntity<String> createSolarpanel(@RequestHeader(value = "userName") String userName, @RequestBody AddSolarpanels addSolarpanels){
+    public ResponseEntity<String> createSolarpanel(@RequestHeader(value = "userName") String userName,
+                                                   @RequestBody AddSolarpanels addSolarpanels) {
         addSolarpanels.setUserName(userName);
         this.addSolarpanelsService.createAddSolarpanels(addSolarpanels);
-        return new ResponseEntity<String>("Successfully saved solarpanel entry for user :"+userName, HttpStatus.OK);
+        return new ResponseEntity<String>("Successfully saved solarpanel entry for user :" + userName,
+            HttpStatus.OK);
     }
 }

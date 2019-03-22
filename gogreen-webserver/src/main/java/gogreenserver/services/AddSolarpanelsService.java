@@ -14,19 +14,19 @@ public class AddSolarpanelsService {
     private AddSolarpanelsRepository addSolarpanelsRepo;
 
     @Autowired
-    public AddSolarpanelsService(AddSolarpanelsRepository addSolarpanelsRepo){
+    public AddSolarpanelsService(AddSolarpanelsRepository addSolarpanelsRepo) {
         this.addSolarpanelsRepo = addSolarpanelsRepo;
     }
 
-    public List<AddSolarpanels> findAll(){
-       return addSolarpanelsRepo.findAll();
+    public List<AddSolarpanels> findAll() {
+        return addSolarpanelsRepo.findAll();
     }
 
-    public AddSolarpanels createAddSolarpanels(AddSolarpanels addSolarpanels){
+    public AddSolarpanels createAddSolarpanels(AddSolarpanels addSolarpanels) {
         return addSolarpanelsRepo.save(addSolarpanels);
     }
 
-    public Optional<AddSolarpanels> findById(String userName){
+    public Optional<AddSolarpanels> findById(String userName) {
         return addSolarpanelsRepo.findById(userName);
     }
 

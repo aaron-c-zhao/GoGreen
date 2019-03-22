@@ -14,15 +14,15 @@ public class RecordsService {
     private RecordsRepository recordsRepo;
 
     @Autowired
-    public RecordsService(RecordsRepository recordsRepo){
+    public RecordsService(RecordsRepository recordsRepo) {
         this.recordsRepo = recordsRepo;
     }
 
-    public List<Records> findAll(){
+    public List<Records> findAll() {
         return recordsRepo.findAll();
     }
 
-    public Optional<Records> findById(String userName){
+    public Optional<Records> findById(String userName) {
         return recordsRepo.findById(userName);
     }
 

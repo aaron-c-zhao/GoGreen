@@ -1,10 +1,11 @@
 package gogreenserver.entity;
 
-import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
@@ -18,23 +19,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "firstname", nullable = true)
-    private String firstName;
-
     @Column(name = "email", nullable = true)
     private String email;
-
-    @Column(name = "lastname", nullable = true)
-    private String lastName;
 
     @Column(name = "bdate")
     private LocalDate bdate;
 
     @Column(name = "date_created", nullable = true)
-    private LocalDate dateCreated;
+    private Date dateCreated;
 
-    @Column(name = "nationality")
-    private String nationality;
 
     // define constructors 
     public User() {

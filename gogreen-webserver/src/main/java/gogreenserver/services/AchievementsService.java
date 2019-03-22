@@ -14,16 +14,16 @@ public class AchievementsService {
     private AchievementsRepository achievementsRepo;
 
     @Autowired
-    public AchievementsService(AchievementsRepository achievementsRepository){
+    public AchievementsService(AchievementsRepository achievementsRepository) {
         this.achievementsRepo = achievementsRepository;
     }
 
-    public List<Achievements> findAll(){
+    public List<Achievements> findAll() {
         return achievementsRepo.findAll();
     }
 
-    public Optional<Achievements> findById(String userName){
-       return achievementsRepo.findById(userName);
+    public Optional<Achievements> findById(String userName) {
+        return achievementsRepo.findById(userName);
     }
 
     // Yet have to add method to find Friends Achievements.

@@ -139,18 +139,18 @@ public class InsertHistory {
 
     @Override
     public String toString() {
-        return "InsertHistory{" +
-            "userName='" + userName + '\'' +
-            ", activityName='" + activityName + '\'' +
-            ", activityPrice=" + activityPrice +
-            ", alternateActivity='" + alternateActivity + '\'' +
-            ", alternateActivityPrice=" + alternateActivityPrice +
-            ", activityIsLocalproduce=" + activityIsLocalproduce +
-            ", alternateActivityIsLocalproduce=" + alternateActivityIsLocalproduce +
-            ", transportDistanceKm=" + transportDistanceKm +
-            ", energyActivityDurationMinutes=" + energyActivityDurationMinutes +
-            ", energyActivityTempAreaM2=" + energyActivityTempAreaM2 +
-            ", energyActivityTempDegreesDecreased=" + energyActivityTempDegreesDecreased +
-            '}';
+        return "InsertHistory{"
+            + "userName='" + userName + '\''
+            + ", activityName='" + activityName + '\''
+            + ", activityPrice=" + activityPrice
+            + ", alternateActivity='" + alternateActivity + '\''
+            + ", alternateActivityPrice=" + alternateActivityPrice
+            + ", activityIsLocalproduce=" + activityIsLocalproduce
+            + ", alternateActivityIsLocalproduce=" + alternateActivityIsLocalproduce
+            + ", transportDistanceKm=" + transportDistanceKm
+            + ", energyActivityDurationMinutes=" + energyActivityDurationMinutes
+            + ", energyActivityTempAreaM2=" + energyActivityTempAreaM2
+            + ", energyActivityTempDegreesDecreased=" + energyActivityTempDegreesDecreased
+            + '}';
     }
 }

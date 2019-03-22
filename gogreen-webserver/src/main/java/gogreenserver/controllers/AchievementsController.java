@@ -18,17 +18,17 @@ public class AchievementsController {
     private AchievementsService achievementsService;
 
     @Autowired
-    public AchievementsController(AchievementsService achievementsService){
+    public AchievementsController(AchievementsService achievementsService) {
         this.achievementsService = achievementsService;
     }
 
     @GetMapping(value = "/achievements")
-    public List<Achievements> findAll(){
+    public List<Achievements> findAll() {
         return this.achievementsService.findAll();
     }
 
     @GetMapping(value = "/achievement/{user_name}")
-    public Optional<Achievements> findById(@PathVariable("user_name") String userName){
+    public Optional<Achievements> findById(@PathVariable("user_name") String userName) {
         return this.achievementsService.findById(userName);
     }
 }

@@ -18,17 +18,17 @@ public class RecordsController {
     private RecordsService recordsService;
 
     @Autowired
-    public RecordsController(RecordsService recordsService){
+    public RecordsController(RecordsService recordsService) {
         this.recordsService = recordsService;
     }
 
     @GetMapping(value = "/records")
-    public List<Records> findAll(){
+    public List<Records> findAll() {
         return this.recordsService.findAll();
     }
 
     @GetMapping(value = "/record/{user_Name}")
-    public Optional<Records> findById(@PathVariable("user_Name") String userName){
-       return this.recordsService.findById(userName);
+    public Optional<Records> findById(@PathVariable("user_Name") String userName) {
+        return this.recordsService.findById(userName);
     }
 }

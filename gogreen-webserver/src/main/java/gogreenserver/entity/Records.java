@@ -158,20 +158,20 @@ public class Records {
     // Define toString
     @Override
     public String toString() {
-        return "Records{" +
-            "userName='" + userName + '\'' +
-            ", kwhProducedSolarpanels=" + kwhProducedSolarpanels +
-            ", savedKwhEnergy=" + savedKwhEnergy +
-            ", savedCo2Solarpanels=" + savedCo2Solarpanels +
-            ", savedCo2Food=" + savedCo2Food +
-            ", savedCo2Energy=" + savedCo2Energy +
-            ", savedCo2Transport=" + savedCo2Transport +
-            ", savedCo2Total=" + savedCo2Total +
-            ", savedPriceFood=" + savedPriceFood +
-            ", savedPriceSolarpanels=" + savedPriceSolarpanels +
-            ", savedPriceTransport=" + savedPriceTransport +
-            ", savedPriceEnergy=" + savedPriceEnergy +
-            ", savedPriceTotal=" + savedPriceTotal +
-            '}';
+        return "Records{"
+            + "userName='" + userName + '\''
+            + ", kwhProducedSolarpanels=" + kwhProducedSolarpanels
+            + ", savedKwhEnergy=" + savedKwhEnergy
+            + ", savedCo2Solarpanels=" + savedCo2Solarpanels
+            + ", savedCo2Food=" + savedCo2Food
+            + ", savedCo2Energy=" + savedCo2Energy
+            + ", savedCo2Transport=" + savedCo2Transport
+            + ", savedCo2Total=" + savedCo2Total
+            + ", savedPriceFood=" + savedPriceFood
+            + ", savedPriceSolarpanels=" + savedPriceSolarpanels
+            + ", savedPriceTransport=" + savedPriceTransport
+            + ", savedPriceEnergy=" + savedPriceEnergy
+            + ", savedPriceTotal=" + savedPriceTotal
+            + '}';
     }
 }

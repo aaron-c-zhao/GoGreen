@@ -1,10 +1,10 @@
 package gogreenserver.entity;
 
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "add_solarpanels")
@@ -22,7 +22,7 @@ public class AddSolarpanels {
     private LocalDate date;
 
     @Column(name = "panel_id", nullable = true)
-    private  int panelId;
+    private int panelId;
 
     @Column(name = "produced_kwh", nullable = true)
     private Float producedKwh;
@@ -73,12 +73,12 @@ public class AddSolarpanels {
 
     @Override
     public String toString() {
-        return "AddSolarpanels{" +
-            "userName='" + userName + '\'' +
-            ", area=" + area +
-            ", date=" + date +
-            ", panelId=" + panelId +
-            ", producedKwh=" + producedKwh +
-            '}';
+        return "AddSolarpanels{"
+            + "userName='" + userName + '\''
+            + ", area=" + area
+            + ", date=" + date
+            + ", panelId=" + panelId
+            + ", producedKwh=" + producedKwh
+            + '}';
     }
 }

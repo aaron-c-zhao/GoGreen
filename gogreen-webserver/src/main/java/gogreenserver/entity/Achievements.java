@@ -18,28 +18,28 @@ public class Achievements {
     private Float level;
 
     @Column(name = "tree_hugger")
-    private Boolean tree_hugger;
+    private Boolean treeHugger;
 
     @Column(name = "anarcho_primitivist")
-    private Boolean anarcho_primitivist;
+    private Boolean anarchoPrimitivist;
 
     @Column(name = "celebi")
     private Boolean celebi;
 
     @Column(name = "stop_cheating")
-    private Boolean stop_cheating;
+    private Boolean stopCheating;
 
     @Column(name = "sun_absorber")
-    private Boolean sun_absorber;
+    private Boolean sunAbsorber;
 
     @Column(name = "power_plant")
-    private Boolean power_plant;
+    private Boolean powerPlant;
 
     @Column(name = "3_years_ago")
-    private Boolean three_years_ago;
+    private Boolean threeYearsAgo;
 
     @Column(name = "time_traveler")
-    private Boolean time_traveler;
+    private Boolean timeTraveler;
 
     @Column(name = "vegetarian")
     private Boolean vegetarian;
@@ -51,28 +51,28 @@ public class Achievements {
     private Boolean photosynthesizer;
 
     @Column(name = "please_eat")
-    private Boolean please_eat;
+    private Boolean pleaseEat;
 
     @Column(name = "dutch")
     private Boolean dutch;
 
     @Column(name = "nice_legs")
-    private Boolean nice_legs;
+    private Boolean niceLegs;
 
     @Column(name = "teleporter")
     private Boolean teleporter;
 
     @Column(name = "never_skip_leg_day")
-    private Boolean never_skip_leg_day;
+    private Boolean neverSkipLegDay;
 
     @Column(name = "fat_wallet")
-    private Boolean fat_wallet;
+    private Boolean fatWallet;
 
     @Column(name = "retirement_fund")
-    private Boolean retirement_fund;
+    private Boolean retirementFund;
 
     @Column(name = "just_buy_something")
-    private Boolean just_buy_something;
+    private Boolean justBuySomething;
 
     @Column(name = "nokwg29")
     private Boolean nokwg29;
@@ -95,20 +95,20 @@ public class Achievements {
         this.level = level;
     }
 
-    public Boolean getTree_hugger() {
-        return tree_hugger;
+    public Boolean getTreeHugger() {
+        return treeHugger;
     }
 
-    public void setTree_hugger(Boolean tree_hugger) {
-        this.tree_hugger = tree_hugger;
+    public void setTreeHugger(Boolean treeHugger) {
+        this.treeHugger = treeHugger;
     }
 
-    public Boolean getAnarcho_primitivist() {
-        return anarcho_primitivist;
+    public Boolean getAnarchoPrimitivist() {
+        return anarchoPrimitivist;
     }
 
-    public void setAnarcho_primitivist(Boolean anarcho_primitivist) {
-        this.anarcho_primitivist = anarcho_primitivist;
+    public void setAnarchoPrimitivist(Boolean anarchoPrimitivist) {
+        this.anarchoPrimitivist = anarchoPrimitivist;
     }
 
     public Boolean getCelebi() {
@@ -119,44 +119,44 @@ public class Achievements {
         this.celebi = celebi;
     }
 
-    public Boolean getStop_cheating() {
-        return stop_cheating;
+    public Boolean getStopCheating() {
+        return stopCheating;
     }
 
-    public void setStop_cheating(Boolean stop_cheating) {
-        this.stop_cheating = stop_cheating;
+    public void setStopCheating(Boolean stopCheating) {
+        this.stopCheating = stopCheating;
     }
 
-    public Boolean getSun_absorber() {
-        return sun_absorber;
+    public Boolean getSunAbsorber() {
+        return sunAbsorber;
     }
 
-    public void setSun_absorber(Boolean sun_absorber) {
-        this.sun_absorber = sun_absorber;
+    public void setSunAbsorber(Boolean sunAbsorber) {
+        this.sunAbsorber = sunAbsorber;
     }
 
-    public Boolean getPower_plant() {
-        return power_plant;
+    public Boolean getPowerPlant() {
+        return powerPlant;
     }
 
-    public void setPower_plant(Boolean power_plant) {
-        this.power_plant = power_plant;
+    public void setPowerPlant(Boolean powerPlant) {
+        this.powerPlant = powerPlant;
     }
 
-    public Boolean getThree_years_ago() {
-        return three_years_ago;
+    public Boolean getThreeYearsAgo() {
+        return threeYearsAgo;
     }
 
-    public void setThree_years_ago(Boolean three_years_ago) {
-        this.three_years_ago = three_years_ago;
+    public void setThreeYearsAgo(Boolean threeYearsAgo) {
+        this.threeYearsAgo = threeYearsAgo;
     }
 
-    public Boolean getTime_traveler() {
-        return time_traveler;
+    public Boolean getTimeTraveler() {
+        return timeTraveler;
     }
 
-    public void setTime_traveler(Boolean time_traveler) {
-        this.time_traveler = time_traveler;
+    public void setTimeTraveler(Boolean timeTraveler) {
+        this.timeTraveler = timeTraveler;
     }
 
     public Boolean getVegetarian() {
@@ -183,12 +183,12 @@ public class Achievements {
         this.photosynthesizer = photosynthesizer;
     }
 
-    public Boolean getPlease_eat() {
-        return please_eat;
+    public Boolean getPleaseEat() {
+        return pleaseEat;
     }
 
-    public void setPlease_eat(Boolean please_eat) {
-        this.please_eat = please_eat;
+    public void setPleaseEat(Boolean pleaseEat) {
+        this.pleaseEat = pleaseEat;
     }
 
     public Boolean getDutch() {
@@ -199,12 +199,12 @@ public class Achievements {
         this.dutch = dutch;
     }
 
-    public Boolean getNice_legs() {
-        return nice_legs;
+    public Boolean getNiceLegs() {
+        return niceLegs;
     }
 
-    public void setNice_legs(Boolean nice_legs) {
-        this.nice_legs = nice_legs;
+    public void setNiceLegs(Boolean niceLegs) {
+        this.niceLegs = niceLegs;
     }
 
     public Boolean getTeleporter() {
@@ -215,36 +215,36 @@ public class Achievements {
         this.teleporter = teleporter;
     }
 
-    public Boolean getNever_skip_leg_day() {
-        return never_skip_leg_day;
+    public Boolean getNeverSkipLegDay() {
+        return neverSkipLegDay;
     }
 
-    public void setNever_skip_leg_day(Boolean never_skip_leg_day) {
-        this.never_skip_leg_day = never_skip_leg_day;
+    public void setNeverSkipLegDay(Boolean neverSkipLegDay) {
+        this.neverSkipLegDay = neverSkipLegDay;
     }
 
-    public Boolean getFat_wallet() {
-        return fat_wallet;
+    public Boolean getFatWallet() {
+        return fatWallet;
     }
 
-    public void setFat_wallet(Boolean fat_wallet) {
-        this.fat_wallet = fat_wallet;
+    public void setFatWallet(Boolean fatWallet) {
+        this.fatWallet = fatWallet;
     }
 
-    public Boolean getRetirement_fund() {
-        return retirement_fund;
+    public Boolean getRetirementFund() {
+        return retirementFund;
     }
 
-    public void setRetirement_fund(Boolean retirement_fund) {
-        this.retirement_fund = retirement_fund;
+    public void setRetirementFund(Boolean retirementFund) {
+        this.retirementFund = retirementFund;
     }
 
-    public Boolean getJust_buy_something() {
-        return just_buy_something;
+    public Boolean getJustBuySomething() {
+        return justBuySomething;
     }
 
-    public void setJust_buy_something(Boolean just_buy_something) {
-        this.just_buy_something = just_buy_something;
+    public void setJustBuySomething(Boolean justBuySomething) {
+        this.justBuySomething = justBuySomething;
     }
 
     public Boolean getNokwg29() {
@@ -258,29 +258,29 @@ public class Achievements {
     // Define toString
     @Override
     public String toString() {
-        return "Achievements{" +
-            "userName='" + userName + '\'' +
-            ", level=" + level +
-            ", tree_hugger=" + tree_hugger +
-            ", anarcho_primitivist=" + anarcho_primitivist +
-            ", celebi=" + celebi +
-            ", stop_cheating=" + stop_cheating +
-            ", sun_absorber=" + sun_absorber +
-            ", power_plant=" + power_plant +
-            ", three_years_ago=" + three_years_ago +
-            ", time_traveler=" + time_traveler +
-            ", vegetarian=" + vegetarian +
-            ", vegan=" + vegan +
-            ", photosynthesizer=" + photosynthesizer +
-            ", please_eat=" + please_eat +
-            ", dutch=" + dutch +
-            ", nice_legs=" + nice_legs +
-            ", teleporter=" + teleporter +
-            ", never_skip_leg_day=" + never_skip_leg_day +
-            ", fat_wallet=" + fat_wallet +
-            ", retirement_fund=" + retirement_fund +
-            ", just_buy_something=" + just_buy_something +
-            ", nokwg29=" + nokwg29 +
-            '}';
+        return "Achievements{"
+            + "userName='" + userName + '\''
+            + ", level=" + level
+            + ", tree_hugger=" + treeHugger
+            + ", anarcho_primitivist=" + anarchoPrimitivist
+            + ", celebi=" + celebi
+            + ", stop_cheating=" + stopCheating
+            + ", sun_absorber=" + sunAbsorber
+            + ", power_plant=" + powerPlant
+            + ", three_years_ago=" + threeYearsAgo
+            + ", time_traveler=" + timeTraveler
+            + ", vegetarian=" + vegetarian
+            + ", vegan=" + vegan
+            + ", photosynthesizer=" + photosynthesizer
+            + ", please_eat=" + pleaseEat
+            + ", dutch=" + dutch
+            + ", nice_legs=" + niceLegs
+            + ", teleporter=" + teleporter
+            + ", never_skip_leg_day=" + neverSkipLegDay
+            + ", fat_wallet=" + fatWallet
+            + ", retirement_fund=" + retirementFund
+            + ", just_buy_something=" + justBuySomething
+            + ", nokwg29=" + nokwg29
+            + '}';
     }
 }
