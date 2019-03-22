@@ -31,8 +31,8 @@ public class InsertHistoryController {
         return insertHistoryService.findAll();
     }
 
-    @GetMapping(value = "/insertHistory/{userName}")
-    public List<InsertHistory> findAllById(@PathVariable("userName") String userName){
+    @GetMapping(value = "/insertHistory/{user_Name}")
+    public List<InsertHistory> findAllById(@PathVariable("user_Name") String userName){
         return this.insertHistoryService.findAllById(userName);
     }
 
