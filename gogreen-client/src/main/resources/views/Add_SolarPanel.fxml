@@ -53,7 +53,7 @@
                         <FontIcon iconColor="#eaeaea" iconLiteral="far-sun" iconSize="24" strokeMiterLimit="15.0" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton graphicTextGap="0.0" prefHeight="67.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Adjust a room temperature" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <JFXButton graphicTextGap="0.0" onAction="#switchRoom" prefHeight="67.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Adjust a room temperature" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Segoe UI Light" size="18.0" />
                      </font>

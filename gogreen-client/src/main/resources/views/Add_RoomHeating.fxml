@@ -46,7 +46,7 @@
                         <FontIcon iconColor="#eaeaea" iconLiteral="fas-bicycle" iconSize="24" strokeMiterLimit="15.0" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton graphicTextGap="12.0" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Adding a solar panels" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Adding a solar panels" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Segoe UI Light" size="18.0" />
                      </font>
