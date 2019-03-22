@@ -20,9 +20,6 @@ import java.net.URL;
  */
 public class FxmlWindow extends gogreenclient.screens.window.Windows {
 
-    @Autowired
-    private ScreenConfiguration screens;
-
     /**
      * The model of all the stages that will load a fxml file and will not change it's
      * scene or root of the scene.
@@ -45,16 +42,12 @@ public class FxmlWindow extends gogreenclient.screens.window.Windows {
                 }
             });
             controller.setWindow(this);
-            Scene scene = new Scene((Parent) loader.load());
+            Scene scene = new Scene(loader.load());
             scene.getStylesheets().add("/static/hover.css");
             setScene(scene);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        setOnCloseRequest(e -> {
-            e.consume();
-            screens.exitDialog().showAndWait();
-        });
     }
 
 }

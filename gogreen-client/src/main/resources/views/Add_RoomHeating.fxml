@@ -15,7 +15,7 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity"
       prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="gogreenclient.screens.AddFoodController">
+      fx:controller="gogreenclient.screens.AddRoomController">
     <children>
         <AnchorPane prefHeight="444.0" prefWidth="182.0" style="-fx-background-color: #00AB66;" HBox.hgrow="NEVER">
             <children>

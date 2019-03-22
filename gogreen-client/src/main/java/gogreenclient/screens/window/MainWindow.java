@@ -18,14 +18,22 @@ public class MainWindow extends gogreenclient.screens.window.Windows {
      * @param owner      the stage owner.
      * @param style      the stage style.
      */
-    public MainWindow(final WindowController controller, Window owner, StageStyle style) {
+    public MainWindow(final WindowController controller, Window owner,
+                      StageStyle style, boolean popup) {
         super(style);
         initOwner(owner);
         initModality(Modality.WINDOW_MODAL);
         controller.setWindow(this);
-        setOnCloseRequest(e -> {
-            e.consume();
-            screens.exitDialog().showAndWait();
-        });
+        if (popup) {
+            setOnCloseRequest(e -> {
+                e.consume();
+                close();
+            });
+        } else {
+            setOnCloseRequest(e -> {
+                e.consume();
+                screens.exitDialog().showAndWait();
+            });
+        }
     }
 }

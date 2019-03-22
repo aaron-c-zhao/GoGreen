@@ -41,12 +41,18 @@ public class LoginController implements WindowController {
 
     private Windows dialog;
 
-    @Autowired
+
     private ScreenConfiguration screens;
 
     @Autowired
     private AppConfig appConfig;
 
+    public void initialize() {
+        dialog.setOnCloseRequest(e ->{
+            e.consume();
+            screens.exitDialog().showAndWait();
+        });
+    }
     public LoginController(ScreenConfiguration screens) {
         this.screens = screens;
     }
@@ -103,7 +109,7 @@ public class LoginController implements WindowController {
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             appConfig.setRestTemplate(restTemplate);
             dialog.close();
-            screens.sampleDialog().show();
+            screens.startScreen().show();
         } else {
             return;
         }

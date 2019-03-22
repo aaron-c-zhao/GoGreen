@@ -17,7 +17,7 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity"
       prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="gogreenclient.screens.AddFoodController">
+      fx:controller="gogreenclient.screens.AddTransportController">
     <children>
         <AnchorPane prefHeight="444.0" prefWidth="182.0" style="-fx-background-color: #00AB66;" HBox.hgrow="NEVER">
             <children>
@@ -120,7 +120,7 @@
                                         <Insets right="3.0"/>
                                     </padding>
                                 </Label>
-                                <JFXComboBox id="takenMeal_Box" fx:id="takenMealBox" focusColor="TOMATO"
+                                <JFXComboBox id="takenMeal_Box" fx:id="takenTransportBox" focusColor="TOMATO"
                                              prefHeight="31.0" prefWidth="210.0" promptText="Transport options"
                                              unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
@@ -138,7 +138,7 @@
                                         <Font name="Century Gothic" size="15.0"/>
                                     </font>
                                 </Label>
-                                <JFXComboBox id="insteadOfMeal_Box" fx:id="insteadOfMealBox" focusColor="TOMATO"
+                                <JFXComboBox id="insteadOfMeal_Box" fx:id="insteadOfTransportBox" focusColor="TOMATO"
                                              prefHeight="31.0" prefWidth="210.0" promptText="Transport options"
                                              unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
@@ -161,7 +161,7 @@
                                         <Insets/>
                                     </HBox.margin>
                                 </Label>
-                                <JFXTextField focusColor="TOMATO" prefHeight="26.0" prefWidth="253.0"
+                                <JFXTextField fx:id="distance" focusColor="TOMATO" prefHeight="26.0" prefWidth="253.0"
                                               promptText="Distance (in KM)" unFocusColor="#23ae36"/>
                             </children>
                         </HBox>
