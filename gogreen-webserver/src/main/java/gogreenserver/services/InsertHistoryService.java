@@ -5,6 +5,7 @@ import gogreenserver.repositories.InsertHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,21 +15,26 @@ public class InsertHistoryService {
     private InsertHistoryRepository insertHistoryRepo;
 
     @Autowired
-    public InsertHistoryService(InsertHistoryRepository insertHistoryRepo){
+    public InsertHistoryService(InsertHistoryRepository insertHistoryRepo) {
         this.insertHistoryRepo = insertHistoryRepo;
     }
 
     // have to make method to findAllById
 
-    public List<InsertHistory> findAll(){
+    public List<InsertHistory> findAll() {
         return insertHistoryRepo.findAll();
     }
 
-    public Optional<InsertHistory> findById(String userName){
+    public Optional<InsertHistory> findById(String userName) {
         return insertHistoryRepo.findById(userName);
     }
 
-    public InsertHistory createInsertHistory(InsertHistory insertHistory){
+    public List<InsertHistory> findAllById(String userName) {
+        return this.insertHistoryRepo.findAllById(Collections.singleton(userName));
+    }
+
+
+    public InsertHistory createInsertHistory(InsertHistory insertHistory) {
         return insertHistoryRepo.save(insertHistory);
     }
 }
