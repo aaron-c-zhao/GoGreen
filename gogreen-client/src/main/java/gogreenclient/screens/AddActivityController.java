@@ -4,12 +4,17 @@ import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.scene.Scene;
 
-public class StartController implements WindowController {
+
+/**
+ * Main stage which contains the default.
+ */
+public class AddActivityController implements WindowController {
 
     private ScreenConfiguration screens;
     private Windows window;
 
-    public StartController(ScreenConfiguration screens) {
+
+    public AddActivityController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
@@ -20,7 +25,7 @@ public class StartController implements WindowController {
     @Override
     public void setWindow(Windows window) {
         this.window = window;
-        Scene activityScene = new Scene(screens.statisticScene().getRoot());
+        Scene activityScene = new Scene(screens.foodScene().getRoot());
         window.setScene(activityScene);
     }
 }
