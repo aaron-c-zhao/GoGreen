@@ -1,8 +1,6 @@
 package gogreenclient.screens;
 
 import gogreenclient.screens.window.SceneController;
-import gogreenclient.screens.window.WindowController;
-import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

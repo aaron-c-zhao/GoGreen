@@ -23,7 +23,6 @@ public class AddTransportController implements SceneController {
     private JFXDatePicker date;
 
 
-
     private ScreenConfiguration screens;
 
     public AddTransportController(ScreenConfiguration screens) {

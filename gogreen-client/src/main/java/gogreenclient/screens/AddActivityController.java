@@ -3,7 +3,6 @@ package gogreenclient.screens;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.scene.Scene;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -19,14 +18,14 @@ public class AddActivityController implements WindowController {
         this.screens = screens;
     }
 
+    public Windows getWindow() {
+        return window;
+    }
+
     @Override
     public void setWindow(Windows window) {
         this.window = window;
         Scene activityScene = new Scene(screens.foodScene().getRoot());
         window.setScene(activityScene);
-    }
-
-    public Windows getWindow() {
-        return window;
     }
 }

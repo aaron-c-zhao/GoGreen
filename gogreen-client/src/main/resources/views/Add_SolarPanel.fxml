@@ -107,7 +107,8 @@
                         <Font name="Century Gothic" size="15.0"/>
                     </font>
                 </Label>
-                <JFXTextField fx:id="sizeOfSolarPanel" focusColor="TOMATO" layoutX="263.0" layoutY="271.0" prefHeight="31.0"
+                <JFXTextField fx:id="sizeOfSolarPanel" focusColor="TOMATO" layoutX="263.0" layoutY="271.0"
+                              prefHeight="31.0"
                               prefWidth="64.0" promptText="Size" unFocusColor="#23ae36" AnchorPane.rightAnchor="137.8">
                     <font>
                         <Font name="System Italic" size="15.0"/>
@@ -152,7 +153,8 @@
                         <Insets right="3.0"/>
                     </padding>
                 </Label>
-                <Label fx:id="intialSize" contentDisplay="CENTER" layoutX="275.0" layoutY="194.0" prefHeight="54.0" prefWidth="57.0"
+                <Label fx:id="intialSize" contentDisplay="CENTER" layoutX="275.0" layoutY="194.0" prefHeight="54.0"
+                       prefWidth="57.0"
                        text=" setSize" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Century Gothic" size="15.0"/>

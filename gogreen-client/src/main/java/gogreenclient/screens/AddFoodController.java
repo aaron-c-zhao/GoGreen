@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AddFoodController implements SceneController {
 
+    //list for the tree view
+    ObservableList<String> mealList = FXCollections
+        .observableArrayList("Potato sandwich", "Beef sandwich");
     @FXML
     private JFXTextField costTaken;
     @FXML
@@ -33,12 +36,6 @@ public class AddFoodController implements SceneController {
     private Label total;
     @FXML
     private JFXCheckBox localProduct;
-
-    //list for the tree view
-    ObservableList<String> mealList = FXCollections
-        .observableArrayList("Potato sandwich", "Beef sandwich");
-
-
     private ScreenConfiguration screens;
 
     @Autowired
@@ -55,7 +52,6 @@ public class AddFoodController implements SceneController {
     }
 
 
-
     /**
      * sets the combo box elements.
      */
@@ -63,8 +59,8 @@ public class AddFoodController implements SceneController {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-//        total.setText(String.valueOf(userCareerService
-//            .getCareer().getCo2saved()));
+        //total.setText(String.valueOf(userCareerService
+        //    .getCareer().getCo2saved()));
     }
 
 

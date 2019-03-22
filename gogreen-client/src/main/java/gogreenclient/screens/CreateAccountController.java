@@ -50,8 +50,11 @@ public class CreateAccountController implements WindowController {
         this.dialog = dialog;
     }
 
+    /**
+     * initialize the create account scene.
+     */
     public void initialize() {
-        dialog.setOnCloseRequest(e ->{
+        dialog.setOnCloseRequest(e -> {
             e.consume();
             dialog.close();
             screens.loginDialog().show();

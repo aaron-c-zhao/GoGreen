@@ -47,14 +47,18 @@ public class LoginController implements WindowController {
     @Autowired
     private AppConfig appConfig;
 
+    public LoginController(ScreenConfiguration screens) {
+        this.screens = screens;
+    }
+
+    /**
+     * initialize the login screen.
+     */
     public void initialize() {
-        dialog.setOnCloseRequest(e ->{
+        dialog.setOnCloseRequest(e -> {
             e.consume();
             screens.exitDialog().showAndWait();
         });
-    }
-    public LoginController(ScreenConfiguration screens) {
-        this.screens = screens;
     }
 
     /**
@@ -123,7 +127,6 @@ public class LoginController implements WindowController {
     @FXML
     public void switchToCreate() {
         combinationLabel.setVisible(false);
-        dialog.close();
         screens.createAccountDialog().show();
     }
 
