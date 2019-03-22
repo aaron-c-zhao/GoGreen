@@ -36,11 +36,20 @@ public class InsertHistoryController {
         return this.insertHistoryService.findAllById(userName);
     }
 
+    /**
+     * This endpoint is used to create a new entry in the InsertHistory table.
+     * @param userName This is the users UserName.
+     * @param insertHistory This is an object of type insertHistory.
+     * @return responseEntity of type String with status code OK if successful.
+     */
     @PostMapping(value = "/insertHistory")
-    public ResponseEntity<String> createInsertHistory(@RequestHeader(value = "userName") String userName, @RequestBody InsertHistory insertHistory) {
+    public ResponseEntity<String> createInsertHistory(@RequestHeader(value = "userName")
+                                                              String userName,
+                                                      @RequestBody InsertHistory insertHistory) {
         insertHistory.setUserName(userName);
         this.insertHistoryService.createInsertHistory(insertHistory);
-        return new ResponseEntity<String>("Successfully returned insertHistory for user : " + userName, HttpStatus.OK);
+        return new ResponseEntity<String>("Successfully insertHistory for user : " + userName,
+            HttpStatus.OK);
     }
 
 }

@@ -35,7 +35,7 @@ public class UserModel {
             User.class);
     }
 
-<<<<<<< HEAD
+
     public RestTemplate getRestTemplate() {
         return restTemplate;
     }
@@ -43,6 +43,4 @@ public class UserModel {
     public void setRestTemplate(RestTemplate restTemplate) {
         this.loginRestTemplate = restTemplate;
     }
-=======
->>>>>>> 5312fc3e69bd0a3be92c6b4b0ba0bf465df4e864
 }
