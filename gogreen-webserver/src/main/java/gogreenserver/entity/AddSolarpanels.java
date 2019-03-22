@@ -18,13 +18,13 @@ public class AddSolarpanels {
     @Column(name = "m2")
     private Float area;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = true)
     private LocalDate date;
 
-    @Column(name = "panel_id")
+    @Column(name = "panel_id", nullable = true)
     private  int panelId;
 
-    @Column(name = "produced_kwh")
+    @Column(name = "produced_kwh", nullable = true)
     private Float producedKwh;
 
     // Define Getters/Setters for JACKSON

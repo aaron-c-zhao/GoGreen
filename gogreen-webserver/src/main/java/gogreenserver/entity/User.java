@@ -18,17 +18,20 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name", nullable = true)
-    private String email;
-
-    @Column(name = "email", nullable = true)
+    @Column(name = "firstname", nullable = true)
     private String firstName;
 
-    @Column(name = "last_name", nullable = true)
+    @Column(name = "email", nullable = true)
+    private String email;
+
+    @Column(name = "lastname", nullable = true)
     private String lastName;
 
     @Column(name = "bdate")
     private LocalDate bdate;
+
+    @Column(name = "date_created", nullable = true)
+    private LocalDate dateCreated;
 
     @Column(name = "nationality")
     private String nationality;
@@ -61,6 +64,14 @@ public class User {
     }
 
     // define getters and setters
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
     public LocalDate getBdate() {
         return bdate;
