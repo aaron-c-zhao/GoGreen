@@ -78,7 +78,7 @@ public class CreateAccountController implements WindowController {
     public void createAccount() {
         try {
             validator.accountValidate(username.getText(), password.getText(),
-                bday.getValue(), email.getText());
+                repeatPassword.getText(), bday.getValue(), email.getText());
         }catch (IllegalArgumentException e){
             exceptionHandler.illegalArgumentExceptionhandler(e);
             return;

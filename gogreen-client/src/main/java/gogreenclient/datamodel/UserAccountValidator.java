@@ -22,19 +22,21 @@ public class UserAccountValidator {
     private static final String PASSWORD_TOO_SHORT = "The minimum length of password is 6";
     private static final String EMAIL_INVALID = "Your email address is invalid";
     private static final String BDAY_PAST = "Birthday must be in the past.";
+    private static final String PASSWORD_NOT_MATCH = "Password not match.";
 
     @Autowired
     private UserModel userModel;
 
 
-    public void accountValidate(String username, String passwrod,
+    public void accountValidate(String username, String password, String repeatPassword,
                                 LocalDate bdate, String email)
         throws IllegalArgumentException {
 
         isUsernameNull(username);
+        isPasswordNull(password);
+        isPasswordTooShort(password);
+        isPasswordMatch(password, repeatPassword);
         isUsernameExists(username);
-        isPasswordNull(passwrod);
-        isPasswordTooShort(passwrod);
         isEmailValid(email);
         isBdateInPast(bdate);
 
@@ -82,6 +84,11 @@ public class UserAccountValidator {
         if (bdate != null && bdate.compareTo(LocalDate.now()) > 0) {
             throw new IllegalArgumentException(BDAY_PAST);
         }
+    }
+
+    private void isPasswordMatch(String password, String repeatPassword) {
+        if(!password.equals(repeatPassword))
+            throw new IllegalArgumentException(PASSWORD_NOT_MATCH);
     }
 
 
