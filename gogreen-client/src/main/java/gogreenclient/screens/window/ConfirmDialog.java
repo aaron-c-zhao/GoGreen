@@ -11,6 +11,10 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * A confirm dialog which is a stage. And this kind of dialog will have at most two buttons,
+ * you can customize the functionality of each button.
+ */
 public class ConfirmDialog extends gogreenclient.screens.window.Windows {
 
     private String information;

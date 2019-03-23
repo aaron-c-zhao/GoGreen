@@ -23,14 +23,6 @@ public class ScreenConfiguration {
 
     private Stage primaryStage;
 
-    /**
-     * Change the scene that shown on the primary stage.
-     *
-     * @param scene the scene to be shown on the primary stage.
-     */
-    public void showScene(SwitchabScene scene) {
-    }
-
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -39,9 +31,10 @@ public class ScreenConfiguration {
     //-----------------------------------------stages----------------------------------------------
 
     /**
-     * Login window which is a individual stage.
+     * Stage 1.
+     * Login window which is a individual stage with one scene.
      *
-     * @return a singleton instance of LoginDialog.
+     * @return a singleton instance of FxmlWindow.
      */
     @Bean
     public FxmlWindow loginDialog() {
@@ -54,19 +47,25 @@ public class ScreenConfiguration {
         return new LoginController(this);
     }
 
-    @Bean
-    CreateAccountController createAccountController() {
-        return new CreateAccountController(this);
-    }
-
+    /**
+     * Stage 2.
+     * Create account window which is a individual stage with one scene.
+     *
+     * @return a singleton instance of FxmlWindow.
+     */
     @Bean
     public FxmlWindow createAccountDialog() {
         return new FxmlWindow(createAccountController(), getClass()
             .getResource("/views/Create_account.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
+    @Bean
+    CreateAccountController createAccountController() {
+        return new CreateAccountController(this);
+    }
+
     /**
-     * A pop up exit window which is a individual stage.
+     * A pop up exit window which is a individual stage with one scene.
      *
      * @return a singleton instance of ExitDialog which is a confirmDialog.
      */
@@ -79,6 +78,40 @@ public class ScreenConfiguration {
     @Bean
     ExitController exitController() {
         return new ExitController(this);
+    }
+
+    /**
+     * Stage 3.
+     * The main stage of start/menu phase. Three scenes are associated with this stage, namely
+     * achievement scene, frends scene and statistic scene.
+     *
+     * @return a singleton instance of MainWindow.
+     */
+    @Bean
+    public MainWindow startScreen() {
+        return new MainWindow(startController(), primaryStage, StageStyle.DECORATED, false);
+    }
+
+    @Bean
+    StartController startController() {
+        return new StartController(this);
+    }
+
+    /**
+     * Stage 4.
+     * The main stage of adding activity phase. Five scenes are associated with this stage, namely
+     * food scene, transport scene, solar panel scene, room scene and plant tree scene.
+     *
+     * @return a singleton instance of MainWindow.
+     */
+    @Bean
+    AddActivityController activityController() {
+        return new AddActivityController(this);
+    }
+
+    @Bean
+    public MainWindow activityScreen() {
+        return new MainWindow(activityController(), primaryStage, StageStyle.DECORATED, true);
     }
 
     /**
@@ -98,30 +131,14 @@ public class ScreenConfiguration {
         return new SubmitMealPopController(this);
     }
 
-    @Bean
-    public MainWindow startScreen() {
-        return new MainWindow(startController(), primaryStage, StageStyle.DECORATED, false);
-    }
-
-    @Bean
-    StartController startController() {
-        return new StartController(this);
-    }
-
-
-    @Bean
-    AddActivityController activityController() {
-        return new AddActivityController(this);
-    }
-
-    @Bean
-    public MainWindow activityScreen() {
-        return new MainWindow(activityController(), primaryStage, StageStyle.DECORATED, true);
-    }
-
 
     //---------------------------------------------scenes------------------------------------------
 
+    /**
+     * The scene for adding food activities in stage 4.
+     *
+     * @return A singleton instance of SwitchableScene.
+     */
     @Bean
     public SwitchabScene foodScene() {
         return new SwitchabScene(foodController(), getClass()
@@ -133,6 +150,12 @@ public class ScreenConfiguration {
         return new AddFoodController(this);
     }
 
+
+    /**
+     * The scene for adding transport activities in stage 4.
+     *
+     * @return A singleton instance of SwitchableScene.
+     */
     @Bean
     public SwitchabScene transportScene() {
         return new SwitchabScene(transportController(), getClass()
@@ -144,6 +167,11 @@ public class ScreenConfiguration {
         return new AddTransportController(this);
     }
 
+    /**
+     * The scene for adding solar panel in stage 4.
+     *
+     * @return A singleton instance of SwitchableScene.
+     */
     @Bean
     public SwitchabScene solarPanelScene() {
         return new SwitchabScene(solarPanelController(), getClass()
@@ -155,6 +183,11 @@ public class ScreenConfiguration {
         return new AddSolarPanelController(this);
     }
 
+    /**
+     * The scene for turn down room temperature in stage 4.
+     *
+     * @return A singleton instance of SwitchableScene.
+     */
     @Bean
     public SwitchabScene roomScene() {
         return new SwitchabScene(roomController(), getClass()
@@ -166,6 +199,11 @@ public class ScreenConfiguration {
         return new AddRoomController(this);
     }
 
+    /**
+     * The scene for showing statistics in stage 3.
+     *
+     * @return A singleton instance of SwitchableScene.
+     */
     @Bean
     public SwitchabScene statisticScene() {
         return new SwitchabScene(statisticController(), getClass()
@@ -177,6 +215,11 @@ public class ScreenConfiguration {
         return new StatisticController(this);
     }
 
+    /**
+     * The scene for showing achievements in stage 3.
+     *
+     * @return A singleton instance of SwitchableScene.
+     */
     @Bean
     public SwitchabScene achievementsScene() {
         return new SwitchabScene(achieveController(), getClass()

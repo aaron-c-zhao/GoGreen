@@ -8,6 +8,10 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Instance of this class will contain a root node which can be switched by a multi-scene stage,
+ * like MainWindow or StartWindow. The node is loaded from a fxml file.
+ */
 public class SwitchabScene {
 
     private HBox root;
@@ -16,6 +20,7 @@ public class SwitchabScene {
     /**
      * Another constructor without the ability of customizing the width and the height of the scene.
      *
+     * @param controller the controller of this node.
      * @param fxml the URI of the fxml file.
      */
     public SwitchabScene(final SceneController controller, URL fxml) {
