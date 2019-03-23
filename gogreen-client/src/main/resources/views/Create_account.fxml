@@ -109,7 +109,7 @@
                         <JFXTextField fx:id="username" focusColor="#fbfcff" promptText="username" unFocusColor="SEAGREEN" GridPane.columnIndex="2" />
                         <JFXPasswordField fx:id="password" focusColor="#fbfcff" promptText="password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <JFXPasswordField fx:id="repeatPassword" focusColor="#fbfcff" promptText="repeat password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <JFXTextField fx:id="nationality" focusColor="#fbfcff" prefHeight="25.0" prefWidth="204.0" promptText="email" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <JFXTextField fx:id="email" focusColor="#fbfcff" prefHeight="25.0" prefWidth="204.0" promptText="email" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                         <JFXDatePicker fx:id="bday" defaultColor="SEAGREEN" prefHeight="28.0" prefWidth="206.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                     </children>
                 </GridPane>

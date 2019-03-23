@@ -3,8 +3,11 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.ExceptionHandler;
 import gogreenclient.datamodel.User;
+import gogreenclient.datamodel.UserAccountValidator;
 import gogreenclient.datamodel.UserModel;
+import gogreenclient.screens.window.ConfirmDialog;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -24,7 +27,7 @@ public class CreateAccountController implements WindowController {
     @FXML
     JFXTextField username;
     @FXML
-    JFXTextField nationality;
+    JFXTextField email;
     @FXML
     JFXDatePicker bday;
     @FXML
@@ -34,6 +37,13 @@ public class CreateAccountController implements WindowController {
 
     @Autowired
     private UserModel userModel;
+
+    @Autowired
+    private UserAccountValidator validator;
+
+    @Autowired
+    private ExceptionHandler exceptionHandler;
+
     private Windows dialog;
 
 
@@ -66,37 +76,30 @@ public class CreateAccountController implements WindowController {
      */
     @FXML
     public void createAccount() {
-        // if some of the field is not filled (is equal to null), show the label and
-        // set its text to ...
-        if (username.getText().trim().isEmpty() || password.getText().trim().isEmpty()
-            || repeatPassword.getText().trim().isEmpty() || nationality.getText().trim().isEmpty()
-            || bday.getValue() == null) {
-            incorrect.setText("Not all the fields are filled");
-            incorrect.setVisible(true);
-            //else if the password and repeatPasswordPassword don't match show the other message
-        } else {
-            if (!password.getText().equals(repeatPassword.getText())) {
-                incorrect.setVisible(true);
-                incorrect.setText("The passwords don't match");
-                // else(if everything is correct) print(for now) all the filled information
-            } else {
-                ResponseEntity<User> response = null;
-                try {
-                    response = userModel.addUser(username.getText(), password.getText(),
-                        bday.getValue(), nationality.getText());
-                } catch (URISyntaxException e) {
-                    System.out.println("Wrong URI");
-                    return;
-                }
-                //TODO when creating account success, popup window shows
-                if (response != null && response.getStatusCode() == HttpStatus.OK) {
-                    dialog.close();
-                    screens.loginDialog().show();
-                } else {
-                    return;
-                }
-            }
+        try {
+            validator.accountValidate(username.getText(), password.getText(),
+                bday.getValue(), email.getText());
+        }catch (IllegalArgumentException e){
+            exceptionHandler.illegalArgumentExceptionhandler(e);
+            return;
         }
+        ResponseEntity<User> response = null;
+        try {
+            response = userModel.addUser(username.getText(), password.getText(),
+                bday.getValue(), email.getText());
+        } catch (URISyntaxException e) {
+            System.out.println("Wrong URI");
+            return;
+        }
+        //TODO when creating account success, popup window shows
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            dialog.close();
+            screens.loginDialog().show();
+        } else {
+            return;
+        }
+
+
     }
 
     /**

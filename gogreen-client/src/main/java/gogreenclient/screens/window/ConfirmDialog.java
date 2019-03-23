@@ -17,7 +17,7 @@ import java.net.URL;
  */
 public class ConfirmDialog extends gogreenclient.screens.window.Windows {
 
-    private String information;
+    private ConfirmDialogController confirmDialogController;
 
     /**
      * Model class of all confirming dialogs which has a yes button and a no button.
@@ -40,6 +40,7 @@ public class ConfirmDialog extends gogreenclient.screens.window.Windows {
                 }
             });
             controller.setWindow(this);
+            confirmDialogController = controller;
             Scene scene = new Scene((Parent) loader.load());
             scene.getStylesheets().add("/static/hover.css");
             setScene(scene);
@@ -48,11 +49,7 @@ public class ConfirmDialog extends gogreenclient.screens.window.Windows {
         }
     }
 
-    public String getInformation() {
-        return information;
-    }
-
-    public void setInformation(String information) {
-        this.information = information;
+    public ConfirmDialogController getConfirmDialogController() {
+        return confirmDialogController;
     }
 }

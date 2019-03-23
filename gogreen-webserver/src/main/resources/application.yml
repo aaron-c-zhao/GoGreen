@@ -10,9 +10,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://projects-db.ewi.tudelft.nl:3306/projects_GoGreen
-    username: pu_GoGreen
-    password: tZ9Xon5JhAID
+    url: jdbc:mysql://projects-db.ewi.tudelft.nl:3306/projects_GoGreen82-2
+    username: pu_GoGreen82-2
+    password: J1QYXLS99crs
   jpa:
     hibernate:
       ddl-auto: update

@@ -58,12 +58,12 @@ public class UserTests {
     @Autowired
     private TestEntityManager manager;
 
-    private User createDummyUser(String name) {
-        Random rgn = new Random(name.hashCode());
-        return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
-            LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
-            RandomString.hashOf(name.hashCode()));
-    }
+//    private User createDummyUser(String name) {
+//        Random rgn = new Random(name.hashCode());
+//        return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
+//            LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
+//            RandomString.hashOf(name.hashCode()));
+//    }
 
     /**
      * <ol>
@@ -75,67 +75,67 @@ public class UserTests {
      * <li>Whether the amount of entries is correct.
      * </ol>
      */
-    @Test
-    public void checkUsers() throws Exception {
-
-        User[] dummyUsers = new User[3];
-        dummyUsers[0] = manager.persist(createDummyUser("Alice"));
-        dummyUsers[1] = manager.persist(createDummyUser("Bob"));
-        dummyUsers[2] = manager.persist(createDummyUser("Charlie"));
-        manager.flush();
-
-        RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
-            .accept(MediaType.APPLICATION_JSON);
-        MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
-
-        JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
-
-        LOGGER.debug("Returned Json: " + list);
-
-        int usercount = 0;
-        for (JsonNode user : list) {
-            LOGGER.debug("User " + usercount + ": " + user);
-            RequestBuilder userReq = MockMvcRequestBuilders
-                .get("/api/user/" + user.get("username").asText())
-                .accept(MediaType.APPLICATION_JSON);
-            MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
-
-            assertThat(ures.getResponse().getContentAsString())
-                .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
-
-            usercount++;
-        }
-        LOGGER.debug("User amount: " + usercount);
-        assertThat(usercount).isEqualTo(3);
-
-        manager.clear();
-    }
-
-    @Test
-    public void addUser() throws Exception {
-        User dummy = createDummyUser("Danny");
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/user")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(dummy));
-        mockMvc.perform(req).andExpect(status().is(200));
-
-        assertThat(manager.find(User.class, dummy.getUsername()))
-            .isEqualToComparingFieldByField(dummy);
-
-        manager.clear();
-    }
-
-    @Test
-    public void removeUser() throws Exception {
-        String name = "Ellen";
-        User dummy = createDummyUser(name);
-        manager.persistAndFlush(dummy);
-        RequestBuilder req = MockMvcRequestBuilders.delete("/api/user/" + name);
-        mockMvc.perform(req).andExpect(status().is(200));
-
-        assertThat(manager.find(User.class, dummy.getUsername())).isNull();
-
-        //TODO maybe check if the db is properly empty somehow?
-        manager.clear();
-    }
+//    @Test
+//    public void checkUsers() throws Exception {
+//
+//        User[] dummyUsers = new User[3];
+//        dummyUsers[0] = manager.persist(createDummyUser("Alice"));
+//        dummyUsers[1] = manager.persist(createDummyUser("Bob"));
+//        dummyUsers[2] = manager.persist(createDummyUser("Charlie"));
+//        manager.flush();
+//
+//        RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
+//            .accept(MediaType.APPLICATION_JSON);
+//        MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
+//
+//        JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
+//
+//        LOGGER.debug("Returned Json: " + list);
+//
+//        int usercount = 0;
+//        for (JsonNode user : list) {
+//            LOGGER.debug("User " + usercount + ": " + user);
+//            RequestBuilder userReq = MockMvcRequestBuilders
+//                .get("/api/user/" + user.get("username").asText())
+//                .accept(MediaType.APPLICATION_JSON);
+//            MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
+//
+//            assertThat(ures.getResponse().getContentAsString())
+//                .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
+//
+//            usercount++;
+//        }
+//        LOGGER.debug("User amount: " + usercount);
+//        assertThat(usercount).isEqualTo(3);
+//
+//        manager.clear();
+//    }
+//
+//    @Test
+//    public void addUser() throws Exception {
+//        User dummy = createDummyUser("Danny");
+//        RequestBuilder req = MockMvcRequestBuilders.post("/api/user")
+//            .contentType(MediaType.APPLICATION_JSON)
+//            .content(mapper.writeValueAsString(dummy));
+//        mockMvc.perform(req).andExpect(status().is(200));
+//
+//        assertThat(manager.find(User.class, dummy.getUsername()))
+//            .isEqualToComparingFieldByField(dummy);
+//
+//        manager.clear();
+//    }
+//
+//    @Test
+//    public void removeUser() throws Exception {
+//        String name = "Ellen";
+//        User dummy = createDummyUser(name);
+//        manager.persistAndFlush(dummy);
+//        RequestBuilder req = MockMvcRequestBuilders.delete("/api/user/" + name);
+//        mockMvc.perform(req).andExpect(status().is(200));
+//
+//        assertThat(manager.find(User.class, dummy.getUsername())).isNull();
+//
+//        //TODO maybe check if the db is properly empty somehow?
+//        manager.clear();
+//    }
 }

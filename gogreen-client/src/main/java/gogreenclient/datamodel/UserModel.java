@@ -34,9 +34,15 @@ public class UserModel {
         user.setUsername(username);
         user.setPassword(password);
         user.setBdate(bdate);
-        user.setNationality(nationality);
+        user.setEmail(nationality);
         return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser", user,
             User.class);
+    }
+
+    public boolean findUser(String username) {
+        ResponseEntity<String> response =  loginRestTemplate
+            .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
+        return response.getBody().equals("success")? true : false;
     }
 
 }

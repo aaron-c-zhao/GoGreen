@@ -54,7 +54,7 @@
                     </font>
                 </Label>
                 <JFXTextField fx:id="username" focusColor="#fbfcff" layoutX="81.0" layoutY="99.0" prefHeight="37.0" prefWidth="242.0" promptText="Username" unFocusColor="SEAGREEN" />
-                <JFXButton buttonType="RAISED" layoutX="115.0" layoutY="239.0" onAction="#switchToMenu" prefHeight="64.0" prefWidth="174.0" ripplerFill="#f8fffb" style="-fx-background-color: #3CB371;" text="Sign In" textFill="#fffbfb" />
+                <JFXButton buttonType="RAISED" layoutX="115.0" layoutY="239.0" onAction="#login" prefHeight="64.0" prefWidth="174.0" ripplerFill="#f8fffb" style="-fx-background-color: #3CB371;" text="Sign In" textFill="#fffbfb" />
                 <JFXCheckBox layoutX="81.0" layoutY="200.0" text="Rember me" textFill="#fffdfd" />
                 <Hyperlink fx:id="create" layoutX="77.0" layoutY="345.0" onAction="#switchToCreate" text="Are you new to the app? Create an account!">
                     <font>

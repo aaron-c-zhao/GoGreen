@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Configurations of all the GUI relative elements, including stages, scenes, and controllers. All
@@ -78,6 +79,20 @@ public class ScreenConfiguration {
     @Bean
     ExitController exitController() {
         return new ExitController(this);
+    }
+
+
+    @Bean
+    @Scope("prototype")
+    public ConfirmDialog regularInformDialog() {
+        return new ConfirmDialog(regularInformController(), getClass()
+            .getResource("/views/RegularInformDialog.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    @Scope("prototype")
+    InformController regularInformController() {
+        return new InformController(this);
     }
 
     /**

@@ -37,8 +37,8 @@ public class UserTest {
 
     @Test
     public void getNationality() {
-        user.setNationality("Romanian");
-        assertEquals("Romanian", user.getNationality());
+        user.setEmail("Romanian");
+        assertEquals("Romanian", user.getEmail());
     }
 
 }
