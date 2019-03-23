@@ -1,6 +1,7 @@
 package gogreenserver.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,20 +19,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name", nullable = true)
-    private String email;
-
     @Column(name = "email", nullable = true)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = true)
-    private String lastName;
+    private String email;
 
     @Column(name = "bdate")
     private LocalDate bdate;
 
-    @Column(name = "nationality")
-    private String nationality;
+    @Column(name = "date_created", nullable = true)
+    private Date dateCreated;
+
 
     // define constructors 
     public User() {
@@ -44,23 +40,22 @@ public class User {
      * @param username    Primary Key.
      * @param password    Password.
      * @param email       Email.
-     * @param firstName   First name of user.
-     * @param lastName    Last name of user.
      * @param bdate       Birthdate of user.
-     * @param nationality Nationality of user.
+     * @param dateCreated date created of account.
      */
-    public User(String username, String password, String email, String firstName,
-                String lastName, LocalDate bdate, String nationality) {
+    public User(String username, String password, String email, LocalDate bdate, Date dateCreated) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.bdate = bdate;
-        this.nationality = nationality;
+        this.dateCreated = dateCreated;
     }
 
     // define getters and setters
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
 
     public LocalDate getBdate() {
         return bdate;
@@ -68,14 +63,6 @@ public class User {
 
     public void setBdate(LocalDate bdate) {
         this.bdate = bdate;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
     }
 
     public String getUsername() {
@@ -102,20 +89,7 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
 }

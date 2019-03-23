@@ -1,6 +1,7 @@
 package gogreenserver;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,6 +13,7 @@ import net.bytebuddy.utility.RandomString;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -56,17 +61,18 @@ public class UserTests {
     @Autowired
     private ObjectMapper mapper;
 
-    @Autowired
+    // DON'T AUTOWIRE, IT IS SET UP MANUALLY
     private MockMvc mockMvc;
 
     @Autowired
     private TestEntityManager manager;
 
-    private User createDummyUser(String name) {
-        Random rgn = new Random(name.hashCode());
-        return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
-            LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
-            RandomString.hashOf(name.hashCode()));
+    @Autowired
+    private WebApplicationContext context;
+
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
 
     /**
@@ -79,6 +85,7 @@ public class UserTests {
      * <li>Whether the amount of entries is correct.
      * </ol>
      */
+    @WithMockUser
     @Test
     public void checkUsers() throws Exception {
 
@@ -89,7 +96,7 @@ public class UserTests {
         manager.flush();
 
         RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
-            .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON);
         MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
 
         JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
@@ -100,12 +107,12 @@ public class UserTests {
         for (JsonNode user : list) {
             LOGGER.debug("User " + usercount + ": " + user);
             RequestBuilder userReq = MockMvcRequestBuilders
-                .get("/api/user/" + user.get("username").asText())
-                .accept(MediaType.APPLICATION_JSON);
+                    .get("/api/user/" + user.get("username").asText())
+                    .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
 
             assertThat(ures.getResponse().getContentAsString())
-                .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
+                    .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
 
             usercount++;
         }
@@ -118,17 +125,22 @@ public class UserTests {
     @Test
     public void addUser() throws Exception {
         User dummy = createDummyUser("Danny");
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/user")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(dummy));
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200));
 
-        assertThat(manager.find(User.class, dummy.getUsername()))
-            .isEqualToComparingFieldByField(dummy);
+        User found = manager.find(User.class, dummy.getUsername());
+
+        // /api/createUser properly salts and hashes the user password, and therefore it
+        // is (or should be) impossible to recreate it manually.
+        dummy.setPassword(found.getPassword());
+
+        assertThat(found).isEqualToComparingFieldByField(dummy);
 
         manager.clear();
     }
 
+    @WithMockUser
     @Test
     public void removeUser() throws Exception {
         String name = "Ellen";
@@ -139,7 +151,14 @@ public class UserTests {
 
         assertThat(manager.find(User.class, dummy.getUsername())).isNull();
 
-        //TODO maybe check if the db is properly empty somehow?
+        // TODO maybe check if the db is properly empty somehow?
         manager.clear();
+    }
+
+    private User createDummyUser(String name) {
+        Random rgn = new Random(name.hashCode());
+        return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
+                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
+                RandomString.hashOf(name.hashCode()));
     }
 }

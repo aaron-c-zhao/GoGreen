@@ -2,6 +2,7 @@ package gogreenserver;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,7 @@ import gogreenserver.services.UserCareerService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Random;
 
@@ -54,8 +59,10 @@ public class UserCareerTests {
     // the ObjectMapper that Spring uses for its object->json conversions
     @Autowired
     private ObjectMapper mapper;
-
+    
     @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mockMvc;
 
     @Autowired
@@ -63,7 +70,13 @@ public class UserCareerTests {
 
     @Autowired
     private UserCareerService service;
+    
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+    }
 
+    @WithMockUser
     @Test
     public void checkCareers() throws Exception {
         UserCareer[] dummyCareers = new UserCareer[3];
@@ -96,7 +109,8 @@ public class UserCareerTests {
         }
 
     }
-
+    
+    @WithMockUser
     @Test
     public void addCareer() throws Exception {
         UserCareer dummy = createDummyCareer("Danny");
@@ -113,6 +127,7 @@ public class UserCareerTests {
         manager.clear();
     }
 
+    @WithMockUser
     @Test
     public void removeCareer() throws Exception {
         String name = "Ellen";
@@ -127,7 +142,8 @@ public class UserCareerTests {
         // TODO maybe check if the db is properly empty somehow?
         manager.clear();
     }
-
+    
+    @WithMockUser
     @Test
     public void updateCareer() throws Exception {
         UserCareer dummy = createDummyCareer("Frank");
@@ -153,6 +169,7 @@ public class UserCareerTests {
         assertThat(dummyNew).isEqualToComparingFieldByField(save);
     }
 
+    @WithMockUser
     @Test
     public void updateCareer_Null() {
         UserCareer meHere = createDummyCareer("Andy");

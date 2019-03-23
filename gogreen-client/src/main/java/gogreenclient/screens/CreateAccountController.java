@@ -1,5 +1,6 @@
 package gogreenclient.screens;
 
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.User;
@@ -7,7 +8,6 @@ import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +26,12 @@ public class CreateAccountController implements WindowController {
     @FXML
     JFXTextField nationality;
     @FXML
-    DatePicker bday;
+    JFXDatePicker bday;
     @FXML
     Label incorrect;
-    @Autowired
+
     private ScreenConfiguration screens;
+
     @Autowired
     private UserModel userModel;
     private Windows dialog;
@@ -47,6 +48,17 @@ public class CreateAccountController implements WindowController {
     @Override
     public void setWindow(Windows dialog) {
         this.dialog = dialog;
+    }
+
+    /**
+     * initialize the create account scene.
+     */
+    public void initialize() {
+        dialog.setOnCloseRequest(e -> {
+            e.consume();
+            dialog.close();
+            screens.loginDialog().show();
+        });
     }
 
     /**
@@ -76,6 +88,7 @@ public class CreateAccountController implements WindowController {
                     System.out.println("Wrong URI");
                     return;
                 }
+                //TODO when creating account success, popup window shows
                 if (response != null && response.getStatusCode() == HttpStatus.OK) {
                     dialog.close();
                     screens.loginDialog().show();

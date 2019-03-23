@@ -1,44 +1,41 @@
 package gogreenclient.screens;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.UserCareer;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
-import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class FoodController implements SceneController {
-
-    @FXML
-    public JFXTextField costTaken;
-    @FXML
-    public JFXTextField costInstead;
-    @FXML
-    public DatePicker date;
-    @FXML
-    public JFXComboBox takenMealBox;
-    @FXML
-    public JFXComboBox insteadOfMealBox;
-    @FXML
-    public Label fillAll;
-    @FXML
-    public Label total;
+public class AddFoodController implements SceneController {
 
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("Potato sandwich", "Beef sandwich");
-
-
-    @Autowired
+    @FXML
+    private JFXTextField costTaken;
+    @FXML
+    private JFXTextField costInstead;
+    @FXML
+    private DatePicker date;
+    @FXML
+    private JFXComboBox takenMealBox;
+    @FXML
+    private JFXComboBox insteadOfMealBox;
+    @FXML
+    private Label fillAll;
+    @FXML
+    private Label total;
+    @FXML
+    private JFXCheckBox localProduct;
     private ScreenConfiguration screens;
 
     @Autowired
@@ -49,22 +46,11 @@ public class FoodController implements SceneController {
 
     private UserCareer career;
 
-    private Scene scene;
 
-    private Windows dialog;
-
-    public FoodController(ScreenConfiguration screens) {
+    public AddFoodController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
-    public void setWindow(Windows dialog) {
-        this.dialog = dialog;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-        //        sceneMap.put("food", scene);
-    }
 
     /**
      * sets the combo box elements.
@@ -73,8 +59,8 @@ public class FoodController implements SceneController {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
-        total.setText(String.valueOf(userCareerService
-            .getCareer().getCo2saved()));
+        //total.setText(String.valueOf(userCareerService
+        //    .getCareer().getCo2saved()));
     }
 
 
@@ -103,12 +89,25 @@ public class FoodController implements SceneController {
     }
 
     /**
-     * goes back to food options.
+     * goes to transportation activities.
+     * need a transportation scene.
      */
     @FXML
-    public void backToFood() {
-        dialog.close();
-        screens.sampleDialog().show();
+    public void switchTransport() {
+        screens.activityController()
+            .getWindow().getScene().setRoot(screens.transportScene().getRoot());
+    }
+
+    @FXML
+    public void switchSolar() {
+        screens.activityController()
+            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
+    }
+
+    @FXML
+    public void switchRoom() {
+        screens.activityController()
+            .getWindow().getScene().setRoot(screens.roomScene().getRoot());
     }
 
 }
