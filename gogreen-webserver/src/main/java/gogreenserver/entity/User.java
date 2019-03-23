@@ -1,7 +1,6 @@
 package gogreenserver.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -43,7 +42,8 @@ public class User {
      * @param bdate       Birthdate of user.
      * @param dateCreated date created of account.
      */
-    public User(String username, String password, String email, LocalDate bdate, LocalDate dateCreated) {
+    public User(String username, String password, String email,
+                LocalDate bdate, LocalDate dateCreated) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -55,6 +55,10 @@ public class User {
 
     public LocalDate getDateCreated() {
         return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public LocalDate getBdate() {
@@ -87,9 +91,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setDateCreated(LocalDate dateCreated) {
-        this.dateCreated = dateCreated;
     }
 }

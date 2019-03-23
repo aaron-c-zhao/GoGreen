@@ -1,7 +1,7 @@
 package gogreenclient.datamodel;
 
-    import java.io.Serializable;
-    import java.time.LocalDate;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 public class User implements Serializable {
     private String username;

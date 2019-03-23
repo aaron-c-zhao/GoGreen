@@ -7,7 +7,6 @@ import gogreenclient.datamodel.ExceptionHandler;
 import gogreenclient.datamodel.User;
 import gogreenclient.datamodel.UserAccountValidator;
 import gogreenclient.datamodel.UserModel;
-import gogreenclient.screens.window.ConfirmDialog;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -79,7 +78,7 @@ public class CreateAccountController implements WindowController {
         try {
             validator.accountValidate(username.getText(), password.getText(),
                 repeatPassword.getText(), bday.getValue(), email.getText());
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             exceptionHandler.illegalArgumentExceptionhandler(e);
             return;
         }

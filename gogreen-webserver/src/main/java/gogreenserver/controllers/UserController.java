@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -41,12 +40,20 @@ public class UserController {
     }
 
 
-    // This method returns a single user according to their UserName
+    /**
+     * This method will go to database and try to find the user by the user name.
+     *
+     * @param userName user name.
+     * @return if userName is found in the database, it will return a ResponseEntity
+     *     which body is "success", otherwise another entity will be returned with the body
+     *     being "fail".
+     */
     @GetMapping("/user/findUser/{user_name}")
     public ResponseEntity<String> findUser(@PathVariable("user_name") String userName) {
         User user = userService.findById(userName).orElse(null);
-        if(user != null)
+        if (user != null) {
             return new ResponseEntity<String>("success", HttpStatus.OK);
+        }
         return new ResponseEntity<String>("fail", HttpStatus.OK);
     }
 

@@ -28,6 +28,16 @@ public class UserAccountValidator {
     private UserModel userModel;
 
 
+    /**
+     * Validating user input  while creating account.
+     *
+     * @param username userName must not be null or already exists.
+     * @param password password must not be null or having a length less than 6.
+     * @param repeatPassword password repeated muse be identical with password.
+     * @param bdate birthday of the user must be in the past.
+     * @param email email must match the regex.
+     * @throws IllegalArgumentException exception contains messages for different violations.
+     */
     public void accountValidate(String username, String password, String repeatPassword,
                                 LocalDate bdate, String email)
         throws IllegalArgumentException {
@@ -42,6 +52,13 @@ public class UserAccountValidator {
 
     }
 
+    /**
+     * Validating user input while login.
+     *
+     * @param userName username must not be null.
+     * @param password password must not be null.
+     * @throws IllegalArgumentException exception contains messages for different violations.
+     */
     public void loginValidate(String userName, String password)
         throws IllegalArgumentException {
         isUsernameNull(userName);
@@ -87,8 +104,9 @@ public class UserAccountValidator {
     }
 
     private void isPasswordMatch(String password, String repeatPassword) {
-        if(!password.equals(repeatPassword))
+        if (!password.equals(repeatPassword)) {
             throw new IllegalArgumentException(PASSWORD_NOT_MATCH);
+        }
     }
 
 

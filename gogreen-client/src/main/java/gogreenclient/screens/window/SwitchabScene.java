@@ -21,7 +21,7 @@ public class SwitchabScene {
      * Another constructor without the ability of customizing the width and the height of the scene.
      *
      * @param controller the controller of this node.
-     * @param fxml the URI of the fxml file.
+     * @param fxml       the URI of the fxml file.
      */
     public SwitchabScene(final SceneController controller, URL fxml) {
         FXMLLoader loader = new FXMLLoader(fxml);

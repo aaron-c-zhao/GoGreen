@@ -14,10 +14,16 @@ public class ExceptionHandler {
     @Autowired
     private ScreenConfiguration screens;
 
-    public void illegalArgumentExceptionhandler(IllegalArgumentException e){
+    /**
+     * Handler of IllegalArgumentException, which will get the message from the exception,
+     * and make the informDialog shown with the message.
+     *
+     * @param exception an instance of IllegalArgumentException.
+     */
+    public void illegalArgumentExceptionhandler(IllegalArgumentException exception) {
         ConfirmDialog informDialog = screens.regularInformDialog();
-        InformController controller =(InformController) informDialog.getConfirmDialogController();
-        controller.setInformation(e.getMessage());
+        InformController controller = (InformController) informDialog.getConfirmDialogController();
+        controller.setInformation(exception.getMessage());
         informDialog.showAndWait();
     }
 }

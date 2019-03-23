@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.ExceptionHandler;
 import gogreenclient.datamodel.UserAccountValidator;
-import gogreenclient.screens.window.ConfirmDialog;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -99,9 +98,9 @@ public class LoginController implements WindowController {
     @FXML
     public void login() throws Exception {
         combinationLabel.setVisible(false);
-        try{
+        try {
             validator.loginValidate(username.getText(), password.getText());
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             exceptionHandler.illegalArgumentExceptionhandler(e);
             return;
         }

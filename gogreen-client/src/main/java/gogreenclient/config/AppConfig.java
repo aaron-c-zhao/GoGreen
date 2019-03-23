@@ -1,7 +1,6 @@
 package gogreenclient.config;
 
 import gogreenclient.datamodel.FoodEmissionModel;
-import gogreenclient.datamodel.UserAccountValidator;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
@@ -141,7 +140,6 @@ public class AppConfig {
     public RestTemplate restTemplate() {
         return restTemplate;
     }
-
 
 
 }

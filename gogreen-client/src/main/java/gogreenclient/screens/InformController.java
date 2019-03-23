@@ -33,7 +33,7 @@ public class InformController implements ConfirmDialogController {
         dialog.close();
     }
 
-    public void setInformation(String information){
+    public void setInformation(String information) {
         this.information.setText(information);
     }
 }
