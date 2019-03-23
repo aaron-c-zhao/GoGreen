@@ -3,16 +3,13 @@ package gogreenclient.screens;
 import gogreenclient.screens.window.ConfirmDialog;
 import gogreenclient.screens.window.FxmlWindow;
 import gogreenclient.screens.window.MainWindow;
+import gogreenclient.screens.window.SceneController;
 import gogreenclient.screens.window.SwitchabScene;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-
-import java.util.HashMap;
 
 /**
  * Configurations of all the GUI relative elements, including stages, scenes, and controllers. All
@@ -31,9 +28,7 @@ public class ScreenConfiguration {
      *
      * @param scene the scene to be shown on the primary stage.
      */
-    public void showScene(Scene scene) {
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void showScene(SwitchabScene scene) {
     }
 
 
@@ -59,6 +54,17 @@ public class ScreenConfiguration {
         return new LoginController(this);
     }
 
+    @Bean
+    CreateAccountController createAccountController() {
+        return new CreateAccountController(this);
+    }
+
+    @Bean
+    public FxmlWindow createAccountDialog() {
+        return new FxmlWindow(createAccountController(), getClass()
+            .getResource("/views/Create_account.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
     /**
      * A pop up exit window which is a individual stage.
      *
@@ -73,35 +79,6 @@ public class ScreenConfiguration {
     @Bean
     ExitController exitController() {
         return new ExitController(this);
-    }
-
-    @Bean
-    public ConfirmDialog addFoodDialog() {
-        return new ConfirmDialog(addFoodController(), getClass()
-            .getResource("/views/Add_FoodActivity.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    public ConfirmDialog addTransportDialog() {
-        return new ConfirmDialog(addFoodController(), getClass()
-            .getResource("/views/Add_TransportActivity.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    public ConfirmDialog addRoomDialog() {
-        return new ConfirmDialog(addFoodController(), getClass()
-            .getResource("/views/Add_RoomHeating.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    public ConfirmDialog addSolarDialog() {
-        return new ConfirmDialog(addFoodController(), getClass()
-            .getResource("/views/Add_SolarPanel.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    AddFoodController addFoodController() {
-        return new AddFoodController(this);
     }
 
     /**
@@ -121,81 +98,94 @@ public class ScreenConfiguration {
         return new SubmitMealPopController(this);
     }
 
-    //---------------------------------------------scenes------------------------------------------
-
-
     @Bean
-    public HashMap<String, Scene> sceneMap() {
-        return new HashMap<>();
+    public MainWindow startScreen() {
+        return new MainWindow(startController(), primaryStage, StageStyle.DECORATED, false);
     }
 
     @Bean
-    @Scope("prototype")
-    public FxmlWindow sampleDialog() {
-        return new FxmlWindow(sampleController(), getClass()
-            .getResource("/views/sample.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    @Scope("prototype")
-    SampleController sampleController() {
-        return new SampleController(this);
-    }
-
-    @Scope("prototype")
-    public FxmlWindow startDialog() {
-        return new FxmlWindow(startController(), getClass()
-            .getResource("/views/StartView_Alt.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    @Scope("prototype")
     StartController startController() {
         return new StartController(this);
     }
 
-    @Scope("prototype")
-    public FxmlWindow achievementsDialog() {
-        return new FxmlWindow(achieveController(), getClass()
-            .getResource("/views/Achievements.fxml"), primaryStage, StageStyle.DECORATED);
-    }
 
     @Bean
-    @Scope("prototype")
-    AchievementsController achieveController() {
-        return new AchievementsController(this);
-    }
-
-    @Bean
-    ActivityController activityController() {
-        return new ActivityController(this);
+    AddActivityController activityController() {
+        return new AddActivityController(this);
     }
 
     @Bean
     public MainWindow activityScreen() {
-        return new MainWindow(activityController(), primaryStage, StageStyle.DECORATED);
+        return new MainWindow(activityController(), primaryStage, StageStyle.DECORATED, true);
     }
+
+
+    //---------------------------------------------scenes------------------------------------------
 
     @Bean
     public SwitchabScene foodScene() {
         return new SwitchabScene(foodController(), getClass()
-            .getResource("/views/Vegetarian_Meal_Options.fxml"), "mainSecene");
+            .getResource("/views/Add_FoodActivity.fxml"));
     }
 
     @Bean
-    FoodController foodController() {
-        return new FoodController(this);
+    SceneController foodController() {
+        return new AddFoodController(this);
     }
 
     @Bean
-    CreateAccountController createAccountController() {
-        return new CreateAccountController(this);
+    public SwitchabScene transportScene() {
+        return new SwitchabScene(transportController(), getClass()
+            .getResource("/views/Add_TransportActivity.fxml"));
     }
 
     @Bean
-    public FxmlWindow createAccountDialog() {
-        return new FxmlWindow(createAccountController(), getClass()
-            .getResource("/views/Create_account.fxml"), primaryStage, StageStyle.DECORATED);
+    SceneController transportController() {
+        return new AddTransportController(this);
+    }
+
+    @Bean
+    public SwitchabScene solarPanelScene() {
+        return new SwitchabScene(solarPanelController(), getClass()
+            .getResource("/views/Add_SolarPanel.fxml"));
+    }
+
+    @Bean
+    SceneController solarPanelController() {
+        return new AddSolarPanelController(this);
+    }
+
+    @Bean
+    public SwitchabScene roomScene() {
+        return new SwitchabScene(roomController(), getClass()
+            .getResource("/views/Add_RoomHeating.fxml"));
+    }
+
+    @Bean
+    SceneController roomController() {
+        return new AddRoomController(this);
+    }
+
+    @Bean
+    public SwitchabScene statisticScene() {
+        return new SwitchabScene(statisticController(), getClass()
+            .getResource("/views/StartView_Alt.fxml"));
+    }
+
+    @Bean
+    StatisticController statisticController() {
+        return new StatisticController(this);
+    }
+
+    @Bean
+    public SwitchabScene achievementsScene() {
+        return new SwitchabScene(achieveController(), getClass()
+            .getResource("/views/Achievements.fxml"));
+    }
+
+    @Bean
+    AchievementsController achieveController() {
+        return new AchievementsController(this);
     }
 
 

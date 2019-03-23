@@ -4,8 +4,7 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import gogreenclient.screens.window.WindowController;
-import gogreenclient.screens.window.Windows;
+import gogreenclient.screens.window.SceneController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -17,7 +16,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class AchievementsController implements WindowController {
+public class AchievementsController implements SceneController {
 
     @Autowired
     private ScreenConfiguration screens;
@@ -25,20 +24,14 @@ public class AchievementsController implements WindowController {
     @FXML
     private JFXTreeTableView<Achievements> treeView;
 
-    private Windows dialog;
 
     public AchievementsController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
-    @Override
-    public void setWindow(Windows win) {
-        this.dialog = dialog;
-    }
 
     public void switchStatistics() {
-        //dialog.close();
-        screens.startDialog().show();
+        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
     }
 
     /**
@@ -100,9 +93,9 @@ public class AchievementsController implements WindowController {
         treeView.setShowRoot(false);
     }
 
+    @FXML
     public void addActivity() {
-        // dialog.close();
-        screens.addFoodDialog().show();
+        screens.activityScreen().show();
     }
 
     @FXML
