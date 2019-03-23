@@ -73,7 +73,7 @@ public class AchievementsController implements SceneController {
             }
         });
         ObservableList<Achievements> achievements = FXCollections.observableArrayList();
-        Achievements achievements1 = new Achievements("Achievement1",
+        Achievements treeHugger = new Achievements("Tree Hugger",
             "Yes", "Achieved as you ....");
         Achievements communist = new Achievements("Communist",
             "Yes", "Achieved as you have bought red shirt");
@@ -83,7 +83,7 @@ public class AchievementsController implements SceneController {
             "Yes", "Achieved as you ....");
         Achievements achievements3 = new Achievements("Achievement3",
             "No", "Achieved as you ....");
-        achievements.addAll(achievements1, communist,
+        achievements.addAll(treeHugger, communist,
             achievements2, thewalking, achievements3);
 
         final TreeItem<Achievements> root = new RecursiveTreeItem<Achievements>(achievements,
