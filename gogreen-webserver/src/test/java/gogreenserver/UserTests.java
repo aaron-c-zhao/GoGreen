@@ -35,7 +35,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -157,8 +160,8 @@ public class UserTests {
 
     private User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
-        return new User(name, "pass" + name, name + "@example.com", "First" + name, "Last" + name,
+        return new User(name, "pass" + name, name + "@example.com",
                 LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
-                RandomString.hashOf(name.hashCode()));
+                Date.from(Instant.now()));
     }
 }
