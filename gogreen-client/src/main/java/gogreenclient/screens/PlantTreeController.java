@@ -1,8 +1,6 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

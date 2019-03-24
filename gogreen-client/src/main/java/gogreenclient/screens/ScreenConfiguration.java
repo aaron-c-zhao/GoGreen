@@ -151,7 +151,9 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    SceneController addSolarPanelController() { return new AddSolarPanelController(this); }
+    SceneController addSolarPanelController() {
+        return new AddSolarPanelController(this);
+    }
 
     @Bean
     public SwitchabScene roomScene() {
