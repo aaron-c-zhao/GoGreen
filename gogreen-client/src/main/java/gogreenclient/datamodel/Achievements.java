@@ -1,84 +1,61 @@
-package gogreenserver.entity;
+package gogreenclient.datamodel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Map;
 
-@Entity
-@Table(name = "achievements")
+
 public class Achievements {
 
     // Define Fields
-    @Id
-    @Column(name = "username")
     private String userName;
 
-    @Column(name = "level")
     private Float level;
 
-    @Column(name = "tree_hugger")
     private Boolean treeHugger;
 
-    @Column(name = "anarcho_primitivist")
     private Boolean anarchoPrimitivist;
 
-    @Column(name = "celebi")
     private Boolean celebi;
 
-    @Column(name = "stop_cheating")
     private Boolean stopCheating;
 
-    @Column(name = "sun_absorber")
     private Boolean sunAbsorber;
 
-    @Column(name = "power_plant")
     private Boolean powerPlant;
 
-    @Column(name = "3_years_ago")
     private Boolean threeYearsAgo;
 
-    @Column(name = "time_traveler")
     private Boolean timeTraveler;
 
-    @Column(name = "vegetarian")
     private Boolean vegetarian;
 
-    @Column(name = "vegan")
     private Boolean vegan;
 
-    @Column(name = "photosynthesizer")
     private Boolean photosynthesizer;
 
-    @Column(name = "please_eat")
     private Boolean pleaseEat;
 
-    @Column(name = "dutch")
     private Boolean dutch;
 
-    @Column(name = "nice_legs")
     private Boolean niceLegs;
 
-    @Column(name = "teleporter")
     private Boolean teleporter;
 
-    @Column(name = "never_skip_leg_day")
     private Boolean neverSkipLegDay;
 
-    @Column(name = "fat_wallet")
     private Boolean fatWallet;
 
-    @Column(name = "retirement_fund")
     private Boolean retirementFund;
 
-    @Column(name = "just_buy_something")
     private Boolean justBuySomething;
 
-    @Column(name = "nokwg29")
     private Boolean nokwg29;
 
-    private Map<String, Boolean>;
+    private Map<String, Boolean> nameSpace;
     
     // Define Getters/Setters for JACKSON conversion
 
@@ -285,5 +262,10 @@ public class Achievements {
             + ", just_buy_something=" + justBuySomething
             + ", nokwg29=" + nokwg29
             + '}';
+    }
+
+    public List<String> getAchievedString(){
+        nameSpace.put("treeHugger", treeHugger);
+        return null;
     }
 }

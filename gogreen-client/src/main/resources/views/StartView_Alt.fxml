@@ -226,7 +226,7 @@
                 </AnchorPane>
                 <VBox layoutX="46.0" layoutY="33.0" prefHeight="66.0" prefWidth="129.0">
                     <children>
-                        <Label prefHeight="39.0" prefWidth="130.0" text="user_name" textFill="#eaeaea"
+                        <Label fx:id="userName" prefHeight="39.0" prefWidth="130.0" text="Stranger" textFill="#eaeaea"
                                VBox.vgrow="ALWAYS">
                             <font>
                                 <Font name="Segoe UI Light" size="27.0"/>
@@ -262,7 +262,7 @@
                 </Label>
                 <Label layoutX="110.0" layoutY="132.0" prefHeight="18.0" prefWidth="11.0" text="2" textFill="#eaeaea"
                        AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="93.0"/>
-                <Label layoutX="40.0" layoutY="148.0" prefHeight="32.0" prefWidth="77.0" text="set_total"
+                <Label fx:id="totalSaved" layoutX="40.0" layoutY="148.0" prefHeight="32.0" prefWidth="77.0" text="set_total"
                        textFill="SKYBLUE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="95.0">
                     <font>
                         <Font name="Segoe UI Light" size="22.0"/>
@@ -280,7 +280,7 @@
                         <Font name="Segoe UI Light" size="24.0"/>
                     </font>
                 </Label>
-                <Label layoutX="46.0" layoutY="452.0" prefHeight="32.0" prefWidth="135.0" text="set_latest_achivement"
+                <Label fx:id="achievement" layoutX="46.0" layoutY="452.0" prefHeight="32.0" prefWidth="135.0" text="Fresher"
                        textFill="SKYBLUE">
                     <font>
                         <Font name="Segoe UI Light" size="22.0"/>

@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.FoodEmissionModel;
-import gogreenclient.datamodel.UserCareer;
+import gogreenclient.datamodel.Records;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
 import javafx.collections.FXCollections;
@@ -36,6 +36,7 @@ public class AddFoodController implements SceneController {
     private Label total;
     @FXML
     private JFXCheckBox localProduct;
+
     private ScreenConfiguration screens;
 
     @Autowired
@@ -44,7 +45,7 @@ public class AddFoodController implements SceneController {
     @Autowired
     private UserCareerService userCareerService;
 
-    private UserCareer career;
+    private Records records;
 
 
     public AddFoodController(ScreenConfiguration screens) {
@@ -58,6 +59,7 @@ public class AddFoodController implements SceneController {
     public void initialize() throws Exception {
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
+        fillAll.setVisible(false);
         // set the value for the text field displaying the total
         //total.setText(String.valueOf(userCareerService
         //    .getCareer().getCo2saved()));
@@ -68,7 +70,7 @@ public class AddFoodController implements SceneController {
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() throws Exception {
+    public void submit() {
         if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
             || date.getValue() == null || costTaken.getText().trim().isEmpty()
             || costInstead.getText().trim().isEmpty()) {
@@ -80,8 +82,8 @@ public class AddFoodController implements SceneController {
             int usualCost = Integer.parseInt(costInstead.getText());
             int co2Saved = foodEmissionModel.compareFood(eatenFood,
                 usualFood, eatenCost, usualCost);
-            career = userCareerService.updateUserCareer(co2Saved);
-            String totalSaved = String.valueOf(career.getCo2saved());
+            records = userCareerService.getCareer();
+            String totalSaved = String.valueOf(Math.round(records.getSavedCo2Total()));
             fillAll.setVisible(false);
             total.setText(totalSaved);
             screens.submitMealDialog().showAndWait();

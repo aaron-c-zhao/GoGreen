@@ -69,10 +69,13 @@ public class AppConfig {
         this.restTemplate = restTemplate;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     @Bean
     UserModel userModel() throws Exception {
         UserModel userModel = new UserModel();
-        userModel.setRestTemplate(restTemplate());
         return userModel;
     }
 

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 
 public class AddTransportController implements SceneController {
@@ -22,11 +23,18 @@ public class AddTransportController implements SceneController {
     @FXML
     private JFXDatePicker date;
 
+    @FXML
+    private Label fillAll;
+
 
     private ScreenConfiguration screens;
 
     public AddTransportController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    public void initialize() {
+        fillAll.setVisible(false);
     }
 
     @FXML

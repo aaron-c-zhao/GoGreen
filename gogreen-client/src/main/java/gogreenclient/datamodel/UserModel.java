@@ -13,9 +13,6 @@ public class UserModel {
     @Autowired
     private RestTemplate loginRestTemplate;
 
-    public void setRestTemplate(RestTemplate restTemplate) {
-        this.loginRestTemplate = restTemplate;
-    }
 
     /**
      * Method that deals with the communication between server and client.

@@ -2,13 +2,21 @@ package gogreenclient.screens;
 
 import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class AddRoomController implements SceneController {
 
     private ScreenConfiguration screens;
 
+    @FXML
+    private Label fillAll;
+
     public AddRoomController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    public void initialize() {
+        fillAll.setVisible(false);
     }
 
     @FXML

@@ -1,7 +1,6 @@
 package gogreenserver.controllers;
 
 import gogreenserver.entity.User;
-import gogreenserver.services.UserCareerService;
 import gogreenserver.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
-    private UserCareerService userCareerService;
 
     @Autowired
     public UserController(UserService userService) {

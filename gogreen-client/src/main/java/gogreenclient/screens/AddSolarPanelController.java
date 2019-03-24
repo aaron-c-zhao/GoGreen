@@ -14,10 +14,17 @@ public class AddSolarPanelController implements SceneController {
     @FXML
     private Label intialSize;
 
+    @FXML
+    private Label fillAll;
+
     private ScreenConfiguration screens;
 
     public AddSolarPanelController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    public void initialize() {
+        fillAll.setVisible(false);
     }
 
     @FXML
