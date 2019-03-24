@@ -72,6 +72,9 @@ public class FoodEmissionTests {
     @WithMockUser
     @Test
     public void checkFood() throws Exception {
+        
+        LOGGER.debug("=== checkFood() ===");
+        
         String name = "Apple";
         FoodEmission dummy = createDummyEmssion(name);
 

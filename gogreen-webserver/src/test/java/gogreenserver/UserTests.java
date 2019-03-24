@@ -87,6 +87,8 @@ public class UserTests {
     @Test
     public void checkUsers() throws Exception {
 
+        LOGGER.debug("=== checkUsers() ===");
+
         User[] dummyUsers = new User[3];
         dummyUsers[0] = manager.persist(createDummyUser("Alice"));
         dummyUsers[1] = manager.persist(createDummyUser("Bob"));
@@ -109,8 +111,7 @@ public class UserTests {
                     .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
 
-            assertThat(ures.getResponse().getContentAsString())
-                    .isEqualTo("success");
+            assertThat(ures.getResponse().getContentAsString()).isEqualTo("success");
 
             usercount++;
         }
@@ -122,6 +123,9 @@ public class UserTests {
 
     @Test
     public void addUser() throws Exception {
+
+        LOGGER.debug("=== addUser() ===");
+
         User dummy = createDummyUser("Danny");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
@@ -141,6 +145,9 @@ public class UserTests {
     @WithMockUser
     @Test
     public void removeUser() throws Exception {
+
+        LOGGER.debug("=== removeUser() ===");
+
         String name = "Ellen";
         User dummy = createDummyUser(name);
         manager.persistAndFlush(dummy);

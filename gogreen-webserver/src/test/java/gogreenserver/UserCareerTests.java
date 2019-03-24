@@ -79,6 +79,9 @@ public class UserCareerTests {
     @WithMockUser
     @Test
     public void checkCareers() throws Exception {
+        
+        LOGGER.debug("=== checkCareers() ===");
+        
         UserCareer[] dummyCareers = new UserCareer[3];
         dummyCareers[0] = manager.persist(createDummyCareer("Alice"));
         dummyCareers[1] = manager.persist(createDummyCareer("Bob"));
@@ -113,6 +116,9 @@ public class UserCareerTests {
     @WithMockUser
     @Test
     public void addCareer() throws Exception {
+        
+        LOGGER.debug("=== addCareer() ===");
+        
         UserCareer dummy = createDummyCareer("Danny");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/career")
             .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
@@ -130,6 +136,9 @@ public class UserCareerTests {
     @WithMockUser
     @Test
     public void removeCareer() throws Exception {
+        
+        LOGGER.debug("=== removeCareer() ===");
+        
         String name = "Ellen";
         UserCareer dummy = createDummyCareer(name);
         manager.persistAndFlush(dummy);
@@ -146,6 +155,9 @@ public class UserCareerTests {
     @WithMockUser
     @Test
     public void updateCareer() throws Exception {
+        
+        LOGGER.debug("=== addCareer() ===");
+        
         UserCareer dummy = createDummyCareer("Frank");
         LOGGER.debug("Old career: " + mapper.writeValueAsString(dummy));
         manager.persistAndFlush(dummy);
@@ -172,6 +184,9 @@ public class UserCareerTests {
     @WithMockUser
     @Test
     public void updateCareer_Null() {
+        
+        LOGGER.debug("=== updateCareer_Null() ===");
+        
         UserCareer meHere = createDummyCareer("Andy");
         UserCareer imNotHere = createDummyCareer("Rudolph");
         service.createUserCareer(meHere);
