@@ -35,11 +35,11 @@ public class Achievements {
     @Column(name = "power_plant")
     private Boolean powerPlant;
 
-    @Column(name = "3_years_ago")
-    private Boolean threeYearsAgo;
+    @Column(name = "five_billion_years")
+    private Boolean fiveBillionYears;
 
-    @Column(name = "time_traveler")
-    private Boolean timeTraveler;
+    @Column(name = "thank_uv_much")
+    private Boolean thankUvMuch;
 
     @Column(name = "vegetarian")
     private Boolean vegetarian;
@@ -78,6 +78,7 @@ public class Achievements {
     private Boolean nokwg29;
 
     // Define Getters/Setters for JACKSON conversion
+
 
     public String getUserName() {
         return userName;
@@ -143,20 +144,20 @@ public class Achievements {
         this.powerPlant = powerPlant;
     }
 
-    public Boolean getThreeYearsAgo() {
-        return threeYearsAgo;
+    public Boolean getFiveBillionYears() {
+        return fiveBillionYears;
     }
 
-    public void setThreeYearsAgo(Boolean threeYearsAgo) {
-        this.threeYearsAgo = threeYearsAgo;
+    public void setFiveBillionYears(Boolean fiveBillionYears) {
+        this.fiveBillionYears = fiveBillionYears;
     }
 
-    public Boolean getTimeTraveler() {
-        return timeTraveler;
+    public Boolean getThankUvMuch() {
+        return thankUvMuch;
     }
 
-    public void setTimeTraveler(Boolean timeTraveler) {
-        this.timeTraveler = timeTraveler;
+    public void setThankUvMuch(Boolean thankUvMuch) {
+        this.thankUvMuch = thankUvMuch;
     }
 
     public Boolean getVegetarian() {
@@ -267,8 +268,8 @@ public class Achievements {
             + ", stop_cheating=" + stopCheating
             + ", sun_absorber=" + sunAbsorber
             + ", power_plant=" + powerPlant
-            + ", three_years_ago=" + threeYearsAgo
-            + ", time_traveler=" + timeTraveler
+            + ", three_years_ago=" + fiveBillionYears
+            + ", time_traveler=" + thankUvMuch
             + ", vegetarian=" + vegetarian
             + ", vegan=" + vegan
             + ", photosynthesizer=" + photosynthesizer

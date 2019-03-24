@@ -32,13 +32,14 @@ public class AddSolarpanelsController {
 
     /**
      * This end-point is used to create a new entry in the "addSolarpanel" table in DB.
-     * @param userName This is the users UserName.
+     *
+     * @param userName       This is the users UserName.
      * @param addSolarpanels This is the addSolarpanels Obejct.
      * @return responseEntity of type string and status code OK if successfull.
      */
     @PostMapping(value = "/addSolarpanel")
     public ResponseEntity<String> createSolarpanel(@RequestHeader(value = "userName")
-                                                           String userName,
+                                                       String userName,
                                                    @RequestBody AddSolarpanels addSolarpanels) {
         addSolarpanels.setUserName(userName);
         this.addSolarpanelsService.createAddSolarpanels(addSolarpanels);

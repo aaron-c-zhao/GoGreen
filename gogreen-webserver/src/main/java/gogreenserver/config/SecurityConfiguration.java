@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -18,6 +19,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 @EnableWebSecurity
 @ComponentScan("gogreenserver.security")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private static String REALM = "GOGREEN_REALM";
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -37,25 +40,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager(); //use default auth manager
+        return authenticationManager();
     }
 
 
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        //set the user to use bcrypt password encoding.
         auth.userDetailsService(userDetailsService).passwordEncoder(bcryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable() //disable any crosssite scripting
+        http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/api/createUser").permitAll() //disable auth on api/createUser
-            .anyRequest().authenticated() //but enable on everything else
+            .antMatchers("/api/createUser").permitAll()
+            .antMatchers("/api/user/findUser/**").permitAll()
+            .anyRequest().authenticated()
             .and()
-            .httpBasic() //when using http built in auth
-            .authenticationEntryPoint(restAuthenticationEntryPoint); //always 401
+            .httpBasic().realmName(REALM)
+            .authenticationEntryPoint(restAuthenticationEntryPoint)
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

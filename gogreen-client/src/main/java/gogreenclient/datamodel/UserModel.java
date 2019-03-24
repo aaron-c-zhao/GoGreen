@@ -34,9 +34,23 @@ public class UserModel {
         user.setUsername(username);
         user.setPassword(password);
         user.setBdate(bdate);
-        user.setNationality(nationality);
+        user.setEmail(nationality);
         return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser", user,
             User.class);
+    }
+
+    /**
+     * Find if a user is already exists in the database. None of the user's detail will be received,
+     * so this method is safe to use.
+     *
+     * @param username username entered by user while creating account.
+     * @return a boolean value, true if the username is already used by others, false if the
+     *     username is valid.
+     */
+    public boolean findUser(String username) {
+        ResponseEntity<String> response = loginRestTemplate
+            .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
+        return response.getBody().equals("success") ? true : false;
     }
 
 }

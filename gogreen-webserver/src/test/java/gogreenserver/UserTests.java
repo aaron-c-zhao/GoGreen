@@ -40,7 +40,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
-
 import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
@@ -77,7 +76,6 @@ public class UserTests {
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
-
     /**
      * <ol>
      * <li>If {@code /api/users/} works.
