@@ -94,7 +94,7 @@
                                         <Insets right="3.0" />
                                     </padding>
                                 </Label>
-                                <JFXComboBox id="takenMeal_Box" fx:id="takenTransportBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Transport options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                <JFXComboBox fx:id="takenTransportBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Transport options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets top="4.0" />
                                     </HBox.margin>

@@ -103,7 +103,7 @@
                                     <Insets right="3.0" />
                                 </padding>
                             </Label>
-                            <JFXTextField fx:id="costInstead" focusColor="TOMATO" maxWidth="300.0" prefHeight="31.0" prefWidth="127.0" promptText="Time(hours)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                            <JFXTextField fx:id="minutes" focusColor="TOMATO" maxWidth="300.0" prefHeight="31.0" prefWidth="127.0" promptText="Time(minutes)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                 <font>
                                     <Font name="System Italic" size="15.0" />
                                 </font>
@@ -115,7 +115,7 @@
                   </HBox>
                   <HBox prefHeight="58.0" prefWidth="371.0" spacing="25.0" VBox.vgrow="ALWAYS">
                      <children>
-                            <Label prefHeight="58.0" prefWidth="218.0" text="The temperature difference (in Celsius):" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                            <Label prefHeight="58.0" prefWidth="218.0" text="How many degrees you have decreased the temperature by (in Celsius):" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                                 <font>
                                     <Font name="Century Gothic" size="15.0" />
                                 </font>
@@ -123,7 +123,7 @@
                                     <Insets right="3.0" />
                                 </padding>
                             </Label>
-                            <JFXTextField fx:id="costInstead1" focusColor="TOMATO" maxWidth="300.0" prefHeight="31.0" prefWidth="130.0" promptText="Temperature" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                            <JFXTextField fx:id="tempDiff" focusColor="TOMATO" maxWidth="300.0" prefHeight="31.0" prefWidth="130.0" promptText="Temperature" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                 <font>
                                     <Font name="System Italic" size="15.0" />
                                 </font>
@@ -143,7 +143,7 @@
                                     <Insets right="3.0" />
                                 </padding>
                             </Label>
-                            <JFXTextField fx:id="costInstead2" focusColor="TOMATO" maxWidth="300.0" prefHeight="31.0" prefWidth="130.0" promptText="Size" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                            <JFXTextField fx:id="roomArea" focusColor="TOMATO" maxWidth="300.0" prefHeight="31.0" prefWidth="130.0" promptText="Size" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                 <font>
                                     <Font name="System Italic" size="15.0" />
                                 </font>

@@ -119,7 +119,7 @@
                                     <Font name="Century Gothic" size="15.0" />
                                 </font>
                             </Label>
-                            <JFXTextField fx:id="costInstead" focusColor="TOMATO" prefHeight="31.0" prefWidth="64.0" promptText="Size" unFocusColor="#23ae36">
+                            <JFXTextField fx:id="sizeOfSolarPanel" focusColor="TOMATO" prefHeight="31.0" prefWidth="64.0" promptText="Size" unFocusColor="#23ae36">
                                 <font>
                                     <Font name="System Italic" size="15.0" />
                                 </font>
