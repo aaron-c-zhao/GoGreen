@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.User;
 
-import net.bytebuddy.utility.RandomString;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -35,11 +33,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Random;
+
 import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
@@ -76,6 +72,7 @@ public class UserTests {
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
+
     /**
      * <ol>
      * <li>If {@code /api/users/} works.
@@ -108,12 +105,12 @@ public class UserTests {
         for (JsonNode user : list) {
             LOGGER.debug("User " + usercount + ": " + user);
             RequestBuilder userReq = MockMvcRequestBuilders
-                    .get("/api/user/" + user.get("username").asText())
+                    .get("/api/user/findUser/" + user.get("username").asText())
                     .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
 
             assertThat(ures.getResponse().getContentAsString())
-                    .isEqualTo(mapper.writeValueAsString(dummyUsers[usercount]));
+                    .isEqualTo("success");
 
             usercount++;
         }
@@ -160,6 +157,6 @@ public class UserTests {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com",
                 LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
-                Date.from(Instant.now()));
+                LocalDate.now());
     }
 }
