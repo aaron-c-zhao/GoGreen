@@ -5,10 +5,14 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class PlantTreeController implements SceneController {
     @FXML
     private JFXComboBox plantedTree;
+
+    @FXML
+    private Label addDate;
 
     private ScreenConfiguration screens;
 

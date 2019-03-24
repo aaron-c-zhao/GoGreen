@@ -139,7 +139,7 @@
                   </HBox>
                   <HBox prefHeight="28.0" prefWidth="398.0" spacing="12.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label prefHeight="26.0" prefWidth="49.0" fx:id="date" text="Date:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                        <Label prefHeight="26.0" prefWidth="49.0" fx:id="addDate" text="Date:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Century Gothic" size="16.0" />
                            </font>
@@ -150,7 +150,7 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <JFXDatePicker fx:id="date" defaultColor="#00ab66" prefHeight="28.0" prefWidth="210.0" HBox.hgrow="ALWAYS" />
+                        <JFXDatePicker defaultColor="#00ab66" prefHeight="28.0" prefWidth="210.0" HBox.hgrow="ALWAYS" />
                      </children>
                      <VBox.margin>
                         <Insets />

@@ -15,7 +15,7 @@ public class AddSolarPanelController implements SceneController {
     private Label intialSize;
 
     @FXML
-    private Label date;
+    private Label addDate;
 
     private ScreenConfiguration screens;
 

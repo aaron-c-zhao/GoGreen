@@ -14,6 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.PlantTreeController">
     <children>
         <AnchorPane prefHeight="444.0" prefWidth="182.0" style="-fx-background-color: #00AB66;" HBox.hgrow="NEVER">
@@ -101,7 +102,28 @@
                                 </JFXComboBox>
                             </children>
                         </HBox>
-
+                        <HBox prefHeight="28.0" prefWidth="398.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label prefHeight="26.0" prefWidth="49.0" fx:id="addDate" text="Date:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                    <font>
+                                        <Font name="Century Gothic" size="16.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets top="5.0" />
+                                    </padding>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Label>
+                                <JFXDatePicker defaultColor="#00ab66" prefHeight="28.0" prefWidth="210.0" HBox.hgrow="ALWAYS" />
+                            </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <padding>
+                                <Insets left="100.0" />
+                            </padding>
+                        </HBox>
                     </children>
                 </VBox>
                 <Label layoutX="67.0" layoutY="31.0" prefHeight="51.0" prefWidth="353.0" text="Transport related action" textFill="#00ab66" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="45.0">
