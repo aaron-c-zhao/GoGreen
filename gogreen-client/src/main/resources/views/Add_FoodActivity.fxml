@@ -15,6 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+<?import javafx.scene.control.Tooltip?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.AddFoodController">
     <children>
         <AnchorPane prefHeight="444.0" prefWidth="182.0" style="-fx-background-color: #00AB66;" HBox.hgrow="NEVER">
@@ -48,7 +49,7 @@
                                 <FontIcon iconColor="#eaeaea" iconLiteral="fas-bicycle" iconSize="24" strokeMiterLimit="15.0" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Adding a solar panels" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Add a solar panel" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0" />
                             </font>
@@ -64,7 +65,7 @@
                                 <FontIcon iconColor="#eaeaea" iconLiteral="fas-thermometer-half" iconSize="26" strokeMiterLimit="15.0" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" text="Plant a tree" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" text="Plant a tree" textFill="#eaeaea" wrapText="true" onAction="#switchPlantTree" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <font>
                                 <Font name="Segoe UI Light" size="19.0" />
                             </font>
@@ -97,8 +98,15 @@
                                 </Label>
                                 <HBox spacing="25.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <JFXComboBox id="takenMeal_Box" fx:id="takenMealBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="172.0" promptText="Meal options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS" />
+                                        <JFXComboBox id="takenMeal_Box" fx:id="takenMealBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="172.0" promptText="Meal options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                        <tooltip>
+                                        <Tooltip text="Foods above and down to Tofu are vegetarian options. Options below Tofu are non-vegetarian, and will generally have much higher carbon dioxide emissions than vegetarian meals"></Tooltip>
+                                        </tooltip>
+                                        </JFXComboBox>
                                         <JFXTextField fx:id="costTaken" focusColor="TOMATO" prefHeight="31.0" prefWidth="87.0" promptText="Cost (in €)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                            <tooltip>
+                                                <Tooltip text="Insert numerical value (in euros)"></Tooltip>
+                                            </tooltip>
                                             <font>
                                                 <Font name="System Italic" size="15.0" />
                                             </font>
@@ -118,7 +126,7 @@
                         </HBox>
                         <HBox prefHeight="58.0" prefWidth="428.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label prefHeight="58.0" prefWidth="112.0" text="The meal that you usually take:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                                <Label prefHeight="58.0" prefWidth="112.0" text="Meal that you would have taken instead:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="Century Gothic" size="15.0" />
                                     </font>
@@ -126,11 +134,17 @@
                                 <HBox prefHeight="58.0" prefWidth="305.0" spacing="25.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <JFXComboBox id="insteadOfMeal_Box" fx:id="insteadOfMealBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="186.0" promptText="Meal options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                            <tooltip>
+                                                <Tooltip text="Foods above and down to Tofu are vegetarian options. Options below Tofu are non-vegetarian, and will generally have much higher carbon dioxide emissions than vegetarian meals"></Tooltip>
+                                            </tooltip>
                                             <HBox.margin>
                                                 <Insets left="10.0" top="12.0" />
                                             </HBox.margin>
                                         </JFXComboBox>
                                         <JFXTextField fx:id="costInstead" focusColor="TOMATO" prefHeight="31.0" prefWidth="110.0" promptText="Cost (in €)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                            <tooltip>
+                                                <Tooltip text="Insert numerical value (in euros)"></Tooltip>
+                                            </tooltip>
                                             <font>
                                                 <Font name="System Italic" size="15.0" />
                                             </font>
@@ -154,12 +168,20 @@
                         <Font size="27.0" />
                     </font>
                 </JFXButton>
-                <Label fx:id="fillAll" layoutX="126.0" layoutY="332.0" prefHeight="24.0" prefWidth="213.0" text="Please fill all of the fields" textFill="RED" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="126.0">
+                <Label fx:id="fillAll" layoutX="126.0" layoutY="332.0" prefHeight="24.0" prefWidth="300.0" text="Please fill all of the fields" textFill="RED" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="126.0">
                     <font>
                         <Font name="Segoe UI" size="19.0" />
                     </font>
                 </Label>
                 <JFXCheckBox layoutX="339.0" layoutY="175.0" text="Local production" AnchorPane.rightAnchor="20.80000000000001">
+                    <font>
+                        <Font name="Segoe UI Light Italic" size="12.0" />
+                    </font>
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                </JFXCheckBox>
+                <JFXCheckBox layoutX="339.0" layoutY="300.0" text="Local production" AnchorPane.rightAnchor="20.80000000000001">
                     <font>
                         <Font name="Segoe UI Light Italic" size="12.0" />
                     </font>

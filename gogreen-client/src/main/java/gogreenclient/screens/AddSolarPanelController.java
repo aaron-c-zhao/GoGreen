@@ -14,6 +14,9 @@ public class AddSolarPanelController implements SceneController {
     @FXML
     private Label intialSize;
 
+    @FXML
+    private Label date;
+
     private ScreenConfiguration screens;
 
     public AddSolarPanelController(ScreenConfiguration screens) {
@@ -36,6 +39,12 @@ public class AddSolarPanelController implements SceneController {
     public void switchRoom() {
         screens.activityController()
             .getWindow().getScene().setRoot(screens.roomScene().getRoot());
+    }
+
+    @FXML
+    public void switchPlantTree() {
+        screens.activityController()
+                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
 }

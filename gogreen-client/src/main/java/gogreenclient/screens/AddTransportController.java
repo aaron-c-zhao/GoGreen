@@ -1,7 +1,6 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
@@ -19,10 +18,6 @@ public class AddTransportController implements SceneController {
     @FXML
     private JFXTextField distance;
 
-    @FXML
-    private JFXDatePicker date;
-
-
     private ScreenConfiguration screens;
 
     public AddTransportController(ScreenConfiguration screens) {
@@ -38,13 +33,19 @@ public class AddTransportController implements SceneController {
     @FXML
     public void switchSolar() {
         screens.activityController()
-            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
     }
 
     @FXML
     public void switchRoom() {
         screens.activityController()
             .getWindow().getScene().setRoot(screens.roomScene().getRoot());
+    }
+
+    @FXML
+    public void switchPlantTree() {
+        screens.activityController()
+                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
 }

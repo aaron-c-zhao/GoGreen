@@ -11,6 +11,7 @@ public class AddRoomController implements SceneController {
         this.screens = screens;
     }
 
+
     @FXML
     public void switchFood() {
         screens.activityController()
@@ -26,7 +27,13 @@ public class AddRoomController implements SceneController {
     @FXML
     public void switchSolar() {
         screens.activityController()
-            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
+    }
+
+    @FXML
+    public void switchPlantTree() {
+        screens.activityController()
+                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
 }

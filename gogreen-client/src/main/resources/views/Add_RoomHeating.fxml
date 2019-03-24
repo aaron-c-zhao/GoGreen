@@ -46,7 +46,7 @@
                                 <FontIcon iconColor="#eaeaea" iconLiteral="fas-bicycle" iconSize="24" strokeMiterLimit="15.0" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Adding a solar panels" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Add a solar panel" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0" />
                             </font>
@@ -62,7 +62,7 @@
                                 <FontIcon iconColor="#eaeaea" iconLiteral="fas-thermometer-half" iconSize="26" strokeMiterLimit="15.0" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" text="Plant a tree" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" text="Plant a tree" textFill="#eaeaea" wrapText="true" onAction="#switchPlantTree" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <font>
                                 <Font name="Segoe UI Light" size="19.0" />
                             </font>
@@ -115,7 +115,7 @@
                   </HBox>
                   <HBox prefHeight="58.0" prefWidth="371.0" spacing="25.0" VBox.vgrow="ALWAYS">
                      <children>
-                            <Label prefHeight="58.0" prefWidth="218.0" text="The temperature difference (in Celsium):" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                            <Label prefHeight="58.0" prefWidth="218.0" text="The temperature difference (in Celsius):" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                                 <font>
                                     <Font name="Century Gothic" size="15.0" />
                                 </font>

@@ -145,15 +145,13 @@ public class ScreenConfiguration {
     }
 
     @Bean
-    public SwitchabScene solarPanelScene() {
-        return new SwitchabScene(solarPanelController(), getClass()
+    public SwitchabScene addSolarPanelScene() {
+        return new SwitchabScene(addSolarPanelController(), getClass()
             .getResource("/views/Add_SolarPanel.fxml"));
     }
 
     @Bean
-    SceneController solarPanelController() {
-        return new AddSolarPanelController(this);
-    }
+    SceneController addSolarPanelController() { return new AddSolarPanelController(this); }
 
     @Bean
     public SwitchabScene roomScene() {
@@ -188,5 +186,13 @@ public class ScreenConfiguration {
         return new AchievementsController(this);
     }
 
+    @Bean
+    public SwitchabScene plantTreeScene() {
+        return new SwitchabScene(plantTreeController(), getClass()
+                .getResource("/views/Plant_Tree.fxml"));
+    }
+
+    @Bean
+    SceneController plantTreeController(){ return new PlantTreeController(this);}
 
 }

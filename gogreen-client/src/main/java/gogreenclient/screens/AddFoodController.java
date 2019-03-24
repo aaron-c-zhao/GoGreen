@@ -7,6 +7,8 @@ import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.UserCareer;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,11 +17,14 @@ import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+
 public class AddFoodController implements SceneController {
+
 
     //list for the tree view
     ObservableList<String> mealList = FXCollections
-        .observableArrayList("Potato sandwich", "Beef sandwich");
+        .observableArrayList("Beans", "Vegetables", "Cheese" , "Chocolate", "Fruit", "Lentils", "Milk", "Nuts", "Pannekoeken", "Poffertjes", "Potatoes", "Rice", "Stroopwafel", "Tofu", "Beef", "Bitterballen", "Chicken",  "Eggs",  "Kroket", "Lamb",
+                "Pork", "Tuna", "Turkey");
     @FXML
     private JFXTextField costTaken;
     @FXML
@@ -35,7 +40,10 @@ public class AddFoodController implements SceneController {
     @FXML
     private Label total;
     @FXML
-    private JFXCheckBox localProduct;
+    private JFXCheckBox localProductTaken;
+
+    private JFXCheckBox localProductInstead;
+
     private ScreenConfiguration screens;
 
     @Autowired
@@ -51,18 +59,18 @@ public class AddFoodController implements SceneController {
         this.screens = screens;
     }
 
-
     /**
      * sets the combo box elements.
      */
     public void initialize() throws Exception {
+        validateInputCostTaken();
+        validateInputCostInstead();
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         // set the value for the text field displaying the total
         //total.setText(String.valueOf(userCareerService
         //    .getCareer().getCo2saved()));
     }
-
 
     /**
      * method for submit button, which will send the data to the server.
@@ -101,7 +109,7 @@ public class AddFoodController implements SceneController {
     @FXML
     public void switchSolar() {
         screens.activityController()
-            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
     }
 
     @FXML
@@ -110,4 +118,32 @@ public class AddFoodController implements SceneController {
             .getWindow().getScene().setRoot(screens.roomScene().getRoot());
     }
 
+    @FXML
+    public void switchPlantTree() {
+        screens.activityController()
+                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+    }
+
+    public void validateInputCostTaken(){
+        costTaken.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    costTaken.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+    public void validateInputCostInstead(){
+        costInstead.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    costInstead.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
 }

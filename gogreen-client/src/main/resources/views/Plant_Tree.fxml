@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.AddTransportController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.PlantTreeController">
     <children>
         <AnchorPane prefHeight="444.0" prefWidth="182.0" style="-fx-background-color: #00AB66;" HBox.hgrow="NEVER">
             <children>
@@ -39,7 +39,7 @@
                                 <FontIcon iconColor="#eaeaea" iconLiteral="fas-utensils" iconSize="24" strokeMiterLimit="15.0" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="15.0" prefHeight="74.0" prefWidth="230.0" ripplerFill="SKYBLUE" style="-fx-background-color: #4682B4;" text="Transport related action" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton graphicTextGap="15.0" onAction="#switchTransport" prefHeight="74.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Transport related action" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0" />
                             </font>
@@ -63,7 +63,7 @@
                                 <FontIcon iconColor="#eaeaea" iconLiteral="fas-thermometer-half" iconSize="26" strokeMiterLimit="15.0" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" text="Plant a tree" textFill="#eaeaea" wrapText="true" onAction="#switchPlantTree" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" style="-fx-background-color: #4682B4;" text="Plant a tree" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <font>
                                 <Font name="Segoe UI Light" size="19.0" />
                             </font>
@@ -86,7 +86,7 @@
                     <children>
                         <HBox prefHeight="43.0" prefWidth="404.0" spacing="12.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label prefHeight="46.0" prefWidth="195.0" text="The transport method that you have used:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                                <Label prefHeight="46.0" prefWidth="195.0" text="Type of tree that you have planted:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="Century Gothic" size="15.0" />
                                     </font>
@@ -94,49 +94,14 @@
                                         <Insets right="3.0" />
                                     </padding>
                                 </Label>
-                                <JFXComboBox id="takenMeal_Box" fx:id="takenTransportBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Transport options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                <JFXComboBox id="takenMeal_Box" fx:id="plantedTree" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Tree species" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets top="4.0" />
                                     </HBox.margin>
                                 </JFXComboBox>
                             </children>
                         </HBox>
-                        <HBox prefHeight="50.0" prefWidth="404.0" spacing="12.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <Label prefHeight="58.0" prefWidth="195.0" text="The transport method that you usually use:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
-                                    <font>
-                                        <Font name="Century Gothic" size="15.0" />
-                                    </font>
-                                </Label>
-                                <JFXComboBox id="insteadOfMeal_Box" fx:id="insteadOfTransportBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Transport options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
-                                    <HBox.margin>
-                                        <Insets top="6.0" />
-                                    </HBox.margin>
-                                </JFXComboBox>
-                            </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="50.0" prefWidth="404.0" spacing="12.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <Label prefHeight="26.0" prefWidth="382.0" text="Distance that you have travelled:" HBox.hgrow="ALWAYS">
-                                    <font>
-                                        <Font name="Century Gothic" size="16.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets top="5.0" />
-                                    </padding>
-                                    <HBox.margin>
-                                        <Insets />
-                                    </HBox.margin>
-                                </Label>
-                                <JFXTextField focusColor="TOMATO" fx:id="distance" maxWidth="300.0" prefHeight="26.0" prefWidth="240.0" promptText="Distance (in KM)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin></JFXTextField>
-                            </children>
-                        </HBox>
+
                     </children>
                 </VBox>
                 <Label layoutX="67.0" layoutY="31.0" prefHeight="51.0" prefWidth="353.0" text="Transport related action" textFill="#00ab66" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="45.0">
