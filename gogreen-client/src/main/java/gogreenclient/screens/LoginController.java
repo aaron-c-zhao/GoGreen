@@ -3,6 +3,8 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.config.AppConfig;
+import gogreenclient.datamodel.ExceptionHandler;
+import gogreenclient.datamodel.UserAccountValidator;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -47,6 +49,12 @@ public class LoginController implements WindowController {
     @Autowired
     private AppConfig appConfig;
 
+    @Autowired
+    private UserAccountValidator validator;
+
+    @Autowired
+    private ExceptionHandler exceptionHandler;
+
     public LoginController(ScreenConfiguration screens) {
         this.screens = screens;
     }
@@ -88,8 +96,14 @@ public class LoginController implements WindowController {
      * @throws Exception exception threw by restTemplate.
      */
     @FXML
-    public void switchToMenu() throws Exception {
+    public void login() throws Exception {
         combinationLabel.setVisible(false);
+        try {
+            validator.loginValidate(username.getText(), password.getText());
+        } catch (IllegalArgumentException e) {
+            exceptionHandler.illegalArgumentExceptionhandler(e);
+            return;
+        }
         appConfig.setUsername(username.getText());
         appConfig.setPassword(password.getText());
         ResponseEntity<String> response = null;

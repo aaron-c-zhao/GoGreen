@@ -13,7 +13,8 @@ import java.net.URL;
 ;
 
 /**
- * Every dialog is a individual stage. This class is the factory class of the dialogs.
+ * A stage which contains only one scene, which is loaded from a fxml file. Switching scene will
+ * be difficult using this kind of stage.
  */
 public class FxmlWindow extends gogreenclient.screens.window.Windows {
 

@@ -7,7 +7,8 @@ public class User implements Serializable {
     private String username;
     private String password;
     private LocalDate bdate;
-    private String nationality;
+    private String email;
+    private LocalDate dateCreated = LocalDate.now();
 
     public String getUsername() {
         return username;
@@ -33,11 +34,19 @@ public class User implements Serializable {
         this.bdate = bdate;
     }
 
-    public String getNationality() {
-        return nationality;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
+    public void setEmail(String nationality) {
+        this.email = nationality;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }
