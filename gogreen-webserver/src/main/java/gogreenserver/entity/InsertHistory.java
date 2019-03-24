@@ -54,6 +54,21 @@ public class InsertHistory {
 
     // Define Getters/Setters for JACKSON
 
+    public int getInsertId() {
+        return insertId;
+    }
+
+    public void setInsertId(int insertId) {
+        this.insertId = insertId;
+    }
+
+    public Date getInsertDate() {
+        return insertDate;
+    }
+
+    public void setInsertDate(Date insertDate) {
+        this.insertDate = insertDate;
+    }
 
     public String getUserName() {
         return userName;
@@ -142,6 +157,7 @@ public class InsertHistory {
     public void setEnergyActivityTempDegreesDecreased(Float energyActivityTempDegreesDecreased) {
         this.energyActivityTempDegreesDecreased = energyActivityTempDegreesDecreased;
     }
+
 
     // Define toString
 

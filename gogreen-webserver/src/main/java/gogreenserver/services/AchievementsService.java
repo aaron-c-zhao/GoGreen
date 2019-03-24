@@ -1,5 +1,6 @@
 package gogreenserver.services;
 
+import gogreenserver.entity.Achievements;
 import gogreenserver.repositories.AchievementsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
