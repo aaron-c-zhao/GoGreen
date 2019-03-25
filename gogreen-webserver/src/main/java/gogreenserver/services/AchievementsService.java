@@ -22,8 +22,9 @@ public class AchievementsService {
         return achievementsRepo.findAll();
     }
 
-    public Optional<Achievements> findById(String userName) {
-        return achievementsRepo.findById(userName);
+
+    public List<Achievements> findAllByUserName(String userName){
+        return achievementsRepo.findAllByUserName(userName);
     }
 
     // Yet have to add method to find Friends Achievements.

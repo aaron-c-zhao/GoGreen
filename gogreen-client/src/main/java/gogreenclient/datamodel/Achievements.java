@@ -1,10 +1,5 @@
 package gogreenclient.datamodel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.List;
 import java.util.Map;
 
 
@@ -264,8 +259,4 @@ public class Achievements {
             + '}';
     }
 
-    public List<String> getAchievedString(){
-        nameSpace.put("treeHugger", treeHugger);
-        return null;
-    }
 }
