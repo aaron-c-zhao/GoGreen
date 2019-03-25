@@ -14,8 +14,10 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -32,6 +34,7 @@ public class UserModelTest {
     private ObjectMapper objectMapper;
     private MockRestServiceServer server;
     private User userz;
+    private String user;
 
     @Before
     public void setUp() throws Exception {
@@ -39,11 +42,12 @@ public class UserModelTest {
         userz = new User();
         userz.setUsername("Alin");
         userz.setPassword("alin");
-        String user = objectMapper.writeValueAsString(userz);
+        userz.setDateCreated(LocalDate.now());
+        user = objectMapper.writeValueAsString(userz);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user")))
+        server.expect(requestTo(new URI("https://localhost:8443/api/createUser")))
             .andExpect(method(HttpMethod.POST))
-            .andExpect(content().string(user))
+//            .andExpect(content().string(user))
             .andRespond(withSuccess(user, MediaType.APPLICATION_JSON));
     }
 
@@ -51,5 +55,14 @@ public class UserModelTest {
     public void addUser() throws Exception {
         assertEquals(userz.getUsername(), userModel
             .addUser(userz.getUsername(), userz.getPassword(), null, null).getBody().getUsername());
+    }
+
+    @Test
+    public void findUser() throws Exception{
+        server.reset();
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
+        assertTrue(userModel.findUser("Alin"));
     }
 }

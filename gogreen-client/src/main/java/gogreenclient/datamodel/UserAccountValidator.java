@@ -109,5 +109,8 @@ public class UserAccountValidator {
         }
     }
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
 
 }

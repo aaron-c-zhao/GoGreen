@@ -1,12 +1,20 @@
 package gogreenserver;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gogreenserver.entity.User;
 import gogreenserver.entity.UserCareer;
 import gogreenserver.services.UserCareerService;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +27,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import javax.transaction.Transactional;
 import java.util.Random;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -51,8 +59,10 @@ public class UserCareerTests {
     // the ObjectMapper that Spring uses for its object->json conversions
     @Autowired
     private ObjectMapper mapper;
-
+    
     @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mockMvc;
 
     @Autowired
@@ -60,9 +70,18 @@ public class UserCareerTests {
 
     @Autowired
     private UserCareerService service;
+    
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+    }
 
+    @WithMockUser
     @Test
     public void checkCareers() throws Exception {
+        
+        LOGGER.debug("=== checkCareers() ===");
+        
         UserCareer[] dummyCareers = new UserCareer[3];
         dummyCareers[0] = manager.persist(createDummyCareer("Alice"));
         dummyCareers[1] = manager.persist(createDummyCareer("Bob"));
@@ -93,9 +112,13 @@ public class UserCareerTests {
         }
 
     }
-
+    
+    @WithMockUser
     @Test
     public void addCareer() throws Exception {
+        
+        LOGGER.debug("=== addCareer() ===");
+        
         UserCareer dummy = createDummyCareer("Danny");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/career")
             .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
@@ -110,8 +133,12 @@ public class UserCareerTests {
         manager.clear();
     }
 
+    @WithMockUser
     @Test
     public void removeCareer() throws Exception {
+        
+        LOGGER.debug("=== removeCareer() ===");
+        
         String name = "Ellen";
         UserCareer dummy = createDummyCareer(name);
         manager.persistAndFlush(dummy);
@@ -124,9 +151,13 @@ public class UserCareerTests {
         // TODO maybe check if the db is properly empty somehow?
         manager.clear();
     }
-
+    
+    @WithMockUser
     @Test
     public void updateCareer() throws Exception {
+        
+        LOGGER.debug("=== addCareer() ===");
+        
         UserCareer dummy = createDummyCareer("Frank");
         LOGGER.debug("Old career: " + mapper.writeValueAsString(dummy));
         manager.persistAndFlush(dummy);
@@ -150,8 +181,12 @@ public class UserCareerTests {
         assertThat(dummyNew).isEqualToComparingFieldByField(save);
     }
 
+    @WithMockUser
     @Test
     public void updateCareer_Null() {
+        
+        LOGGER.debug("=== updateCareer_Null() ===");
+        
         UserCareer meHere = createDummyCareer("Andy");
         UserCareer imNotHere = createDummyCareer("Rudolph");
         service.createUserCareer(meHere);
