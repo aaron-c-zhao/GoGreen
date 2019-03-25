@@ -157,7 +157,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene foodScene() {
         return new SwitchabScene(foodController(), getClass()
-            .getResource("/views/Add_FoodActivity.fxml"));
+            .getResource("/views/Add_FoodActivity.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -174,7 +174,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene transportScene() {
         return new SwitchabScene(transportController(), getClass()
-            .getResource("/views/Add_TransportActivity.fxml"));
+            .getResource("/views/Add_TransportActivity.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -190,7 +190,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene solarPanelScene() {
         return new SwitchabScene(solarPanelController(), getClass()
-            .getResource("/views/Add_SolarPanel.fxml"));
+            .getResource("/views/Add_SolarPanel.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -206,7 +206,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene roomScene() {
         return new SwitchabScene(roomController(), getClass()
-            .getResource("/views/Add_RoomHeating.fxml"));
+            .getResource("/views/Add_RoomHeating.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -245,6 +245,5 @@ public class ScreenConfiguration {
     AchievementsController achieveController() {
         return new AchievementsController(this);
     }
-
 
 }

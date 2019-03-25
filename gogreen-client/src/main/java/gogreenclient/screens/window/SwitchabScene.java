@@ -38,6 +38,22 @@ public class SwitchabScene {
         }
     }
 
+    public SwitchabScene(final SceneController controller, URL fxml, String cssSheet) {
+        FXMLLoader loader = new FXMLLoader(fxml);
+        try {
+            loader.setControllerFactory(new Callback<Class<?>, Object>() {
+                @Override
+                public Object call(Class<?> aclass) {
+                    return controller;
+                }
+            });
+            root = loader.load();
+            root.getStylesheets().add(cssSheet);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Pane getRoot() {
         return root;
     }
