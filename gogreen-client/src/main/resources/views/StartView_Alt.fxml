@@ -136,19 +136,19 @@
                         <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
-                <Label layoutX="191.0" layoutY="95.0" prefHeight="27.0" prefWidth="92.0" text="setTotalAct"
+                <Label layoutX="270.0" layoutY="91.0" prefHeight="27.0" prefWidth="92.0" text="setTotalAct"
                        textFill="#029759">
                     <font>
                         <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
-                <Label layoutX="158.0" layoutY="128.0" prefHeight="27.0" prefWidth="100.0" text="setTotaldays"
+                <Label layoutX="270.0" layoutY="125.0" prefHeight="27.0" prefWidth="100.0" text="setTotaldays"
                        textFill="#029759">
                     <font>
                         <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
-                <Label layoutX="227.0" layoutY="162.0" prefHeight="27.0" prefWidth="169.0" text="setTotalAchievements"
+                <Label layoutX="270.0" layoutY="161.0" prefHeight="27.0" prefWidth="169.0" text="setTotalAchievements"
                        textFill="#029759">
                     <font>
                         <Font name="Segoe UI Light" size="18.0"/>
@@ -257,7 +257,7 @@
                 <Label layoutX="11.0" layoutY="112.0" prefHeight="39.0" prefWidth="189.0" text="Total CO  saved:"
                        textFill="#eaeaea" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="12.0">
                     <font>
-                        <Font name="Segoe UI Light" size="27.0"/>
+                        <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
                 <Label layoutX="110.0" layoutY="132.0" prefHeight="18.0" prefWidth="11.0" text="2" textFill="#eaeaea"

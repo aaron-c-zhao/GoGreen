@@ -23,6 +23,7 @@ public class GoGreenApplication extends Application {
     public void start(Stage stage) throws Exception {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ScreenConfiguration screens = context.getBean(ScreenConfiguration.class);
+        stage.setResizable(false);
         screens.setPrimaryStage(stage);
         screens.loginDialog().show();
     }
