@@ -6,7 +6,10 @@ import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.FoodEmissionModel;
 import gogreenclient.datamodel.Records;
 import gogreenclient.datamodel.UserCareerService;
+import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AddFoodController implements SceneController {
 
+
     //list for the tree view
     ObservableList<String> mealList = FXCollections
-        .observableArrayList("beans", "beef", "bitterballen", "cheese", "chicken", "chocolate",
-            "eggs", "fruit", "kroket", "lamb", "lentils", "milk", "nuts", "pannekoeken", "poffertjes",
-            "pork", "potatoes", "rice");
+        .observableArrayList("beans", "vegetables", "cheese",
+            "chocolate", "fruit", "lentils", "milk", "nuts", "pannekoeken",
+            "poffertjes", "potatoes", "rice", "stroopwafel", "tofu", "beef",
+            "bitterballen", "chicken", "eggs", "kroket", "lamb",
+            "pork", "tuna", "turkey");
     @FXML
     private JFXTextField costTaken;
     @FXML
@@ -36,6 +42,7 @@ public class AddFoodController implements SceneController {
     private Label fillAll;
     @FXML
     private Label total;
+
     @FXML
     private JFXCheckBox localProduct;
 
@@ -46,6 +53,9 @@ public class AddFoodController implements SceneController {
 
     @Autowired
     private UserCareerService userCareerService;
+
+    @Autowired
+    private UserInputValidator validator;
 
     private Records records;
 
@@ -58,7 +68,9 @@ public class AddFoodController implements SceneController {
     /**
      * sets the combo box elements.
      */
-    public void initialize() throws Exception {
+    public void initialize() {
+        validator.validateFraction(costTaken);
+        validator.validateFraction(costInstead);
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
         fillAll.setVisible(false);
@@ -110,5 +122,12 @@ public class AddFoodController implements SceneController {
         screens.activityController()
             .getWindow().getScene().setRoot(screens.roomScene().getRoot());
     }
+
+    @FXML
+    public void switchPlantTree() {
+        screens.activityController()
+            .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+    }
+
 
 }

@@ -1,8 +1,13 @@
 package gogreenclient.screens;
 
+import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AddRoomController implements SceneController {
 
@@ -11,11 +16,31 @@ public class AddRoomController implements SceneController {
     @FXML
     private Label fillAll;
 
+    @FXML
+    private JFXTextField minutes;
+
+    @FXML
+    private JFXTextField tempDiff;
+
+    @FXML
+    private JFXTextField roomArea;
+
+    @Autowired
+    private UserInputValidator validator;
+
     public AddRoomController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
+
+    /**
+     * initialing the validations.
+     * @throws Exception exception if not correct.
+     */
     public void initialize() {
+        validator.validateFraction(tempDiff);
+        validator.validateFraction(roomArea);
+        validator.validateInteger(minutes);
         fillAll.setVisible(false);
     }
 
@@ -36,5 +61,15 @@ public class AddRoomController implements SceneController {
         screens.activityController()
             .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
     }
+
+    @FXML
+    public void switchPlantTree() {
+        screens.activityController()
+            .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+    }
+
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
 
 }

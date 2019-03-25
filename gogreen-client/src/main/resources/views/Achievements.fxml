@@ -122,7 +122,7 @@
                 </Label>
                 <HBox layoutX="37.0" layoutY="95.0" spacing="7.0">
                     <children>
-                        <Label text="setAch">
+                        <Label text="achCount">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0"/>
                             </font>
@@ -132,12 +132,12 @@
                                 <Font name="Segoe UI Light" size="18.0"/>
                             </font>
                         </Label>
-                        <Label text="setTot">
+                        <Label text="20">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0"/>
                             </font>
                         </Label>
-                        <Label text="achieved">
+                        <Label text="Achievements unlocked">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0"/>
                             </font>

@@ -246,4 +246,15 @@ public class ScreenConfiguration {
         return new AchievementsController(this);
     }
 
+    @Bean
+    public SwitchabScene plantTreeScene() {
+        return new SwitchabScene(plantTreeController(), getClass()
+            .getResource("/views/Plant_Tree.fxml"));
+    }
+
+    @Bean
+    SceneController plantTreeController() {
+        return new PlantTreeController(this);
+    }
+
 }
