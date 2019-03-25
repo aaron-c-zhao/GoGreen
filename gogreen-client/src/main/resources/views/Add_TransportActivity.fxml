@@ -57,9 +57,7 @@
                                           strokeMiterLimit="15.0"/>
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0"
-                                   ripplerFill="SKYBLUE" text="Adding a solar panels" textAlignment="CENTER"
-                                   textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXButton graphicTextGap="12.0" onAction="#switchSolar" prefHeight="68.0" prefWidth="230.0" ripplerFill="SKYBLUE" text="Add a solar panel" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Segoe UI Light" size="18.0"/>
                             </font>
@@ -79,9 +77,7 @@
                                           strokeMiterLimit="15.0"/>
                             </graphic>
                         </JFXButton>
-                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE"
-                                   text="Plant a tree" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1"
-                                   GridPane.rowIndex="4">
+                        <JFXButton graphicTextGap="20.0" prefHeight="79.0" prefWidth="206.0" ripplerFill="SKYBLUE" text="Plant a tree" textFill="#eaeaea" wrapText="true" onAction="#switchPlantTree" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <font>
                                 <Font name="Segoe UI Light" size="19.0"/>
                             </font>
@@ -118,9 +114,7 @@
                                         <Insets right="3.0"/>
                                     </padding>
                                 </Label>
-                                <JFXComboBox id="takenMeal_Box" fx:id="takenMealBox" focusColor="TOMATO"
-                                             prefHeight="31.0" prefWidth="210.0" promptText="Transport options"
-                                             unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                <JFXComboBox fx:id="takenTransportBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Transport options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets top="4.0"/>
                                     </HBox.margin>
@@ -136,9 +130,7 @@
                                         <Font name="Century Gothic" size="15.0"/>
                                     </font>
                                 </Label>
-                                <JFXComboBox id="insteadOfMeal_Box" fx:id="insteadOfMealBox" focusColor="TOMATO"
-                                             prefHeight="31.0" prefWidth="210.0" promptText="Transport options"
-                                             unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                <JFXComboBox id="insteadOfMeal_Box" fx:id="insteadOfTransportBox" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Transport options" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets top="6.0"/>
                                     </HBox.margin>
@@ -162,12 +154,10 @@
                                         <Insets/>
                                     </HBox.margin>
                                 </Label>
-                                <JFXTextField focusColor="TOMATO" maxWidth="300.0" prefHeight="26.0" prefWidth="240.0"
-                                              promptText="Distance (in KM)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
-                                    <HBox.margin>
-                                        <Insets/>
-                                    </HBox.margin>
-                                </JFXTextField>
+                                <JFXTextField focusColor="TOMATO" fx:id="distance" maxWidth="300.0" prefHeight="26.0" prefWidth="240.0" promptText="Distance (in KM)" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></JFXTextField>
                             </children>
                         </HBox>
                     </children>
