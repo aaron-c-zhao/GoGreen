@@ -80,16 +80,37 @@ public class UserCareerServiceTest {
         newOne.setUsername("Aladdin");
         spyService.setUsername("Aladdin");
         String null_json = objectMapper.writeValueAsString(im_null);
-        doReturn(new ResponseEntity<>(newOne, HttpStatus.BAD_REQUEST)).when(spyService).createUserCareer();
+        doReturn(new ResponseEntity<>(newOne, HttpStatus.ACCEPTED)).when(spyService).createUserCareer();
         setUp_Get(server, uri + "/" + "Aladdin", null_json);
-        boolean thrown = false;
+        String thrown = "";
         try {
             spyService.getCareer();
             fail();
         } catch (Exception e) {
-            thrown = true;
+            thrown = e.getMessage();
         }
-        assertTrue(thrown);
+        assertEquals("Bad request for creating user career.", thrown);
+    }
+
+    @Test()
+    public void getCareerResponseNull() throws Exception {
+        UserCareerService spyService = spy(UserCareerService.class);
+        spyService.setRestTemplate(template);
+        UserCareer im_null = null;
+        UserCareer newOne = new UserCareer();
+        newOne.setUsername("Aladdin");
+        spyService.setUsername("Aladdin");
+        String null_json = objectMapper.writeValueAsString(im_null);
+        doReturn(null).when(spyService).createUserCareer();
+        setUp_Get(server, uri + "/" + "Aladdin", null_json);
+        String thrown = "";
+        try {
+            spyService.getCareer();
+            fail();
+        } catch (Exception e) {
+            thrown = e.getMessage();
+        }
+        assertEquals("Bad request for creating user career.", thrown);
     }
 
     @Test
@@ -133,15 +154,15 @@ public class UserCareerServiceTest {
         doReturn(userCareer).when(spyService).getCareer();
         server.expect(requestTo(uri + "update"))
             .andExpect(method(HttpMethod.POST))
-            .andExpect(content().string(updatedJson))
-            .andRespond(withStatus(HttpStatus.BAD_REQUEST));
-        boolean error = false;
+//            .andExpect(content().string(updatedJson))
+            .andRespond(withStatus(HttpStatus.ACCEPTED));
+        String error = "";
         try {
             spyService.updateUserCareer(5);
         } catch (Exception e) {
-            error = true;
+            error = e.getMessage();
         }
-        assertTrue(error);
+        assertEquals("Bad request for updating user career.", error);
     }
 
     public void setUp_Post(MockRestServiceServer server, String uri, String content, String json) throws Exception {
