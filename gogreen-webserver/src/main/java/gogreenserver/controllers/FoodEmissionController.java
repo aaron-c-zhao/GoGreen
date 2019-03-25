@@ -5,6 +5,8 @@ import gogreenserver.services.FoodEmissionService;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,11 +39,12 @@ public class FoodEmissionController {
      * @return a responseEntity.
      */
     @PostMapping("/foodEmission")
-    public FoodEmission addFoodEmission(@RequestBody String foodName, Authentication auth) {
+    public ResponseEntity<FoodEmission> addFoodEmission(@RequestBody String foodName,
+            Authentication auth) {
         logger.debug("POST /foodEmission/ with body \"" + foodName + "\" accessed by: "
                 + auth.getName());
         FoodEmission foodEmissionResponse = service.findById(foodName).orElse(null);
-        return foodEmissionResponse;
+        return new ResponseEntity<FoodEmission>(foodEmissionResponse, HttpStatus.OK);
     }
 
 }

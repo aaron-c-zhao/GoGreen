@@ -31,18 +31,21 @@ public class InsertHistoryController {
         this.logger = logger;
     }
 
-    // TODO: fix typo
-    @GetMapping(value = "/insertHistorys")
-    public List<InsertHistory> findAllInsertHistorys(Authentication auth) {
-        logger.debug("GET /insertHistorys/ accessed by: " + auth.getName());
-        return insertHistoryService.findAll();
+    /**
+     * Returns everything everyone has ever done.
+     */
+    @GetMapping(value = "/insertHistories")
+    public ResponseEntity<List<InsertHistory>> findAllInsertHistorys(Authentication auth) {
+        logger.debug("GET /insertHistories/ accessed by: " + auth.getName());
+        return new ResponseEntity<List<InsertHistory>>(insertHistoryService.findAll(),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/insertHistory/{user_Name}")
-    public List<InsertHistory> findAllById(@PathVariable("user_Name") String userName,
-            Authentication auth) {
+    public ResponseEntity<List<InsertHistory>> findAllById(
+            @PathVariable("user_Name") String userName, Authentication auth) {
         logger.debug("GET /insertHistory/" + userName + " accessed by: " + auth.getName());
-        return this.insertHistoryService.findAllById(userName);
+        return new ResponseEntity<>(this.insertHistoryService.findAllById(userName), HttpStatus.OK);
     }
 
     /**

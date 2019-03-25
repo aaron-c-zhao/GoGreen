@@ -5,6 +5,8 @@ import gogreenserver.services.RecordsService;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,15 +30,15 @@ public class RecordsController {
     }
 
     @GetMapping(value = "/records")
-    public List<Records> findAll(Authentication auth) {
+    public ResponseEntity<List<Records>> findAll(Authentication auth) {
         logger.debug("GET /records/ accessed by: " + auth.getName());
-        return this.recordsService.findAll();
+        return new ResponseEntity<>(this.recordsService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/record/{user_Name}")
-    public Optional<Records> findById(@PathVariable("user_Name") String userName,
+    public ResponseEntity<Optional<Records>> findById(@PathVariable("user_Name") String userName,
             Authentication auth) {
         logger.debug("GET /record/" + userName + " accessed by: " + auth.getName());
-        return this.recordsService.findById(userName);
+        return new ResponseEntity<>(this.recordsService.findById(userName), HttpStatus.OK);
     }
 }

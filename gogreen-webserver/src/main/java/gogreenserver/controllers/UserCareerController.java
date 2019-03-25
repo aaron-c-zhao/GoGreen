@@ -5,6 +5,8 @@ import gogreenserver.services.UserCareerService;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,16 +35,16 @@ public class UserCareerController {
     }
 
     @GetMapping("/career")
-    public List<UserCareer> getAllUserCareers(Authentication auth) {
+    public ResponseEntity<List<UserCareer>> getAllUserCareers(Authentication auth) {
         logger.debug("GET /career/ accessed by: " + auth.getName());
-        return service.findAll();
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/career/{user_name}")
-    public Optional<UserCareer> getUserCareerById(@PathVariable("user_name") String userName,
-            Authentication auth) {
+    public ResponseEntity<Optional<UserCareer>> getUserCareerById(
+            @PathVariable("user_name") String userName, Authentication auth) {
         logger.debug("GET /career/" + userName + " accessed by: " + auth.getName());
-        return service.findById(userName);
+        return new ResponseEntity<>(service.findById(userName), HttpStatus.OK);
     }
 
     /**
@@ -54,7 +56,7 @@ public class UserCareerController {
         service.createUserCareer(career);
         return career;
     }
-    
+
     /**
      * Deletes the given career, if it exists.
      */
@@ -64,11 +66,11 @@ public class UserCareerController {
         service.deleteById(career.getUsername());
         return "successfully deleted career for user with user name = " + career.getUsername();
     }
-    
+
     /**
      * Changes the amount of CO2 saved for the given career.
      */
-    //Say, isn't this redundant with POST /career already in place?
+    // Say, isn't this redundant with POST /career already in place?
     @PostMapping("/careerupdate")
     public UserCareer updateCareer(@RequestBody UserCareer career, Authentication auth) {
         logger.debug("POST /careerupdate/ accessed by: " + auth.getName());

@@ -31,8 +31,9 @@ public class AddSolarpanelsController {
     }
 
     @GetMapping(value = "/addSolarpanels")
-    public List<AddSolarpanels> findAll() {
-        return this.addSolarpanelsService.findAll();
+    public ResponseEntity<List<AddSolarpanels>> findAll() {
+        return new ResponseEntity<List<AddSolarpanels>>(this.addSolarpanelsService.findAll(),
+                HttpStatus.OK);
     }
 
     /**
@@ -46,8 +47,7 @@ public class AddSolarpanelsController {
     @PostMapping(value = "/addSolarpanel")
     public ResponseEntity<String> createSolarpanel(
             @RequestHeader(value = "userName") String userName,
-            @RequestBody AddSolarpanels addSolarpanels, 
-            Authentication auth) {
+            @RequestBody AddSolarpanels addSolarpanels, Authentication auth) {
         logger.debug("POST /addSolarpanel/ with userName header \"" + userName + "\" accessed by: "
                 + auth.getName());
         addSolarpanels.setUserName(userName);
