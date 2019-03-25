@@ -46,7 +46,7 @@ public class UserCareerService {
      *
      * @param newcareer an usercareer instance which contains the information to be
      *                  updated.
-     * @return If successfully update, will return true.otherwise, false.
+     * @return If successfully update, will return true. otherwise, false.
      */
     public boolean updateCareer(UserCareer newcareer) {
         UserCareer oldcareer = userCareerRepo.findById(newcareer.getUsername()).orElse(null);
