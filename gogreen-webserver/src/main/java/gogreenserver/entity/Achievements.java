@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Map;
 
 @Entity
-@Table(name = "achievements")
+@Table(name = "user_achieved")
 public class Achievements {
 
     @Id

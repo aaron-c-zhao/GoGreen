@@ -1,6 +1,5 @@
 package gogreenclient.screens;
 
-import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.Records;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
