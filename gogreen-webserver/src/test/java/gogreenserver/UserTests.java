@@ -83,39 +83,43 @@ public class UserTests {
      * <li>Whether the amount of entries is correct.
      * </ol>
      */
-    /*
-     * @WithMockUser
-     * 
-     * @Test public void checkUsers() throws Exception {
-     * 
-     * LOGGER.debug("=== checkUsers() ===");
-     * 
-     * User[] dummyUsers = new User[3]; dummyUsers[0] =
-     * manager.persist(createDummyUser("Alice")); dummyUsers[1] =
-     * manager.persist(createDummyUser("Bob")); dummyUsers[2] =
-     * manager.persist(createDummyUser("Charlie")); manager.flush();
-     * 
-     * RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
-     * .accept(MediaType.APPLICATION_JSON); MvcResult res =
-     * mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
-     * 
-     * JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
-     * 
-     * LOGGER.debug("Returned Json: " + list);
-     * 
-     * int usercount = 0; for (JsonNode user : list) { LOGGER.debug("User " +
-     * usercount + ": " + user); RequestBuilder userReq = MockMvcRequestBuilders
-     * .get("/api/user/findUser/" + user.get("username").asText())
-     * .accept(MediaType.APPLICATION_JSON); MvcResult ures =
-     * mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
-     * 
-     * assertThat(ures.getResponse().getContentAsString()).isEqualTo("success");
-     * 
-     * usercount++; } LOGGER.debug("User amount: " + usercount);
-     * assertThat(usercount).isEqualTo(3);
-     * 
-     * manager.clear(); }
-     */
+    @WithMockUser
+    @Test
+    public void checkUsers() throws Exception {
+
+        LOGGER.debug("=== checkUsers() ===");
+
+        User[] dummyUsers = new User[3];
+        dummyUsers[0] = manager.persist(createDummyUser("Alice"));
+        dummyUsers[1] = manager.persist(createDummyUser("Bob"));
+        dummyUsers[2] = manager.persist(createDummyUser("Charlie"));
+        manager.flush();
+
+        RequestBuilder listReq = MockMvcRequestBuilders.get("/api/users")
+                .accept(MediaType.APPLICATION_JSON);
+        MvcResult res = mockMvc.perform(listReq).andExpect(status().is(200)).andReturn();
+
+        JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
+
+        LOGGER.debug("Returned Json: " + list);
+
+        int usercount = 0;
+        for (JsonNode user : list) {
+            LOGGER.debug("User " + usercount + ": " + user);
+            RequestBuilder userReq = MockMvcRequestBuilders
+                    .get("/api/user/findUser/" + user.get("username").asText())
+                    .accept(MediaType.APPLICATION_JSON);
+            MvcResult ures = mockMvc.perform(userReq).andExpect(status().is(200)).andReturn();
+
+            assertThat(ures.getResponse().getContentAsString()).isEqualTo("success");
+
+            usercount++;
+        }
+        LOGGER.debug("User amount: " + usercount);
+        assertThat(usercount).isEqualTo(3);
+
+        manager.clear();
+    }
 
     @Test
     public void addUser() throws Exception {
@@ -138,32 +142,23 @@ public class UserTests {
         manager.clear();
     }
 
+    @WithMockUser
     @Test
-    public void respentitytest() throws Exception {
-        manager.persistAndFlush(createDummyUser("Jan"));
-        RequestBuilder req = MockMvcRequestBuilders.get("/api/user/findUser/Jan")
-                .contentType(MediaType.APPLICATION_JSON);
-        
-        MvcResult res = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
-        LOGGER.debug(res.getResponse().getContentAsString());
-    }
+    public void removeUser() throws Exception {
 
-    /*
-     * @WithMockUser(username = "Hacker")
-     * 
-     * @Test public void removeUser() throws Exception {
-     * 
-     * LOGGER.debug("=== removeUser() ===");
-     * 
-     * String name = "Ellen"; User dummy = createDummyUser(name);
-     * manager.persistAndFlush(dummy); RequestBuilder req =
-     * MockMvcRequestBuilders.delete("/api/user/" + name);
-     * mockMvc.perform(req).andExpect(status().is(200));
-     * 
-     * assertThat(manager.find(User.class, dummy.getUsername())).isNull();
-     * 
-     * // TODO maybe check if the db is properly empty somehow? manager.clear(); }
-     */
+        LOGGER.debug("=== removeUser() ===");
+
+        String name = "Ellen";
+        User dummy = createDummyUser(name);
+        manager.persistAndFlush(dummy);
+        RequestBuilder req = MockMvcRequestBuilders.delete("/api/user/" + name);
+        mockMvc.perform(req).andExpect(status().is(200));
+
+        assertThat(manager.find(User.class, dummy.getUsername())).isNull();
+
+        // TODO maybe check if the db is properly empty somehow?
+        manager.clear();
+    }
 
     private User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
