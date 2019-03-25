@@ -2,9 +2,12 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.services.InsertHistoryService;
+
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,20 +23,29 @@ import java.util.List;
 public class InsertHistoryController {
 
     private InsertHistoryService insertHistoryService;
+    private final Logger logger;
 
     @Autowired
-    public InsertHistoryController(InsertHistoryService insertHistoryService) {
+    public InsertHistoryController(InsertHistoryService insertHistoryService, Logger logger) {
         this.insertHistoryService = insertHistoryService;
+        this.logger = logger;
     }
 
-    @GetMapping(value = "/insertHistorys")
-    public List<InsertHistory> findAllInsertHistorys() {
-        return insertHistoryService.findAll();
+    /**
+     * Returns everything everyone has ever done.
+     */
+    @GetMapping(value = "/insertHistories")
+    public ResponseEntity<List<InsertHistory>> findAllInsertHistorys(Authentication auth) {
+        logger.debug("GET /insertHistories/ accessed by: " + auth.getName());
+        return new ResponseEntity<List<InsertHistory>>(insertHistoryService.findAll(),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/insertHistory/{user_Name}")
-    public List<InsertHistory> findAllById(@PathVariable("user_Name") String userName) {
-        return this.insertHistoryService.findAllById(userName);
+    public ResponseEntity<List<InsertHistory>> findAllById(
+            @PathVariable("user_Name") String userName, Authentication auth) {
+        logger.debug("GET /insertHistory/" + userName + " accessed by: " + auth.getName());
+        return new ResponseEntity<>(this.insertHistoryService.findAllById(userName), HttpStatus.OK);
     }
 
     /**

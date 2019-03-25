@@ -1,10 +1,18 @@
 package gogreenserver;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gogreenserver.entity.FoodEmission;
+
 import net.bytebuddy.utility.RandomString;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +25,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -49,25 +57,36 @@ public class FoodEmissionTests {
     private ObjectMapper mapper;
 
     @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mockMvc;
 
     @Autowired
     private TestEntityManager manager;
 
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+    }
+    
+    @WithMockUser
     @Test
     public void checkFood() throws Exception {
+        
+        LOGGER.debug("=== checkFood() ===");
+        
         String name = "Apple";
         FoodEmission dummy = createDummyEmssion(name);
 
         manager.persistAndFlush(dummy);
 
         RequestBuilder req = MockMvcRequestBuilders.post("/api/foodEmission")
-            .contentType(MediaType.TEXT_PLAIN).content(name);
+                .contentType(MediaType.TEXT_PLAIN).content(name);
         MvcResult resp = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
         String webresult = resp.getResponse().getContentAsString();
         String dbresult = mapper
-            .writeValueAsString(manager.find(FoodEmission.class, dummy.getFood()));
+                .writeValueAsString(manager.find(FoodEmission.class, dummy.getFood()));
         String actresult = mapper.writeValueAsString(dummy);
 
         LOGGER.debug("Retrieved value: " + webresult);

@@ -2,9 +2,14 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.Achievements;
 import gogreenserver.services.AchievementsService;
+
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +23,18 @@ import java.util.Optional;
 public class AchievementsController {
 
     private AchievementsService achievementsService;
+    private final Logger logger;
 
     @Autowired
-    public AchievementsController(AchievementsService achievementsService) {
+    public AchievementsController(AchievementsService achievementsService, Logger logger) {
         this.achievementsService = achievementsService;
+        this.logger = logger;
     }
 
     @GetMapping(value = "/achievements")
-    public List<Achievements> findAll() {
-        return achievementsService.findAll();
+    public ResponseEntity<List<Achievements>> findAll(Authentication auth) {
+        logger.debug("GET /achievements/ accessed by: " + auth.getName());
+        return new ResponseEntity<>(this.achievementsService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/achievement/{user_name}")

@@ -65,25 +65,26 @@ public class FoodEmissionModelTest {
 
     @Test
     public void compareFood_saved() throws Exception {
-        assertEquals(5, setUp(5, 10));
+        assertEquals(5, setUp(5, 10, "apple", "nuts", 1));
     }
 
     @Test
     public void compareFood_lost() throws Exception {
-        assertEquals(-5, setUp(10, 5));
+        assertEquals(-5, setUp(5, 5, "apple", "apple", 2));
     }
 
-    public int setUp(int f1, int f2) throws Exception {
-        yum.setFood("apple");
+
+    public int setUp(int f1, int f2, String food1, String food2, int food1Quantity) throws Exception {
+        yum.setFood(food1);
         yum.setEmission(f1);
         String yum_json = objectMapper.writeValueAsString(yum);
-        yummy_and_healthy.setFood("nuts");
+        yummy_and_healthy.setFood(food2);
         yummy_and_healthy.setEmission(f2);
         String yumhealth_json = objectMapper.writeValueAsString(yummy_and_healthy);
         server.reset();
-        this.setUp_Post(server, uri, "apple", yum_json);
-        this.setUp_Post(server, uri, "nuts", yumhealth_json);
-        int res = model.compareFood("apple", "nuts", 1, 1);
+        this.setUp_Post(server, uri, food1, yum_json);
+        this.setUp_Post(server, uri, food2, yumhealth_json);
+        int res = model.compareFood(food1, food2, food1Quantity, 1);
         return res;
     }
 
