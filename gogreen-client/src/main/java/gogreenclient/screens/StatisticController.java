@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 public class StatisticController implements SceneController {
 
 
@@ -35,7 +34,6 @@ public class StatisticController implements SceneController {
     private Label achievement;
 
 
-
     public StatisticController(ScreenConfiguration screens) {
         this.screens = screens;
     }
@@ -48,12 +46,12 @@ public class StatisticController implements SceneController {
      * initialize pieChart values.
      */
     public void initialize() {
-        try{
+        try {
             records = userCareerService.getCareer();
             statisticInitialize();
             userNameInitialize();
             pieChyartInitialize();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
@@ -66,17 +64,18 @@ public class StatisticController implements SceneController {
     public void switchAchievements() {
         screens.startScreen().getScene().setRoot(screens.achievementsScene().getRoot());
     }
+
     //TODO achievement, insert history
-    private void statisticInitialize(){
+    private void statisticInitialize() {
         totalSaved.setText(String.valueOf(Math.round(records.getSavedCo2Total())));
     }
 
-    private void userNameInitialize(){
+    private void userNameInitialize() {
         String username = userCareerService.getUsername();
         userName.setText(username);
     }
 
-    private void pieChyartInitialize(){
+    private void pieChyartInitialize() {
         int food = Math.round(records.getSavedCo2Food());
         int transport = Math.round(records.getSavedCo2Transport());
         int solarPaner = Math.round(records.getSavedCo2Solarpanels());
@@ -92,7 +91,6 @@ public class StatisticController implements SceneController {
             );
         pieChart.setData(pieChartData);
     }
-
 
 
     @FXML

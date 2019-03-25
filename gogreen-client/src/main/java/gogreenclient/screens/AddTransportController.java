@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,6 +44,7 @@ public class AddTransportController implements SceneController {
 
     /**
      * initializes the dropdown menus.
+     *
      * @throws Exception when incorrect text input.
      */
     public void initialize() {

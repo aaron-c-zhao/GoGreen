@@ -22,9 +22,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
 import java.security.KeyStore;
-import javax.net.ssl.SSLContext;
 
 
 /**
@@ -57,10 +57,6 @@ public class AppConfig {
     private String username;
     private String password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -71,6 +67,10 @@ public class AppConfig {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Bean

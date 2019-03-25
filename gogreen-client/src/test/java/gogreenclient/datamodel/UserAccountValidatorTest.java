@@ -14,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -33,9 +34,8 @@ public class UserAccountValidatorTest {
     public void usernameNull() {
         boolean exception = false;
         try {
-            validator.accountValidate("","abc", "abc", LocalDate.now(), "abc");
-        }
-        catch (Exception e) {
+            validator.accountValidate("", "abc", "abc", LocalDate.now(), "abc");
+        } catch (Exception e) {
             exception = true;
         }
         assertTrue(exception);
@@ -46,8 +46,7 @@ public class UserAccountValidatorTest {
         boolean exception = false;
         try {
             validator.loginValidate("", "abc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = true;
         }
         assertTrue(exception);
@@ -57,9 +56,8 @@ public class UserAccountValidatorTest {
     public void passwordNull() {
         boolean exception = false;
         try {
-            validator.accountValidate("abc","", "abc", LocalDate.now(), "abc");
-        }
-        catch (Exception e) {
+            validator.accountValidate("abc", "", "abc", LocalDate.now(), "abc");
+        } catch (Exception e) {
             exception = true;
         }
         assertTrue(exception);
@@ -70,8 +68,7 @@ public class UserAccountValidatorTest {
         boolean exception = false;
         try {
             validator.loginValidate("abc", "");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = true;
         }
         assertTrue(exception);
@@ -81,9 +78,8 @@ public class UserAccountValidatorTest {
     public void passwordShort() {
         boolean exception = false;
         try {
-            validator.accountValidate("abc","abc", "abc", LocalDate.now(), "abc");
-        }
-        catch (Exception e) {
+            validator.accountValidate("abc", "abc", "abc", LocalDate.now(), "abc");
+        } catch (Exception e) {
             exception = true;
         }
         assertTrue(exception);
@@ -93,9 +89,8 @@ public class UserAccountValidatorTest {
     public void passwordNotMatch() {
         boolean exception = false;
         try {
-            validator.accountValidate("abc","abcabcccd", "abcabcc", LocalDate.now(), "abc");
-        }
-        catch (Exception e) {
+            validator.accountValidate("abc", "abcabcccd", "abcabcc", LocalDate.now(), "abc");
+        } catch (Exception e) {
             exception = true;
         }
         assertTrue(exception);
@@ -106,14 +101,13 @@ public class UserAccountValidatorTest {
         RestTemplate template = new RestTemplate();
         validator.getUserModel().setRestTemplate(template);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
         String exception = "";
         try {
             validator.accountValidate("Alin", "abcabcc", "abcabcc", LocalDate.now(), "abc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = e.getMessage();
         }
         assertEquals("This user name is already used by other user.", exception);
@@ -124,14 +118,13 @@ public class UserAccountValidatorTest {
         RestTemplate template = new RestTemplate();
         validator.getUserModel().setRestTemplate(template);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
         String exception = "";
         try {
             validator.accountValidate("Alin", "abcabcc", "abcabcc", LocalDate.now(), "ab ca");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = e.getMessage();
         }
         assertEquals("Your email address is invalid", exception);
@@ -142,14 +135,13 @@ public class UserAccountValidatorTest {
         RestTemplate template = new RestTemplate();
         validator.getUserModel().setRestTemplate(template);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
         String exception = "";
         try {
             validator.accountValidate("Alin", "abcabcc", "abcabcc", LocalDate.now(), "");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = e.getMessage();
         }
         assertEquals("", exception);
@@ -160,14 +152,13 @@ public class UserAccountValidatorTest {
         RestTemplate template = new RestTemplate();
         validator.getUserModel().setRestTemplate(template);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
         String exception = "";
         try {
             validator.accountValidate("Alin", "abcabcc", "abcabcc", LocalDate.of(2020, 12, 12), "abca@gmail.com");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = e.getMessage();
         }
         assertEquals("Birthday must be in the past.", exception);
@@ -178,32 +169,30 @@ public class UserAccountValidatorTest {
         RestTemplate template = new RestTemplate();
         validator.getUserModel().setRestTemplate(template);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
         String exception = "";
         try {
             validator.accountValidate("Alin", "abcabcc", "abcabcc", null, "abca@gmail.com");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = e.getMessage();
         }
         assertEquals("", exception);
     }
 
     @Test
-    public void everythingFine() throws Exception{
+    public void everythingFine() throws Exception {
         RestTemplate template = new RestTemplate();
         validator.getUserModel().setRestTemplate(template);
         server = MockRestServiceServer.createServer(template);
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("fail", MediaType.APPLICATION_JSON));
         String exception = "";
         try {
             validator.accountValidate("Alin", "abcabcc", "abcabcc", LocalDate.now(), "abca@gmail.com");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             exception = e.getMessage();
         }
         assertEquals("", exception);

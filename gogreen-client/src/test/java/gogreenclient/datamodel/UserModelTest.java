@@ -18,7 +18,6 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -58,11 +57,11 @@ public class UserModelTest {
     }
 
     @Test
-    public void findUser() throws Exception{
+    public void findUser() throws Exception {
         server.reset();
-        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin" )))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+            .andExpect(method(HttpMethod.GET))
+            .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
         assertTrue(userModel.findUser("Alin"));
     }
 }

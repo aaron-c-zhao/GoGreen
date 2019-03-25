@@ -6,8 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import gogreenserver.entity.FoodEmission;
-
 import net.bytebuddy.utility.RandomString;
 
 import org.apache.logging.log4j.LogManager;

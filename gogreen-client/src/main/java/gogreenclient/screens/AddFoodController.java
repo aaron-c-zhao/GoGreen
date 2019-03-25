@@ -8,8 +8,6 @@ import gogreenclient.datamodel.Records;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,23 +80,7 @@ public class AddFoodController implements SceneController {
      */
     @FXML
     public void submit() {
-        if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
-            || date.getValue() == null || costTaken.getText().trim().isEmpty()
-            || costInstead.getText().trim().isEmpty()) {
-            fillAll.setVisible(true);
-        } else {
-            String eatenFood = takenMealBox.getValue().toString();
-            String usualFood = insteadOfMealBox.getValue().toString();
-            int eatenCost = Integer.parseInt(costTaken.getText());
-            int usualCost = Integer.parseInt(costInstead.getText());
-            int co2Saved = foodEmissionModel.compareFood(eatenFood,
-                usualFood, eatenCost, usualCost);
-            records = userCareerService.getCareer();
-            String totalSaved = String.valueOf(Math.round(records.getSavedCo2Total()));
-            fillAll.setVisible(false);
-            total.setText(totalSaved);
-            screens.submitMealDialog().showAndWait();
-        }
+        
     }
 
     /**

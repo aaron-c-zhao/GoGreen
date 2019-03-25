@@ -21,10 +21,6 @@ public class UserCareerService {
         this.url = "https://localhost:8443/api/record";
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     /**
      * Get userCareer from database. If there is no usrCareer existing in the database,
      * then a new userCareer tuple will be created with the username logged in.
@@ -33,9 +29,6 @@ public class UserCareerService {
      * @throws Exception threw by restTemplate.
      */
     public Records getCareer() {
-        if (restTemplate == null) {
-            System.out.println("it's null +++++++++++++++++++++++++++++++++++++++");
-        }
         Records records = restTemplate.getForObject(url + "/" + username, Records.class);
         if (records == null) {
             throw new RuntimeException("User career doesn't exist.");
@@ -44,12 +37,15 @@ public class UserCareerService {
         }
     }
 
-
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

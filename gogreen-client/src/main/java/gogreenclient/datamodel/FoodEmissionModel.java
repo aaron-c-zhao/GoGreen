@@ -49,7 +49,7 @@ public class FoodEmissionModel {
         FoodEmission mealUsual = getFoodEmissions(usualFood);
 
         changedCO2 = mealUsual.getEmission() * usualFoodQuantity
-                - mealEaten.getEmission() * eatenFoodQuantity;
+            - mealEaten.getEmission() * eatenFoodQuantity;
         return changedCO2;
     }
 

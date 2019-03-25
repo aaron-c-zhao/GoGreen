@@ -51,7 +51,7 @@ public class Achievements {
     private Boolean nokwg29;
 
     private Map<String, Boolean> nameSpace;
-    
+
     // Define Getters/Setters for JACKSON conversion
 
     public String getUserName() {

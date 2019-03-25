@@ -3,8 +3,6 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,7 @@ public class AddRoomController implements SceneController {
 
     /**
      * initialing the validations.
+     *
      * @throws Exception exception if not correct.
      */
     public void initialize() {

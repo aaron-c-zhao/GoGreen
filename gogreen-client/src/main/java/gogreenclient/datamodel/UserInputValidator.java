@@ -34,4 +34,10 @@ public class UserInputValidator {
             }
         });
     }
+
+
+    private void isNull(JFXTextField input){
+        if(input.getText().equals(""))
+            throw new IllegalArgumentException(input.getId());
+    }
 }
