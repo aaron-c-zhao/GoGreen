@@ -21,25 +21,25 @@ public class PlantTreeController implements SceneController {
     @FXML
     public void switchFood() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.foodScene().getRoot());
+            .getWindow().getScene().setRoot(screens.foodScene().getRoot());
     }
 
     @FXML
     public void switchTransport() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.transportScene().getRoot());
+            .getWindow().getScene().setRoot(screens.transportScene().getRoot());
     }
 
     @FXML
     public void switchSolar() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
     }
 
     @FXML
     public void switchRoom() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.roomScene().getRoot());
+            .getWindow().getScene().setRoot(screens.roomScene().getRoot());
     }
 
 }

@@ -17,14 +17,16 @@ import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 public class AddFoodController implements SceneController {
 
 
     //list for the tree view
     ObservableList<String> mealList = FXCollections
-        .observableArrayList("beans", "vegetables", "cheese" , "chocolate", "fruit", "lentils", "milk", "nuts", "pannekoeken", "poffertjes", "potatoes", "rice", "stroopwafel", "tofu", "beef", "bitterballen", "chicken",  "eggs",  "kroket", "lamb",
-                "pork", "tuna", "turkey");
+        .observableArrayList("beans", "vegetables", "cheese",
+            "chocolate", "fruit", "lentils", "milk", "nuts", "pannekoeken",
+            "poffertjes", "potatoes", "rice", "stroopwafel", "tofu", "beef",
+            "bitterballen", "chicken", "eggs", "kroket", "lamb",
+            "pork", "tuna", "turkey");
     @FXML
     private JFXTextField costTaken;
     @FXML
@@ -121,10 +123,13 @@ public class AddFoodController implements SceneController {
     @FXML
     public void switchPlantTree() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+            .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
-    public void validateInputCostTaken(){
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateInputCostTaken() {
         costTaken.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -135,7 +140,11 @@ public class AddFoodController implements SceneController {
             }
         });
     }
-    public void validateInputCostInstead(){
+
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateInputCostInstead() {
         costInstead.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,

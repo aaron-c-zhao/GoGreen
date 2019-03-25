@@ -10,23 +10,20 @@ import javafx.scene.control.Label;
 
 public class AddSolarPanelController implements SceneController {
 
-    public void initialize() throws Exception{
-        validateInputDistance();
-    }
-
     @FXML
     private JFXTextField sizeOfSolarPanel;
-
     @FXML
     private Label intialSize;
-
     @FXML
     private Label addDate;
-
     private ScreenConfiguration screens;
 
     public AddSolarPanelController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    public void initialize() throws Exception {
+        validateInputDistance();
     }
 
     @FXML
@@ -50,9 +47,13 @@ public class AddSolarPanelController implements SceneController {
     @FXML
     public void switchPlantTree() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+            .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
-    public void validateInputDistance(){
+
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateInputDistance() {
         sizeOfSolarPanel.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,

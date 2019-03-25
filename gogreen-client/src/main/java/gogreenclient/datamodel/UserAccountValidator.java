@@ -31,11 +31,11 @@ public class UserAccountValidator {
     /**
      * Validating user input  while creating account.
      *
-     * @param username userName must not be null or already exists.
-     * @param password password must not be null or having a length less than 6.
+     * @param username       userName must not be null or already exists.
+     * @param password       password must not be null or having a length less than 6.
      * @param repeatPassword password repeated muse be identical with password.
-     * @param bdate birthday of the user must be in the past.
-     * @param email email must match the regex.
+     * @param bdate          birthday of the user must be in the past.
+     * @param email          email must match the regex.
      * @throws IllegalArgumentException exception contains messages for different violations.
      */
     public void accountValidate(String username, String password, String repeatPassword,

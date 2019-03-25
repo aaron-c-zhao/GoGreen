@@ -2,7 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +14,6 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<?import com.jfoenix.controls.JFXDatePicker?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.PlantTreeController">
     <children>
         <AnchorPane prefHeight="444.0" prefWidth="182.0" style="-fx-background-color: #00AB66;" HBox.hgrow="NEVER">
@@ -83,11 +82,11 @@
         </AnchorPane>
         <AnchorPane prefHeight="444.0" prefWidth="462.0" style="-fx-background-color: #ffffffff;" HBox.hgrow="ALWAYS">
             <children>
-                <VBox layoutX="21.0" layoutY="117.0" prefHeight="206.0" prefWidth="404.0" spacing="30.0" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="117.0">
+                <VBox layoutX="22.0" layoutY="222.0" prefHeight="113.0" prefWidth="404.0" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="222.0">
                     <children>
-                        <HBox prefHeight="43.0" prefWidth="404.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="58.0" prefWidth="404.0" spacing="12.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label prefHeight="46.0" prefWidth="195.0" text="Type of tree that you have planted:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                                <Label prefHeight="65.0" prefWidth="190.0" text="Type of tree that you have planted:" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="Century Gothic" size="15.0" />
                                     </font>
@@ -95,16 +94,16 @@
                                         <Insets right="3.0" />
                                     </padding>
                                 </Label>
-                                <JFXComboBox id="takenMeal_Box" fx:id="plantedTree" focusColor="TOMATO" prefHeight="31.0" prefWidth="210.0" promptText="Tree species" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
+                                <JFXComboBox id="takenMeal_Box" fx:id="plantedTree" focusColor="TOMATO" prefHeight="31.0" prefWidth="206.0" promptText="Tree species" unFocusColor="#23ae36" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
-                                        <Insets top="4.0" />
+                                        <Insets top="15.0" />
                                     </HBox.margin>
                                 </JFXComboBox>
                             </children>
                         </HBox>
-                        <HBox prefHeight="28.0" prefWidth="398.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="22.0" prefWidth="404.0" spacing="12.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label prefHeight="26.0" prefWidth="49.0" fx:id="addDate" text="Date:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                <Label fx:id="addDate" prefHeight="26.0" prefWidth="49.0" text="Date:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="Century Gothic" size="16.0" />
                                     </font>
@@ -126,21 +125,26 @@
                         </HBox>
                     </children>
                 </VBox>
-                <Label layoutX="67.0" layoutY="31.0" prefHeight="51.0" prefWidth="353.0" text="Transport related action" textFill="#00ab66" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="45.0">
+                <Label layoutX="159.0" layoutY="14.0" prefHeight="51.0" prefWidth="169.0" text="Plant a tree" textFill="#00ab66" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="137.0">
                     <font>
                         <Font name="Segoe UI Light" size="35.0" />
                     </font>
                 </Label>
-                <JFXButton buttonType="RAISED" layoutX="159.0" layoutY="371.0" prefHeight="58.0" prefWidth="186.0" ripplerFill="SKYBLUE" text="Submit" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="136.99999999999997">
+                <JFXButton buttonType="RAISED" layoutX="159.0" layoutY="371.0" prefHeight="58.0" prefWidth="186.0" ripplerFill="SKYBLUE" text="Submit" textFill="WHITE" AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="148.0">
                     <font>
                         <Font size="27.0" />
                     </font>
                 </JFXButton>
-                <Label fx:id="fillAll" layoutX="138.0" layoutY="338.0" prefHeight="24.0" prefWidth="211.0" text="Please fill all of the fields" textFill="RED" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="116.0">
+                <Label fx:id="fillAll" layoutX="138.0" layoutY="338.0" prefHeight="24.0" prefWidth="211.0" text="Please fill all of the fields" textFill="RED" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="127.0">
                     <font>
                         <Font name="Segoe UI" size="19.0" />
                     </font>
                 </Label>
+            <Label layoutX="7.0" layoutY="54.0" prefHeight="177.0" prefWidth="454.0" text="Strategically planting trees around your home can have tremendous benefits on the environment. Not only will you help restore life quality in your community, contribute to the environment and help fight climate change, but you will also set an example. Therefore, planting a beautiful tree is always a good idea!" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Century Gothic" size="17.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </children>

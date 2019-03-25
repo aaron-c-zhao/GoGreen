@@ -14,7 +14,7 @@ public class AddTransportController implements SceneController {
 
 
     ObservableList<String> transportList = FXCollections
-            .observableArrayList("walk", "bike", "train" , "bus", "car", "motorcycle", "plane");
+        .observableArrayList("walk", "bike", "train", "bus", "car", "motorcycle", "plane");
 
     @FXML
     private JFXComboBox takenTransportBox;
@@ -31,7 +31,11 @@ public class AddTransportController implements SceneController {
         this.screens = screens;
     }
 
-    public void initialize() throws Exception{
+    /**
+     * initializes the dropdown menus.
+     * @throws Exception when incorrect text input.
+     */
+    public void initialize() throws Exception {
         validateInputDistance();
         takenTransportBox.setItems(transportList);
         insteadOfTransportBox.setItems(transportList);
@@ -58,9 +62,13 @@ public class AddTransportController implements SceneController {
     @FXML
     public void switchPlantTree() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+            .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
-    public void validateInputDistance(){
+
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateInputDistance() {
         distance.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,

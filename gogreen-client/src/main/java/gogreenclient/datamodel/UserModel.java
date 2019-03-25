@@ -40,12 +40,11 @@ public class UserModel {
     }
 
     /**
-     * Find if a user is already exists in the database. None of the user's detail will be received,
-     * so this method is safe to use.
+     * Find if a user exists in the DB. None of user's detail will be received,
+     * so this method is save to use
      *
      * @param username username entered by user while creating account.
-     * @return a boolean value, true if the username is already used by others, false if the
-     *     username is valid.
+     * @return true - the username is already used, false if it is valid.
      */
     public boolean findUser(String username) {
         ResponseEntity<String> response = loginRestTemplate

@@ -80,41 +80,54 @@ public class AchievementsController implements SceneController {
         Achievements celebi = new Achievements("Celebi",
             "No", "Saved more than 5 tons of carbon dioxide");
         Achievements stopCheating = new Achievements("Stop Cheating",
-            "Yes", "Saved 20 tons of carbon dioxide. Or, more likely, you're just cheating.");
+            "Yes",
+            "Saved 20 tons of carbon dioxide. Or, more likely, you're just cheating.");
         Achievements sunAbsorber = new Achievements("Sun Absorber",
-                "No", "Your solar panels have produced more than 10 kw");
+            "No", "Your solar panels have produced more than 10 kw");
         Achievements powerPlant = new Achievements("Power Plant",
-                "No", "Your solar panels have produced more 100 kw");
+            "No", "Your solar panels have produced more 100 kw");
         Achievements fiveBillionYears = new Achievements("Five Billion Years",
-                "No", "Your solar panels have produced more than 1095 kw. You know the sun will die eventually, right?");
-        Achievements thankUvMuch= new Achievements("Thank UV Much",
-                "No", "Your solar panels have produced more than 5000 kw. Absorbed light is lost forever. Congratulations, darkness worshipper");
+            "No", "Your solar panels have produced more than 1095 kw."
+            +
+            " You know the sun will die eventually, right?");
+        Achievements thankUvMuch = new Achievements("Thank UV Much",
+            "No", "Your solar panels have produced more than 5000 kw."
+            +
+            " Absorbed light is lost forever. Congratulations, darkness worshipper");
         Achievements vegetarian = new Achievements("Vegetarian",
             "No", "Your food choices have saved more 100 kg of carbon dioxide");
         Achievements vegan = new Achievements("Vegan",
-                "No", "Your food choices have saved more 500 kg of carbon dioxide");
+            "No", "Your food choices have saved more 500 kg of carbon dioxide");
         Achievements photosynthesizer = new Achievements("Photosynthesizer",
-                "No", "Your food choices have saved more 1 ton of carbon dioxide");
+            "No", "Your food choices have saved more 1 ton of carbon dioxide");
         Achievements pleaseEat = new Achievements("Please Eat",
-                "No", "Your food choices have saved more 5 tons of carbon dioxide. Please make sure you're eating properly");
+            "No", "Your food choices have saved more 5 tons of carbon dioxide."
+            +
+            " Please make sure you're eating properly");
         Achievements dutch = new Achievements("Dutch",
-                "No", "100 kg of carbon dioxide saved from transport choices, isn't Holland great?");
+            "No", "100 kg of carbon dioxide saved from transport choices,"
+            +
+            " isn't Holland great?");
         Achievements niceLegs = new Achievements("Nice Legs",
-                "No", "500 kg of carbon dioxide saved from transport choices, good work out");
+            "No", "500 kg of carbon dioxide saved from transport choices, good work out");
         Achievements teleporter = new Achievements("Teleporter",
-                "No", "1 ton of carbon dioxide saved from transport choices");
+            "No", "1 ton of carbon dioxide saved from transport choices");
         Achievements neverSkipLegDay = new Achievements("Never Skip Leg Day",
-                "No", "5 tons of carbon dioxide saved from transport choices. Eliud Kipchoge wants to know your location");
+            "No", "5 tons of carbon dioxide saved from transport choices."
+            +
+            " Eliud Kipchoge wants to know your location");
         Achievements fatWallet = new Achievements("Fat Wallet",
-                "No", "Saved 100 euros, get your wallet some hydroxycut");
+            "No", "Saved 100 euros, get your wallet some hydroxycut");
         Achievements retirementFund = new Achievements("Retirement Fund",
-                "No", "Saved 500 euros total. Open an account mate");
+            "No", "Saved 500 euros total. Open an account mate");
         Achievements justBuySomething = new Achievements("Just Buy Something",
-                "No", "2000 euros saved, time for a trip to Amsterdam");
+            "No", "2000 euros saved, time for a trip to Amsterdam");
         Achievements nokwg29 = new Achievements("nokwg",
-                "No", "10000 euros saved. Tinyurl");
-        achievements.addAll(treeHugger, anarchoPrimitivist, celebi, stopCheating, sunAbsorber, powerPlant, fiveBillionYears, thankUvMuch, vegetarian, vegan, photosynthesizer, pleaseEat, dutch, niceLegs, teleporter,
-                neverSkipLegDay, fatWallet, retirementFund, justBuySomething, nokwg29);
+            "No", "10000 euros saved. Tinyurl");
+        achievements.addAll(treeHugger, anarchoPrimitivist, celebi, stopCheating,
+            sunAbsorber, powerPlant, fiveBillionYears, thankUvMuch, vegetarian,
+            vegan, photosynthesizer, pleaseEat, dutch, niceLegs, teleporter,
+            neverSkipLegDay, fatWallet, retirementFund, justBuySomething, nokwg29);
 
         final TreeItem<Achievements> root = new RecursiveTreeItem<Achievements>(achievements,
             RecursiveTreeObject::getChildren);

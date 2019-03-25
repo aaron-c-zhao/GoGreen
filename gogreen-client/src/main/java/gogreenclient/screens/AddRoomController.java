@@ -23,7 +23,11 @@ public class AddRoomController implements SceneController {
         this.screens = screens;
     }
 
-    public void initialize() throws Exception{
+    /**
+     * initialing the validations.
+     * @throws Exception exception if not correct.
+     */
+    public void initialize() throws Exception {
         validateMinutes();
         validateRoomArea();
         validateTempDiff();
@@ -50,10 +54,13 @@ public class AddRoomController implements SceneController {
     @FXML
     public void switchPlantTree() {
         screens.activityController()
-                .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
+            .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
-    public void validateMinutes(){
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateMinutes() {
         minutes.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -64,7 +71,11 @@ public class AddRoomController implements SceneController {
             }
         });
     }
-    public void validateTempDiff(){
+
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateTempDiff() {
         tempDiff.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -75,7 +86,11 @@ public class AddRoomController implements SceneController {
             }
         });
     }
-    public void validateRoomArea(){
+
+    /**
+     * Limiting the input of a text field to be only numbers.
+     */
+    public void validateRoomArea() {
         roomArea.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
