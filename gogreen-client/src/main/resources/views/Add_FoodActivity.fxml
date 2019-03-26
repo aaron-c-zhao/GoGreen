@@ -199,7 +199,7 @@
                     </font>
                 </Label>
                 <JFXButton buttonType="RAISED" layoutX="159.0" layoutY="371.0" prefHeight="58.0" prefWidth="186.0"
-                           ripplerFill="SKYBLUE" text="Submit" textFill="WHITE"
+                           ripplerFill="SKYBLUE" text="Submit" textFill="WHITE" onAction="#submit"
                            AnchorPane.bottomAnchor="14.600000000000001" AnchorPane.leftAnchor="148.0"
                            AnchorPane.rightAnchor="148.0">
                     <font>
@@ -213,7 +213,7 @@
                         <Font name="Segoe UI" size="19.0"/>
                     </font>
                 </Label>
-                <JFXCheckBox layoutX="339.0" layoutY="175.0" text="Local production"
+                <JFXCheckBox fx:id="localProduct" layoutX="339.0" layoutY="175.0" text="Local production"
                              AnchorPane.rightAnchor="20.80000000000001">
                     <font>
                         <Font name="Segoe UI Light Italic" size="12.0"/>

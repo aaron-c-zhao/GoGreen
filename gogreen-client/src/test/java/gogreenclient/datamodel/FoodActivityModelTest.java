@@ -21,7 +21,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-public class FoodEmissionModelTest {
+public class FoodActivityModelTest {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -30,9 +30,9 @@ public class FoodEmissionModelTest {
     private RestTemplate template;
     private MockRestServiceServer server;
     private String uri;
-    private FoodEmission yummy = new FoodEmission();
-    private FoodEmission yum = new FoodEmission();
-    private FoodEmission yummy_and_healthy = new FoodEmission();
+    private FoodActivity yummy = new FoodActivity();
+    private FoodActivity yum = new FoodActivity();
+    private FoodActivity yummy_and_healthy = new FoodActivity();
 
     @Before
     public void setUp() throws Exception {

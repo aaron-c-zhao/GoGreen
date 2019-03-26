@@ -23,9 +23,9 @@ public class FoodEmissionModel {
      * Sending a String with the food name, then it crosschecks if the food
      * name is found on the list.
      */
-    public FoodEmission getFoodEmissions(String foodName) {
+    public FoodActivity getFoodEmissions(String foodName) {
         final String uri = "https://localhost:8443/api/foodEmission";
-        FoodEmission response = restTemplate.postForObject(uri, foodName, FoodEmission.class);
+        FoodActivity response = restTemplate.postForObject(uri, foodName, FoodActivity.class);
         return response;
     }
 
@@ -45,8 +45,8 @@ public class FoodEmissionModel {
         if ((eatenFood == usualFood) && (eatenFoodQuantity == usualFoodQuantity)) {
             return 0;
         }
-        FoodEmission mealEaten = getFoodEmissions(eatenFood);
-        FoodEmission mealUsual = getFoodEmissions(usualFood);
+        FoodActivity mealEaten = getFoodEmissions(eatenFood);
+        FoodActivity mealUsual = getFoodEmissions(usualFood);
 
         changedCO2 = mealUsual.getEmission() * usualFoodQuantity
             - mealEaten.getEmission() * eatenFoodQuantity;

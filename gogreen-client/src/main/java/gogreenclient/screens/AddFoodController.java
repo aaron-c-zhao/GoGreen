@@ -3,17 +3,20 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import gogreenclient.datamodel.FoodEmissionModel;
-import gogreenclient.datamodel.Records;
-import gogreenclient.datamodel.UserCareerService;
+import gogreenclient.datamodel.ExceptionHandler;
+import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
 
 
 public class AddFoodController implements SceneController {
@@ -31,15 +34,11 @@ public class AddFoodController implements SceneController {
     @FXML
     private JFXTextField costInstead;
     @FXML
-    private DatePicker date;
+    private JFXComboBox<String> takenMealBox;
     @FXML
-    private JFXComboBox takenMealBox;
-    @FXML
-    private JFXComboBox insteadOfMealBox;
+    private JFXComboBox<String> insteadOfMealBox;
     @FXML
     private Label fillAll;
-    @FXML
-    private Label total;
 
     @FXML
     private JFXCheckBox localProduct;
@@ -47,15 +46,18 @@ public class AddFoodController implements SceneController {
     private ScreenConfiguration screens;
 
     @Autowired
-    private FoodEmissionModel foodEmissionModel;
-
-    @Autowired
-    private UserCareerService userCareerService;
-
-    @Autowired
     private UserInputValidator validator;
 
-    private Records records;
+    @Autowired
+    private ExceptionHandler exceptionHandler;
+
+    @Autowired
+    private InsertHistory insert;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private static final String URL = "https://localhost:8443/api/insertHistory";
 
 
     public AddFoodController(ScreenConfiguration screens) {
@@ -80,7 +82,14 @@ public class AddFoodController implements SceneController {
      */
     @FXML
     public void submit() {
-        
+        createInsertObject();
+        ResponseEntity<String> response = restTemplate.postForEntity(URL, insert, String.class);
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            //TODO use logger
+            System.out.println(response.getBody());
+            clearBoxes();
+            screens.statisticController().initialize();
+        }
     }
 
     /**
@@ -111,5 +120,38 @@ public class AddFoodController implements SceneController {
             .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
+    private void isAllFieldFilled() throws IllegalArgumentException {
+        validator.isNull(takenMealBox);
+        validator.isNull(insteadOfMealBox);
+        validator.isNull(costTaken);
+        validator.isNull(costInstead);
+    }
+
+    private void createInsertObject() {
+        try {
+            isAllFieldFilled();
+        } catch (IllegalArgumentException e) {
+            exceptionHandler.illegalArgumentExceptionhandler(e);
+        }
+        String usualFood = takenMealBox.getValue();
+        String alterFood = insteadOfMealBox.getValue();
+        boolean isLocalProduct = localProduct.isSelected();
+        float usualCost = Float.parseFloat(costTaken.getText());
+        float alterCost = Float.parseFloat(costInstead.getText());
+        insert.setActivityName(usualFood);
+        insert.setAlternateActivity(alterFood);
+        insert.setActivityIsLocalproduce(isLocalProduct);
+        insert.setActivityPrice(usualCost);
+        insert.setAlternateActivityPrice(alterCost);
+        insert.setInsertDate(LocalDate.now());
+    }
+
+    private void clearBoxes() {
+        takenMealBox.setValue(null);
+        insteadOfMealBox.setValue(null);
+        costTaken.clear();
+        costInstead.clear();
+        localProduct.setSelected(false);
+    }
 
 }

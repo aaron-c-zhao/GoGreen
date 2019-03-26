@@ -1,5 +1,6 @@
 package gogreenclient.datamodel;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -36,8 +37,14 @@ public class UserInputValidator {
     }
 
 
-    private void isNull(JFXTextField input){
-        if(input.getText().equals(""))
-            throw new IllegalArgumentException(input.getId());
+    public void isNull(JFXTextField input) throws IllegalArgumentException{
+        if (input.getText().equals("")) {
+            throw new IllegalArgumentException(input.getId() + "is empty.");
+        }
+    }
+
+    public void isNull(JFXComboBox<String> box) throws IllegalArgumentException{
+        if(box.getValue().equals(""))
+            throw new IllegalArgumentException(box.getId() + "is empty.");
     }
 }
