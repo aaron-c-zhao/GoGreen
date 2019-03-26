@@ -1,6 +1,7 @@
 package gogreenclient.datamodel;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class InsertHistoryCo2 {
@@ -9,7 +10,7 @@ public class InsertHistoryCo2 {
     private Long insertId;
 
 
-    private LocalDate insertDate;
+    private LocalDateTime insertDate;
 
 
     private String userName;
@@ -51,12 +52,12 @@ public class InsertHistoryCo2 {
         this.co2Saved = co2Saved;
     }
 
-    public LocalDate getInsertDate() {
+    public LocalDateTime getInsertDate() {
         return insertDate;
     }
 
 
-    public void setInsertDate(LocalDate insertDate) {
+    public void setInsertDate(LocalDateTime insertDate) {
         this.insertDate = insertDate;
     }
 

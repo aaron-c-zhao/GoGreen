@@ -76,6 +76,26 @@ public class UserCareerService {
         return insertHistories;
     }
 
+    public String getActivityAmount() {
+        ResponseEntity<String> response = restTemplate
+            .getForEntity(url + "/insertHistory/amount/" + username,
+                String.class);
+        String amount = null;
+        if(response != null && response.getStatusCode() == HttpStatus.OK)
+            amount = response.getBody();
+        return amount;
+    }
+
+    public String getActiveDays() {
+        ResponseEntity<String> response = restTemplate
+            .getForEntity(url + "/insertHistory/days/" + username,
+                String.class);
+        String days = null;
+        if(response != null && response.getStatusCode() == HttpStatus.OK)
+            days = response.getBody();
+        return days;
+    }
+
 
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

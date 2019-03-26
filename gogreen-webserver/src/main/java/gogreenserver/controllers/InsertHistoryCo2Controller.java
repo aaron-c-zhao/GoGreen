@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Duration;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -33,4 +35,25 @@ public class InsertHistoryCo2Controller {
         return new ResponseEntity<List<InsertHistoryCo2>>(this.insertHistoryCo2Service
             .findRecentTwoByUserName(userName), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/insertHistory/amount/{user_Name}")
+    public ResponseEntity<String> findActivityAmountByUserName(
+        @PathVariable("user_Name") String userName) {
+        logger.debug("GET /insertHistory/" + userName);
+        return new ResponseEntity<String>(String.valueOf(this.insertHistoryCo2Service
+            .findAllByUserName(userName).size()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/insertHistory/days/{user_Name}")
+    public ResponseEntity<String> findActiveDaysByUserName(
+        @PathVariable("user_Name") String userName) {
+        logger.debug("GET /insertHistory/" + userName);
+        List<InsertHistoryCo2> list = this.insertHistoryCo2Service.findAllByUserName(userName);
+        list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate).reversed());
+        long days = Duration
+            .between(list.get(0).getInsertDate(), list.get(list.size()-1).getInsertDate()).toDays();
+        return new ResponseEntity<>(String.valueOf(days), HttpStatus.OK);
+
+    }
+
 }

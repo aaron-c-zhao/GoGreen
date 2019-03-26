@@ -142,7 +142,7 @@
                         <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
-                <Label layoutX="270.0" layoutY="125.0" prefHeight="27.0" prefWidth="100.0" text="setTotaldays"
+                <Label fx:id="totalDays" layoutX="270.0" layoutY="125.0" prefHeight="27.0" prefWidth="100.0" text="setTotaldays"
                        textFill="#029759">
                     <font>
                         <Font name="Segoe UI Light" size="18.0"/>

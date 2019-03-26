@@ -59,11 +59,15 @@ public class StatisticController implements SceneController {
     @FXML
     private Label secondActivityAmount;
 
+    @FXML
+    private Label totalActivities;
+
+    @FXML
+    private Label totalDays;
+
     private List<Achievements> achievementsList;
 
     private List<InsertHistoryCo2> insertHistoryList;
-
-    private ArrayList<Label> labelList;
 
 
     public StatisticController(ScreenConfiguration screens) {
@@ -92,6 +96,8 @@ public class StatisticController implements SceneController {
         achievement.setText(getLastAchievements());
         totalAchievements.setText(getAchievementsAmount());
         recentActivityInit();
+        totalActivitiesInit();
+        totalActiveDays();
     }
 
     public void addActivity() {
@@ -173,6 +179,16 @@ public class StatisticController implements SceneController {
                 .valueOf(Math.round(insertHistoryList.get(1).getCo2Saved())));
         }
 
+    }
+
+    private void totalActivitiesInit() {
+        String activites = userCareerService.getActivityAmount();
+        totalActivities.setText((activites == null)? "0" : activites);
+    }
+
+    private void totalActiveDays() {
+        String days = userCareerService.getActiveDays();
+        totalDays.setText((days == null)? "0" : days);
     }
 
     @FXML
