@@ -12,6 +12,10 @@
     <artifactId>jacoco-aggregate</artifactId>
     <packaging>pom</packaging>
 
+    <properties>
+        <checkstyle.skip>true</checkstyle.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>nl.tudelft.cse1500.group82</groupId>
