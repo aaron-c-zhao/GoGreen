@@ -12,7 +12,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -183,12 +182,12 @@ public class StatisticController implements SceneController {
 
     private void totalActivitiesInit() {
         String activites = userCareerService.getActivityAmount();
-        totalActivities.setText((activites == null)? "0" : activites);
+        totalActivities.setText((activites == null) ? "0" : activites);
     }
 
     private void totalActiveDays() {
         String days = userCareerService.getActiveDays();
-        totalDays.setText((days == null)? "0" : days);
+        totalDays.setText((days == null) ? "0" : days);
     }
 
     @FXML

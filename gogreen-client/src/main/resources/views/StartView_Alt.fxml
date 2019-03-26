@@ -142,13 +142,15 @@
                         <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
-                <Label fx:id="totalDays" layoutX="270.0" layoutY="125.0" prefHeight="27.0" prefWidth="100.0" text="setTotaldays"
+                <Label fx:id="totalDays" layoutX="270.0" layoutY="125.0" prefHeight="27.0" prefWidth="100.0"
+                       text="setTotaldays"
                        textFill="#029759">
                     <font>
                         <Font name="Segoe UI Light" size="18.0"/>
                     </font>
                 </Label>
-                <Label fx:id="totalAchievements" layoutX="270.0" layoutY="161.0" prefHeight="27.0" prefWidth="169.0" text="setTotalAchievements"
+                <Label fx:id="totalAchievements" layoutX="270.0" layoutY="161.0" prefHeight="27.0" prefWidth="169.0"
+                       text="setTotalAchievements"
                        textFill="#029759">
                     <font>
                         <Font name="Segoe UI Light" size="18.0"/>
@@ -171,20 +173,23 @@
                                 <Font name="Segoe UI Light" size="25.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="recentActivityOne" layoutX="37.0" layoutY="40.0" prefHeight="30.0" prefWidth="137.0"
+                        <Label fx:id="recentActivityOne" layoutX="37.0" layoutY="40.0" prefHeight="30.0"
+                               prefWidth="137.0"
                                text="Set_activity type" textFill="#eaeaea" AnchorPane.leftAnchor="37.0"
                                AnchorPane.rightAnchor="38.0">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="firstActivityDate" layoutX="46.0" layoutY="67.0" prefHeight="22.0" prefWidth="92.0" text="Set_date"
+                        <Label fx:id="firstActivityDate" layoutX="46.0" layoutY="67.0" prefHeight="22.0"
+                               prefWidth="92.0" text="Set_date"
                                textFill="#eaeaea" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="74.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="firstActivityAmount" layoutX="47.0" layoutY="93.0" prefHeight="26.0" prefWidth="137.0" text="Set_saved_amount"
+                        <Label fx:id="firstActivityAmount" layoutX="47.0" layoutY="93.0" prefHeight="26.0"
+                               prefWidth="137.0" text="Set_saved_amount"
                                textFill="SKYBLUE" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="28.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0"/>
@@ -196,20 +201,23 @@
                                 <Font name="Segoe UI Light" size="20.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="recentActivityTwo" layoutX="39.0" layoutY="136.0" prefHeight="30.0" prefWidth="137.0"
+                        <Label fx:id="recentActivityTwo" layoutX="39.0" layoutY="136.0" prefHeight="30.0"
+                               prefWidth="137.0"
                                text="Set_activity type" textFill="#eaeaea" AnchorPane.leftAnchor="39.0"
                                AnchorPane.rightAnchor="36.0">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="secondActivityDate" layoutX="42.0" layoutY="163.0" text="Set_date" textFill="#eaeaea"
+                        <Label fx:id="secondActivityDate" layoutX="42.0" layoutY="163.0" text="Set_date"
+                               textFill="#eaeaea"
                                AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="52.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="secondActivityAmount" layoutX="41.0" layoutY="189.0" prefHeight="26.0" prefWidth="137.0"
+                        <Label fx:id="secondActivityAmount" layoutX="41.0" layoutY="189.0" prefHeight="26.0"
+                               prefWidth="137.0"
                                text="Set_saved_amount" textFill="SKYBLUE" AnchorPane.leftAnchor="41.0"
                                AnchorPane.rightAnchor="34.0">
                             <font>

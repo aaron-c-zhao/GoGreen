@@ -1,13 +1,12 @@
 package gogreenserver.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "insert_history_co2")
@@ -168,21 +167,21 @@ public class InsertHistoryCo2 {
     // Define toString
     @Override
     public String toString() {
-        return "InsertHistoryCo2{" +
-            "insertId=" + insertId +
-            ", insertDate=" + insertDate +
-            ", userName='" + userName + '\'' +
-            ", activityName='" + activityName + '\'' +
-            ", activityPrice=" + activityPrice +
-            ", alternateActivity='" + alternateActivity + '\'' +
-            ", alternateActivityPrice=" + alternateActivityPrice +
-            ", activityIsLocalproduce=" + activityIsLocalproduce +
-            ", alternateActivityIsLocalproduce=" + alternateActivityIsLocalproduce +
-            ", transportDistanceKm=" + transportDistanceKm +
-            ", energyActivityDurationMinutes=" + energyActivityDurationMinutes +
-            ", energyActivityTempAreaM2=" + energyActivityTempAreaM2 +
-            ", energyActivityTempDegreesDecreased=" + energyActivityTempDegreesDecreased +
-            ", co2Saved=" + co2Saved +
-            '}';
+        return "InsertHistoryCo2{"
+            + "insertId=" + insertId
+            + ", insertDate=" + insertDate
+            + ", userName='" + userName + '\''
+            + ", activityName='" + activityName + '\''
+            + ", activityPrice=" + activityPrice
+            + ", alternateActivity='" + alternateActivity + '\''
+            + ", alternateActivityPrice=" + alternateActivityPrice
+            + ", activityIsLocalproduce=" + activityIsLocalproduce
+            + ", alternateActivityIsLocalproduce=" + alternateActivityIsLocalproduce
+            + ", transportDistanceKm=" + transportDistanceKm
+            + ", energyActivityDurationMinutes=" + energyActivityDurationMinutes
+            + ", energyActivityTempAreaM2=" + energyActivityTempAreaM2
+            + ", energyActivityTempDegreesDecreased=" + energyActivityTempDegreesDecreased
+            + ", co2Saved=" + co2Saved
+            + '}';
     }
 }

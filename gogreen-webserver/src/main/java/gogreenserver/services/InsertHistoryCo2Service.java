@@ -22,6 +22,11 @@ public class InsertHistoryCo2Service {
         return insertHistoryCo2Repository.findAll();
     }
 
+    /**
+     * find the most recent two insert history of that user.
+     * @param userName user name.
+     * @return a list of insert history, the list can be empty.
+     */
     public List<InsertHistoryCo2> findRecentTwoByUserName(String userName) {
         List<InsertHistoryCo2> list = findAll()
             .stream()
@@ -32,6 +37,11 @@ public class InsertHistoryCo2Service {
         return list;
     }
 
+    /**
+     * The all the insert history co2 of that user.
+     * @param userName usr name.
+     * @return a list of insert history.
+     */
     public List<InsertHistoryCo2> findAllByUserName(String userName) {
         List<InsertHistoryCo2> list = findAll()
             .stream()

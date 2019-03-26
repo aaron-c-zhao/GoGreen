@@ -2,7 +2,6 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.User;
 import gogreenserver.services.UserService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    private UserService userService;
-
     private final Logger logger;
+    private UserService userService;
 
     @Autowired
     public UserController(UserService userService, Logger logger) {
@@ -38,8 +36,8 @@ public class UserController {
      *
      * @param userName user name.
      * @return if userName is found in the database, it will return a ResponseEntity
-     *         which body is "success", otherwise another entity will be returned
-     *         with the body being "fail".
+     *     which body is "success", otherwise another entity will be returned
+     *     with the body being "fail".
      */
     @GetMapping("/user/findUser/{user_name}")
     public ResponseEntity<String> findUser(@PathVariable("user_name") String userName) {

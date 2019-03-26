@@ -29,6 +29,9 @@ public class AddSolarPanelController implements SceneController {
         this.screens = screens;
     }
 
+    /**
+     * initialize the solar panel page.
+     */
     public void initialize() {
         validator.validateFraction(sizeOfSolarPanel);
         fillAll.setVisible(false);

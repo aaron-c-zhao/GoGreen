@@ -46,11 +46,11 @@ public class Achievements {
 
     @Override
     public String toString() {
-        return "Achievements{" +
-            "id=" + id +
-            ", userName='" + userName + '\'' +
-            ", achievement='" + achievement + '\'' +
-            ", achieveData=" + achieveData +
-            '}';
+        return "Achievements{"
+            + "id=" + id
+            + ", userName='" + userName + '\''
+            + ", achievement='" + achievement + '\''
+            + ", achieveData=" + achieveData
+            + '}';
     }
 }

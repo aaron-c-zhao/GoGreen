@@ -19,8 +19,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class InsertHistoryController {
 
-    private InsertHistoryService insertHistoryService;
     private final Logger logger;
+    private InsertHistoryService insertHistoryService;
 
     @Autowired
     public InsertHistoryController(InsertHistoryService insertHistoryService, Logger logger) {
@@ -48,7 +48,8 @@ public class InsertHistoryController {
     @PostMapping(value = "/insertHistory")
     public ResponseEntity<String> createInsertHistory(@RequestBody InsertHistory insertHistory) {
         this.insertHistoryService.createInsertHistory(insertHistory);
-        return new ResponseEntity<String>("Successfully insertHistory for user : " + insertHistory.getUserName(),
+        return new ResponseEntity<String>("Successfully insertHistory for user : "
+            + insertHistory.getUserName(),
             HttpStatus.OK);
     }
 

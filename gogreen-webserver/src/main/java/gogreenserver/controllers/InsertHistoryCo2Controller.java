@@ -19,15 +19,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class InsertHistoryCo2Controller {
 
-    private InsertHistoryCo2Service insertHistoryCo2Service;
     private final Logger logger;
+    private InsertHistoryCo2Service insertHistoryCo2Service;
 
     @Autowired
-    public InsertHistoryCo2Controller(InsertHistoryCo2Service insertHistoryCo2Service, Logger logger) {
+    public InsertHistoryCo2Controller(InsertHistoryCo2Service insertHistoryCo2Service,
+                                      Logger logger) {
         this.insertHistoryCo2Service = insertHistoryCo2Service;
         this.logger = logger;
     }
 
+    /**
+     * The endpoint for retrieving the most recent two activities of a user.
+     * @param userName username.
+     * @return a response entity.
+     */
     @GetMapping(value = "/insertHistory/{user_Name}")
     public ResponseEntity<List<InsertHistoryCo2>> findRecentTwoByUserName(
         @PathVariable("user_Name") String userName) {
@@ -36,6 +42,11 @@ public class InsertHistoryCo2Controller {
             .findRecentTwoByUserName(userName), HttpStatus.OK);
     }
 
+    /**
+     * The end point for retrieving the amount of activities of a user.
+     * @param userName username.
+     * @return a response entity.
+     */
     @GetMapping(value = "/insertHistory/amount/{user_Name}")
     public ResponseEntity<String> findActivityAmountByUserName(
         @PathVariable("user_Name") String userName) {
@@ -44,6 +55,12 @@ public class InsertHistoryCo2Controller {
             .findAllByUserName(userName).size()), HttpStatus.OK);
     }
 
+    /**
+     * The endpoint for retrieving active days of a user, which is calculated by subtracting
+     * the date of first insertion from the data of the last insertion.
+     * @param userName username.
+     * @return a response entity.
+     */
     @GetMapping(value = "/insertHistory/days/{user_Name}")
     public ResponseEntity<String> findActiveDaysByUserName(
         @PathVariable("user_Name") String userName) {
@@ -51,7 +68,8 @@ public class InsertHistoryCo2Controller {
         List<InsertHistoryCo2> list = this.insertHistoryCo2Service.findAllByUserName(userName);
         list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate).reversed());
         long days = Duration
-            .between(list.get(0).getInsertDate(), list.get(list.size()-1).getInsertDate()).toDays();
+            .between(list.get(0).getInsertDate(), list.get(list.size() - 1)
+                .getInsertDate()).toDays();
         return new ResponseEntity<>(String.valueOf(days), HttpStatus.OK);
 
     }

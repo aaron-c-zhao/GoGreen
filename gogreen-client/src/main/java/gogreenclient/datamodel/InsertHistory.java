@@ -31,6 +31,11 @@ public class InsertHistory {
 
     private Float energyActivityTempDegreesDecreased;
 
+    /**
+     * Constructor of the user model. Some fields will be set to its default value, you can use
+     * setters to change it's value we is needed.
+     * @param userName user name.
+     */
     public InsertHistory(String userName) {
         this.userName = userName;
         this.activityName = "login";

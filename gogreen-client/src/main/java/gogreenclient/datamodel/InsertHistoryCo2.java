@@ -1,6 +1,5 @@
 package gogreenclient.datamodel;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -148,6 +147,7 @@ public class InsertHistoryCo2 {
     public void setEnergyActivityTempDegreesDecreased(Float energyActivityTempDegreesDecreased) {
         this.energyActivityTempDegreesDecreased = energyActivityTempDegreesDecreased;
     }
+
     public String activityName() {
         return alternateActivity + " instead of " + activityName;
     }

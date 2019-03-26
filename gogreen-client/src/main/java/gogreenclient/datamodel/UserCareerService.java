@@ -44,7 +44,11 @@ public class UserCareerService {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Get achievements of this user.
+     *
+     * @return list of achievements.
+     */
     public List<Achievements> getAchievements() {
         ResponseEntity<List<Achievements>> response = restTemplate.exchange(
             url + "/achievement/" + username,
@@ -61,6 +65,10 @@ public class UserCareerService {
         return achievements;
     }
 
+    /**
+     * Get the most recent two insert history of this user.
+     * @return list of insert history.
+     */
     public List<InsertHistoryCo2> getRecentTwoInsertHistory() {
         ResponseEntity<List<InsertHistoryCo2>> response = restTemplate.exchange(
             url + "/insertHistory/" + username,
@@ -76,23 +84,35 @@ public class UserCareerService {
         return insertHistories;
     }
 
+    /**
+     * Get the amount of this user's activities.
+     *
+     * @return the string representation of the number of activities.
+     */
     public String getActivityAmount() {
         ResponseEntity<String> response = restTemplate
             .getForEntity(url + "/insertHistory/amount/" + username,
                 String.class);
         String amount = null;
-        if(response != null && response.getStatusCode() == HttpStatus.OK)
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
             amount = response.getBody();
+        }
         return amount;
     }
 
+    /**
+     * Get the active days of this user.
+     *
+     * @return the string representation of the number of days.
+     */
     public String getActiveDays() {
         ResponseEntity<String> response = restTemplate
             .getForEntity(url + "/insertHistory/days/" + username,
                 String.class);
         String days = null;
-        if(response != null && response.getStatusCode() == HttpStatus.OK)
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
             days = response.getBody();
+        }
         return days;
     }
 
