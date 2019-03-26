@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Entity
@@ -23,6 +24,9 @@ public class Achievements {
     @Column(name = "achievement")
     private String achievement;
 
+    @Column(name = "achieved_data")
+    private LocalDateTime achieveData;
+
     public String getUserName() {
         return userName;
     }
@@ -39,12 +43,21 @@ public class Achievements {
         this.achievement = achievement;
     }
 
+    public LocalDateTime getAchieveData() {
+        return achieveData;
+    }
+
+    public void setAchieveData(LocalDateTime achieveData) {
+        this.achieveData = achieveData;
+    }
+
     @Override
     public String toString() {
         return "Achievements{" +
             "id=" + id +
             ", userName='" + userName + '\'' +
-            ", achievement=" + achievement +
+            ", achievement='" + achievement + '\'' +
+            ", achieveData=" + achieveData +
             '}';
     }
 }

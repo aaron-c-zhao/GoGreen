@@ -1,5 +1,6 @@
 package gogreenclient.screens;
 
+import gogreenclient.datamodel.Achievements;
 import gogreenclient.datamodel.Records;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
@@ -9,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 public class StatisticController implements SceneController {
@@ -33,6 +36,11 @@ public class StatisticController implements SceneController {
     @FXML
     private Label achievement;
 
+    @FXML
+    private Label totalAchievements;
+
+    private List<Achievements> achievementsList;
+
 
     public StatisticController(ScreenConfiguration screens) {
         this.screens = screens;
@@ -48,6 +56,7 @@ public class StatisticController implements SceneController {
     public void initialize() {
         try {
             records = userCareerService.getCareer();
+            achievementsList = userCareerService.getAchievements();
             statisticInitialize();
             userNameInitialize();
             pieChyartInitialize();
@@ -55,6 +64,8 @@ public class StatisticController implements SceneController {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        achievement.setText(getLastAchievements());
+        totalAchievements.setText(getAchievementsAmount());
     }
 
     public void addActivity() {
@@ -92,6 +103,22 @@ public class StatisticController implements SceneController {
         pieChart.setData(pieChartData);
     }
 
+    private String getLastAchievements() {
+        String result = null;
+        if (achievementsList == null) {
+            result = "Blue";
+        } else {
+            result = achievementsList.get(0).getAchievement();
+        }
+        return result;
+    }
+
+    private String getAchievementsAmount() {
+        int amount = 0;
+        if(achievementsList != null)
+            amount = achievementsList.size();
+        return String.valueOf(amount);
+    }
 
     @FXML
     public void closeProgram() {

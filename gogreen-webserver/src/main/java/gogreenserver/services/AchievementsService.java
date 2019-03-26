@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AchievementsService {
@@ -24,7 +25,11 @@ public class AchievementsService {
 
 
     public List<Achievements> findAllByUserName(String userName){
-        return achievementsRepo.findAllByUserName(userName);
+        List<Achievements> list = findAll()
+            .stream()
+            .filter(achievements -> achievements.getUserName().equals(userName))
+            .collect(Collectors.toList());
+        return list;
     }
 
     // Yet have to add method to find Friends Achievements.

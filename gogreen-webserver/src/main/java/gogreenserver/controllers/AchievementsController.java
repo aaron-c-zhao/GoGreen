@@ -39,7 +39,10 @@ public class AchievementsController {
 
     @GetMapping(value = "/achievement/{user_name}")
     public ResponseEntity<List<Achievements>> findById(@PathVariable("user_name") String userName) {
-        return new ResponseEntity<>(achievementsService.findAllByUserName(userName),
-            HttpStatus.OK);
+        List<Achievements> list = achievementsService.findAllByUserName(userName);
+        for (Achievements a : list) {
+            System.out.println(a.toString());
+        }
+        return new ResponseEntity<List<Achievements>>(list, HttpStatus.OK);
     }
 }
