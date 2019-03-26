@@ -2,7 +2,6 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.Records;
 import gogreenserver.services.RecordsService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +19,8 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class RecordsController {
 
-    private RecordsService recordsService;
     private final Logger logger;
+    private RecordsService recordsService;
 
     @Autowired
     public RecordsController(RecordsService recordsService, Logger logger) {
@@ -37,7 +36,7 @@ public class RecordsController {
 
     @GetMapping(value = "/record/{user_Name}")
     public ResponseEntity<Optional<Records>> findById(@PathVariable("user_Name") String userName,
-            Authentication auth) {
+                                                      Authentication auth) {
         logger.debug("GET /record/" + userName + " accessed by: " + auth.getName());
         return new ResponseEntity<>(this.recordsService.findById(userName), HttpStatus.OK);
     }

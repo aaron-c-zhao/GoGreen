@@ -20,5 +20,8 @@ spring:
 
 logging:
   level:
-    root: info
-    gogreen-webserver: info
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG

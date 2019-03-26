@@ -1,6 +1,6 @@
 package gogreenclient.config;
 
-import gogreenclient.datamodel.FoodEmissionModel;
+import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserModel;
 import gogreenclient.screens.ScreenConfiguration;
@@ -57,10 +57,6 @@ public class AppConfig {
     private String username;
     private String password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -69,25 +65,24 @@ public class AppConfig {
         this.restTemplate = restTemplate;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Bean
-    UserModel userModel() throws Exception {
+    UserModel userModel() {
         UserModel userModel = new UserModel();
-        userModel.setRestTemplate(restTemplate());
         return userModel;
     }
 
-    /**
-     * A Bean that spring will hold and can be instantiated anywhere.This is the
-     * right way to use spring and dataModel.
-     *
-     * @return an instance of FoodEmissionModel.
-     * @throws Exception normal exception.
-     */
     @Bean
-    FoodEmissionModel foodEmissionModel() throws Exception {
-        FoodEmissionModel foodEmissionModel = new FoodEmissionModel();
-        foodEmissionModel.setRestTemplate(restTemplate());
-        return foodEmissionModel;
+    @Scope("prototype")
+    InsertHistory insertHistory() {
+        return new InsertHistory(username);
     }
 
 

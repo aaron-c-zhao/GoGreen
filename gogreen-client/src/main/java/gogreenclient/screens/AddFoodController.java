@@ -3,23 +3,26 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import gogreenclient.datamodel.FoodEmissionModel;
-import gogreenclient.datamodel.UserCareer;
-import gogreenclient.datamodel.UserCareerService;
+import gogreenclient.datamodel.ExceptionHandler;
+import gogreenclient.datamodel.InsertHistory;
+import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
 
 
 public class AddFoodController implements SceneController {
 
 
+    private static final String URL = "https://localhost:8443/api/insertHistory";
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("beans", "vegetables", "cheese",
@@ -32,69 +35,53 @@ public class AddFoodController implements SceneController {
     @FXML
     private JFXTextField costInstead;
     @FXML
-    private DatePicker date;
+    private JFXComboBox<String> takenMealBox;
     @FXML
-    private JFXComboBox takenMealBox;
-    @FXML
-    private JFXComboBox insteadOfMealBox;
+    private JFXComboBox<String> insteadOfMealBox;
     @FXML
     private Label fillAll;
     @FXML
-    private Label total;
-    @FXML
-    private JFXCheckBox localProductTaken;
-
-    private JFXCheckBox localProductInstead;
-
+    private JFXCheckBox localProduct;
     private ScreenConfiguration screens;
-
     @Autowired
-    private FoodEmissionModel foodEmissionModel;
-
+    private UserInputValidator validator;
     @Autowired
-    private UserCareerService userCareerService;
-
-    private UserCareer career;
+    private ExceptionHandler exceptionHandler;
+    @Autowired
+    private InsertHistory insert;
+    @Autowired
+    private RestTemplate restTemplate;
 
 
     public AddFoodController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
+
     /**
      * sets the combo box elements.
      */
-    public void initialize() throws Exception {
-        validateInputCostTaken();
-        validateInputCostInstead();
+    public void initialize() {
+        validator.validateFraction(costTaken);
+        validator.validateFraction(costInstead);
         takenMealBox.setItems(mealList);
         insteadOfMealBox.setItems(mealList);
-        // set the value for the text field displaying the total
-        //total.setText(String.valueOf(userCareerService
-        //    .getCareer().getCo2saved()));
+        fillAll.setVisible(false);
     }
+
 
     /**
      * method for submit button, which will send the data to the server.
      */
     @FXML
-    public void submit() throws Exception {
-        if (takenMealBox.getValue() == null || insteadOfMealBox.getValue() == null
-            || date.getValue() == null || costTaken.getText().trim().isEmpty()
-            || costInstead.getText().trim().isEmpty()) {
-            fillAll.setVisible(true);
-        } else {
-            String eatenFood = takenMealBox.getValue().toString();
-            String usualFood = insteadOfMealBox.getValue().toString();
-            int eatenCost = Integer.parseInt(costTaken.getText());
-            int usualCost = Integer.parseInt(costInstead.getText());
-            int co2Saved = foodEmissionModel.compareFood(eatenFood,
-                usualFood, eatenCost, usualCost);
-            career = userCareerService.updateUserCareer(co2Saved);
-            String totalSaved = String.valueOf(career.getCo2saved());
-            fillAll.setVisible(false);
-            total.setText(totalSaved);
-            screens.submitMealDialog().showAndWait();
+    public void submit() {
+        createInsertObject();
+        ResponseEntity<String> response = restTemplate.postForEntity(URL, insert, String.class);
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            //TODO use logger
+            System.out.println(response.getBody());
+            clearBoxes();
+            screens.statisticController().initialize();
         }
     }
 
@@ -111,7 +98,7 @@ public class AddFoodController implements SceneController {
     @FXML
     public void switchSolar() {
         screens.activityController()
-            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
     }
 
     @FXML
@@ -126,33 +113,38 @@ public class AddFoodController implements SceneController {
             .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
-    /**
-     * Limiting the input of a text field to be only numbers.
-     */
-    public void validateInputCostTaken() {
-        costTaken.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    costTaken.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+    private void isAllFieldFilled() throws IllegalArgumentException {
+        validator.isNull(takenMealBox);
+        validator.isNull(insteadOfMealBox);
+        validator.isNull(costTaken);
+        validator.isNull(costInstead);
     }
 
-    /**
-     * Limiting the input of a text field to be only numbers.
-     */
-    public void validateInputCostInstead() {
-        costInstead.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    costInstead.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+    private void createInsertObject() {
+        try {
+            isAllFieldFilled();
+        } catch (IllegalArgumentException e) {
+            exceptionHandler.illegalArgumentExceptionhandler(e);
+        }
+        String usualFood = takenMealBox.getValue();
+        String alterFood = insteadOfMealBox.getValue();
+        boolean isLocalProduct = localProduct.isSelected();
+        float usualCost = Float.parseFloat(costTaken.getText());
+        float alterCost = Float.parseFloat(costInstead.getText());
+        insert.setActivityName(usualFood);
+        insert.setAlternateActivity(alterFood);
+        insert.setActivityIsLocalproduce(isLocalProduct);
+        insert.setActivityPrice(usualCost);
+        insert.setAlternateActivityPrice(alterCost);
+        insert.setInsertDate(LocalDate.now());
     }
+
+    private void clearBoxes() {
+        takenMealBox.setValue(null);
+        insteadOfMealBox.setValue(null);
+        costTaken.clear();
+        costInstead.clear();
+        localProduct.setSelected(false);
+    }
+
 }
