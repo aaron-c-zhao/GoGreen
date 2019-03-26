@@ -4,9 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import gogreenserver.entity.User;
+import gogreenserver.entity.Achievements;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,7 +33,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.LocalDate;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -49,7 +49,7 @@ import javax.transaction.Transactional;
 @AutoConfigureTestDatabase
 @AutoConfigureTestEntityManager
 @Transactional
-public class UserTests {
+public class AchievementsTests {
 
     // for debugging purposes
     private static final Logger LOGGER = LogManager.getLogger("Tests");
@@ -73,61 +73,64 @@ public class UserTests {
     }
 
     /**
-     * Check if /api/user/{username} works.
+     * Check if /api/achievements/ and /api/achievement/{username} works.
      */
     @WithMockUser
     @Test
-    public void checkUsers() throws Exception {
+    public void checkAchievements() throws Exception {
 
-        LOGGER.debug("=== checkUsers() ===");
+        LOGGER.debug("=== checkAchievements() ===");
+        Achievements[] dummies = new Achievements[3];
+        dummies[0] = manager.persist(createDummyAchievement("Ricardo"));
+        dummies[1] = manager.persist(createDummyAchievement("Stan"));
+        dummies[2] = manager.persist(createDummyAchievement("Tina"));
+        manager.flush();
 
-        User dummy = manager.persistAndFlush(createDummyUser("Alice"));
-        RequestBuilder ereq = MockMvcRequestBuilders
-                .get("/api/user/findUser/" + dummy.getUsername())
+        RequestBuilder ereq = MockMvcRequestBuilders.get("/api/achievements")
                 .accept(MediaType.APPLICATION_JSON);
-        
+
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
-        //if user exist.
-        assertThat(eres.getResponse().getContentAsString()).isEqualTo("success");
-        
-        RequestBuilder nreq = MockMvcRequestBuilders
-                .get("/api/user/findUser/Bob")
-                .accept(MediaType.APPLICATION_JSON);
-        
-        MvcResult nres = mockMvc.perform(nreq).andExpect(status().is(404)).andReturn();
+        JsonNode list = mapper.readTree(eres.getResponse().getContentAsString());
 
-        //if user does not exist.
-        assertThat(nres.getResponse().getContentAsString()).isEqualTo("fail");
+        LOGGER.debug("Returned Json: " + list);
+
+        int achcount = 0;
+        for (JsonNode ach : list) {
+            LOGGER.debug("Achievement record " + achcount + ": " + ach);
+            RequestBuilder achreq = MockMvcRequestBuilders
+                    .get("/api/achievement/" + ach.get("userName").asText())
+                    .accept(MediaType.APPLICATION_JSON);
+            MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
+
+            assertThat(ures.getResponse().getContentAsString())
+                    .isEqualTo(mapper.writeValueAsString(dummies[achcount]));
+
+            achcount++;
+        }
+        LOGGER.debug("Achievement record amount: " + achcount);
+        assertThat(achcount).isEqualTo(3);
 
         manager.clear();
-    }
 
+    }
+    
+    @WithMockUser
     @Test
-    public void addUser() throws Exception {
+    public void checkNonexistentAch() throws Exception {
 
-        LOGGER.debug("=== addUser() ===");
+        LOGGER.debug("=== checkNonexistentAch() ===");
 
-        User dummy = createDummyUser("Danny");
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
-        mockMvc.perform(req).andExpect(status().is(200));
-
-        User found = manager.find(User.class, dummy.getUsername());
-
-        // /api/createUser properly salts and hashes the user password, and therefore it
-        // is (or should be) impossible to recreate it manually.
-        dummy.setPassword(found.getPassword());
-
-        assertThat(found).isEqualToComparingFieldByField(dummy);
-
-        manager.clear();
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/achievement/nobody")
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(req).andExpect(status().is(404)).andReturn();
     }
 
-    private User createDummyUser(String name) {
+    private Achievements createDummyAchievement(String name) {
         Random rgn = new Random(name.hashCode());
-        return new User(name, "pass" + name, name + "@example.com",
-                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
-                LocalDate.now());
+        Achievements ach = new Achievements();
+        ach.setUserName(name);
+        ach.setLevel(rgn.nextFloat());
+        return ach;
     }
 }

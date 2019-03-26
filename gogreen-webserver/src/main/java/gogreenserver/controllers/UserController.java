@@ -47,7 +47,7 @@ public class UserController {
         if (user != null) {
             return new ResponseEntity<String>("success", HttpStatus.OK);
         }
-        return new ResponseEntity<String>("fail", HttpStatus.OK);
+        return new ResponseEntity<String>("fail", HttpStatus.NOT_FOUND);
     }
 
     /**

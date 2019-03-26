@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -34,6 +35,22 @@ public class AddSolarpanelsController {
     public ResponseEntity<List<AddSolarpanels>> findAll() {
         return new ResponseEntity<List<AddSolarpanels>>(this.addSolarpanelsService.findAll(),
                 HttpStatus.OK);
+    }
+    
+    /**
+     * Retrieve a single solar panel entry.
+     * @param username the owner.
+     * @return The entry, or if not found, an error message.
+     */
+    @GetMapping(value = "/addSolarpanel/{username}")
+    public ResponseEntity<Object> findbyUsername(@PathVariable("username") String username) {
+        AddSolarpanels res = addSolarpanelsService.findById(username).orElse(null);
+        if (res != null) {
+            return new ResponseEntity<Object>(res, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Object>(username + " has no solar panels",
+                    HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
