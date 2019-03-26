@@ -56,13 +56,26 @@ public class UserCareerService {
         List<Achievements> achievements = null;
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             achievements = response.getBody();
-            for (Achievements achievement : achievements) {
-                System.out.println("achievement:" + achievement.toString());
-            }
             achievements.sort(Comparator.comparing(Achievements::getAchieveData));
         }
         return achievements;
     }
+
+    public List<InsertHistoryCo2> getRecentTwoInsertHistory() {
+        ResponseEntity<List<InsertHistoryCo2>> response = restTemplate.exchange(
+            url + "/insertHistory/" + username,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<InsertHistoryCo2>>() {
+            }
+        );
+        List<InsertHistoryCo2> insertHistories = null;
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            insertHistories = response.getBody();
+        }
+        return insertHistories;
+    }
+
 
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

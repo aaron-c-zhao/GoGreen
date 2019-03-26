@@ -3,12 +3,17 @@ package gogreenclient.datamodel;
 import java.time.LocalDate;
 
 
-public class InsertHistory {
+public class InsertHistoryCo2 {
+
+
+    private Long insertId;
 
 
     private LocalDate insertDate;
 
+
     private String userName;
+
 
     private String activityName;
 
@@ -19,36 +24,37 @@ public class InsertHistory {
 
     private Float alternateActivityPrice;
 
+
     private Boolean activityIsLocalproduce;
 
     private Boolean alternateActivityIsLocalproduce;
 
+
     private Float transportDistanceKm;
 
+
     private Float energyActivityDurationMinutes;
+
 
     private Float energyActivityTempAreaM2;
 
     private Float energyActivityTempDegreesDecreased;
 
-    public InsertHistory(String userName) {
-        this.userName = userName;
-        this.activityName = "login";
-        this.insertDate = LocalDate.now();
-        this.activityPrice = null;
-        this.alternateActivity = null;
-        this.alternateActivityPrice = null;
-        this.activityIsLocalproduce = false;
-        this.alternateActivityIsLocalproduce = false;
-        this.transportDistanceKm = null;
-        this.energyActivityDurationMinutes = null;
-        this.energyActivityTempAreaM2 = null;
-        this.energyActivityTempDegreesDecreased = null;
+
+    private Float co2Saved;
+
+    public Float getCo2Saved() {
+        return co2Saved;
+    }
+
+    public void setCo2Saved(Float co2Saved) {
+        this.co2Saved = co2Saved;
     }
 
     public LocalDate getInsertDate() {
         return insertDate;
     }
+
 
     public void setInsertDate(LocalDate insertDate) {
         this.insertDate = insertDate;
@@ -141,26 +147,8 @@ public class InsertHistory {
     public void setEnergyActivityTempDegreesDecreased(Float energyActivityTempDegreesDecreased) {
         this.energyActivityTempDegreesDecreased = energyActivityTempDegreesDecreased;
     }
-
-
-    // Define toString
-
-
-    @Override
-    public String toString() {
-        return "InsertHistory{"
-            + "userName='" + userName + '\''
-            + ", activityName='" + activityName + '\''
-            + ", activityPrice=" + activityPrice
-            + ", alternateActivity='" + alternateActivity + '\''
-            + ", alternateActivityPrice=" + alternateActivityPrice
-            + ", activityIsLocalproduce=" + activityIsLocalproduce
-            + ", alternateActivityIsLocalproduce=" + alternateActivityIsLocalproduce
-            + ", transportDistanceKm=" + transportDistanceKm
-            + ", energyActivityDurationMinutes=" + energyActivityDurationMinutes
-            + ", energyActivityTempAreaM2=" + energyActivityTempAreaM2
-            + ", energyActivityTempDegreesDecreased=" + energyActivityTempDegreesDecreased
-            + '}';
+    public String activityName() {
+        return alternateActivity + " instead of " + activityName;
     }
 
 }
