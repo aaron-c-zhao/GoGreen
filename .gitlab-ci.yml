@@ -20,7 +20,7 @@ Build:
 test:
   stage: test
   script:
-    - mvn test
+    - mvn install test
   allow_failure: true
 
 Code Quality:
