@@ -36,8 +36,6 @@ public class RecordsController {
 
     /**
      * Get a single record of user.
-     * 
-     * @return
      */
     @GetMapping(value = "/record/{user_Name}")
     public ResponseEntity<Optional<Records>> findById(@PathVariable("user_Name") String userName,

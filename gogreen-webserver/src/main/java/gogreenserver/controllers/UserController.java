@@ -67,7 +67,6 @@ public class UserController {
      * Remove the user from existence.
      * 
      * @param user The user username.
-     * @return
      */
     @DeleteMapping("/deleteUser/{username}")
     public ResponseEntity<String> deleteUser(@PathVariable("username") String user,
