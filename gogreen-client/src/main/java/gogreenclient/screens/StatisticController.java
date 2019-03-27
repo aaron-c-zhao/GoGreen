@@ -99,13 +99,21 @@ public class StatisticController implements SceneController {
         totalActiveDays();
     }
 
+    @FXML
     public void addActivity() {
         screens.activityScreen().show();
     }
 
+    @FXML
     public void switchAchievements() {
         screens.startScreen().getScene().setRoot(screens.achievementsScene().getRoot());
     }
+
+    @FXML
+    public void showFriends() {
+        screens.startScreen().getScene().setRoot(screens.friendsScene().getRoot());
+    }
+
 
     //TODO achievement, insert history
     private void statisticInitialize() {
