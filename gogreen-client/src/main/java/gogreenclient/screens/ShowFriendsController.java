@@ -50,7 +50,7 @@ public class ShowFriendsController implements SceneController {
     public void initialize() {
         JFXTreeTableColumn<Friend, String> friendName =
             new JFXTreeTableColumn<>("Friend");
-        friendName.setPrefWidth(213);
+        friendName.setPrefWidth(288);
         friendName.setStyle( "-fx-alignment: CENTER;");
         friendName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Friend,
             String>, ObservableValue<String>>() {
@@ -62,7 +62,7 @@ public class ShowFriendsController implements SceneController {
         });
 
         JFXTreeTableColumn<Friend, String> total = new JFXTreeTableColumn<>("Total saved");
-        total.setPrefWidth(100);
+        total.setPrefWidth(160);
         total.setStyle( "-fx-alignment: CENTER;");
         total.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Friend,
             String>, ObservableValue<String>>() {
@@ -75,7 +75,7 @@ public class ShowFriendsController implements SceneController {
 
         JFXTreeTableColumn<Friend, String> settingsColumn =
             new JFXTreeTableColumn<>("Details");
-        settingsColumn.setPrefWidth(120);
+        settingsColumn.setPrefWidth(150);
         Callback<TreeTableColumn<Friend, String>,
             TreeTableCell<Friend, String>> cellFactory
             = //
@@ -100,7 +100,7 @@ public class ShowFriendsController implements SceneController {
                                 btn.setStyle("-fx-background-color:  #00AB66;"
                                     + " -fx-text-fill: white; ");
                                 btn.setAlignment(Pos.BASELINE_CENTER);
-                                btn.setPrefWidth(120);
+                                btn.setPrefWidth(150);
 
                                 btn.setOnAction(event -> {
                                     screens.friendDetailsDialog().show();
