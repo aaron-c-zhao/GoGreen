@@ -30,9 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login() {
+    public void login() {
         logger.debug("GET /login/ accessed");
-        return new ResponseEntity<String>("Not yet implemented", HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
