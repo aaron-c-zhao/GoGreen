@@ -30,10 +30,6 @@ public class AchievementsController implements SceneController {
     }
 
 
-    public void switchStatistics() {
-        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
-    }
-
     /**
      * initialize the table view.
      */
@@ -139,6 +135,16 @@ public class AchievementsController implements SceneController {
     @FXML
     public void addActivity() {
         screens.activityScreen().show();
+    }
+
+    @FXML
+    public void switchStatistics() {
+        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
+    }
+
+    @FXML
+    public void showFriends() {
+        screens.startScreen().getScene().setRoot(screens.friendsScene().getRoot());
     }
 
     @FXML
