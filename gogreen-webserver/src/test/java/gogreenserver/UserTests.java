@@ -85,19 +85,18 @@ public class UserTests {
         RequestBuilder ereq = MockMvcRequestBuilders
                 .get("/api/user/findUser/" + dummy.getUsername())
                 .accept(MediaType.APPLICATION_JSON);
-        
+
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
-        //if user exist.
+        // if user exist.
         assertThat(eres.getResponse().getContentAsString()).isEqualTo("success");
-        
-        RequestBuilder nreq = MockMvcRequestBuilders
-                .get("/api/user/findUser/Bob")
+
+        RequestBuilder nreq = MockMvcRequestBuilders.get("/api/user/findUser/Bob")
                 .accept(MediaType.APPLICATION_JSON);
-        
+
         MvcResult nres = mockMvc.perform(nreq).andExpect(status().is(404)).andReturn();
 
-        //if user does not exist.
+        // if user does not exist.
         assertThat(nres.getResponse().getContentAsString()).isEqualTo("fail");
 
         manager.clear();
@@ -124,10 +123,21 @@ public class UserTests {
         manager.clear();
     }
 
+    @WithMockUser("Emma")
+    @Test
+    public void deleteUser() throws Exception {
+        User dummy = manager.persistAndFlush(createDummyUser("Emma"));
+        RequestBuilder req = MockMvcRequestBuilders.delete("/api/deleteUser/" + dummy.getUsername())
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        mockMvc.perform(req).andExpect(status().is(200));
+        
+        assertThat(manager.find(User.class, dummy.getUsername())).isNull();
+    }
+
     private User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com",
-                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(13), rgn.nextInt(29)),
+                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),
                 LocalDate.now());
     }
 }

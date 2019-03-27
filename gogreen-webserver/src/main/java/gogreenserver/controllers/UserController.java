@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +30,9 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public void login() {
+    public ResponseEntity<String> login() {
         logger.debug("GET /login/ accessed");
+        return new ResponseEntity<String>("Not yet implemented", HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -60,4 +63,20 @@ public class UserController {
         return new ResponseEntity<>(theUser, HttpStatus.OK);
     }
 
+    /**
+     * Remove the user from existence.
+     * 
+     * @param user The user username.
+     * @return
+     */
+    @DeleteMapping("/deleteUser/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable("username") String user,
+            Authentication auth) {
+        if (!user.equals(auth.getName())) {
+            return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        logger.debug("DELETE /user/" + user + "/ accessed by " + auth);
+        userService.deleteUser(user);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
 }

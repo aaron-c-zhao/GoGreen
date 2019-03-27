@@ -15,10 +15,17 @@ public class UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
 
+    private AddSolarpanelsService solar;
+
+    /**
+     * Autowired constructor. What else is there to say?
+     */
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder,
+            AddSolarpanelsService solar) {
         this.userRepository = userRepository;
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
+        this.solar = solar;
     }
 
     public List<User> findAll() {
@@ -34,8 +41,8 @@ public class UserService {
         return userRepository.findById(theUserName);
     }
 
-    public void deleteById(String theUserName) {
-        userRepository.deleteById(theUserName);
+    public void deleteUser(String user) {
+        userRepository.deleteById(user);
     }
 
 }
