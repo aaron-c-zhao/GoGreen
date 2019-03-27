@@ -101,8 +101,11 @@ public class RecordsTests {
                     .get("/api/record/" + record.get("userName").asText())
                     .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
+            
+            String content = ures.getResponse().getContentAsString();
+            LOGGER.debug("Response: " + content);
 
-            assertThat(ures.getResponse().getContentAsString())
+            assertThat(content)
                     .isEqualTo(mapper.writeValueAsString(dummies[recordcount]));
 
             recordcount++;
@@ -120,9 +123,11 @@ public class RecordsTests {
 
         LOGGER.debug("=== checkNonexistentRecords() ===");
 
-        RequestBuilder req = MockMvcRequestBuilders.get("/api/addSolarpanel/nobody")
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/record/nobody")
                 .accept(MediaType.APPLICATION_JSON);
-        mockMvc.perform(req).andExpect(status().is(404)).andReturn();
+        MvcResult res = mockMvc.perform(req).andExpect(status().is(404)).andReturn();
+        
+        LOGGER.debug("Response: " + res.getResponse().getContentAsString());
     }
 
     private Records createDummyRecords(String name) {

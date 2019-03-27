@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.Achievements;
 
+import net.bytebuddy.utility.RandomString;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -32,8 +34,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -73,7 +73,8 @@ public class AchievementsTests {
     }
 
     /**
-     * Check if /api/achievements/ and /api/achievement/{username} works.
+     * Check if /api/achievements/ and /api/achievement/{username} works. Limited to
+     * 1 achievement per user.
      */
     @WithMockUser
     @Test
@@ -97,14 +98,20 @@ public class AchievementsTests {
 
         int achcount = 0;
         for (JsonNode ach : list) {
-            LOGGER.debug("Achievement record " + achcount + ": " + ach);
             RequestBuilder achreq = MockMvcRequestBuilders
                     .get("/api/achievement/" + ach.get("userName").asText())
                     .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
 
+            String content = ures.getResponse().getContentAsString();
+
+            LOGGER.debug("Achievement record " + achcount + ": " + ach);
+            LOGGER.debug("Returned content " + achcount + ": " + content);
+            LOGGER.debug("Expected record " + achcount + ": "
+                    + mapper.writeValueAsString(dummies[achcount]));
+
             assertThat(ures.getResponse().getContentAsString())
-                    .isEqualTo(mapper.writeValueAsString(dummies[achcount]));
+                    .isEqualTo('[' + mapper.writeValueAsString(dummies[achcount]) + ']');
 
             achcount++;
         }
@@ -114,7 +121,37 @@ public class AchievementsTests {
         manager.clear();
 
     }
-    
+
+    /**
+     * Checks for the case if there are multiple achievements per user.
+     */
+    @WithMockUser
+    @Test
+    public void checkmultiAchievements() throws Exception {
+
+        LOGGER.debug("=== checkmultiAchievements() ===");
+
+        Achievements[] dummies = new Achievements[3];
+
+        for (int i = 0; i < 3; i++) {
+            dummies[i] = manager.persist(createDummyAchievement("Zhao"));
+        }
+        manager.flush();
+
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/achievement/Zhao")
+                .accept(MediaType.APPLICATION_JSON);
+        MvcResult res = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
+
+        JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
+        
+        int count = 0;
+        for (JsonNode node : list) {
+            assertThat(node.get("userName").asText()).isEqualTo("Zhao");
+            count++;
+        }
+        assertThat(count).isEqualTo(3);
+    }
+
     @WithMockUser
     @Test
     public void checkNonexistentAch() throws Exception {
@@ -127,10 +164,9 @@ public class AchievementsTests {
     }
 
     private Achievements createDummyAchievement(String name) {
-        Random rgn = new Random(name.hashCode());
         Achievements ach = new Achievements();
         ach.setUserName(name);
-        ach.setLevel(rgn.nextFloat());
+        ach.setAchievement(RandomString.make());
         return ach;
     }
 }

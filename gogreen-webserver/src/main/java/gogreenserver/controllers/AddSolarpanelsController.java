@@ -2,6 +2,7 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.AddSolarpanels;
 import gogreenserver.services.AddSolarpanelsService;
+
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -33,23 +35,21 @@ public class AddSolarpanelsController {
     @GetMapping(value = "/addSolarpanels")
     public ResponseEntity<List<AddSolarpanels>> findAll() {
         return new ResponseEntity<List<AddSolarpanels>>(this.addSolarpanelsService.findAll(),
-            HttpStatus.OK);
+                HttpStatus.OK);
     }
-    
+
     /**
      * Retrieve a single solar panel entry.
+     * 
      * @param username the owner.
      * @return The entry, or if not found, an error message.
      */
     @GetMapping(value = "/addSolarpanel/{username}")
-    public ResponseEntity<Object> findbyUsername(@PathVariable("username") String username) {
-        AddSolarpanels res = addSolarpanelsService.findById(username).orElse(null);
-        if (res != null) {
-            return new ResponseEntity<Object>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Object>(username + " has no solar panels",
-                    HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Optional<AddSolarpanels>> findbyUsername(
+            @PathVariable("username") String username) {
+        Optional<AddSolarpanels> res = addSolarpanelsService.findById(username);
+        return new ResponseEntity<Optional<AddSolarpanels>>(res,
+                res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -62,13 +62,13 @@ public class AddSolarpanelsController {
      */
     @PostMapping(value = "/addSolarpanel")
     public ResponseEntity<String> createSolarpanel(
-        @RequestHeader(value = "userName") String userName,
-        @RequestBody AddSolarpanels addSolarpanels, Authentication auth) {
+            @RequestHeader(value = "userName") String userName,
+            @RequestBody AddSolarpanels addSolarpanels, Authentication auth) {
         logger.debug("POST /addSolarpanel/ with userName header \"" + userName + "\" accessed by: "
-            + auth.getName());
+                + auth.getName());
         addSolarpanels.setUserName(userName);
         this.addSolarpanelsService.createAddSolarpanels(addSolarpanels);
         return new ResponseEntity<String>(
-            "Successfully saved solarpanel entry for user :" + userName, HttpStatus.OK);
+                "Successfully saved solarpanel entry for user :" + userName, HttpStatus.OK);
     }
 }

@@ -15,17 +15,13 @@ public class UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
 
-    private AddSolarpanelsService solar;
-
     /**
      * Autowired constructor. What else is there to say?
      */
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder,
-            AddSolarpanelsService solar) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
-        this.solar = solar;
     }
 
     public List<User> findAll() {

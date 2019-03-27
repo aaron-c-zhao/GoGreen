@@ -35,18 +35,14 @@ public class AchievementsController {
     }
 
     /**
-     * Get the achievements of a single user.
+     * Get the (multiple) achievements of a single user.
      */
     @GetMapping(value = "/achievement/{user_name}")
-    public ResponseEntity<Object> findById(@PathVariable("user_name") String userName,
+    public ResponseEntity<List<Achievements>> findById(@PathVariable("user_name") String userName,
             Authentication auth) {
         logger.debug("GET /achievement/" + userName + " accessed by: " + auth.getName());
-        List<Achievements> res = this.achievementsService.findAllByUsername(userName);
-        if (res != null) {
-            return new ResponseEntity<Object>(res, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Object>(userName + " has achieved nothing",
-                    HttpStatus.NOT_FOUND);
-        }
+        List<Achievements> res = this.achievementsService.findAllByUserName(userName);
+        return new ResponseEntity<List<Achievements>>(res,
+                !res.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }
