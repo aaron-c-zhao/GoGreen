@@ -2,10 +2,10 @@ package gogreenserver.services;
 
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.repositories.InsertHistoryRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +29,8 @@ public class InsertHistoryService {
         return insertHistoryRepo.findById(userName);
     }
 
-    public List<InsertHistory> findAllById(String userName) {
-        return this.insertHistoryRepo.findAllById(Collections.singleton(userName));
+    public List<InsertHistory> findAllByUsername(String userName) {
+        return this.insertHistoryRepo.findByUserName(userName);
     }
 
 

@@ -41,11 +41,19 @@ public class InsertHistoryController {
                 HttpStatus.OK);
     }
 
+    /**
+     * Get a single history record.
+     */
     @GetMapping(value = "/insertHistory/{user_Name}")
-    public ResponseEntity<List<InsertHistory>> findAllById(
-            @PathVariable("user_Name") String userName, Authentication auth) {
+    public ResponseEntity<Object> findAllById(@PathVariable("user_Name") String userName,
+            Authentication auth) {
         logger.debug("GET /insertHistory/" + userName + " accessed by: " + auth.getName());
-        return new ResponseEntity<>(this.insertHistoryService.findAllById(userName), HttpStatus.OK);
+        List<InsertHistory> histories = this.insertHistoryService.findAllByUsername(userName);
+        if (histories != null && !histories.isEmpty()) {
+            return new ResponseEntity<>(histories, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userName + " has no history", HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
