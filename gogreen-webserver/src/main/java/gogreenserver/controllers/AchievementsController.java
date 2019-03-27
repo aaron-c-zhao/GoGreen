@@ -41,7 +41,7 @@ public class AchievementsController {
     public ResponseEntity<Object> findById(@PathVariable("user_name") String userName,
             Authentication auth) {
         logger.debug("GET /achievement/" + userName + " accessed by: " + auth.getName());
-        Achievements res = this.achievementsService.findById(userName).orElse(null);
+        List<Achievements> res = this.achievementsService.findAllByUsername(userName);
         if (res != null) {
             return new ResponseEntity<Object>(res, HttpStatus.OK);
         } else {

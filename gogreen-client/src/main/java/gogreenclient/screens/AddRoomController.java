@@ -1,14 +1,18 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AddRoomController implements SceneController {
 
     private ScreenConfiguration screens;
+
+    @FXML
+    private Label fillAll;
 
     @FXML
     private JFXTextField minutes;
@@ -19,18 +23,24 @@ public class AddRoomController implements SceneController {
     @FXML
     private JFXTextField roomArea;
 
+    @Autowired
+    private UserInputValidator validator;
+
     public AddRoomController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
+
     /**
      * initialing the validations.
+     *
      * @throws Exception exception if not correct.
      */
-    public void initialize() throws Exception {
-        validateMinutes();
-        validateRoomArea();
-        validateTempDiff();
+    public void initialize() {
+        validator.validateFraction(tempDiff);
+        validator.validateFraction(roomArea);
+        validator.validateInteger(minutes);
+        fillAll.setVisible(false);
     }
 
     @FXML
@@ -48,7 +58,7 @@ public class AddRoomController implements SceneController {
     @FXML
     public void switchSolar() {
         screens.activityController()
-            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
     }
 
     @FXML
@@ -60,45 +70,5 @@ public class AddRoomController implements SceneController {
     /**
      * Limiting the input of a text field to be only numbers.
      */
-    public void validateMinutes() {
-        minutes.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    minutes.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
 
-    /**
-     * Limiting the input of a text field to be only numbers.
-     */
-    public void validateTempDiff() {
-        tempDiff.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    tempDiff.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
-
-    /**
-     * Limiting the input of a text field to be only numbers.
-     */
-    public void validateRoomArea() {
-        roomArea.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    roomArea.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
 }

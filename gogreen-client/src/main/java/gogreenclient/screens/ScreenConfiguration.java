@@ -81,6 +81,16 @@ public class ScreenConfiguration {
         return new ExitController(this);
     }
 
+    @Bean
+    public ConfirmDialog friendDetailsDialog() {
+        return new ConfirmDialog(friendDetailsController(), getClass()
+            .getResource("/views/FriendDetails.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    FriendDetailsController friendDetailsController() {
+        return new FriendDetailsController(this);
+    }
 
     @Bean
     @Scope("prototype")
@@ -157,7 +167,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene foodScene() {
         return new SwitchabScene(foodController(), getClass()
-            .getResource("/views/Add_FoodActivity.fxml"));
+            .getResource("/views/Add_FoodActivity.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -174,7 +184,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene transportScene() {
         return new SwitchabScene(transportController(), getClass()
-            .getResource("/views/Add_TransportActivity.fxml"));
+            .getResource("/views/Add_TransportActivity.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -188,13 +198,13 @@ public class ScreenConfiguration {
      * @return A singleton instance of SwitchableScene.
      */
     @Bean
-    public SwitchabScene addSolarPanelScene() {
-        return new SwitchabScene(addSolarPanelController(), getClass()
-            .getResource("/views/Add_SolarPanel.fxml"));
+    public SwitchabScene solarPanelScene() {
+        return new SwitchabScene(solarPanelController(), getClass()
+            .getResource("/views/Add_SolarPanel.fxml"), "/static/hover.css");
     }
 
     @Bean
-    SceneController addSolarPanelController() {
+    SceneController solarPanelController() {
         return new AddSolarPanelController(this);
     }
 
@@ -206,7 +216,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene roomScene() {
         return new SwitchabScene(roomController(), getClass()
-            .getResource("/views/Add_RoomHeating.fxml"));
+            .getResource("/views/Add_RoomHeating.fxml"), "/static/hover.css");
     }
 
     @Bean
@@ -245,6 +255,17 @@ public class ScreenConfiguration {
     AchievementsController achieveController() {
         return new AchievementsController(this);
     }
+
+    public SwitchabScene friendsScene() {
+        return new SwitchabScene(showFriendsController(), getClass()
+            .getResource("/views/ShowFriends.fxml"));
+    }
+
+    @Bean
+    ShowFriendsController showFriendsController() {
+        return new ShowFriendsController(this);
+    }
+
 
     @Bean
     public SwitchabScene plantTreeScene() {

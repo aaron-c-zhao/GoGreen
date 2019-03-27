@@ -1,6 +1,6 @@
 package gogreenclient.datamodel;
 
-public class FoodEmission {
+public class FoodActivity {
 
     private String food;
     private int emission;

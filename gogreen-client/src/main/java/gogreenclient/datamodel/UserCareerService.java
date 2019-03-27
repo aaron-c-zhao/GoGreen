@@ -1,9 +1,14 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * A service class which will provide the service of retrieving user career from database,
@@ -13,16 +18,14 @@ import org.springframework.web.client.RestTemplate;
 public class UserCareerService {
 
     private final String url;
+
     @Autowired
     private RestTemplate restTemplate;
+
     private String username;
 
     public UserCareerService() {
-        this.url = "https://localhost:8443/api/career";
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        this.url = "https://localhost:8443/api/";
     }
 
     /**
@@ -32,60 +35,97 @@ public class UserCareerService {
      * @return userCareer of the current user who has logged in.
      * @throws Exception threw by restTemplate.
      */
-    public UserCareer getCareer() throws Exception {
-        UserCareer userCareer = restTemplate.getForObject(url + "/" + username, UserCareer.class);
-        ResponseEntity<UserCareer> response = null;
-        if (userCareer == null) {
-            response = createUserCareer();
-            if (response != null && response.getStatusCode() == HttpStatus.OK) {
-                return response.getBody();
-            } else {
-                throw new Exception("Bad request for creating user career.");
+    public Records getCareer() {
+        Records records = restTemplate.getForObject(url + "/record/" + username, Records.class);
+        if (records == null) {
+            throw new RuntimeException("User career doesn't exist.");
+        } else {
+            return records;
+        }
+    }
+
+    /**
+     * Get achievements of this user.
+     *
+     * @return list of achievements.
+     */
+    public List<Achievements> getAchievements() {
+        ResponseEntity<List<Achievements>> response = restTemplate.exchange(
+            url + "/achievement/" + username,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<Achievements>>() {
             }
-        } else {
-            return userCareer;
+        );
+        List<Achievements> achievements = null;
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            achievements = response.getBody();
+            achievements.sort(Comparator.comparing(Achievements::getAchieveData));
         }
+        return achievements;
     }
 
     /**
-     * Create a new user career tuple in the database.
-     *
-     * @return HttpResponseEntity of UserCareer.
+     * Get the most recent two insert history of this user.
+     * @return list of insert history.
      */
-    public ResponseEntity<UserCareer> createUserCareer() {
-        UserCareer career = new UserCareer();
-        career.setUsername(username);
-        career.setCo2saved(0);
-        ResponseEntity<UserCareer> response = restTemplate
-            .postForEntity(url, career, UserCareer.class);
-        return response;
+    public List<InsertHistoryCo2> getRecentTwoInsertHistory() {
+        ResponseEntity<List<InsertHistoryCo2>> response = restTemplate.exchange(
+            url + "/insertHistory/" + username,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<InsertHistoryCo2>>() {
+            }
+        );
+        List<InsertHistoryCo2> insertHistories = null;
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            insertHistories = response.getBody();
+        }
+        return insertHistories;
     }
 
     /**
-     * Update one's career, first it will retrieve the current status of this user's career,
-     * then it will update the amount of CO2 saved by this user.
+     * Get the amount of this user's activities.
      *
-     * @param changedCO2 the amount saved by user's activity.
-     * @return the updated userCareer
-     * @throws Exception threw by restTemplate.
+     * @return the string representation of the number of activities.
      */
-    public UserCareer updateUserCareer(int changedCO2) throws Exception {
-        UserCareer userCareer = getCareer();
-        UserCareer finalCareer = null;
-        userCareer.setCo2saved(userCareer.getCo2saved() + changedCO2);
-        ResponseEntity<UserCareer> response = restTemplate
-            .postForEntity(url + "update", userCareer, UserCareer.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
-            finalCareer = userCareer;
-        } else {
-            throw new Exception("Bad request for updating user career.");
+    public String getActivityAmount() {
+        ResponseEntity<String> response = restTemplate
+            .getForEntity(url + "/insertHistory/amount/" + username,
+                String.class);
+        String amount = null;
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            amount = response.getBody();
         }
-        return finalCareer;
+        return amount;
     }
+
+    /**
+     * Get the active days of this user.
+     *
+     * @return the string representation of the number of days.
+     */
+    public String getActiveDays() {
+        ResponseEntity<String> response = restTemplate
+            .getForEntity(url + "/insertHistory/days/" + username,
+                String.class);
+        String days = null;
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            days = response.getBody();
+        }
+        return days;
+    }
+
 
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

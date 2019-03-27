@@ -33,7 +33,7 @@ public class PlantTreeController implements SceneController {
     @FXML
     public void switchSolar() {
         screens.activityController()
-            .getWindow().getScene().setRoot(screens.addSolarPanelScene().getRoot());
+            .getWindow().getScene().setRoot(screens.solarPanelScene().getRoot());
     }
 
     @FXML

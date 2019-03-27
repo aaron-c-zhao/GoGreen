@@ -2,7 +2,6 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.AddSolarpanels;
 import gogreenserver.services.AddSolarpanelsService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class AddSolarpanelsController {
 
-    private AddSolarpanelsService addSolarpanelsService;
     private final Logger logger;
+    private AddSolarpanelsService addSolarpanelsService;
 
     @Autowired
     public AddSolarpanelsController(AddSolarpanelsService addSolarpanelsService, Logger logger) {
@@ -34,7 +33,7 @@ public class AddSolarpanelsController {
     @GetMapping(value = "/addSolarpanels")
     public ResponseEntity<List<AddSolarpanels>> findAll() {
         return new ResponseEntity<List<AddSolarpanels>>(this.addSolarpanelsService.findAll(),
-                HttpStatus.OK);
+            HttpStatus.OK);
     }
     
     /**
@@ -63,13 +62,13 @@ public class AddSolarpanelsController {
      */
     @PostMapping(value = "/addSolarpanel")
     public ResponseEntity<String> createSolarpanel(
-            @RequestHeader(value = "userName") String userName,
-            @RequestBody AddSolarpanels addSolarpanels, Authentication auth) {
+        @RequestHeader(value = "userName") String userName,
+        @RequestBody AddSolarpanels addSolarpanels, Authentication auth) {
         logger.debug("POST /addSolarpanel/ with userName header \"" + userName + "\" accessed by: "
-                + auth.getName());
+            + auth.getName());
         addSolarpanels.setUserName(userName);
         this.addSolarpanelsService.createAddSolarpanels(addSolarpanels);
         return new ResponseEntity<String>(
-                "Successfully saved solarpanel entry for user :" + userName, HttpStatus.OK);
+            "Successfully saved solarpanel entry for user :" + userName, HttpStatus.OK);
     }
 }

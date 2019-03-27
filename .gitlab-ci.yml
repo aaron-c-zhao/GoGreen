@@ -21,9 +21,10 @@ test:
   stage: test
   script:
     - mvn test
-  allow_failure: true
+  allow_failure: false
 
 Code Quality:
   stage: codeQuality
   script:
+    - mvn install
     - mvn -B checkstyle:check

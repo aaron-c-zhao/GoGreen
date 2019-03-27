@@ -1,11 +1,11 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class AddSolarPanelController implements SceneController {
@@ -16,14 +16,26 @@ public class AddSolarPanelController implements SceneController {
     private Label intialSize;
     @FXML
     private Label addDate;
+
+    @FXML
+    private Label fillAll;
+
     private ScreenConfiguration screens;
+
+    @Autowired
+    private UserInputValidator validator;
 
     public AddSolarPanelController(ScreenConfiguration screens) {
         this.screens = screens;
     }
 
-    public void initialize() throws Exception {
-        validateInputDistance();
+    /**
+     * initialize the solar panel page.
+     */
+    public void initialize() {
+        validator.validateFraction(sizeOfSolarPanel);
+        fillAll.setVisible(false);
+
     }
 
     @FXML
@@ -48,20 +60,5 @@ public class AddSolarPanelController implements SceneController {
     public void switchPlantTree() {
         screens.activityController()
             .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
-    }
-
-    /**
-     * Limiting the input of a text field to be only numbers.
-     */
-    public void validateInputDistance() {
-        sizeOfSolarPanel.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    sizeOfSolarPanel.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
     }
 }

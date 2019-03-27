@@ -38,6 +38,28 @@ public class SwitchabScene {
         }
     }
 
+    /**
+     * Constructor used to build a switchable scene with a css file.
+     * @param controller the controller of this node.
+     * @param fxml the URI of the fxml file.
+     * @param cssSheet the URI of the css sheet.
+     */
+    public SwitchabScene(final SceneController controller, URL fxml, String cssSheet) {
+        FXMLLoader loader = new FXMLLoader(fxml);
+        try {
+            loader.setControllerFactory(new Callback<Class<?>, Object>() {
+                @Override
+                public Object call(Class<?> aclass) {
+                    return controller;
+                }
+            });
+            root = loader.load();
+            root.getStylesheets().add(cssSheet);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Pane getRoot() {
         return root;
     }

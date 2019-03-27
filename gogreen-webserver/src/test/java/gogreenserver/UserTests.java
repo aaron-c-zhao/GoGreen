@@ -4,10 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.User;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -32,10 +31,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Random;
-
-import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -93,7 +91,6 @@ public class UserTests {
 
         RequestBuilder nreq = MockMvcRequestBuilders.get("/api/user/findUser/Bob")
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult nres = mockMvc.perform(nreq).andExpect(status().is(404)).andReturn();
 
         // if user does not exist.
@@ -109,7 +106,7 @@ public class UserTests {
 
         User dummy = createDummyUser("Danny");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200));
 
         User found = manager.find(User.class, dummy.getUsername());

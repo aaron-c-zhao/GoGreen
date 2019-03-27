@@ -19,8 +19,6 @@ public class InsertHistoryService {
         this.insertHistoryRepo = insertHistoryRepo;
     }
 
-    // have to make method to findAllById
-
     public List<InsertHistory> findAll() {
         return insertHistoryRepo.findAll();
     }
@@ -32,7 +30,6 @@ public class InsertHistoryService {
     public List<InsertHistory> findAllByUsername(String userName) {
         return this.insertHistoryRepo.findByUserName(userName);
     }
-
 
     public InsertHistory createInsertHistory(InsertHistory insertHistory) {
         return insertHistoryRepo.save(insertHistory);
