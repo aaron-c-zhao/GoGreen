@@ -6,12 +6,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -57,6 +57,20 @@ public class UserController {
         logger.debug("POST /createUser/ accessed");
         userService.createUser(theUser);
         return new ResponseEntity<>(theUser, HttpStatus.OK);
+    }
+
+    @PostMapping("/createUser/upload")
+    public ResponseEntity<String> uploadPhoto(@RequestParam("profile_pic") MultipartFile file, @RequestParam("profile_name") String username) {
+        String response = "";
+        try {
+            userService.save(file, username);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("Error saving photo", e);
+            response = "error";
+        }
+        response = "success";
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

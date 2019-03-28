@@ -1,9 +1,15 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
@@ -47,6 +53,16 @@ public class UserModel {
         ResponseEntity<String> response = loginRestTemplate
             .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
         return response.getBody().equals("success") ? true : false;
+    }
+
+    public ResponseEntity<String> uploadPhoto(File file, String username) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("profile_pic", file);
+        body.add("profile_name", username);
+        HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(body, headers);
+        return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser/profilePic", request, String.class);
     }
 
 }
