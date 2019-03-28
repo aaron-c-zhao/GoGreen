@@ -66,10 +66,13 @@ public class InsertHistoryCo2Controller {
         @PathVariable("user_Name") String userName) {
         logger.debug("GET /insertHistory/" + userName);
         List<InsertHistoryCo2> list = this.insertHistoryCo2Service.findAllByUserName(userName);
-        list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate).reversed());
-        long days = Duration
-            .between(list.get(0).getInsertDate(), list.get(list.size() - 1)
-                .getInsertDate()).toDays();
+        long days = 0;
+        if (list.size() != 0) {
+            list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate).reversed());
+            days = Duration
+                    .between(list.get(0).getInsertDate(), list.get(list.size() - 1)
+                            .getInsertDate()).toDays();
+        }
         return new ResponseEntity<>(String.valueOf(days), HttpStatus.OK);
 
     }

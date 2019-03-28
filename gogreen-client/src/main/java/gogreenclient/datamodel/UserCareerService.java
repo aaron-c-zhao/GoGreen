@@ -25,7 +25,7 @@ public class UserCareerService {
     private String username;
 
     public UserCareerService() {
-        this.url = "https://localhost:8443/api/";
+        this.url = "https://localhost:8443/api";
     }
 
     /**
@@ -109,7 +109,7 @@ public class UserCareerService {
         ResponseEntity<String> response = restTemplate
             .getForEntity(url + "/insertHistory/days/" + username,
                 String.class);
-        String days = null;
+        String days = "";
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             days = response.getBody();
         }
