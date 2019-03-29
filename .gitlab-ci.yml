@@ -19,18 +19,18 @@ Build:
     - mvn compile
 
 Badges_success:
-  stage: build
+  stage: test
   script:
-    - curl https://img.shields.io/static/v1.svg?label=build&message=pass&color=green -o public/build.svg
+    - curl -o public/build.svg https://img.shields.io/static/v1.svg?label=build&message=pass&color=green
   artifacts:
     paths:
       - public/build.svg
   when: on_success
 
 Badges_failure:
-  stage: build
+  stage: test
   script:
-    - curl https://img.shields.io/static/v1.svg?label=build&message=failure&color=red -o public/build.svg
+    - curl -o public/build.svg https://img.shields.io/static/v1.svg?label=build&message=failure&color=red
   artifacts:
     paths:
       - public/build.svg
