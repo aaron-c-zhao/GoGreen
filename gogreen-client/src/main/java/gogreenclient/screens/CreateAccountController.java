@@ -39,6 +39,8 @@ public class CreateAccountController implements WindowController {
     JFXDatePicker bday;
     @FXML
     Label incorrect;
+    @FXML
+    Label uploadPath;
 
     private File file = null;
     private ScreenConfiguration screens;
@@ -92,18 +94,15 @@ public class CreateAccountController implements WindowController {
             return;
         }
         ResponseEntity<User> response = null;
-        ResponseEntity<String> profile_pic_response = null;
         try {
             response = userModel.addUser(username.getText(), password.getText(),
                 bday.getValue(), email.getText());
-            profile_pic_response = userModel.uploadPhoto(file, username.getText());
         } catch (URISyntaxException e) {
             System.out.println("Wrong URI");
             return;
         }
         //TODO when creating account success, popup window shows
-        if (response != null && response.getStatusCode() == HttpStatus.OK
-                && profile_pic_response.getStatusCode() == HttpStatus.OK) {
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
             dialog.close();
             screens.loginDialog().show();
         } else {
@@ -123,11 +122,23 @@ public class CreateAccountController implements WindowController {
     }
 
     @FXML
-    public void uploadPhoto() {
+    public void savePhoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an image");
         fileChooser.getExtensionFilters().addAll(new FileChooser
                 .ExtensionFilter("JPEG", "*.jpg"));
         file = fileChooser.showOpenDialog(null);
+        uploadPath.setText(file.getAbsolutePath());
+    }
+
+    @FXML
+    public void uploadPhoto() {
+        ResponseEntity<String> responseEntity = userModel.uploadPhoto(file);
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            uploadPath.setText("Uploaded");
+        }
+        else {
+            uploadPath.setText("Could not upload the image");
+        }
     }
 }

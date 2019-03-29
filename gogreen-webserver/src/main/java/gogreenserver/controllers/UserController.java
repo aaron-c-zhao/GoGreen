@@ -4,14 +4,17 @@ import gogreenserver.entity.User;
 import gogreenserver.services.UserService;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.ws.rs.Consumes;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/api")
@@ -60,16 +63,17 @@ public class UserController {
     }
 
     @PostMapping("/createUser/upload")
-    public ResponseEntity<String> uploadPhoto(@RequestParam("profile_pic") MultipartFile file, @RequestParam("profile_name") String username) {
+    @Consumes("multipart/form-data")
+    public ResponseEntity<String> uploadPhoto(@RequestParam("profile_pic") MultipartFile file) throws IOException {
         String response = "";
         try {
-            userService.save(file, username);
+            userService.save(file);
+            response = "success";
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("Error saving photo", e);
             response = "error";
         }
-        response = "success";
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
