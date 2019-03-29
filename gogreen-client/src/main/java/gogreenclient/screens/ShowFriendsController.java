@@ -1,6 +1,5 @@
 package gogreenclient.screens;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -14,11 +13,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,10 +35,6 @@ public class ShowFriendsController implements SceneController {
         this.screens = screens;
     }
 
-
-    public void switchStatistics() {
-        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
-    }
 
     /**
      * initialize the table view.
@@ -73,6 +65,18 @@ public class ShowFriendsController implements SceneController {
             }
         });
 
+        JFXTreeTableColumn<Friend, String> rankCol = new JFXTreeTableColumn<>("Rank");
+        rankCol.setPrefWidth(150);
+        rankCol.setStyle( "-fx-alignment: CENTER;");
+        rankCol.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Friend,
+            String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Friend,
+                String> param) {
+                return param.getValue().getValue().rank;
+            }
+        });
+        /*
         JFXTreeTableColumn<Friend, String> settingsColumn =
             new JFXTreeTableColumn<>("Details");
         settingsColumn.setPrefWidth(150);
@@ -113,21 +117,23 @@ public class ShowFriendsController implements SceneController {
                     return cell;
                 }
             };
-        settingsColumn.setCellFactory(cellFactory);
+        settingsColumn.setCellFactory(cellFactory);*/
 
 
         ObservableList<Friend> friends = FXCollections.observableArrayList();
         Friend treeHugger = new Friend("Tree Hugger",
-            "90");
+            "900","1");
         Friend friend1 = new Friend("Tree Hugger frined",
-            "800");
+            "800", "2");
         Friend friend22 = new Friend("0 Hugger 0 resp",
-            "over 90");
-        friends.addAll(treeHugger,friend1,friend22);
+            "90" , "3");
+        Friend friend23 = new Friend("2 Hugger 1 resp",
+            "80" , "4");
+        friends.addAll(treeHugger,friend1,friend22,friend23);
 
         final TreeItem<Friend> root = new RecursiveTreeItem<Friend>(friends,
             RecursiveTreeObject::getChildren);
-        treeView.getColumns().addAll(friendName, total, settingsColumn);
+        treeView.getColumns().addAll(friendName, total, rankCol);
         treeView.setRoot(root);
         treeView.setShowRoot(false);
 
@@ -152,22 +158,32 @@ public class ShowFriendsController implements SceneController {
     }
 
     @FXML
+    public void switchAddFriend() {
+        screens.addFriendDialog().show();
+    }
+
+    @FXML
     public void closeProgram() {
         screens.exitDialog().showAndWait();
     }
 
-    @FXML
     public void switchAchievements() {
         screens.startScreen().getScene().setRoot(screens.achievementsScene().getRoot());
+    }
+
+    public void switchStatistics() {
+        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
     }
 
     class Friend extends RecursiveTreeObject<Friend> {
         StringProperty name;
         StringProperty totalEmissions;
+        StringProperty rank;
 
-        public Friend(String name, String totalEmissions) {
+        public Friend(String name, String totalEmissions, String rank) {
             this.name = new SimpleStringProperty(name);
             this.totalEmissions = new SimpleStringProperty(totalEmissions);
+            this.rank = new SimpleStringProperty(rank);
         }
 
     }
