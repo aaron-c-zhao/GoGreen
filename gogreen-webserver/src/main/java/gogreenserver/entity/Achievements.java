@@ -1,12 +1,12 @@
 package gogreenserver.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Map;
 
 @Entity
 @Table(name = "user_achieved")
@@ -22,6 +22,9 @@ public class Achievements {
 
     @Column(name = "achievement")
     private String achievement;
+
+    @Column(name = "achieved_data")
+    private LocalDateTime achieveData;
 
     public String getUserName() {
         return userName;
@@ -39,12 +42,21 @@ public class Achievements {
         this.achievement = achievement;
     }
 
+    public LocalDateTime getAchieveData() {
+        return achieveData;
+    }
+
+    public void setAchieveData(LocalDateTime achieveData) {
+        this.achieveData = achieveData;
+    }
+
     @Override
     public String toString() {
-        return "Achievements{" +
-            "id=" + id +
-            ", userName='" + userName + '\'' +
-            ", achievement=" + achievement +
-            '}';
+        return "Achievements{"
+            + "id=" + id
+            + ", userName='" + userName + '\''
+            + ", achievement='" + achievement + '\''
+            + ", achieveData=" + achieveData
+            + '}';
     }
 }

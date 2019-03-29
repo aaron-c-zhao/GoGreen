@@ -37,7 +37,8 @@ public class SubmitMealPopController implements ConfirmDialogController {
     public void initialize() throws Exception {
         int co2Saved = foodEmissionModel.getChangedCO2();
         calcUse.setText(messager(co2Saved));
-        totalSaved.setText(String.valueOf(Math.round(userCareerService.getCareer().getSavedCo2Total())));
+        totalSaved.setText(String
+            .valueOf(Math.round(userCareerService.getCareer().getSavedCo2Total())));
     }
 
     private String messager(int co2Saved) {

@@ -81,6 +81,16 @@ public class ScreenConfiguration {
         return new ExitController(this);
     }
 
+    @Bean
+    public ConfirmDialog friendDetailsDialog() {
+        return new ConfirmDialog(friendDetailsController(), getClass()
+            .getResource("/views/FriendDetails.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    FriendDetailsController friendDetailsController() {
+        return new FriendDetailsController(this);
+    }
 
     @Bean
     @Scope("prototype")
@@ -245,6 +255,17 @@ public class ScreenConfiguration {
     AchievementsController achieveController() {
         return new AchievementsController(this);
     }
+
+    public SwitchabScene friendsScene() {
+        return new SwitchabScene(showFriendsController(), getClass()
+            .getResource("/views/ShowFriends.fxml"));
+    }
+
+    @Bean
+    ShowFriendsController showFriendsController() {
+        return new ShowFriendsController(this);
+    }
+
 
     @Bean
     public SwitchabScene plantTreeScene() {

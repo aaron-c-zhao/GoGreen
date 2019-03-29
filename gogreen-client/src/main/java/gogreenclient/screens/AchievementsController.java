@@ -30,10 +30,6 @@ public class AchievementsController implements SceneController {
     }
 
 
-    public void switchStatistics() {
-        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
-    }
-
     /**
      * initialize the table view.
      */
@@ -41,6 +37,7 @@ public class AchievementsController implements SceneController {
         JFXTreeTableColumn<Achievements, String> achName =
             new JFXTreeTableColumn<>("Achievements");
         achName.setPrefWidth(150);
+        achName.setStyle( "-fx-alignment: CENTER;");
         achName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Achievements,
             String>, ObservableValue<String>>() {
             @Override
@@ -52,6 +49,7 @@ public class AchievementsController implements SceneController {
 
         JFXTreeTableColumn<Achievements, String> achieved = new JFXTreeTableColumn<>("Achieved");
         achieved.setPrefWidth(90);
+        achieved.setStyle( "-fx-alignment: CENTER;");
         achieved.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Achievements,
             String>, ObservableValue<String>>() {
             @Override
@@ -139,6 +137,16 @@ public class AchievementsController implements SceneController {
     @FXML
     public void addActivity() {
         screens.activityScreen().show();
+    }
+
+    @FXML
+    public void switchStatistics() {
+        screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
+    }
+
+    @FXML
+    public void showFriends() {
+        screens.startScreen().getScene().setRoot(screens.friendsScene().getRoot());
     }
 
     @FXML

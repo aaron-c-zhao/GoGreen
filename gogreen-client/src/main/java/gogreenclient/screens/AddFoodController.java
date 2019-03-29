@@ -22,6 +22,7 @@ import java.time.LocalDate;
 public class AddFoodController implements SceneController {
 
 
+    private static final String URL = "https://localhost:8443/api/insertHistory";
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("beans", "vegetables", "cheese",
@@ -39,25 +40,17 @@ public class AddFoodController implements SceneController {
     private JFXComboBox<String> insteadOfMealBox;
     @FXML
     private Label fillAll;
-
     @FXML
     private JFXCheckBox localProduct;
-
     private ScreenConfiguration screens;
-
     @Autowired
     private UserInputValidator validator;
-
     @Autowired
     private ExceptionHandler exceptionHandler;
-
     @Autowired
     private InsertHistory insert;
-
     @Autowired
     private RestTemplate restTemplate;
-
-    private static final String URL = "https://localhost:8443/api/insertHistory";
 
 
     public AddFoodController(ScreenConfiguration screens) {

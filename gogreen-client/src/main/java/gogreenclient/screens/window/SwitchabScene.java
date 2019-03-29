@@ -38,6 +38,12 @@ public class SwitchabScene {
         }
     }
 
+    /**
+     * Constructor used to build a switchable scene with a css file.
+     * @param controller the controller of this node.
+     * @param fxml the URI of the fxml file.
+     * @param cssSheet the URI of the css sheet.
+     */
     public SwitchabScene(final SceneController controller, URL fxml, String cssSheet) {
         FXMLLoader loader = new FXMLLoader(fxml);
         try {
