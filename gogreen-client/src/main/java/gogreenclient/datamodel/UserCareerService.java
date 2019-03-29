@@ -5,8 +5,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -50,14 +52,21 @@ public class UserCareerService {
      * @return list of achievements.
      */
     public List<Achievements> getAchievements() {
-        ResponseEntity<List<Achievements>> response = restTemplate.exchange(
-            url + "/achievement/" + username,
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<List<Achievements>>() {
-            }
-        );
+        ResponseEntity<List<Achievements>> response = null;
         List<Achievements> achievements = null;
+        try {
+            response = restTemplate.exchange(
+                url + "/achievement/" + username,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Achievements>>() {
+                }
+            );
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
+                achievements = new ArrayList<>();
+            }
+        }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             achievements = response.getBody();
             achievements.sort(Comparator.comparing(Achievements::getAchieveData));
@@ -67,17 +76,25 @@ public class UserCareerService {
 
     /**
      * Get the most recent two insert history of this user.
+     *
      * @return list of insert history.
      */
     public List<InsertHistoryCo2> getRecentTwoInsertHistory() {
-        ResponseEntity<List<InsertHistoryCo2>> response = restTemplate.exchange(
-            url + "/insertHistory/" + username,
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<List<InsertHistoryCo2>>() {
-            }
-        );
+        ResponseEntity<List<InsertHistoryCo2>> response = null;
         List<InsertHistoryCo2> insertHistories = null;
+        try {
+            response = restTemplate.exchange(
+                url + "/insertHistory/" + username,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<InsertHistoryCo2>>() {
+                }
+            );
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
+                insertHistories = new ArrayList<>();
+            }
+        }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             insertHistories = response.getBody();
         }
@@ -90,10 +107,17 @@ public class UserCareerService {
      * @return the string representation of the number of activities.
      */
     public String getActivityAmount() {
-        ResponseEntity<String> response = restTemplate
-            .getForEntity(url + "/insertHistory/amount/" + username,
-                String.class);
+        ResponseEntity<String> response = null;
         String amount = null;
+        try {
+            response = restTemplate
+                .getForEntity(url + "/insertHistory/amount/" + username,
+                    String.class);
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
+                amount = "0";
+            }
+        }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             amount = response.getBody();
         }
@@ -106,10 +130,17 @@ public class UserCareerService {
      * @return the string representation of the number of days.
      */
     public String getActiveDays() {
-        ResponseEntity<String> response = restTemplate
-            .getForEntity(url + "/insertHistory/days/" + username,
-                String.class);
+        ResponseEntity<String> response = null;
         String days = null;
+        try {
+            response = restTemplate
+                .getForEntity(url + "/insertHistory/days/" + username,
+                    String.class);
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
+                days = "0";
+            }
+        }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             days = response.getBody();
         }

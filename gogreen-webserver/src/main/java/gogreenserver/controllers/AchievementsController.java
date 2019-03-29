@@ -2,6 +2,7 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.Achievements;
 import gogreenserver.services.AchievementsService;
+
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class AchievementsController {
 
-    private final Logger logger;
     private AchievementsService achievementsService;
+    private final Logger logger;
 
     @Autowired
     public AchievementsController(AchievementsService achievementsService, Logger logger) {
@@ -34,14 +35,14 @@ public class AchievementsController {
     }
 
     /**
-     * The endpoint for retrieving a user's achievements.
-     *
-     * @param userName username.
-     * @return a list of achievements.
+     * Get the (multiple) achievements of a single user.
      */
     @GetMapping(value = "/achievement/{user_name}")
-    public ResponseEntity<List<Achievements>> findById(@PathVariable("user_name") String userName) {
-        List<Achievements> list = achievementsService.findAllByUserName(userName);
-        return new ResponseEntity<List<Achievements>>(list, HttpStatus.OK);
+    public ResponseEntity<List<Achievements>> findById(@PathVariable("user_name") String userName,
+            Authentication auth) {
+        logger.debug("GET /achievement/" + userName + " accessed by: " + auth.getName());
+        List<Achievements> res = this.achievementsService.findAllByUserName(userName);
+        return new ResponseEntity<List<Achievements>>(res,
+                !res.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

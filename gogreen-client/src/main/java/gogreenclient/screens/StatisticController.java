@@ -115,7 +115,6 @@ public class StatisticController implements SceneController {
     }
 
 
-    //TODO achievement, insert history
     private void statisticInitialize() {
         totalSaved.setText(String.valueOf(Math.round(records.getSavedCo2Total())));
     }
@@ -147,7 +146,7 @@ public class StatisticController implements SceneController {
 
     private String getLastAchievements() {
         String result = null;
-        if (achievementsList == null) {
+        if (achievementsList.isEmpty()) {
             result = "Blue";
         } else {
             result = achievementsList.get(0).getAchievement();
@@ -157,14 +156,14 @@ public class StatisticController implements SceneController {
 
     private String getAchievementsAmount() {
         int amount = 0;
-        if (achievementsList != null) {
+        if (!achievementsList.isEmpty()) {
             amount = achievementsList.size();
         }
         return String.valueOf(amount);
     }
 
     private void recentActivityInit() {
-        if (insertHistoryList.size() == 0) {
+        if (insertHistoryList.isEmpty()) {
             recentActivityOne.setText("");
             recentActivityTwo.setText("");
             firstActivityDate.setText("");

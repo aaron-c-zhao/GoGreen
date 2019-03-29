@@ -4,9 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import gogreenserver.entity.User;
+import gogreenserver.entity.AddSolarpanels;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,9 +33,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.LocalDate;
-import java.util.Random;
-
 import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
@@ -49,7 +47,7 @@ import javax.transaction.Transactional;
 @AutoConfigureTestDatabase
 @AutoConfigureTestEntityManager
 @Transactional
-public class UserTests {
+public class AddSolarpanelsTests {
 
     // for debugging purposes
     private static final Logger LOGGER = LogManager.getLogger("Tests");
@@ -73,70 +71,77 @@ public class UserTests {
     }
 
     /**
-     * Check if /api/user/{username} works.
+     * Check if /api/addSolarpanels/ and /api/addSolarpanel/{username} works.
      */
     @WithMockUser
     @Test
-    public void checkUsers() throws Exception {
+    public void checkAddSolarpanels() throws Exception {
 
-        LOGGER.debug("=== checkUsers() ===");
+        LOGGER.debug("=== checkAddSolarpanels() ===");
 
-        User dummy = manager.persistAndFlush(createDummyUser("Alice"));
-        RequestBuilder ereq = MockMvcRequestBuilders
-                .get("/api/user/findUser/" + dummy.getUsername())
+        AddSolarpanels[] dummies = new AddSolarpanels[3];
+        dummies[0] = manager.persist(createDummyAddSolarpanels("Silica"));
+        dummies[1] = manager.persist(createDummyAddSolarpanels("Boron"));
+        dummies[2] = manager.persist(createDummyAddSolarpanels("Electon"));
+        manager.flush();
+
+        RequestBuilder ereq = MockMvcRequestBuilders.get("/api/addSolarpanels")
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
-        // if user exist.
-        assertThat(eres.getResponse().getContentAsString()).isEqualTo("success");
+        JsonNode list = mapper.readTree(eres.getResponse().getContentAsString());
 
-        RequestBuilder nreq = MockMvcRequestBuilders.get("/api/user/findUser/Bob")
-                .accept(MediaType.APPLICATION_JSON);
-        MvcResult nres = mockMvc.perform(nreq).andExpect(status().is(404)).andReturn();
+        LOGGER.debug("Returned Json: " + list);
 
-        // if user does not exist.
-        assertThat(nres.getResponse().getContentAsString()).isEqualTo("fail");
+        int solarcount = 0;
+        for (JsonNode solar : list) {
+            LOGGER.debug("Solar panel " + solarcount + ": " + solar);
+            RequestBuilder achreq = MockMvcRequestBuilders
+                    .get("/api/addSolarpanel/" + solar.get("userName").asText())
+                    .accept(MediaType.APPLICATION_JSON);
+            MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
 
-        manager.clear();
-    }
+            assertThat(ures.getResponse().getContentAsString())
+                    .isEqualTo(mapper.writeValueAsString(dummies[solarcount]));
 
-    @Test
-    public void addUser() throws Exception {
-
-        LOGGER.debug("=== addUser() ===");
-
-        User dummy = createDummyUser("Danny");
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
-        mockMvc.perform(req).andExpect(status().is(200));
-
-        User found = manager.find(User.class, dummy.getUsername());
-
-        // /api/createUser properly salts and hashes the user password, and therefore it
-        // is (or should be) impossible to recreate it manually.
-        dummy.setPassword(found.getPassword());
-
-        assertThat(found).isEqualToComparingFieldByField(dummy);
+            solarcount++;
+        }
+        LOGGER.debug("Solar panel installations amount: " + solarcount);
+        assertThat(solarcount).isEqualTo(3);
 
         manager.clear();
+
     }
 
-    @WithMockUser("Emma")
+    @WithMockUser("Sunny")
     @Test
-    public void deleteUser() throws Exception {
-        User dummy = manager.persistAndFlush(createDummyUser("Emma"));
-        RequestBuilder req = MockMvcRequestBuilders.delete("/api/deleteUser/" + dummy.getUsername())
+    public void addSolar() throws Exception {
+        AddSolarpanels dummy = createDummyAddSolarpanels("Sunny");
+
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
-        mockMvc.perform(req).andExpect(status().is(200));
+        mockMvc.perform(req).andExpect(status().is(200)).andReturn();
         
-        assertThat(manager.find(User.class, dummy.getUsername())).isNull();
+        assertThat(manager.find(AddSolarpanels.class, dummy.getUserName())).isNotNull();
+        
+        manager.clear();
     }
 
-    private User createDummyUser(String name) {
-        Random rgn = new Random(name.hashCode());
-        return new User(name, "pass" + name, name + "@example.com",
-                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),
-                LocalDate.now());
+    @WithMockUser
+    @Test
+    public void checkNonexistentSolar() throws Exception {
+
+        LOGGER.debug("=== checkNonexistentSolar() ===");
+
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/addSolarpanel/nobody")
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(req).andExpect(status().is(404)).andReturn();
+    }
+
+    private AddSolarpanels createDummyAddSolarpanels(String name) {
+        AddSolarpanels solar = new AddSolarpanels();
+        solar.setUserName(name);
+        return solar;
     }
 }

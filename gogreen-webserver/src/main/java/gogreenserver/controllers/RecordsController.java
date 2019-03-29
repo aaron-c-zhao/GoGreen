@@ -34,10 +34,14 @@ public class RecordsController {
         return new ResponseEntity<>(this.recordsService.findAll(), HttpStatus.OK);
     }
 
+    /**
+     * Get a single record of user.
+     */
     @GetMapping(value = "/record/{user_Name}")
     public ResponseEntity<Optional<Records>> findById(@PathVariable("user_Name") String userName,
-                                                      Authentication auth) {
+            Authentication auth) {
         logger.debug("GET /record/" + userName + " accessed by: " + auth.getName());
-        return new ResponseEntity<>(this.recordsService.findById(userName), HttpStatus.OK);
+        Optional<Records> res = recordsService.findById(userName);
+        return new ResponseEntity<>(res, res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

@@ -1,10 +1,10 @@
 server:
   port: 8443
   ssl:
-    key-store: gogreen-webserver/src/main/resources/identity.jks
+    key-store: classpath:identity.jks
     key-store-type: PKCS12
     key-store-password: group82
-    trust-store: gogreen-webserver/src/main/resources/truststore.jks
+    trust-store: classpath:truststore.jks
     trust-store-password: group82
     client-auth: need
 

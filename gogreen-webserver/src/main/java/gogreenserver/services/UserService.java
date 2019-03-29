@@ -15,6 +15,9 @@ public class UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
 
+    /**
+     * Autowired constructor. What else is there to say?
+     */
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
         this.userRepository = userRepository;
@@ -34,8 +37,8 @@ public class UserService {
         return userRepository.findById(theUserName);
     }
 
-    public void deleteById(String theUserName) {
-        userRepository.deleteById(theUserName);
+    public void deleteUser(String user) {
+        userRepository.deleteById(user);
     }
 
 }
