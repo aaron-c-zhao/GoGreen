@@ -13,10 +13,9 @@ public class AddSolarPanelController implements SceneController {
     @FXML
     private JFXTextField sizeOfSolarPanel;
     @FXML
-    private Label intialSize;
+    private Label initialSize;
     @FXML
     private Label addDate;
-
     @FXML
     private Label fillAll;
 
@@ -25,6 +24,7 @@ public class AddSolarPanelController implements SceneController {
     @Autowired
     private UserInputValidator validator;
 
+
     public AddSolarPanelController(ScreenConfiguration screens) {
         this.screens = screens;
     }
@@ -32,7 +32,10 @@ public class AddSolarPanelController implements SceneController {
     public void initialize() {
         validator.validateFraction(sizeOfSolarPanel);
         fillAll.setVisible(false);
+    }
 
+    private void isAllFieldFilled() throws IllegalArgumentException {
+        validator.isNull(sizeOfSolarPanel);
     }
 
     @FXML
