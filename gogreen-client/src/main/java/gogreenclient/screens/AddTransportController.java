@@ -1,8 +1,9 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.ExceptionHandler;
+import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
 import javafx.collections.FXCollections;
@@ -10,26 +11,26 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
 
 
 public class AddTransportController implements SceneController {
 
+    private static final String URL = "https://localhost:8443/api/insertHistory";
 
     ObservableList<String> transportList = FXCollections
         .observableArrayList("walk", "bike", "train", "bus", "car", "motorcycle", "plane");
 
     @FXML
-    private JFXComboBox takenTransportBox;
-
+    private JFXComboBox<String> takenTransportBox;
     @FXML
-    private JFXComboBox insteadOfTransportBox;
-
+    private JFXComboBox<String> insteadOfTransportBox;
     @FXML
     private JFXTextField distance;
-
-    @FXML
-    private JFXDatePicker date;
-
     @FXML
     private Label fillAll;
 
@@ -37,6 +38,15 @@ public class AddTransportController implements SceneController {
     private UserInputValidator validator;
 
     private ScreenConfiguration screens;
+
+    @Autowired
+    private ExceptionHandler exceptionHandler;
+
+    @Autowired
+    private InsertHistory insert;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     public AddTransportController(ScreenConfiguration screens) {
         this.screens = screens;
@@ -52,6 +62,23 @@ public class AddTransportController implements SceneController {
         takenTransportBox.setItems(transportList);
         insteadOfTransportBox.setItems(transportList);
         fillAll.setVisible(false);
+    }
+
+
+
+    /**
+     * method for submit button, which will send the data to the server.
+     */
+    @FXML
+    public void submit() {
+        createInsertObjectTransport();
+        ResponseEntity<String> response = restTemplate.postForEntity(URL, insert, String.class);
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            //TODO use logger
+            System.out.println(response.getBody());
+            clearBoxes();
+            screens.statisticController().initialize();
+        }
     }
 
     @FXML
@@ -77,5 +104,33 @@ public class AddTransportController implements SceneController {
         screens.activityController()
             .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
+
+    private void isAllTextFilled() throws IllegalArgumentException {
+        validator.isNull(takenTransportBox);
+        validator.isNull(insteadOfTransportBox);
+        validator.isNull(distance);
+    }
+
+    private void clearBoxes() {
+        takenTransportBox.setValue(null);
+        insteadOfTransportBox.setValue(null);
+        distance.clear();
+    }
+
+    private void createInsertObjectTransport() {
+        try {
+            isAllTextFilled();
+        } catch (IllegalArgumentException e) {
+            exceptionHandler.illegalArgumentExceptionhandler(e);
+        }
+        String usualTransport = takenTransportBox.getValue();
+        String alterTransport = insteadOfTransportBox.getValue();
+        float difference = Float.parseFloat(distance.getText());
+        insert.setActivityName(usualTransport);
+        insert.setAlternateActivity(alterTransport);
+        insert.setTransportDistanceKm(difference);
+        insert.setInsertDate(LocalDate.now());
+    }
+
 
 }
