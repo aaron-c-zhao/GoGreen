@@ -30,7 +30,7 @@ Badges_success:
 Badges_failure:
   stage: build
   script:
-    - curl https://img.shields.io/static/v1.svg?label=build&message=fail&color=green -o public/build.svg
+    - curl https://img.shields.io/static/v1.svg?label=build&message=failure&color=red -o public/build.svg
   artifacts:
     paths:
       - public/build.svg
