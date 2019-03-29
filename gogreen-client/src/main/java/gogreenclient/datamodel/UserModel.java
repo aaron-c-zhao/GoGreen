@@ -1,7 +1,6 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -46,12 +45,13 @@ public class UserModel {
      * @return true - the username is already used, false if it is valid.
      */
     public boolean findUser(String username) {
-        try{
+        try {
             ResponseEntity<String> response = loginRestTemplate
                 .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
-        }catch (HttpClientErrorException e){
-            if(e instanceof HttpClientErrorException.NotFound)
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
                 return false;
+            }
         }
         return true;
     }

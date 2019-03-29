@@ -109,12 +109,12 @@ public class UserCareerService {
     public String getActivityAmount() {
         ResponseEntity<String> response = null;
         String amount = null;
-        try{
+        try {
             response = restTemplate
                 .getForEntity(url + "/insertHistory/amount/" + username,
                     String.class);
-        }catch (HttpClientErrorException e){
-            if(e instanceof HttpClientErrorException.NotFound) {
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
                 amount = "0";
             }
         }
@@ -136,9 +136,10 @@ public class UserCareerService {
             response = restTemplate
                 .getForEntity(url + "/insertHistory/days/" + username,
                     String.class);
-        }catch (HttpClientErrorException e){
-            if(e instanceof HttpClientErrorException.NotFound)
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
                 days = "0";
+            }
         }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             days = response.getBody();
