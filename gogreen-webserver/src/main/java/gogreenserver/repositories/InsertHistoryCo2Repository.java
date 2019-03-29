@@ -15,4 +15,7 @@ public interface InsertHistoryCo2Repository extends JpaRepository<InsertHistoryC
      * Make a single mistake and the whole program crashes.
      */
     List<InsertHistoryCo2> findByUserName(String username);
+    
+    
+    List<InsertHistoryCo2> findByUserNameOrderByInsertDateDesc(String username);
 }

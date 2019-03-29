@@ -124,6 +124,8 @@ public class AddSolarpanelsTests {
         mockMvc.perform(req).andExpect(status().is(200)).andReturn();
         
         assertThat(manager.find(AddSolarpanels.class, dummy.getUserName())).isNotNull();
+        
+        manager.clear();
     }
 
     @WithMockUser

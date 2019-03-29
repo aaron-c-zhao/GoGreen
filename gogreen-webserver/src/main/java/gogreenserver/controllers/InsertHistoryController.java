@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
-import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -38,13 +37,17 @@ public class InsertHistoryController {
      * Get a single history record.
      */
     @GetMapping(value = "/insertHistory/{user_Name}")
-    public ResponseEntity<Object> findAllById(@PathVariable("user_Name") String userName,
+    public ResponseEntity<List<InsertHistoryCo2>> findAllById(
+            @PathVariable("user_Name") String userName,
             @RequestHeader(name = "limit", defaultValue = "2") int limit, Authentication auth) {
 
         logger.debug("GET /insertHistory/" + userName + " accessed by: " + auth.getName());
 
         List<InsertHistoryCo2> histories = this.insertHistoryService.findRecentByUsername(userName,
                 limit);
+
+        logger.debug(histories);
+
         return new ResponseEntity<>(histories,
                 !histories.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
@@ -77,20 +80,19 @@ public class InsertHistoryController {
     public ResponseEntity<String> findActiveDaysByUserName(
             @PathVariable("user_Name") String userName) {
 
-        logger.debug("GET /insertHistory/" + userName);
+        logger.debug("GET /insertHistory/days/" + userName);
 
-        List<InsertHistoryCo2> list = this.insertHistoryService.findAllByUserName(userName);
+        List<InsertHistoryCo2> list = this.insertHistoryService
+                .findAllByUserNameSortedByDate(userName);
 
         if (list == null || list.isEmpty()) {
             return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
         }
 
-        list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate));
-
         logger.debug(list);
 
         long days = Duration
-                .between(list.get(0).getInsertDate(), list.get(list.size() - 1).getInsertDate())
+                .between(list.get(list.size() - 1).getInsertDate(), list.get(0).getInsertDate())
                 .toDays();
 
         return new ResponseEntity<>(String.valueOf(days), HttpStatus.OK);
@@ -106,12 +108,12 @@ public class InsertHistoryController {
     public ResponseEntity<String> createInsertHistory(@RequestBody InsertHistory insertHistory,
             Authentication auth) {
 
-        logger.debug("POST /insertHistory/ with username header \"");
+        logger.debug("POST /insertHistory/ accessed by " + auth.getName());
 
         if (!auth.getName().equals(insertHistory.getUserName())) {
             new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-        
+
         this.insertHistoryService.createInsertHistory(insertHistory);
         return new ResponseEntity<String>("Successfully insertHistory for user : ", HttpStatus.OK);
     }

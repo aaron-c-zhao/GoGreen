@@ -8,7 +8,6 @@ import gogreenserver.repositories.InsertHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,10 +39,15 @@ public class InsertHistoryService {
      * @return a list of insert history, the list can be empty.
      */
     public List<InsertHistoryCo2> findRecentByUsername(String username, int limit) {
-        limit = limit == -1 ? Integer.MAX_VALUE : limit; //-1 for all entries.
-        return outputRepo.findByUserName(username).stream()
-                .sorted(Comparator.comparing(InsertHistoryCo2::getInsertDate).reversed())
-                .limit(limit).collect(Collectors.toList());
+        if (limit == -1) {
+            return findAllByUserNameSortedByDate(username);
+        }
+        return outputRepo.findByUserNameOrderByInsertDateDesc(username).stream().limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    public List<InsertHistoryCo2> findAllByUserNameSortedByDate(String username) {
+        return outputRepo.findByUserNameOrderByInsertDateDesc(username);
     }
 
     /**
@@ -55,4 +59,5 @@ public class InsertHistoryService {
     public List<InsertHistoryCo2> findAllByUserName(String username) {
         return outputRepo.findByUserName(username);
     }
+
 }
