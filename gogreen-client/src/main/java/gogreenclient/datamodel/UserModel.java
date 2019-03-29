@@ -2,15 +2,15 @@ package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
@@ -56,12 +56,21 @@ public class UserModel {
         return response.getBody().equals("success") ? true : false;
     }
 
-    public ResponseEntity<String> uploadPhoto(File file) {
+    /** .
+     *  * Method for uploading the photo from the user system and send it to
+     * server on /createUser/upload endpoint
+     * @param file the image to save
+     * @param userName the name entered by the user inside the textfield
+     * @return the response entity of the connection which transfers the
+     *
+     */
+    public ResponseEntity<String> uploadPhoto(File file, String userName) {
         loginRestTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         LinkedMultiValueMap body = new LinkedMultiValueMap();
         body.add("profile_pic", new FileSystemResource(file));
+        body.add("username", userName);
         HttpEntity request = new HttpEntity<>(body, headers);
         return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser/upload", request, String.class);
     }

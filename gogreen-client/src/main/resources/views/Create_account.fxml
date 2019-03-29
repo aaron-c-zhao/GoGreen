@@ -62,7 +62,7 @@
                   <Font size="14.0" />
                </font></JFXButton>
                 <Label fx:id="combination_label" layoutX="60.0" layoutY="318.0" text="Incorrect username/password combination" textFill="#ff1515" visible="false" />
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="40.0" prefHeight="58.0" prefWidth="365.0" text="To create an account, please fill the following form      (all of the filds are required)" textAlignment="CENTER" textFill="#fffbfb" wrapText="true">
+                <Label fx:id="textHideError" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="40.0" prefHeight="58.0" prefWidth="365.0" text="To create an account, please fill the following form      (all of the filds are required)" textAlignment="CENTER" textFill="#fffbfb" wrapText="true">
                     <font>
                         <Font name="Segoe UI" size="15.0" />
                     </font>
@@ -123,12 +123,12 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton alignment="CENTER" onAction="#savePhoto" prefHeight="25.0" prefWidth="60.0" ripplerFill="#194113" style="-fx-background-color: #3B5323;" text="Upload" textFill="#fffbfb" translateX="20.0" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                  <JFXButton alignment="CENTER" onAction="#savePhoto" prefHeight="25.0" prefWidth="60.0" ripplerFill="#2d7023" style="-fx-background-color: #228B22;" text="Choose" translateX="20.0" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="10">
                      <effect>
                         <InnerShadow />
                      </effect>
                   </JFXButton>
-                  <Label fx:id="uploadPath" prefHeight="17.0" prefWidth="112.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                  <Label fx:id="uploadPath" prefHeight="17.0" prefWidth="120.0" GridPane.columnIndex="2" GridPane.rowIndex="10">
                      <GridPane.margin>
                         <Insets left="100.0" />
                      </GridPane.margin>
@@ -140,7 +140,16 @@
                <font>
                   <Font size="14.0" />
                </font></JFXButton>
-            <JFXButton alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="379.0" onAction="#uploadPhoto" prefHeight="34.0" prefWidth="60.0" style="-fx-background-color: #AA3377;" text="Upload" />
+            <Label fx:id="photoUsername" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="98.0" layoutY="405.0" prefHeight="17.0" prefWidth="220.0" textFill="#e83a3a">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="46.0" layoutY="41.0" prefHeight="51.0" prefWidth="329.0" textFill="#ff0505">
+               <font>
+                  <Font name="Segoe UI Bold Italic" size="15.0" />
+               </font>
+            </Label>
             </children>
             <effect>
                 <DropShadow color="#229d0c80" />

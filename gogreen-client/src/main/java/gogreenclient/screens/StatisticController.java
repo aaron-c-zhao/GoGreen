@@ -94,8 +94,7 @@ public class StatisticController implements SceneController {
         }
         if (!getLastAchievements().equals("Blue")) {
             achievement.setText(getLastAchievements());
-        }
-        else {
+        } else {
             achievement.setText("No achievement earned yet.Go and earn some!");
         }
         totalAchievements.setText(getAchievementsAmount());
