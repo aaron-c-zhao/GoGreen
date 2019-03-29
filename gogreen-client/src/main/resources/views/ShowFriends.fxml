@@ -139,7 +139,7 @@
                   <FontIcon fontSmoothingType="LCD" iconColor="#eaeaea" iconLiteral="fas-user-plus" iconSize="20" selectionFill="#00ff2b" wrappingWidth="18.625" />
                </graphic>
             </JFXButton>
-            <JFXButton alignment="CENTER" graphicTextGap="10.0" layoutX="442.0" layoutY="517.0" minHeight="-Infinity" prefHeight="62.0" prefWidth="110.0" ripplerFill="SKYBLUE" stylesheets="@../static/hover.css" text="Show details" textAlignment="CENTER" textFill="#eaeaea" wrapText="true">
+            <JFXButton alignment="CENTER" graphicTextGap="10.0" layoutX="442.0" layoutY="517.0" minHeight="-Infinity" onAction="#ShowDetails" prefHeight="62.0" prefWidth="110.0" ripplerFill="SKYBLUE" stylesheets="@../static/hover.css" text="Show details" textAlignment="CENTER" textFill="#eaeaea" wrapText="true">
                <font>
                   <Font name="Segoe UI Light" size="16.0" />
                </font>

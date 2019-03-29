@@ -1,5 +1,8 @@
 package gogreenclient.screens;
 
+import gogreenclient.datamodel.Records;
+import gogreenclient.datamodel.UserCareerService;
+import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -7,12 +10,20 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 
 public class FriendDetailsController implements ConfirmDialogController {
 
     private Windows dialog;
 
     private ScreenConfiguration screens;
+
+    @Autowired
+    private UserCareerService userCareerService;
+
+    private Records records;
 
     @FXML
     private PieChart pieChart;
@@ -43,22 +54,39 @@ public class FriendDetailsController implements ConfirmDialogController {
      * the text fields are commented out.
      */
     public void initialize() {
-        /*
-        setFriendUser.setText("");
-        setTotalAchievements.setText("");
-        setTotalAct.setText("");
-        setTotalDays.setText("");
-        */
+        String friendName = screens.showFriendsController().getFriendName();
+        setFriendUser.setText(friendName);
+        userCareerService.setUsername(friendName);
+        records = userCareerService.getCareer();
+        pieCharInit();
+        String activityAmount = userCareerService.getActivityAmount();
+        setTotalAct.setText(activityAmount);
+        String activityDays = userCareerService.getActiveDays();
+        setTotalDays.setText(activityDays);
+        setTotalAchievements.setText(String.valueOf(userCareerService.getAchievements().size()));
+    }
+
+    private void pieCharInit(){
+        int food = Math.round(records.getSavedCo2Food());
+        int transport = Math.round(records.getSavedCo2Transport());
+        int solarPaner = Math.round(records.getSavedCo2Solarpanels());
+        int temperature = Math.round(records.getSavedCo2Energy());
+        int tree = 0;
+        if (food == 0 && transport == 0 && solarPaner == 0 && temperature == 0 && tree == 0) {
+            food = transport = solarPaner = temperature = tree = 10;
+        }
         ObservableList<PieChart.Data> pieChartData =
             FXCollections.observableArrayList(
-                new PieChart.Data("Food", 18),
-                new PieChart.Data("Transport", 34),
-                new PieChart.Data("Solar panels", 30),
-                new PieChart.Data("Lower temperature", 10),
-                new PieChart.Data("Plant a tree", 8)
+                new PieChart.Data("Food", food),
+                new PieChart.Data("Transport", transport),
+                new PieChart.Data("Solar panels", solarPaner),
+                new PieChart.Data("Lower temperature", temperature),
+                new PieChart.Data("Plant a tree", tree)
             );
         pieChart.setData(pieChartData);
     }
+
+
 
     @Override
     public void yes() {

@@ -76,6 +76,10 @@ public class AppConfig {
         this.username = username;
     }
 
+    public static String getURL() {
+        return URL;
+    }
+
     @Bean
     UserService userModel() {
         UserService userService = new UserService();
@@ -91,6 +95,7 @@ public class AppConfig {
 
 
     @Bean
+    @Scope("prototype")
     UserCareerService userCareerService() {
         UserCareerService userCareerService = new UserCareerService();
         userCareerService.setUsername(username);

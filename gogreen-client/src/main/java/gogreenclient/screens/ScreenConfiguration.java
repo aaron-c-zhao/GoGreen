@@ -93,12 +93,14 @@ public class ScreenConfiguration {
     }
 
     @Bean
+    @Scope("prototype")
     public ConfirmDialog friendDetailsDialog() {
         return new ConfirmDialog(friendDetailsController(), getClass()
             .getResource("/views/FriendDetails.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
+    @Scope("prototype")
     FriendDetailsController friendDetailsController() {
         return new FriendDetailsController(this);
     }
