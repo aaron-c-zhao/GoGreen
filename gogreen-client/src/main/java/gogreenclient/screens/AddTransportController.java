@@ -1,7 +1,6 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.ExceptionHandler;
 import gogreenclient.datamodel.InsertHistory;
@@ -21,6 +20,7 @@ import java.time.LocalDate;
 
 public class AddTransportController implements SceneController {
 
+    private static final String URL = "https://localhost:8443/api/insertHistory";
 
     ObservableList<String> transportList = FXCollections
         .observableArrayList("walk", "bike", "train", "bus", "car", "motorcycle", "plane");
@@ -47,9 +47,6 @@ public class AddTransportController implements SceneController {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    private static final String URL = "https://localhost:8443/api/insertHistory";
-
 
     public AddTransportController(ScreenConfiguration screens) {
         this.screens = screens;
@@ -123,8 +120,7 @@ public class AddTransportController implements SceneController {
     private void createInsertObjectTransport() {
         try {
             isAllTextFilled();
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             exceptionHandler.illegalArgumentExceptionhandler(e);
         }
         String usualTransport = takenTransportBox.getValue();

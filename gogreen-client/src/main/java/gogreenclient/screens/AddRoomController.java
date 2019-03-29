@@ -12,13 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
-
 public class AddRoomController implements SceneController {
 
+    private static final String URL = "https://localhost:8443/api/insertHistory";
+
     private ScreenConfiguration screens;
-
-
 
     @FXML
     private JFXTextField minutes;
@@ -41,7 +39,6 @@ public class AddRoomController implements SceneController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String URL = "https://localhost:8443/api/insertHistory";
 
     public AddRoomController(ScreenConfiguration screens) {
         this.screens = screens;
@@ -114,8 +111,7 @@ public class AddRoomController implements SceneController {
     private void createInsertObjectRoom() {
         try {
             isAllTextFilled();
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             exceptionHandler.illegalArgumentExceptionhandler(e);
         }
         float timeAmount = Float.parseFloat(minutes.getText());
