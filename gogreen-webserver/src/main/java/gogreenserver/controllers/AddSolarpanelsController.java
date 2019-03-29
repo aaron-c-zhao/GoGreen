@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,16 +55,22 @@ public class AddSolarpanelsController {
      * This end-point is used to create a new entry in the "addSolarpanel" table in
      * DB.
      *
-     * @param userName       This is the users UserName.
      * @param addSolarpanels This is the addSolarpanels Object.
      * @return responseEntity of type string and status code OK if successful.
      */
     @PostMapping(value = "/addSolarpanel")
-    public ResponseEntity<String> createSolarpanel(
-            @RequestHeader(value = "userName") String userName,
-            @RequestBody AddSolarpanels addSolarpanels, Authentication auth) {
+    public ResponseEntity<String> createSolarpanel(@RequestBody AddSolarpanels addSolarpanels,
+            Authentication auth) {
+
+        final String userName = addSolarpanels.getUserName();
+
         logger.debug("POST /addSolarpanel/ with userName header \"" + userName + "\" accessed by: "
                 + auth.getName());
+
+        if (!auth.getName().equals(userName)) {
+            new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+
         addSolarpanels.setUserName(userName);
         this.addSolarpanelsService.createAddSolarpanels(addSolarpanels);
         return new ResponseEntity<String>(

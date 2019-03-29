@@ -114,6 +114,18 @@ public class AddSolarpanelsTests {
 
     }
 
+    @WithMockUser("Sunny")
+    @Test
+    public void addSolar() throws Exception {
+        AddSolarpanels dummy = createDummyAddSolarpanels("Sunny");
+
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        mockMvc.perform(req).andExpect(status().is(200)).andReturn();
+        
+        assertThat(manager.find(AddSolarpanels.class, dummy.getUserName())).isNotNull();
+    }
+
     @WithMockUser
     @Test
     public void checkNonexistentSolar() throws Exception {

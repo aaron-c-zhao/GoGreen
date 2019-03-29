@@ -103,13 +103,17 @@ public class InsertHistoryController {
      * @return responseEntity of type String with status code OK if successful.
      */
     @PostMapping(value = "/insertHistory")
-    public ResponseEntity<String> createInsertHistory(
-            @RequestBody InsertHistory insertHistory) {
+    public ResponseEntity<String> createInsertHistory(@RequestBody InsertHistory insertHistory,
+            Authentication auth) {
 
-        logger.debug("POST /insertHistory/ with username header \"" );
+        logger.debug("POST /insertHistory/ with username header \"");
+
+        if (!auth.getName().equals(insertHistory.getUserName())) {
+            new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        
         this.insertHistoryService.createInsertHistory(insertHistory);
-        return new ResponseEntity<String>("Successfully insertHistory for user : ",
-                HttpStatus.OK);
+        return new ResponseEntity<String>("Successfully insertHistory for user : ", HttpStatus.OK);
     }
 
 }
