@@ -82,6 +82,17 @@ public class ScreenConfiguration {
     }
 
     @Bean
+    public ConfirmDialog addFriendDialog() {
+        return new ConfirmDialog(addFriendPopController(), getClass()
+            .getResource("/views/AddFriend_Popup.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    AddFriendPopController addFriendPopController() {
+        return new AddFriendPopController(this);
+    }
+
+    @Bean
     public ConfirmDialog friendDetailsDialog() {
         return new ConfirmDialog(friendDetailsController(), getClass()
             .getResource("/views/FriendDetails.fxml"), primaryStage, StageStyle.DECORATED);
