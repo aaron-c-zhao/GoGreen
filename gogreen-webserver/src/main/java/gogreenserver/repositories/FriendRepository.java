@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
-    List<Friend> findallByUserName(String userName);
-    Friend findbyUserNameAndFriendName(String userName, String friendName);
+    List<Friend> findAllByUserName(String userName);
+    Friend findByUserNameAndFriendName(String userName, String friendName);
 }

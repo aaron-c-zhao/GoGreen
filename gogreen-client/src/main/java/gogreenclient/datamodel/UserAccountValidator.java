@@ -25,7 +25,7 @@ public class UserAccountValidator {
     private static final String PASSWORD_NOT_MATCH = "Password not match.";
 
     @Autowired
-    private UserModel userModel;
+    private UserService userService;
 
 
     /**
@@ -73,7 +73,7 @@ public class UserAccountValidator {
     }
 
     private void isUsernameExists(String username) throws IllegalArgumentException {
-        if (userModel.findUser(username)) {
+        if (userService.findUser(username)) {
             throw new IllegalArgumentException(USERNAME_USED);
         }
     }
@@ -109,8 +109,8 @@ public class UserAccountValidator {
         }
     }
 
-    public UserModel getUserModel() {
-        return userModel;
+    public UserService getUserService() {
+        return userService;
     }
 
 }

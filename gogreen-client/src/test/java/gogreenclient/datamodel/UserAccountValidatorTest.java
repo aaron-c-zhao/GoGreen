@@ -99,7 +99,7 @@
 //    @Test
 //    public void usernameExists() throws Exception {
 //        RestTemplate template = new RestTemplate();
-//        validator.getUserModel().setRestTemplate(template);
+//        validator.getUserService().setRestTemplate(template);
 //        server = MockRestServiceServer.createServer(template);
 //        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
 //            .andExpect(method(HttpMethod.GET))
@@ -116,7 +116,7 @@
 //    @Test
 //    public void emailNotValid() throws Exception {
 //        RestTemplate template = new RestTemplate();
-//        validator.getUserModel().setRestTemplate(template);
+//        validator.getUserService().setRestTemplate(template);
 //        server = MockRestServiceServer.createServer(template);
 //        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
 //            .andExpect(method(HttpMethod.GET))
@@ -133,7 +133,7 @@
 //    @Test
 //    public void emailEmpty() throws Exception {
 //        RestTemplate template = new RestTemplate();
-//        validator.getUserModel().setRestTemplate(template);
+//        validator.getUserService().setRestTemplate(template);
 //        server = MockRestServiceServer.createServer(template);
 //        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
 //            .andExpect(method(HttpMethod.GET))
@@ -150,7 +150,7 @@
 //    @Test
 //    public void bdayFuture() throws Exception {
 //        RestTemplate template = new RestTemplate();
-//        validator.getUserModel().setRestTemplate(template);
+//        validator.getUserService().setRestTemplate(template);
 //        server = MockRestServiceServer.createServer(template);
 //        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
 //            .andExpect(method(HttpMethod.GET))
@@ -167,7 +167,7 @@
 //    @Test
 //    public void bdayNull() throws Exception {
 //        RestTemplate template = new RestTemplate();
-//        validator.getUserModel().setRestTemplate(template);
+//        validator.getUserService().setRestTemplate(template);
 //        server = MockRestServiceServer.createServer(template);
 //        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
 //            .andExpect(method(HttpMethod.GET))
@@ -184,7 +184,7 @@
 //    @Test
 //    public void everythingFine() throws Exception {
 //        RestTemplate template = new RestTemplate();
-//        validator.getUserModel().setRestTemplate(template);
+//        validator.getUserService().setRestTemplate(template);
 //        server = MockRestServiceServer.createServer(template);
 //        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
 //            .andExpect(method(HttpMethod.GET))

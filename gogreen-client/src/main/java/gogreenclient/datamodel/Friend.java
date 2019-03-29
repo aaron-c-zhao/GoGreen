@@ -1,30 +1,15 @@
-package gogreenserver.entity;
+package gogreenclient.datamodel;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "friend_add")
 public class Friend {
 
-    @Id
-    @Column(name = "add_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
 
-    @Column(name = "add_date")
     private LocalDateTime addTime;
 
-    @Column(name = "username1")
     private String userName;
 
-    @Column(name = "username2")
     private String friendName;
 
     public Long getId() {

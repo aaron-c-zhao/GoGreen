@@ -124,7 +124,7 @@ public class AddFoodController implements SceneController {
         try {
             isAllFieldFilled();
         } catch (IllegalArgumentException e) {
-            exceptionHandler.illegalArgumentExceptionhandler(e);
+            exceptionHandler.illegalArgumentExceptionHandler(e);
         }
         String usualFood = takenMealBox.getValue();
         String alterFood = insteadOfMealBox.getValue();

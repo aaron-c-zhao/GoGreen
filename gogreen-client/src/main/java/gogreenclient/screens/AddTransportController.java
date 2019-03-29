@@ -121,7 +121,7 @@ public class AddTransportController implements SceneController {
         try {
             isAllTextFilled();
         } catch (IllegalArgumentException e) {
-            exceptionHandler.illegalArgumentExceptionhandler(e);
+            exceptionHandler.illegalArgumentExceptionHandler(e);
         }
         String usualTransport = takenTransportBox.getValue();
         String alterTransport = insteadOfTransportBox.getValue();

@@ -1,8 +1,10 @@
 package gogreenclient.config;
 
+import gogreenclient.datamodel.Friend;
+import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserCareerService;
-import gogreenclient.datamodel.UserModel;
+import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -53,6 +55,7 @@ public class AppConfig {
 
     private RestTemplate restTemplate;
 
+    private static final String URL = "https://localhost:8443/api";
 
     private String username;
     private String password;
@@ -74,9 +77,10 @@ public class AppConfig {
     }
 
     @Bean
-    UserModel userModel() {
-        UserModel userModel = new UserModel();
-        return userModel;
+    UserService userModel() {
+        UserService userService = new UserService();
+        userService.setUrl(URL);
+        return userService;
     }
 
     @Bean
@@ -90,7 +94,16 @@ public class AppConfig {
     UserCareerService userCareerService() {
         UserCareerService userCareerService = new UserCareerService();
         userCareerService.setUsername(username);
+        userCareerService.setUrl(URL);
         return userCareerService;
+    }
+
+    @Bean
+    FriendService friendService(){
+        FriendService friendService = new FriendService();
+        friendService.setUsername(username);
+        friendService.setUrl(URL);
+        return friendService;
     }
 
     /**

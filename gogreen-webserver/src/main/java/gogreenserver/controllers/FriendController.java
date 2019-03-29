@@ -71,7 +71,8 @@ public class FriendController {
     /**
      * This endpoint serves for adding a user as your friend. If that user does not exist in the
      * database, a NOT_FOUND will be returned. If that user exists but adding fails, a INTERNAL_
-     * SERVER_ERROR will be returned.
+     * SERVER_ERROR will be returned. If that user already is your friend then a ALREADY_REPORTED
+     * will be returned.
      * @param friend friend object
      * @return a response entity of type string.
      */
@@ -81,6 +82,9 @@ public class FriendController {
         if(user == null)
             return new ResponseEntity<>("User " + friend.getFriendName() + " not found",
                 HttpStatus.NOT_FOUND);
+        if(friendService.isHimYourFriend(friend.getUserName(), friend.getFriendName()))
+            return new ResponseEntity<>("It's already your friend",
+                HttpStatus.ALREADY_REPORTED);
         friendService.addFriend(friend);
         if(friendService.isHimYourFriend(friend.getUserName(), friend.getFriendName()))
             return new ResponseEntity<>("adding friend success.",

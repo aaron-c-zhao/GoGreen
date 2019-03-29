@@ -29,7 +29,7 @@ public class FriendService {
      * @return list of friends.
      */
     public List<Friend> findFriendsByUserName(String userName) {
-        return friendRepository.findallByUserName(userName);
+        return friendRepository.findAllByUserName(userName);
     }
 
     /**
@@ -74,7 +74,7 @@ public class FriendService {
      * @return true, if he is your friend. otherwise, he is not your friend.
      */
     public boolean isHimYourFriend(String userName, String friendName) {
-        Friend temp = friendRepository.findbyUserNameAndFriendName(userName, friendName);
+        Friend temp = friendRepository.findByUserNameAndFriendName(userName, friendName);
         return temp != null;
     }
 
