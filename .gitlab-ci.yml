@@ -11,11 +11,30 @@ stages:
   - build
   - test
   - codeQuality
+  - deploy
 
 Build:
   stage: build
   script:
     - mvn compile
+
+Badges_success:
+  stage: build
+  script:
+    - curl https://img.shields.io/static/v1.svg?label=build&message=pass&color=green -o public/build.svg
+  artifacts:
+    paths:
+      - public/build.svg
+  when: on_success
+
+Badges_failure:
+  stage: build
+  script:
+    - curl https://img.shields.io/static/v1.svg?label=build&message=fail&color=green -o public/build.svg
+  artifacts:
+    paths:
+      - public/build.svg
+  when: on_failure
 
 test:
   stage: test
@@ -28,3 +47,13 @@ Code Quality:
   script:
     - mvn install
     - mvn -B checkstyle:check
+
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r * .puclic
+    - mv .public public
+  artifacts:
+    paths:
+      - public
