@@ -82,9 +82,9 @@
         </AnchorPane>
         <AnchorPane prefHeight="444.0" prefWidth="462.0" style="-fx-background-color: #ffffffff;" HBox.hgrow="ALWAYS">
             <children>
-                <VBox layoutX="7.0" layoutY="183.0" prefHeight="182.0" prefWidth="450.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="183.0">
+                <VBox layoutX="7.0" layoutY="193.0" prefHeight="172.0" prefWidth="450.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="193.0">
                     <children>
-                        <HBox prefHeight="58.0" prefWidth="450.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="44.0" prefWidth="450.0" spacing="5.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <Label contentDisplay="CENTER" prefHeight="58.0" prefWidth="238.0" text="Your current solar panel area:" textAlignment="CENTER" wrapText="true">
                                     <font>
@@ -137,7 +137,7 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox prefHeight="28.0" prefWidth="398.0" spacing="12.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="20.0" prefWidth="450.0" spacing="12.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <Label fx:id="addDate" prefHeight="26.0" prefWidth="49.0" text="Date:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                                     <font>
@@ -179,9 +179,9 @@
                         <Font size="27.0" />
                     </font>
                 </JFXButton>
-                <Label layoutX="7.0" layoutY="68.0" prefHeight="131.0" prefWidth="450.0" text="This page is for telling us if you are adding a solar panel, or adding more surface area to an already existing solar panel. Please tell us the surface area of your new solar panel, or if you are just increasing the size of a current solar panel, tell us how much you have increased it by" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="68.0">
+                <Label layoutX="7.0" layoutY="68.0" prefHeight="131.0" prefWidth="450.0" text="This page is for telling us if you are adding a solar panel, or adding more surface area to an already existing solar panel. Please tell us the surface area of your new solar panel, or if you are just increasing the size of a current solar panel, tell us how much you have increased it by." textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="68.0">
                     <font>
-                        <Font name="Segoe UI Light" size="16.0" />
+                        <Font name="Segoe UI Light" size="17.0" />
                     </font>
                 </Label>
             </children>
