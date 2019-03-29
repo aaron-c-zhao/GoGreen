@@ -25,8 +25,7 @@
 //
 //    @Autowired
 //    private ObjectMapper objectMapper;
-//    @Autowired
-//    private FoodEmissionModel model;
+//    private FoodEmissionModel model = new FoodEmissionModel();
 //    private RestTemplate template;
 //    private MockRestServiceServer server;
 //    private String uri;

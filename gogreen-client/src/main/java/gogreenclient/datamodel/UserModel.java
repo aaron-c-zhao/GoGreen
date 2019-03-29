@@ -75,4 +75,7 @@ public class UserModel {
         return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser/upload", request, String.class);
     }
 
+    public void setRestTemplate(RestTemplate loginRestTemplate) {
+        this.loginRestTemplate = loginRestTemplate;
+    }
 }
