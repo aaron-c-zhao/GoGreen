@@ -25,6 +25,7 @@ public class AchievementsService {
 
     /**
      * Find all the achievements of that user.
+     *
      * @param userName username.
      * @return a list of achievements.
      */

@@ -2,7 +2,6 @@ package gogreenclient.screens;
 
 import gogreenclient.datamodel.Records;
 import gogreenclient.datamodel.UserCareerService;
-import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
 import javafx.collections.FXCollections;
@@ -11,8 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 
 public class FriendDetailsController implements ConfirmDialogController {
 
@@ -66,7 +63,7 @@ public class FriendDetailsController implements ConfirmDialogController {
         setTotalAchievements.setText(String.valueOf(userCareerService.getAchievements().size()));
     }
 
-    private void pieCharInit(){
+    private void pieCharInit() {
         int food = Math.round(records.getSavedCo2Food());
         int transport = Math.round(records.getSavedCo2Transport());
         int solarPaner = Math.round(records.getSavedCo2Solarpanels());
@@ -85,7 +82,6 @@ public class FriendDetailsController implements ConfirmDialogController {
             );
         pieChart.setData(pieChartData);
     }
-
 
 
     @Override

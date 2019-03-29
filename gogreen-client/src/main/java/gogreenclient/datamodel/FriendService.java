@@ -31,7 +31,7 @@ public class FriendService {
      *
      * @param friendName friend's user name.
      * @return a int value, 1 for successfully adding friend, 0 for friend exists, -1 for adding
-     * failure.
+     *     failure.
      */
     public int addFriend(String friendName) {
         Friend friend = new Friend();
@@ -59,9 +59,16 @@ public class FriendService {
         }
     }
 
+    /**
+     * get a friend's record. If this friend is not a user of the app, then a pop up window will
+     * show and remind the user. If user doesn't have any friend, then an empty list will be
+     * returned, and the table in the show friends page will be empty too.
+     *
+     * @return list of Records.
+     */
     public List<Records> getFriendRecords() {
         ResponseEntity<List<Records>> response = null;
-        try{
+        try {
             response = restTemplate.exchange(
                 url + "/friend/record/" + username,
                 HttpMethod.GET,
@@ -69,14 +76,16 @@ public class FriendService {
                 new ParameterizedTypeReference<List<Records>>() {
                 }
             );
-        }catch (HttpServerErrorException e){
+        } catch (HttpServerErrorException e) {
             exceptionHandler.internalServerErrorHandler(e);
-        }catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             exceptionHandler.notFoundHandler(e, username + "'s friends");
         }
-        if(response != null && response.getStatusCode() == HttpStatus.OK)
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
-        else return new ArrayList<>();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 

@@ -39,11 +39,13 @@ public class AddFriendPopController implements ConfirmDialogController {
     public void yes() {
         String friendName = friendUser.getText();
         int status = friendService.addFriend(friendName);
-        if(status == 1)
+        if (status == 1) {
             messenger.showMessage(friendName + " is your friend now.");
-        else if (status == 0)
+        } else if (status == 0) {
             messenger.showMessage(friendName + " is already your friend.");
-        else messenger.showMessage("Something wrong please try again.");
+        } else {
+            messenger.showMessage("Something wrong please try again.");
+        }
         dialog.close();
     }
 

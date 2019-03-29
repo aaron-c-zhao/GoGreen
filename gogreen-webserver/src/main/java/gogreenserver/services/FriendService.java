@@ -40,9 +40,11 @@ public class FriendService {
      * @param userName username of the user.
      * @return a list of records.
      * @throws IOException All of the users in the database should have a record, otherwise
-     *                     something wrong in the database. This exception need to be handled in the controller.
+     *                     something wrong in the database. This exception need to be handled
+     *                     in the controller.
      */
-    public List<Records> findFriendsRecordbyUserName(String userName, int limit) throws IOException {
+    public List<Records> findFriendsRecordbyUserName(String userName,
+                                                     int limit) throws IOException {
         List<Friend> list = findFriendsByUserName(userName);
         List<Records> result = new ArrayList<>();
         if (list.isEmpty()) {
@@ -75,7 +77,8 @@ public class FriendService {
 
     /**
      * Find if you have added a user as your friend.
-     * @param userName your user name.
+     *
+     * @param userName   your user name.
      * @param friendName user name of whom you want to check.
      * @return true, if he is your friend. otherwise, he is not your friend.
      */

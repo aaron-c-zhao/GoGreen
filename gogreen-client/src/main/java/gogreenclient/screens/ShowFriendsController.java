@@ -5,11 +5,9 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.Messenger;
 import gogreenclient.datamodel.Records;
-import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.window.SceneController;
 import javafx.beans.property.SimpleStringProperty;
@@ -23,8 +21,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -188,10 +184,14 @@ public class ShowFriendsController implements SceneController {
         screens.exitDialog().showAndWait();
     }
 
+    /**
+     * show friend details window. The friend name will be checked first if it exists in the
+     * database.
+     */
     @FXML
-    public void ShowDetails() {
+    public void showDetails() {
         friendName = input.getText();
-        if(!userService.findUser(friendName)){
+        if (!userService.findUser(friendName)) {
             messenger.showMessage(friendName + " does not exists.");
             return;
         }
@@ -227,36 +227,36 @@ public class ShowFriendsController implements SceneController {
             return name.get();
         }
 
-        public StringProperty nameProperty() {
-            return name;
-        }
-
         public void setName(String name) {
             this.name.set(name);
+        }
+
+        public StringProperty nameProperty() {
+            return name;
         }
 
         public String getTotalEmissions() {
             return totalEmissions.get();
         }
 
-        public StringProperty totalEmissionsProperty() {
-            return totalEmissions;
-        }
-
         public void setTotalEmissions(String totalEmissions) {
             this.totalEmissions.set(totalEmissions);
+        }
+
+        public StringProperty totalEmissionsProperty() {
+            return totalEmissions;
         }
 
         public String getRank() {
             return rank.get();
         }
 
-        public StringProperty rankProperty() {
-            return rank;
-        }
-
         public void setRank(String rank) {
             this.rank.set(rank);
+        }
+
+        public StringProperty rankProperty() {
+            return rank;
         }
     }
 

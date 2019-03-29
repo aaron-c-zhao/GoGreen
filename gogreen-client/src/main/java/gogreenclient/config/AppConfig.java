@@ -1,6 +1,5 @@
 package gogreenclient.config;
 
-import gogreenclient.datamodel.Friend;
 import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserCareerService;
@@ -41,6 +40,7 @@ import javax.net.ssl.SSLContext;
 @Lazy
 public class AppConfig {
 
+    private static final String URL = "https://localhost:8443/api";
     @Value("classpath:truststore.jks")
     private Resource trustStore;
     @Value("group82")
@@ -49,17 +49,12 @@ public class AppConfig {
     private Resource keyStore;
     @Value("group82")
     private String keyStorePassword;
-
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
-
     private RestTemplate restTemplate;
-
-    private static final String URL = "https://localhost:8443/api";
-
     private String username;
     private String password;
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
@@ -74,10 +69,6 @@ public class AppConfig {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public static String getURL() {
-        return URL;
     }
 
     @Bean
@@ -104,7 +95,7 @@ public class AppConfig {
     }
 
     @Bean
-    FriendService friendService(){
+    FriendService friendService() {
         FriendService friendService = new FriendService();
         friendService.setUsername(username);
         friendService.setUrl(URL);

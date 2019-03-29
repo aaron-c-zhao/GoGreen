@@ -2,7 +2,6 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.Achievements;
 import gogreenserver.services.AchievementsService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class AchievementsController {
 
-    private AchievementsService achievementsService;
     private final Logger logger;
+    private AchievementsService achievementsService;
 
     @Autowired
     public AchievementsController(AchievementsService achievementsService, Logger logger) {
@@ -39,10 +38,10 @@ public class AchievementsController {
      */
     @GetMapping(value = "/achievement/{user_name}")
     public ResponseEntity<List<Achievements>> findById(@PathVariable("user_name") String userName,
-            Authentication auth) {
+                                                       Authentication auth) {
         logger.debug("GET /achievement/" + userName + " accessed by: " + auth.getName());
         List<Achievements> res = this.achievementsService.findAllByUserName(userName);
         return new ResponseEntity<List<Achievements>>(res,
-                !res.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+            !res.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

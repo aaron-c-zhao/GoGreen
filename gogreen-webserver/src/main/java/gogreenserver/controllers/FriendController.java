@@ -29,6 +29,12 @@ public class FriendController {
     private UserService userService;
     private Logger logger;
 
+    /**
+     * Constructor of this class.
+     * @param friendService friendService.
+     * @param userService userService.
+     * @param logger logger.
+     */
     @Autowired
     public FriendController(FriendService friendService, UserService userService, Logger logger) {
         this.friendService = friendService;
@@ -39,6 +45,7 @@ public class FriendController {
     /**
      * This end point serves for finding all of the friends of a user. If this user does not has
      * any friend then a NOT_FOUND will be returned.
+     *
      * @param userName user name of who you want to find its friends.
      * @return a response entity of type list of friends.
      */
@@ -46,7 +53,7 @@ public class FriendController {
     public ResponseEntity<List<Friend>> findAllFriendsByUserName(@PathVariable String userName) {
         List<Friend> list = friendService.findFriendsByUserName(userName);
         logger.debug(list);
-        return new ResponseEntity<>(list, (list.isEmpty())? HttpStatus.NOT_FOUND : HttpStatus.OK);
+        return new ResponseEntity<>(list, (list.isEmpty()) ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
     /**
@@ -59,15 +66,17 @@ public class FriendController {
      * @return a list of response entity of type records.
      */
     @GetMapping(value = "/friend/record/{userName}")
-    public ResponseEntity<List<Records>> findFriendsRecordsByUserName(@PathVariable String userName,
-                                                                      @RequestHeader(name = "limit", defaultValue = "10") int limit){
+    public ResponseEntity<List<Records>>
+        findFriendsRecordsByUserName(@PathVariable String userName,
+                                     @RequestHeader(name = "limit",
+                                         defaultValue = "10") int limit) {
         List<Records> list = new ArrayList<>();
-        try{
+        try {
             list = friendService.findFriendsRecordbyUserName(userName, limit);
-        }catch (IOException e){
+        } catch (IOException e) {
             return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(list, (list.isEmpty())?HttpStatus.NOT_FOUND : HttpStatus.OK);
+        return new ResponseEntity<>(list, (list.isEmpty()) ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
     /**
@@ -75,23 +84,28 @@ public class FriendController {
      * database, a NOT_FOUND will be returned. If that user exists but adding fails, a INTERNAL_
      * SERVER_ERROR will be returned. If that user already is your friend then a ALREADY_REPORTED
      * will be returned.
+     *
      * @param friend friend object
      * @return a response entity of type string.
      */
     @PostMapping(value = "/friend")
-    public ResponseEntity<String> addFriend(@RequestBody Friend friend){
+    public ResponseEntity<String> addFriend(@RequestBody Friend friend) {
         User user = userService.findById(friend.getFriendName()).orElse(null);
-        if(user == null)
+        if (user == null) {
             return new ResponseEntity<>("User " + friend.getFriendName() + " not found",
                 HttpStatus.NOT_FOUND);
-        if(friendService.isHimYourFriend(friend.getUserName(), friend.getFriendName()))
+        }
+        if (friendService.isHimYourFriend(friend.getUserName(), friend.getFriendName())) {
             return new ResponseEntity<>("It's already your friend",
                 HttpStatus.ALREADY_REPORTED);
+        }
         friendService.addFriend(friend);
-        if(friendService.isHimYourFriend(friend.getUserName(), friend.getFriendName()))
+        if (friendService.isHimYourFriend(friend.getUserName(), friend.getFriendName())) {
             return new ResponseEntity<>("adding friend success.",
                 HttpStatus.OK);
-        else return new ResponseEntity<>("adding friend fail.",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>("adding friend fail.",
+                HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

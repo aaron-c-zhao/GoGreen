@@ -65,7 +65,6 @@ public class AddTransportController implements SceneController {
     }
 
 
-
     /**
      * method for submit button, which will send the data to the server.
      */

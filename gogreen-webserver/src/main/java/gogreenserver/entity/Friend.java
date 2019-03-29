@@ -1,13 +1,13 @@
 package gogreenserver.entity;
 
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "friend_add")
@@ -16,7 +16,7 @@ public class Friend {
     @Id
     @Column(name = "add_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    private Long id;
 
     @Column(name = "add_date")
     private LocalDateTime addTime;
@@ -28,11 +28,11 @@ public class Friend {
     private String friendName;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public LocalDateTime getAddTime() {
@@ -62,7 +62,7 @@ public class Friend {
     @Override
     public String toString() {
         return "Friend{"
-            + "Id=" + Id
+            + "id=" + id
             + ", addTime=" + addTime
             + ", userName='" + userName + '\''
             + ", friendName='" + friendName + '\''

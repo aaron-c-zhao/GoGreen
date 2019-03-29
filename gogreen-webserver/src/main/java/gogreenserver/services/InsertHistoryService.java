@@ -4,7 +4,6 @@ import gogreenserver.entity.InsertHistory;
 import gogreenserver.entity.InsertHistoryCo2;
 import gogreenserver.repositories.InsertHistoryCo2Repository;
 import gogreenserver.repositories.InsertHistoryRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class InsertHistoryService {
 
     @Autowired
     public InsertHistoryService(InsertHistoryRepository insertHistoryRepo,
-            InsertHistoryCo2Repository outputrepo) {
+                                InsertHistoryCo2Repository outputrepo) {
         this.inputRepo = insertHistoryRepo;
         this.outputRepo = outputrepo;
     }
@@ -34,7 +33,7 @@ public class InsertHistoryService {
 
     /**
      * find the most recent two insert history of that user.
-     * 
+     *
      * @param username user name.
      * @return a list of insert history, the list can be empty.
      */
@@ -43,7 +42,7 @@ public class InsertHistoryService {
             return findAllByUserNameSortedByDate(username);
         }
         return outputRepo.findByUserNameOrderByInsertDateDesc(username).stream().limit(limit)
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
     }
 
     public List<InsertHistoryCo2> findAllByUserNameSortedByDate(String username) {
@@ -52,7 +51,7 @@ public class InsertHistoryService {
 
     /**
      * The all the insert history co2 of that user.
-     * 
+     *
      * @param username users name.
      * @return a list of insert history.
      */

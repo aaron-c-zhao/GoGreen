@@ -14,7 +14,12 @@ public class Messenger {
     @Autowired
     private ScreenConfiguration screens;
 
-    public void showMessage(String message){
+    /**
+     * This method will pass a message to a pop up window.
+     *
+     * @param message message to be past.
+     */
+    public void showMessage(String message) {
         ConfirmDialog informdialog = screens.regularInformDialog();
         InformController controller = (InformController) informdialog.getConfirmDialogController();
         controller.setInformation(message);

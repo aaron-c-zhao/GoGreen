@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Friend {
 
-    private Long Id;
+    private Long id;
 
     private LocalDateTime addTime;
 
@@ -13,11 +13,11 @@ public class Friend {
     private String friendName;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public LocalDateTime getAddTime() {
@@ -47,7 +47,7 @@ public class Friend {
     @Override
     public String toString() {
         return "Friend{"
-            + "Id=" + Id
+            + "id=" + id
             + ", addTime=" + addTime
             + ", userName='" + userName + '\''
             + ", friendName='" + friendName + '\''
