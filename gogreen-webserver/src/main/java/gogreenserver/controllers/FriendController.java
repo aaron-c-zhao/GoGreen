@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,10 +59,11 @@ public class FriendController {
      * @return a list of response entity of type records.
      */
     @GetMapping(value = "/friend/record/{userName}")
-    public ResponseEntity<List<Records>> findFriendsRecordsByUserName(@PathVariable String userName){
+    public ResponseEntity<List<Records>> findFriendsRecordsByUserName(@PathVariable String userName,
+                                                                      @RequestHeader(name = "limit", defaultValue = "10") int limit){
         List<Records> list = new ArrayList<>();
         try{
-            list = friendService.findFriendsRecordbyUserName(userName);
+            list = friendService.findFriendsRecordbyUserName(userName, limit);
         }catch (IOException e){
             return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }

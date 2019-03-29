@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FriendService {
@@ -40,20 +42,24 @@ public class FriendService {
      * @throws IOException All of the users in the database should have a record, otherwise
      *                     something wrong in the database. This exception need to be handled in the controller.
      */
-    public List<Records> findFriendsRecordbyUserName(String userName) throws IOException {
+    public List<Records> findFriendsRecordbyUserName(String userName, int limit) throws IOException {
         List<Friend> list = findFriendsByUserName(userName);
         List<Records> result = new ArrayList<>();
         if (list.isEmpty()) {
             return result;
         } else {
             for (Friend f : list) {
-                Records temp = recordsService.findById(f.getUserName()).orElse(null);
+                Records temp = recordsService.findById(f.getFriendName()).orElse(null);
                 if (temp == null) {
                     throw new IOException("Database error. Friend's record not found.");
                 }
                 result.add(temp);
             }
-            return result;
+            return result
+                .stream()
+                .sorted(Comparator.comparing(Records::getSavedCo2Total).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
         }
     }
 
