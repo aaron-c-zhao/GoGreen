@@ -1,6 +1,7 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,7 +47,7 @@ public class UserModel {
     public boolean findUser(String username) {
         ResponseEntity<String> response = loginRestTemplate
             .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
-        return response.getBody().equals("success") ? true : false;
+        return response.getStatusCode() == HttpStatus.OK;
     }
 
 }

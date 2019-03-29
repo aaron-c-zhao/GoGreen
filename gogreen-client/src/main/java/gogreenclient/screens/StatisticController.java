@@ -115,7 +115,6 @@ public class StatisticController implements SceneController {
     }
 
 
-    //TODO achievement, insert history
     private void statisticInitialize() {
         totalSaved.setText(String.valueOf(Math.round(records.getSavedCo2Total())));
     }

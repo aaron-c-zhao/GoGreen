@@ -85,7 +85,7 @@ public class InsertHistoryController {
             return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
         }
 
-        list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate).reversed());
+        list.sort(Comparator.comparing(InsertHistoryCo2::getInsertDate));
 
         logger.debug(list);
 
@@ -99,22 +99,16 @@ public class InsertHistoryController {
     /**
      * This endpoint is used to create a new entry in the InsertHistory table.
      *
-     * @param userName      This is the users UserName.
      * @param insertHistory This is an object of type insertHistory.
-     * @param auth          This is the Spring authentication data.
      * @return responseEntity of type String with status code OK if successful.
      */
     @PostMapping(value = "/insertHistory")
     public ResponseEntity<String> createInsertHistory(
-            @RequestHeader(value = "userName") String userName,
-            @RequestBody InsertHistory insertHistory, Authentication auth) {
+            @RequestBody InsertHistory insertHistory) {
 
-        logger.debug("POST /insertHistory/ with username header \"" + userName + "\" accessed by: "
-                + auth.getName());
-
-        insertHistory.setUserName(userName);
+        logger.debug("POST /insertHistory/ with username header \"" );
         this.insertHistoryService.createInsertHistory(insertHistory);
-        return new ResponseEntity<String>("Successfully insertHistory for user : " + userName,
+        return new ResponseEntity<String>("Successfully insertHistory for user : ",
                 HttpStatus.OK);
     }
 
