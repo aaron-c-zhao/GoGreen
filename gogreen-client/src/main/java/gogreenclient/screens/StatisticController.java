@@ -146,7 +146,7 @@ public class StatisticController implements SceneController {
 
     private String getLastAchievements() {
         String result = null;
-        if (achievementsList == null) {
+        if (achievementsList.isEmpty()) {
             result = "Blue";
         } else {
             result = achievementsList.get(0).getAchievement();
