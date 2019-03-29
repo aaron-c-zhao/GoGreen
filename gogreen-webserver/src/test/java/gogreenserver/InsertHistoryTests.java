@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.entity.InsertHistoryCo2;
+import gogreenserver.repositories.InsertHistoryRepository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -57,6 +59,10 @@ public class InsertHistoryTests {
     // the ObjectMapper that Spring uses for its object->json conversions
     @Autowired
     private ObjectMapper mapper;
+
+    // because testEntityManager cannot find by non-primary key or all.
+    @Autowired
+    private InsertHistoryRepository historyRepo;
 
     // DON'T AUTOWIRE, IT IS SET UP MANUALLY
     private MockMvc mockMvc;
@@ -97,8 +103,9 @@ public class InsertHistoryTests {
 
         manager.flush();
         // This is not how the real db works, but we don't have the real db, so...
-        InsertHistory found = manager.find(InsertHistory.class, 1L);
+        List<InsertHistory> found = historyRepo.findAll();
         assertThat(found).isNotNull();
+        assertThat(found.size()).isEqualTo(1);
 
         manager.clear();
     }
@@ -136,7 +143,7 @@ public class InsertHistoryTests {
 
         assertThat(alpha.get("insertDate").asText()).isEqualTo("2019-01-01T03:01:00");
         assertThat(beta.get("insertDate").asText()).isEqualTo("2019-01-01T02:01:00");
-        
+
         manager.clear();
     }
 
@@ -168,7 +175,7 @@ public class InsertHistoryTests {
         LOGGER.debug(res);
 
         assertThat(res).isEqualTo("3");
-        
+
         manager.clear();
     }
 
@@ -200,7 +207,7 @@ public class InsertHistoryTests {
         LOGGER.debug(res);
 
         assertThat(res).isEqualTo("3");
-        
+
         manager.clear();
     }
 
