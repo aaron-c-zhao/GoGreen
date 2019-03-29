@@ -25,7 +25,7 @@ public class InsertHistoryService {
     }
 
     public InsertHistory createInsertHistory(InsertHistory insertHistory) {
-        return inputRepo.save(insertHistory);
+        return inputRepo.saveAndFlush(insertHistory);
     }
 
     public List<InsertHistoryCo2> findAll() {

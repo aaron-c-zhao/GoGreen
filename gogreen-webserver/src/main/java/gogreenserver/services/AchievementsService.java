@@ -36,7 +36,7 @@ public class AchievementsService {
         return list;
     }
 
-    // Yet have to add method to find Friends Achievements.
+    // Yet have to add method to find Friend Achievements.
 
 
 }
