@@ -156,14 +156,14 @@ public class StatisticController implements SceneController {
 
     private String getAchievementsAmount() {
         int amount = 0;
-        if (achievementsList != null) {
+        if (!achievementsList.isEmpty()) {
             amount = achievementsList.size();
         }
         return String.valueOf(amount);
     }
 
     private void recentActivityInit() {
-        if (insertHistoryList.size() == 0) {
+        if (insertHistoryList.isEmpty()) {
             recentActivityOne.setText("");
             recentActivityTwo.setText("");
             firstActivityDate.setText("");
