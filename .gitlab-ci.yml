@@ -31,7 +31,7 @@ Badges_failure:
   stage: test
   script:
     - mkdir public
-    - curl -o public/build.svg https://img.shields.io/static/v1.svg?label=build&message=failure&color=red
+    - curl -o build.svg https://img.shields.io/static/v1.svg?label=build&message=failure&color=red
   artifacts:
     paths:
       - public
