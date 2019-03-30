@@ -1,10 +1,16 @@
 package gogreenserver;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.entity.InsertHistoryCo2;
 import gogreenserver.repositories.InsertHistoryRepository;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -28,13 +34,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -142,6 +146,31 @@ public class InsertHistoryTests {
         assertThat(beta.get("insertDate").asText()).isEqualTo("2019-01-01T02:01:00");
 
         manager.clear();
+    }
+
+    @WithMockUser
+    @Test
+    public void checkNoLimitHeader() throws Exception {
+        int historyAmount = new Random().nextInt(45) + 20;
+        InsertHistoryCo2[] histories = new InsertHistoryCo2[historyAmount];
+        for (int i = 0; i < historyAmount; i++) {
+            histories[i] = manager.persist(createDummyInsertHistoryCo2("Dio"));
+        }
+        manager.flush();
+
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/Dio")
+                .accept(MediaType.APPLICATION_JSON).header("limit", -1);
+        JsonNode list = mapper.readTree(mockMvc.perform(req).andExpect(status().is(200)).andReturn()
+                .getResponse().getContentAsString());
+
+        assertThat(list.size()).isEqualTo(historyAmount);
+
+        RequestBuilder twentyreq = MockMvcRequestBuilders.get("/api/insertHistory/Dio")
+                .accept(MediaType.APPLICATION_JSON).header("limit", 20);
+        JsonNode twentylist = mapper.readTree(mockMvc.perform(twentyreq).andExpect(status().is(200))
+                .andReturn().getResponse().getContentAsString());
+
+        assertThat(twentylist.size()).isEqualTo(20);
     }
 
     @WithMockUser

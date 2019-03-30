@@ -2,6 +2,7 @@ package gogreenserver.services;
 
 import gogreenserver.entity.User;
 import gogreenserver.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
-import javax.imageio.ImageIO;
 
+import javax.imageio.ImageIO;
 
 @Service
 public class UserService {
@@ -30,10 +30,6 @@ public class UserService {
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
     public User createUser(User user) {
         user.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -46,6 +42,7 @@ public class UserService {
     public void deleteUser(String user) {
         userRepository.deleteById(user);
     }
+    
     /**.
      * converting the multipartfile recieved by http request into an image
      * and writing this image inside User_photos folder in server side
@@ -60,4 +57,6 @@ public class UserService {
         toStore.createNewFile();
         ImageIO.write(image, "jpg", toStore);
     }
+
+
 }
