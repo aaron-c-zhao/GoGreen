@@ -2,7 +2,6 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.AddSolarpanels;
 import gogreenserver.services.AddSolarpanelsService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,21 +33,21 @@ public class AddSolarpanelsController {
     @GetMapping(value = "/addSolarpanels")
     public ResponseEntity<List<AddSolarpanels>> findAll() {
         return new ResponseEntity<List<AddSolarpanels>>(this.addSolarpanelsService.findAll(),
-                HttpStatus.OK);
+            HttpStatus.OK);
     }
 
     /**
      * Retrieve a single solar panel entry.
-     * 
+     *
      * @param username the owner.
      * @return The entry, or if not found, an error message.
      */
     @GetMapping(value = "/addSolarpanel/{username}")
     public ResponseEntity<Optional<AddSolarpanels>> findbyUsername(
-            @PathVariable("username") String username) {
+        @PathVariable("username") String username) {
         Optional<AddSolarpanels> res = addSolarpanelsService.findById(username);
         return new ResponseEntity<Optional<AddSolarpanels>>(res,
-                res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+            res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -60,12 +59,12 @@ public class AddSolarpanelsController {
      */
     @PostMapping(value = "/addSolarpanel")
     public ResponseEntity<String> createSolarpanel(@RequestBody AddSolarpanels addSolarpanels,
-            Authentication auth) {
+                                                   Authentication auth) {
 
         final String userName = addSolarpanels.getUserName();
 
         logger.debug("POST /addSolarpanel/ with userName header \"" + userName + "\" accessed by: "
-                + auth.getName());
+            + auth.getName());
 
         if (!auth.getName().equals(userName)) {
             new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
@@ -74,6 +73,6 @@ public class AddSolarpanelsController {
         addSolarpanels.setUserName(userName);
         this.addSolarpanelsService.createAddSolarpanels(addSolarpanels);
         return new ResponseEntity<String>(
-                "Successfully saved solarpanel entry for user :" + userName, HttpStatus.OK);
+            "Successfully saved solarpanel entry for user :" + userName, HttpStatus.OK);
     }
 }

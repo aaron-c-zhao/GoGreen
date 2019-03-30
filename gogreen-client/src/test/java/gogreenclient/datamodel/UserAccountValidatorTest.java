@@ -37,6 +37,7 @@ public class UserAccountValidatorTest {
     public void init() {
         template = new RestTemplate();
         server = MockRestServiceServer.createServer(template);
+        validator.getUserService().setRestTemplate(template);
     }
 
     @Test
@@ -107,7 +108,6 @@ public class UserAccountValidatorTest {
 
     @Test
     public void usernameExists() throws Exception {
-        validator.getUserModel().setRestTemplate(template);
         server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withStatus(HttpStatus.OK));
@@ -122,7 +122,6 @@ public class UserAccountValidatorTest {
 
     @Test
     public void emailNotValid() throws Exception {
-        validator.getUserModel().setRestTemplate(template);
         server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withStatus(HttpStatus.NOT_FOUND));
@@ -137,7 +136,6 @@ public class UserAccountValidatorTest {
 
     @Test
     public void emailEmpty() throws Exception {
-        validator.getUserModel().setRestTemplate(template);
         server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withStatus(HttpStatus.NOT_FOUND));
@@ -152,7 +150,6 @@ public class UserAccountValidatorTest {
 
     @Test
     public void bdayFuture() throws Exception {
-        validator.getUserModel().setRestTemplate(template);
         server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withStatus(HttpStatus.NOT_FOUND));
@@ -167,7 +164,6 @@ public class UserAccountValidatorTest {
 
     @Test
     public void everythingFine() throws Exception {
-        validator.getUserModel().setRestTemplate(template);
         server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withStatus(HttpStatus.NOT_FOUND));

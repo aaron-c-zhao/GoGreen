@@ -1,14 +1,8 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.AddSolarpanels;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -34,6 +28,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -86,7 +84,7 @@ public class AddSolarpanelsTests {
         manager.flush();
 
         RequestBuilder ereq = MockMvcRequestBuilders.get("/api/addSolarpanels")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
@@ -98,12 +96,12 @@ public class AddSolarpanelsTests {
         for (JsonNode solar : list) {
             LOGGER.debug("Solar panel " + solarcount + ": " + solar);
             RequestBuilder achreq = MockMvcRequestBuilders
-                    .get("/api/addSolarpanel/" + solar.get("userName").asText())
-                    .accept(MediaType.APPLICATION_JSON);
+                .get("/api/addSolarpanel/" + solar.get("userName").asText())
+                .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
 
             assertThat(ures.getResponse().getContentAsString())
-                    .isEqualTo(mapper.writeValueAsString(dummies[solarcount]));
+                .isEqualTo(mapper.writeValueAsString(dummies[solarcount]));
 
             solarcount++;
         }
@@ -120,7 +118,7 @@ public class AddSolarpanelsTests {
         AddSolarpanels dummy = createDummyAddSolarpanels("Sunny");
 
         RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
         assertThat(manager.find(AddSolarpanels.class, dummy.getUserName())).isNotNull();
@@ -135,7 +133,7 @@ public class AddSolarpanelsTests {
         LOGGER.debug("=== checkNonexistentSolar() ===");
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/addSolarpanel/nobody")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
         mockMvc.perform(req).andExpect(status().is(404)).andReturn();
     }
 

@@ -1,12 +1,20 @@
 package gogreenclient.screens;
 
 import com.jfoenix.controls.JFXTextField;
+import gogreenclient.datamodel.FriendService;
+import gogreenclient.datamodel.Messenger;
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AddFriendPopController implements ConfirmDialogController {
 
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private Messenger messenger;
 
     @FXML
     private JFXTextField friendUser;
@@ -29,7 +37,16 @@ public class AddFriendPopController implements ConfirmDialogController {
      */
     @Override
     public void yes() {
-        friendUser.getText();
+        String friendName = friendUser.getText();
+        int status = friendService.addFriend(friendName);
+        if (status == 1) {
+            messenger.showMessage(friendName + " is your friend now.");
+        } else if (status == 0) {
+            messenger.showMessage(friendName + " is already your friend.");
+        } else {
+            messenger.showMessage("Something wrong please try again.");
+        }
+        dialog.close();
     }
 
     @Override

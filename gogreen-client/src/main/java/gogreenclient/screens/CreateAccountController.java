@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.ExceptionHandler;
 import gogreenclient.datamodel.User;
 import gogreenclient.datamodel.UserAccountValidator;
-import gogreenclient.datamodel.UserModel;
+import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
@@ -44,7 +44,7 @@ public class CreateAccountController implements WindowController {
     private ScreenConfiguration screens;
 
     @Autowired
-    private UserModel userModel;
+    private UserService userService;
 
     @Autowired
     private UserAccountValidator validator;
@@ -88,13 +88,13 @@ public class CreateAccountController implements WindowController {
             validator.accountValidate(username.getText(), password.getText(),
                 repeatPassword.getText(), bday.getValue(), email.getText());
         } catch (IllegalArgumentException e) {
-            exceptionHandler.illegalArgumentExceptionhandler(e);
+            exceptionHandler.illegalArgumentExceptionHandler(e);
             return;
         }
         ResponseEntity<User> response = null;
         ResponseEntity<String> photoUploadResponse = null;
         try {
-            response = userModel.addUser(username.getText(), password.getText(),
+            response = userService.addUser(username.getText(), password.getText(),
                 bday.getValue(), email.getText());
             photoUploadResponse = uploadPhoto();
         } catch (URISyntaxException e) {
@@ -135,11 +135,11 @@ public class CreateAccountController implements WindowController {
     }
 
     /**.
-     * sending image by using userModel send methods
+     * sending image by using userService send methods
      * @return the response of the actual sending method
      */
     public ResponseEntity<String> uploadPhoto() {
         String userName = username.getText();
-        return userModel.uploadPhoto(file, userName);
+        return userService.uploadPhoto(file, userName);
     }
 }

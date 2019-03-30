@@ -5,6 +5,10 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import gogreenclient.datamodel.FriendService;
+import gogreenclient.datamodel.Messenger;
+import gogreenclient.datamodel.Records;
+import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.window.SceneController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,6 +22,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class ShowFriendsController implements SceneController {
@@ -25,11 +30,23 @@ public class ShowFriendsController implements SceneController {
     @Autowired
     private ScreenConfiguration screens;
 
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private Messenger messenger;
+
     @FXML
     private JFXTreeTableView<Friend> treeView;
 
     @FXML
     private JFXTextField input;
+
+    private String friendName;
+
 
     public ShowFriendsController(ScreenConfiguration screens) {
         this.screens = screens;
@@ -43,7 +60,7 @@ public class ShowFriendsController implements SceneController {
         JFXTreeTableColumn<Friend, String> friendName =
             new JFXTreeTableColumn<>("Friend");
         friendName.setPrefWidth(288);
-        friendName.setStyle( "-fx-alignment: CENTER;");
+        friendName.setStyle("-fx-alignment: CENTER;");
         friendName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Friend,
             String>, ObservableValue<String>>() {
             @Override
@@ -55,7 +72,7 @@ public class ShowFriendsController implements SceneController {
 
         JFXTreeTableColumn<Friend, String> total = new JFXTreeTableColumn<>("Total saved");
         total.setPrefWidth(160);
-        total.setStyle( "-fx-alignment: CENTER;");
+        total.setStyle("-fx-alignment: CENTER;");
         total.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Friend,
             String>, ObservableValue<String>>() {
             @Override
@@ -67,7 +84,7 @@ public class ShowFriendsController implements SceneController {
 
         JFXTreeTableColumn<Friend, String> rankCol = new JFXTreeTableColumn<>("Rank");
         rankCol.setPrefWidth(150);
-        rankCol.setStyle( "-fx-alignment: CENTER;");
+        rankCol.setStyle("-fx-alignment: CENTER;");
         rankCol.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Friend,
             String>, ObservableValue<String>>() {
             @Override
@@ -119,17 +136,17 @@ public class ShowFriendsController implements SceneController {
             };
         settingsColumn.setCellFactory(cellFactory);*/
 
-
+        List<Records> list = friendService.getFriendRecords();
         ObservableList<Friend> friends = FXCollections.observableArrayList();
-        Friend treeHugger = new Friend("Tree Hugger",
-            "900","1");
-        Friend friend1 = new Friend("Tree Hugger frined",
-            "800", "2");
-        Friend friend22 = new Friend("0 Hugger 0 resp",
-            "90" , "3");
-        Friend friend23 = new Friend("2 Hugger 1 resp",
-            "80" , "4");
-        friends.addAll(treeHugger,friend1,friend22,friend23);
+        for (int i = 10; i > 0; i--) {
+            friends.add(new Friend());
+        }
+        for (int i = 0; i < list.size(); i++) {
+            friends.get(i).setName(list.get(i).getUserName());
+            friends.get(i)
+                .setTotalEmissions(String.valueOf(Math.round(list.get(i).getSavedCo2Total())));
+            friends.get(i).setRank(String.valueOf(i + 1));
+        }
 
         final TreeItem<Friend> root = new RecursiveTreeItem<Friend>(friends,
             RecursiveTreeObject::getChildren);
@@ -167,6 +184,21 @@ public class ShowFriendsController implements SceneController {
         screens.exitDialog().showAndWait();
     }
 
+    /**
+     * show friend details window. The friend name will be checked first if it exists in the
+     * database.
+     */
+    @FXML
+    public void showDetails() {
+        friendName = input.getText();
+        if (!userService.findUser(friendName)) {
+            messenger.showMessage(friendName + " does not exists.");
+            return;
+        }
+        screens.friendDetailsDialog().show();
+
+    }
+
     public void switchAchievements() {
         screens.startScreen().getScene().setRoot(screens.achievementsScene().getRoot());
     }
@@ -175,17 +207,57 @@ public class ShowFriendsController implements SceneController {
         screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
     }
 
+    public String getFriendName() {
+        return friendName;
+    }
+
+    //-----------------------------------------------inner class-----------------------------------
     class Friend extends RecursiveTreeObject<Friend> {
         StringProperty name;
         StringProperty totalEmissions;
         StringProperty rank;
 
-        public Friend(String name, String totalEmissions, String rank) {
-            this.name = new SimpleStringProperty(name);
-            this.totalEmissions = new SimpleStringProperty(totalEmissions);
-            this.rank = new SimpleStringProperty(rank);
+        public Friend() {
+            this.name = new SimpleStringProperty("");
+            this.totalEmissions = new SimpleStringProperty("");
+            this.rank = new SimpleStringProperty("");
         }
 
+        public String getName() {
+            return name.get();
+        }
+
+        public void setName(String name) {
+            this.name.set(name);
+        }
+
+        public StringProperty nameProperty() {
+            return name;
+        }
+
+        public String getTotalEmissions() {
+            return totalEmissions.get();
+        }
+
+        public void setTotalEmissions(String totalEmissions) {
+            this.totalEmissions.set(totalEmissions);
+        }
+
+        public StringProperty totalEmissionsProperty() {
+            return totalEmissions;
+        }
+
+        public String getRank() {
+            return rank.get();
+        }
+
+        public void setRank(String rank) {
+            this.rank.set(rank);
+        }
+
+        public StringProperty rankProperty() {
+            return rank;
+        }
     }
 
 }

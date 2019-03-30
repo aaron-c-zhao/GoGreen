@@ -15,6 +15,7 @@ public class UserInputValidator {
     /**
      * validate user's fraction input, any non-digit character after the decimal will be
      * removed.
+     *
      * @param input user's input.
      */
     public void validateFraction(JFXTextField input) {
@@ -31,6 +32,7 @@ public class UserInputValidator {
 
     /**
      * validate user's integer input, any non-digit character  will be removed.
+     *
      * @param input user's input.
      */
     public void validateInteger(JFXTextField input) {
@@ -47,6 +49,7 @@ public class UserInputValidator {
 
     /**
      * validate if a text field is empty.
+     *
      * @param input user's input.
      * @throws IllegalArgumentException an exception which will contain the message of the error.
      */
@@ -58,6 +61,7 @@ public class UserInputValidator {
 
     /**
      * validate if a combo box is empty.
+     *
      * @param box user's input.
      * @throws IllegalArgumentException an exception which will contain the message of the error.
      */

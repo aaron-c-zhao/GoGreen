@@ -101,7 +101,7 @@ public class LoginController implements WindowController {
         try {
             validator.loginValidate(username.getText(), password.getText());
         } catch (IllegalArgumentException e) {
-            exceptionHandler.illegalArgumentExceptionhandler(e);
+            exceptionHandler.illegalArgumentExceptionHandler(e);
             return;
         }
         appConfig.setUsername(username.getText());

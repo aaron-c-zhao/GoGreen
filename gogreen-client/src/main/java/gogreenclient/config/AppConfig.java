@@ -1,8 +1,9 @@
 package gogreenclient.config;
 
+import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserCareerService;
-import gogreenclient.datamodel.UserModel;
+import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.ScreenConfiguration;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -39,6 +40,7 @@ import javax.net.ssl.SSLContext;
 @Lazy
 public class AppConfig {
 
+    private static final String URL = "https://localhost:8443/api";
     @Value("classpath:truststore.jks")
     private Resource trustStore;
     @Value("group82")
@@ -47,16 +49,12 @@ public class AppConfig {
     private Resource keyStore;
     @Value("group82")
     private String keyStorePassword;
-
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
-
     private RestTemplate restTemplate;
-
-
     private String username;
     private String password;
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
@@ -74,9 +72,10 @@ public class AppConfig {
     }
 
     @Bean
-    UserModel userModel() {
-        UserModel userModel = new UserModel();
-        return userModel;
+    UserService userModel() {
+        UserService userService = new UserService();
+        userService.setUrl(URL);
+        return userService;
     }
 
     @Bean
@@ -87,10 +86,20 @@ public class AppConfig {
 
 
     @Bean
+    @Scope("prototype")
     UserCareerService userCareerService() {
         UserCareerService userCareerService = new UserCareerService();
         userCareerService.setUsername(username);
+        userCareerService.setUrl(URL);
         return userCareerService;
+    }
+
+    @Bean
+    FriendService friendService() {
+        FriendService friendService = new FriendService();
+        friendService.setUsername(username);
+        friendService.setUrl(URL);
+        return friendService;
     }
 
     /**

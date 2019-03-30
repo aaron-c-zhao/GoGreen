@@ -93,12 +93,14 @@ public class ScreenConfiguration {
     }
 
     @Bean
+    @Scope("prototype")
     public ConfirmDialog friendDetailsDialog() {
         return new ConfirmDialog(friendDetailsController(), getClass()
             .getResource("/views/FriendDetails.fxml"), primaryStage, StageStyle.DECORATED);
     }
 
     @Bean
+    @Scope("prototype")
     FriendDetailsController friendDetailsController() {
         return new FriendDetailsController(this);
     }
@@ -149,24 +151,6 @@ public class ScreenConfiguration {
     public MainWindow activityScreen() {
         return new MainWindow(activityController(), primaryStage, StageStyle.DECORATED, true);
     }
-
-    /**
-     * A pop up submit window on which will show how much CO2 has been saved by a particular
-     * activity of the user and how much CO2 has been saved in total by that user.
-     *
-     * @return a singleton instance of submitDialog which is a confirmDialog.
-     */
-    @Bean
-    public ConfirmDialog submitMealDialog() {
-        return new ConfirmDialog(submitMealController(), getClass()
-            .getResource("/views/SubmitMeal_Popup.fxml"), primaryStage, StageStyle.DECORATED);
-    }
-
-    @Bean
-    SubmitMealPopController submitMealController() {
-        return new SubmitMealPopController(this);
-    }
-
 
     //---------------------------------------------scenes------------------------------------------
 

@@ -15,11 +15,13 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
-public class UserModel {
+public class UserService {
 
 
     @Autowired
     private RestTemplate loginRestTemplate;
+
+    private String url;
 
 
     /**
@@ -40,7 +42,7 @@ public class UserModel {
         user.setPassword(password);
         user.setBdate(bdate);
         user.setEmail(nationality);
-        return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser", user,
+        return loginRestTemplate.postForEntity(url + "/createUser", user,
             User.class);
     }
 
@@ -54,7 +56,7 @@ public class UserModel {
     public boolean findUser(String username) {
         try {
             ResponseEntity<String> response = loginRestTemplate
-                .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
+                .getForEntity(url + "/user/findUser/" + username, String.class);
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
                 return false;
@@ -84,5 +86,9 @@ public class UserModel {
 
     public void setRestTemplate(RestTemplate loginRestTemplate) {
         this.loginRestTemplate = loginRestTemplate;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

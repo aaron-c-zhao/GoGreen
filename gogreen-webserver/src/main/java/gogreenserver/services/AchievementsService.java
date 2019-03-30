@@ -25,6 +25,7 @@ public class AchievementsService {
 
     /**
      * Find all the achievements of that user.
+     *
      * @param userName username.
      * @return a list of achievements.
      */
@@ -36,7 +37,7 @@ public class AchievementsService {
         return list;
     }
 
-    // Yet have to add method to find Friends Achievements.
+    // Yet have to add method to find Friend Achievements.
 
 
 }

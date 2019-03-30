@@ -1,13 +1,7 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.User;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -32,10 +26,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Random;
 
-import javax.transaction.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -83,8 +80,8 @@ public class UserTests {
 
         User dummy = manager.persistAndFlush(createDummyUser("Alice"));
         RequestBuilder ereq = MockMvcRequestBuilders
-                .get("/api/user/findUser/" + dummy.getUsername())
-                .accept(MediaType.APPLICATION_JSON);
+            .get("/api/user/findUser/" + dummy.getUsername())
+            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
@@ -92,7 +89,7 @@ public class UserTests {
         assertThat(eres.getResponse().getContentAsString()).isEqualTo("success");
 
         RequestBuilder nreq = MockMvcRequestBuilders.get("/api/user/findUser/Bob")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
         MvcResult nres = mockMvc.perform(nreq).andExpect(status().is(404)).andReturn();
 
         // if user does not exist.
@@ -127,7 +124,7 @@ public class UserTests {
     public void deleteUser() throws Exception {
         User dummy = manager.persistAndFlush(createDummyUser("Emma"));
         RequestBuilder req = MockMvcRequestBuilders.delete("/api/deleteUser/" + dummy.getUsername())
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
         mockMvc.perform(req).andExpect(status().is(200));
 
         assertThat(manager.find(User.class, dummy.getUsername())).isNull();
@@ -136,7 +133,7 @@ public class UserTests {
     private User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com",
-                LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),
-                LocalDate.now());
+            LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),
+            LocalDate.now());
     }
 }

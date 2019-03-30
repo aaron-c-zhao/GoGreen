@@ -1,14 +1,8 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.Records;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -34,6 +28,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -86,7 +84,7 @@ public class RecordsTests {
         manager.flush();
 
         RequestBuilder ereq = MockMvcRequestBuilders.get("/api/records")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
@@ -98,15 +96,15 @@ public class RecordsTests {
         for (JsonNode record : list) {
             LOGGER.debug("Solar panel " + recordcount + ": " + record);
             RequestBuilder achreq = MockMvcRequestBuilders
-                    .get("/api/record/" + record.get("userName").asText())
-                    .accept(MediaType.APPLICATION_JSON);
+                .get("/api/record/" + record.get("userName").asText())
+                .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
 
             String content = ures.getResponse().getContentAsString();
             LOGGER.debug("Response: " + content);
 
             assertThat(content)
-                    .isEqualTo(mapper.writeValueAsString(dummies[recordcount]));
+                .isEqualTo(mapper.writeValueAsString(dummies[recordcount]));
 
             recordcount++;
         }
@@ -124,7 +122,7 @@ public class RecordsTests {
         LOGGER.debug("=== checkNonexistentRecords() ===");
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/record/nobody")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
         MvcResult res = mockMvc.perform(req).andExpect(status().is(404)).andReturn();
 
         LOGGER.debug("Response: " + res.getResponse().getContentAsString());

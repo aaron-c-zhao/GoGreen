@@ -24,11 +24,11 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-public class UserModelTest {
+public class UserServiceTest {
 
     private RestTemplate template = new RestTemplate();
     @Autowired
-    private UserModel userModel;
+    private UserService userService;
     @Autowired
     private ObjectMapper objectMapper;
     private MockRestServiceServer server;
@@ -37,7 +37,7 @@ public class UserModelTest {
 
     @Before
     public void setUp() throws Exception {
-        userModel.setRestTemplate(template);
+        userService.setRestTemplate(template);
         userz = new User();
         userz.setUsername("Alin");
         userz.setPassword("alin");
@@ -52,7 +52,7 @@ public class UserModelTest {
 
     @Test
     public void addUser() throws Exception {
-        assertEquals(userz.getUsername(), userModel
+        assertEquals(userz.getUsername(), userService
             .addUser(userz.getUsername(), userz.getPassword(), null, null).getBody().getUsername());
     }
 
@@ -62,6 +62,6 @@ public class UserModelTest {
         server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
             .andExpect(method(HttpMethod.GET))
             .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
-        assertTrue(userModel.findUser("Alin"));
+        assertTrue(userService.findUser("Alin"));
     }
 }

@@ -19,16 +19,13 @@ import java.util.List;
 
 public class UserCareerService {
 
-    private final String url;
+    private String url;
 
     @Autowired
     private RestTemplate restTemplate;
 
     private String username;
 
-    public UserCareerService() {
-        this.url = "https://localhost:8443/api";
-    }
 
     /**
      * Get userCareer from database. If there is no usrCareer existing in the database,
@@ -158,5 +155,9 @@ public class UserCareerService {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
