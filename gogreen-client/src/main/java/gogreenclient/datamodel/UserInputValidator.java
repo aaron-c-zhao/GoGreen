@@ -40,7 +40,7 @@ public class UserInputValidator {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                                 String newValue) {
-                if (!newValue.matches("\\d")) {
+                if (!newValue.matches("\\d*")) {
                     input.setText(oldValue);
                 }
             }

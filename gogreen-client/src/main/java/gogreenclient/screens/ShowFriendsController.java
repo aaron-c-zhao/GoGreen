@@ -17,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
@@ -44,6 +45,9 @@ public class ShowFriendsController implements SceneController {
 
     @FXML
     private JFXTextField input;
+
+    @FXML
+    private Label totalFriends;
 
     private String friendName;
 
@@ -138,6 +142,7 @@ public class ShowFriendsController implements SceneController {
 
         List<Records> list = friendService.getFriendRecords();
         ObservableList<Friend> friends = FXCollections.observableArrayList();
+        totalFriends.setText(friendService.getFriendAmount());
         for (int i = 10; i > 0; i--) {
             friends.add(new Friend());
         }
