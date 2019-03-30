@@ -108,7 +108,7 @@ public class ScreenConfiguration {
     /**
      * Stage 3.
      * The main stage of start/menu phase. Three scenes are associated with this stage, namely
-     * achievement scene, frends scene and statistic scene.
+     * achievement scene, friends scene and statistic scene.
      *
      * @return a singleton instance of MainWindow.
      */

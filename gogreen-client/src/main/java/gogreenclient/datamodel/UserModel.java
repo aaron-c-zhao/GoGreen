@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -51,9 +52,15 @@ public class UserModel {
      * @return true - the username is already used, false if it is valid.
      */
     public boolean findUser(String username) {
-        ResponseEntity<String> response = loginRestTemplate
-            .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
-        return response.getBody().equals("success") ? true : false;
+        try {
+            ResponseEntity<String> response = loginRestTemplate
+                .getForEntity("https://localhost:8443/api/user/findUser/" + username, String.class);
+        } catch (HttpClientErrorException e) {
+            if (e instanceof HttpClientErrorException.NotFound) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** .

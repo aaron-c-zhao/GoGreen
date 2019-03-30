@@ -26,9 +26,9 @@ public class AddFoodController implements SceneController {
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("beans", "vegetables", "cheese",
-            "chocolate", "fruit", "lentils", "milk", "nuts", "pannekoeken",
-            "poffertjes", "potatoes", "rice", "stroopwafel", "tofu", "beef",
-            "bitterballen", "chicken", "eggs", "kroket", "lamb",
+            "chocolate", "fruit", "lentils", "milk", "nuts", "pannenkoeken",
+            "poffertjes", "potatoes", "rice", "stroopwafels", "tofu", "beef",
+            "bitterballen", "chicken", "eggs", "kroketten", "lamb",
             "pork", "tuna", "turkey");
     @FXML
     private JFXTextField costTaken;
@@ -75,7 +75,7 @@ public class AddFoodController implements SceneController {
      */
     @FXML
     public void submit() {
-        createInsertObject();
+        createInsertObjectFood();
         ResponseEntity<String> response = restTemplate.postForEntity(URL, insert, String.class);
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             //TODO use logger
@@ -120,7 +120,7 @@ public class AddFoodController implements SceneController {
         validator.isNull(costInstead);
     }
 
-    private void createInsertObject() {
+    private void createInsertObjectFood() {
         try {
             isAllFieldFilled();
         } catch (IllegalArgumentException e) {

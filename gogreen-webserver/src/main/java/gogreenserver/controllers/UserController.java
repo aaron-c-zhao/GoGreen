@@ -2,10 +2,13 @@ package gogreenserver.controllers;
 
 import gogreenserver.entity.User;
 import gogreenserver.services.UserService;
+
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +24,9 @@ import javax.ws.rs.Consumes;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    private final Logger logger;
     private UserService userService;
+
+    private final Logger logger;
 
     @Autowired
     public UserController(UserService userService, Logger logger) {
@@ -35,14 +39,13 @@ public class UserController {
         logger.debug("GET /login/ accessed");
     }
 
-
     /**
      * This method will go to database and try to find the user by the user name.
      *
      * @param userName user name.
      * @return if userName is found in the database, it will return a ResponseEntity
-     *     which body is "success", otherwise another entity will be returned
-     *     with the body being "fail".
+     *         which body is "success", otherwise another entity will be returned
+     *         with the body being "fail".
      */
     @GetMapping("/user/findUser/{user_name}")
     public ResponseEntity<String> findUser(@PathVariable("user_name") String userName) {
@@ -51,7 +54,7 @@ public class UserController {
         if (user != null) {
             return new ResponseEntity<String>("success", HttpStatus.OK);
         }
-        return new ResponseEntity<String>("fail", HttpStatus.OK);
+        return new ResponseEntity<String>("fail", HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -62,6 +65,22 @@ public class UserController {
         logger.debug("POST /createUser/ accessed");
         userService.createUser(theUser);
         return new ResponseEntity<>(theUser, HttpStatus.OK);
+    }
+
+    /**
+     * Remove the user from existence.
+     * 
+     * @param user The user username.
+     */
+    @DeleteMapping("/deleteUser/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable("username") String user,
+            Authentication auth) {
+        if (!user.equals(auth.getName())) {
+            return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        logger.debug("DELETE /user/" + user + "/ accessed by " + auth);
+        userService.deleteUser(user);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
     /**.
@@ -88,5 +107,4 @@ public class UserController {
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }
