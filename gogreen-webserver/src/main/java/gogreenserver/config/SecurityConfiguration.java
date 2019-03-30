@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/createUser").permitAll()
             .antMatchers("/api/user/findUser/**").permitAll()
+            .antMatchers("/api/createUser/upload").permitAll()
             .anyRequest().authenticated()
             .and()
             .httpBasic().realmName(REALM)

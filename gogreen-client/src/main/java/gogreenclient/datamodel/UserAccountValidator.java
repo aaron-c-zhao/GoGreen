@@ -21,7 +21,7 @@ public class UserAccountValidator {
     private static final String USERNAME_USED = "This user name is already used by other user.";
     private static final String PASSWORD_TOO_SHORT = "The minimum length of password is 6";
     private static final String EMAIL_INVALID = "Your email address is invalid";
-    private static final String BDAY_PAST = "Birthday must be in the past.";
+    private static final String BDAY_PAST = "Born in the future, not acceptable";
     private static final String PASSWORD_NOT_MATCH = "Password not match.";
 
     @Autowired

@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import javax.ws.rs.Consumes;
 
 @RestController
 @RequestMapping("/api")
@@ -74,5 +79,30 @@ public class UserController {
         logger.debug("DELETE /user/" + user + "/ accessed by " + auth);
         userService.deleteUser(user);
         return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    /**.
+     * Recieving a multipartfile object from client (client profile photo)
+     * and eventually saving it as an
+     * image on the server side in gogreen-webserver/src/main/User_photos
+     * @param file the photo user picked in multipartfile format
+     * @param userName name of the user
+     * @return the response of the http exchange
+     * @throws IOException error while saving the image
+     */
+    @PostMapping("/createUser/upload")
+    @Consumes("multipart/form-data")
+    public ResponseEntity<String> uploadPhoto(@RequestParam("profile_pic") MultipartFile file,
+                                              @RequestParam("username") String userName) {
+        String response = "";
+        try {
+            userService.save(file, userName);
+            response = "success";
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("Error saving photo", e);
+            response = "error";
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

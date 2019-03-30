@@ -92,7 +92,11 @@ public class StatisticController implements SceneController {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        achievement.setText(getLastAchievements());
+        if (!getLastAchievements().equals("Blue")) {
+            achievement.setText(getLastAchievements());
+        } else {
+            achievement.setText("No achievement earned yet.Go and earn some!");
+        }
         totalAchievements.setText(getAchievementsAmount());
         recentActivityInit();
         totalActivitiesInit();
@@ -194,7 +198,7 @@ public class StatisticController implements SceneController {
 
     private void totalActiveDays() {
         String days = userCareerService.getActiveDays();
-        totalDays.setText((days == null) ? "0" : days);
+        totalDays.setText((days.equals("")) ? "0" : days);
     }
 
     @FXML

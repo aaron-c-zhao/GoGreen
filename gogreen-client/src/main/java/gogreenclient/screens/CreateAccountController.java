@@ -11,10 +11,12 @@ import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.File;
 import java.net.URISyntaxException;
 
 public class CreateAccountController implements WindowController {
@@ -31,7 +33,14 @@ public class CreateAccountController implements WindowController {
     JFXDatePicker bday;
     @FXML
     Label incorrect;
+    @FXML
+    Label uploadPath;
+    @FXML
+    Label errorLabel;
+    @FXML
+    Label textHideError;
 
+    private File file = null;
     private ScreenConfiguration screens;
 
     @Autowired
@@ -83,22 +92,24 @@ public class CreateAccountController implements WindowController {
             return;
         }
         ResponseEntity<User> response = null;
+        ResponseEntity<String> photoUploadResponse = null;
         try {
             response = userService.addUser(username.getText(), password.getText(),
                 bday.getValue(), email.getText());
+            photoUploadResponse = uploadPhoto();
         } catch (URISyntaxException e) {
             System.out.println("Wrong URI");
-            return;
+        } finally {
+            //TODO when creating account success, popup window shows
+            if (response != null && response.getStatusCode() == HttpStatus.OK
+                    && photoUploadResponse.getStatusCode() == HttpStatus.OK) {
+                dialog.close();
+                screens.loginDialog().show();
+            } else {
+                errorLabel.setText("Failed to create account");
+                textHideError.setText("");
+            }
         }
-        //TODO when creating account success, popup window shows
-        if (response != null && response.getStatusCode() == HttpStatus.OK) {
-            dialog.close();
-            screens.loginDialog().show();
-        } else {
-            return;
-        }
-
-
     }
 
     /**
@@ -108,5 +119,27 @@ public class CreateAccountController implements WindowController {
     public void switchToLogin() {
         dialog.close();
         screens.loginDialog().show();
+    }
+
+    /**.
+     * function for recieving a photo from user system and storing it inside a File variable
+     */
+    @FXML
+    public void savePhoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose an image");
+        fileChooser.getExtensionFilters().addAll(new FileChooser
+            .ExtensionFilter("JPEG", "*.jpg"));
+        file = fileChooser.showOpenDialog(null);
+        uploadPath.setText(file.getName());
+    }
+
+    /**.
+     * sending image by using userService send methods
+     * @return the response of the actual sending method
+     */
+    public ResponseEntity<String> uploadPhoto() {
+        String userName = username.getText();
+        return userService.uploadPhoto(file, userName);
     }
 }
