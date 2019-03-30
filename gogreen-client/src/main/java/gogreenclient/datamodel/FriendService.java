@@ -2,6 +2,7 @@ package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ public class FriendService {
 
     @Autowired
     private ExceptionHandler exceptionHandler;
+
+    private String friendAmount = "0";
 
     private String username;
     private String url;
@@ -82,6 +85,8 @@ public class FriendService {
             exceptionHandler.notFoundHandler(e, username + "'s friends");
         }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            HttpHeaders headers = response.getHeaders();
+            friendAmount = headers.getFirst("friendAmount");
             return response.getBody();
         } else {
             return new ArrayList<>();
@@ -95,5 +100,9 @@ public class FriendService {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getFriendAmount() {
+        return friendAmount;
     }
 }
