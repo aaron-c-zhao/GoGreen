@@ -28,7 +28,7 @@
 //
 //    private RestTemplate template = new RestTemplate();
 //    @Autowired
-//    private UserModel userModel;
+//    private UserService userModel;
 //    @Autowired
 //    private ObjectMapper objectMapper;
 //    private MockRestServiceServer server;

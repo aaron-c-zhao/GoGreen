@@ -112,7 +112,7 @@ public class AddRoomController implements SceneController {
         try {
             isAllTextFilled();
         } catch (IllegalArgumentException e) {
-            exceptionHandler.illegalArgumentExceptionhandler(e);
+            exceptionHandler.illegalArgumentExceptionHandler(e);
         }
         float timeAmount = Float.parseFloat(minutes.getText());
         float difference = Float.parseFloat(tempDiff.getText());

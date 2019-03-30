@@ -34,6 +34,7 @@ public class InsertHistory {
     /**
      * Constructor of the user model. Some fields will be set to its default value, you can use
      * setters to change it's value we is needed.
+     *
      * @param userName user name.
      */
     public InsertHistory(String userName) {

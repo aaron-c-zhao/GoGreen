@@ -1,16 +1,9 @@
 package gogreenserver;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import gogreenserver.entity.Achievements;
-
 import net.bytebuddy.utility.RandomString;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -36,6 +29,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.transaction.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -88,7 +85,7 @@ public class AchievementsTests {
         manager.flush();
 
         RequestBuilder ereq = MockMvcRequestBuilders.get("/api/achievements")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
 
@@ -99,8 +96,8 @@ public class AchievementsTests {
         int achcount = 0;
         for (JsonNode ach : list) {
             RequestBuilder achreq = MockMvcRequestBuilders
-                    .get("/api/achievement/" + ach.get("userName").asText())
-                    .accept(MediaType.APPLICATION_JSON);
+                .get("/api/achievement/" + ach.get("userName").asText())
+                .accept(MediaType.APPLICATION_JSON);
             MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
 
             String content = ures.getResponse().getContentAsString();
@@ -108,10 +105,10 @@ public class AchievementsTests {
             LOGGER.debug("Achievement record " + achcount + ": " + ach);
             LOGGER.debug("Returned content " + achcount + ": " + content);
             LOGGER.debug("Expected record " + achcount + ": "
-                    + mapper.writeValueAsString(dummies[achcount]));
+                + mapper.writeValueAsString(dummies[achcount]));
 
             assertThat(ures.getResponse().getContentAsString())
-                    .isEqualTo('[' + mapper.writeValueAsString(dummies[achcount]) + ']');
+                .isEqualTo('[' + mapper.writeValueAsString(dummies[achcount]) + ']');
 
             achcount++;
         }
@@ -139,11 +136,11 @@ public class AchievementsTests {
         manager.flush();
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/achievement/Zhao")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
         MvcResult res = mockMvc.perform(req).andExpect(status().is(200)).andReturn();
 
         JsonNode list = mapper.readTree(res.getResponse().getContentAsString());
-        
+
         int count = 0;
         for (JsonNode node : list) {
             assertThat(node.get("userName").asText()).isEqualTo("Zhao");
@@ -159,7 +156,7 @@ public class AchievementsTests {
         LOGGER.debug("=== checkNonexistentAch() ===");
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/achievement/nobody")
-                .accept(MediaType.APPLICATION_JSON);
+            .accept(MediaType.APPLICATION_JSON);
         mockMvc.perform(req).andExpect(status().is(404)).andReturn();
     }
 

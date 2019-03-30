@@ -3,7 +3,6 @@ package gogreenserver.controllers;
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.entity.InsertHistoryCo2;
 import gogreenserver.services.InsertHistoryService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class InsertHistoryController {
 
-    private InsertHistoryService insertHistoryService;
     private final Logger logger;
+    private InsertHistoryService insertHistoryService;
 
     @Autowired
     public InsertHistoryController(InsertHistoryService insertHistoryService, Logger logger) {
@@ -38,52 +37,52 @@ public class InsertHistoryController {
      */
     @GetMapping(value = "/insertHistory/{user_Name}")
     public ResponseEntity<List<InsertHistoryCo2>> findAllById(
-            @PathVariable("user_Name") String userName,
-            @RequestHeader(name = "limit", defaultValue = "2") int limit, Authentication auth) {
+        @PathVariable("user_Name") String userName,
+        @RequestHeader(name = "limit", defaultValue = "2") int limit, Authentication auth) {
 
         logger.debug("GET /insertHistory/" + userName + " accessed by: " + auth.getName());
 
         List<InsertHistoryCo2> histories = this.insertHistoryService.findRecentByUsername(userName,
-                limit);
+            limit);
 
         logger.debug(histories);
 
         return new ResponseEntity<>(histories,
-                !histories.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+            !histories.isEmpty() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
      * The end point for retrieving the amount of activities of a user.
-     * 
+     *
      * @param userName username.
      * @return a response entity.
      */
     @GetMapping(value = "/insertHistory/amount/{user_Name}")
     public ResponseEntity<String> findActivityAmountByUserName(
-            @PathVariable("user_Name") String userName) {
+        @PathVariable("user_Name") String userName) {
 
         logger.debug("GET /insertHistory/" + userName);
 
         return new ResponseEntity<String>(
-                String.valueOf(this.insertHistoryService.findAllByUserName(userName).size()),
-                HttpStatus.OK);
+            String.valueOf(this.insertHistoryService.findAllByUserName(userName).size()),
+            HttpStatus.OK);
     }
 
     /**
      * The endpoint for retrieving active days of a user, which is calculated by
      * subtracting the date of first insertion from the data of the last insertion.
-     * 
+     *
      * @param userName username.
      * @return a response entity.
      */
     @GetMapping(value = "/insertHistory/days/{user_Name}")
     public ResponseEntity<String> findActiveDaysByUserName(
-            @PathVariable("user_Name") String userName) {
+        @PathVariable("user_Name") String userName) {
 
         logger.debug("GET /insertHistory/days/" + userName);
 
         List<InsertHistoryCo2> list = this.insertHistoryService
-                .findAllByUserNameSortedByDate(userName);
+            .findAllByUserNameSortedByDate(userName);
 
         if (list == null || list.isEmpty()) {
             return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
@@ -92,8 +91,8 @@ public class InsertHistoryController {
         logger.debug(list);
 
         long days = Duration
-                .between(list.get(list.size() - 1).getInsertDate(), list.get(0).getInsertDate())
-                .toDays();
+            .between(list.get(list.size() - 1).getInsertDate(), list.get(0).getInsertDate())
+            .toDays();
 
         return new ResponseEntity<>(String.valueOf(days), HttpStatus.OK);
     }
@@ -106,7 +105,7 @@ public class InsertHistoryController {
      */
     @PostMapping(value = "/insertHistory")
     public ResponseEntity<String> createInsertHistory(@RequestBody InsertHistory insertHistory,
-            Authentication auth) {
+                                                      Authentication auth) {
 
         logger.debug("POST /insertHistory/ accessed by " + auth.getName());
 
