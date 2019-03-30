@@ -7,6 +7,7 @@ import gogreenserver.services.FriendService;
 import gogreenserver.services.UserService;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,7 +77,10 @@ public class FriendController {
         } catch (IOException e) {
             return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(list, (list.isEmpty()) ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+        HttpHeaders friendAmount = new HttpHeaders();
+        friendAmount.set("friendAmount", String.valueOf(list.size()));
+        new ResponseEntity<>(list, (list.isEmpty()) ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+        return ResponseEntity.ok().headers(friendAmount).body(list);
     }
 
     /**

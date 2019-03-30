@@ -46,6 +46,7 @@ public class AddFriendPopController implements ConfirmDialogController {
         } else {
             messenger.showMessage("Something wrong please try again.");
         }
+        screens.showFriendsController().initialize();
         dialog.close();
     }
 
