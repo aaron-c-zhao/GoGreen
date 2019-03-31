@@ -105,4 +105,13 @@ public class FriendService {
     public String getFriendAmount() {
         return friendAmount;
     }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public void setExceptionHandler(ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+    }
+
 }

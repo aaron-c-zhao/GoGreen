@@ -30,10 +30,14 @@ public class ExceptionHandler {
     }
 
     public void internalServerErrorHandler(HttpServerErrorException exception) {
-        messenger.showMessage("Sever error, please try again");
+        messenger.showMessage("Server error, please try again");
     }
 
     public void notFoundHandler(HttpClientErrorException exception, String message) {
         messenger.showMessage(message + " not found. Please try again.");
+    }
+
+    public void setMessenger(Messenger messenger) {
+        this.messenger = messenger;
     }
 }

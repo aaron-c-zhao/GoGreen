@@ -19,13 +19,9 @@ public class UserInputValidator {
      * @param input user's input.
      */
     public void validateFraction(JFXTextField input) {
-        input.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("[0-9]*\\.?[0-9]*")) {
-                    input.setText(oldValue);
-                }
+        input.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[0-9]*\\.?[0-9]*")) {
+                input.setText(oldValue);
             }
         });
     }
@@ -36,13 +32,9 @@ public class UserInputValidator {
      * @param input user's input.
      */
     public void validateInteger(JFXTextField input) {
-        input.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    input.setText(oldValue);
-                }
+        input.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                input.setText(oldValue);
             }
         });
     }
