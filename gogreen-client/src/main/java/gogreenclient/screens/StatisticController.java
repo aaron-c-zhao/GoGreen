@@ -178,13 +178,15 @@ public class StatisticController implements SceneController {
 
         if (insertHistoryList.size() >= 1) {
             recentActivityOne.setText(insertHistoryList.get(0).activityName());
-            firstActivityDate.setText(insertHistoryList.get(0).getInsertDate().toString());
+            firstActivityDate.setText(insertHistoryList.get(0).getInsertDate()
+                .toLocalDate().toString());
             firstActivityAmount.setText(String
                 .valueOf(Math.round(insertHistoryList.get(0).getCo2Saved())));
         }
         if (insertHistoryList.size() == 2) {
             recentActivityTwo.setText(insertHistoryList.get(1).activityName());
-            secondActivityDate.setText(insertHistoryList.get(1).getInsertDate().toString());
+            secondActivityDate.setText(insertHistoryList.get(1).getInsertDate()
+                .toLocalDate().toString());
             secondActivityAmount.setText(String
                 .valueOf(Math.round(insertHistoryList.get(1).getCo2Saved())));
         }
