@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -102,19 +103,19 @@ public class FriendServiceTest {
 
     @Test
     public void getFriendRecordsOk() throws Exception {
-        setUpGetRecordsOk(HttpStatus.OK, 1);
+        setUpGetRecordsOk(HttpStatus.OK);
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
     @Test
     public void getFriendRecordsBadRequest() throws Exception {
-        setUpGetRecordsOk(HttpStatus.BAD_REQUEST, 1);
+        setUpGetRecordsOk(HttpStatus.BAD_REQUEST);
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
     @Test
     public void getFriendRecordsNull() throws Exception {
-        setUpGetRecordsOk(HttpStatus.OK, 0);
+        setUpGetRecordsOk(HttpStatus.OK);
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
@@ -139,33 +140,27 @@ public class FriendServiceTest {
     }
 
     public void setUpGetRecordsError(HttpStatus status, Class error) throws Exception {
-        server.reset();
         RestTemplate restTemplate = mock(RestTemplate.class);
-        server = MockRestServiceServer.createServer(restTemplate);
         friendService.setRestTemplate(restTemplate);
-        Mockito.when(restTemplate.exchange(
-                eq("friend/record/igor"),
+        Mockito.doThrow(error).when(restTemplate).exchange(
+                eq(url + "friend/record/igor"),
                 eq(HttpMethod.GET),
                 eq(null),
-                eq(new ParameterizedTypeReference<List<Records>>(){})))
-                .thenThrow(error);
+                any(ParameterizedTypeReference.class));
     }
 
-    public void setUpGetRecordsOk(HttpStatus status, int choose) throws Exception {
-        server.reset();
+    public void setUpGetRecordsOk(HttpStatus status) throws Exception {
         RestTemplate restTemplate = mock(RestTemplate.class);
-        server = MockRestServiceServer.createServer(restTemplate);
-        friendService.setRestTemplate(restTemplate);
         List<Records> body= new ArrayList<>();
         Records r = new Records();
         r.setSavedCo2Total((float) 4);
         body.add(r);
+        friendService.setRestTemplate(restTemplate);
         ResponseEntity<List<Records>> recordz =  new ResponseEntity<>(body, status);
-        Mockito.when(restTemplate.exchange(
-                eq("friend/record/igor"),
+        Mockito.doReturn(recordz).when(restTemplate).exchange(
+                eq(url + "friend/record/gru"),
                 eq(HttpMethod.GET),
                 eq(null),
-                eq(new ParameterizedTypeReference<List<Records>>(){})))
-                .thenReturn(recordz);
+                any(ParameterizedTypeReference.class));
     }
 }
