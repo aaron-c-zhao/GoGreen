@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class AddFoodController implements SceneController {
@@ -136,7 +136,7 @@ public class AddFoodController implements SceneController {
         insert.setActivityIsLocalproduce(isLocalProduct);
         insert.setActivityPrice(usualCost);
         insert.setAlternateActivityPrice(alterCost);
-        insert.setInsertDate(LocalDate.now());
+        insert.setInsertDate(LocalDateTime.now());
     }
 
     private void clearBoxes() {
