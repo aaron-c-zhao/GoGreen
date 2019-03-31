@@ -2,8 +2,6 @@ package gogreenclient.datamodel;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
