@@ -114,4 +114,7 @@ public class FriendService {
         this.exceptionHandler = exceptionHandler;
     }
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
 }
