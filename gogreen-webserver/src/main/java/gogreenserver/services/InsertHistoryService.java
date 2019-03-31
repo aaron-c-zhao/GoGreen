@@ -27,10 +27,6 @@ public class InsertHistoryService {
         return inputRepo.saveAndFlush(insertHistory);
     }
 
-    public List<InsertHistoryCo2> findAll() {
-        return outputRepo.findAll();
-    }
-
     /**
      * find the most recent two insert history of that user.
      *

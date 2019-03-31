@@ -2,6 +2,7 @@ package gogreenserver.services;
 
 import gogreenserver.entity.User;
 import gogreenserver.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,28 +11,27 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
-import javax.imageio.ImageIO;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
+    private HttpServletRequest req;
 
     /**
      * Autowired constructor. What else is there to say?
      */
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptPasswordEncoder,
+            HttpServletRequest req) {
         this.userRepository = userRepository;
         this.bcryptPasswordEncoder = bcryptPasswordEncoder;
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
+        this.req = req;
     }
 
     public User createUser(User user) {
@@ -46,18 +46,21 @@ public class UserService {
     public void deleteUser(String user) {
         userRepository.deleteById(user);
     }
-    /**.
-     * converting the multipartfile recieved by http request into an image
-     * and writing this image inside User_photos folder in server side
+
+    /**
+     * . converting the multipartfile recieved by http request into an image and
+     * writing this image inside User_photos folder in server side
+     * 
      * @param file the photo to save on disk
      * @throws IOException image could not be written
      */
 
     public void save(MultipartFile file, String userName) throws IOException {
         BufferedImage image = ImageIO.read(file.getInputStream());
-        File toStore = new File("C:\\Users\\prund\\Programare\\OOP_Project\\gogreen-webserver\\src"
-                + "\\main\\User_photos\\" + userName + ".jpg");
-        toStore.createNewFile();
-        ImageIO.write(image, "jpg", toStore);
+        File imgLoc = new File(
+                req.getServletContext().getRealPath("/profile_pictures/" + userName + ".png"));
+        imgLoc.createNewFile();
+        ImageIO.write(image, "png", imgLoc);
     }
+
 }

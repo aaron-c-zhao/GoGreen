@@ -82,9 +82,8 @@ public class FriendService {
      * @param friendName user name of whom you want to check.
      * @return true, if he is your friend. otherwise, he is not your friend.
      */
-    public boolean isHimYourFriend(String userName, String friendName) {
-        Friend temp = friendRepository.findByUserNameAndFriendName(userName, friendName);
-        return temp != null;
+    public boolean friendshipExists(String userName, String friendName) {
+        return friendRepository.findByUserNameAndFriendName(userName, friendName) != null;
     }
 
 }

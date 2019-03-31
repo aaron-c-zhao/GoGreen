@@ -84,7 +84,7 @@ public class InsertHistoryController {
         List<InsertHistoryCo2> list = this.insertHistoryService
             .findAllByUserNameSortedByDate(userName);
 
-        if (list == null || list.isEmpty()) {
+        if (list.isEmpty()) {
             return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
         }
 
@@ -110,7 +110,7 @@ public class InsertHistoryController {
         logger.debug("POST /insertHistory/ accessed by " + auth.getName());
 
         if (!auth.getName().equals(insertHistory.getUserName())) {
-            new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
 
         this.insertHistoryService.createInsertHistory(insertHistory);

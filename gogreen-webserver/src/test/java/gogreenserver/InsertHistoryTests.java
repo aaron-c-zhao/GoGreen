@@ -1,10 +1,16 @@
 package gogreenserver;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.entity.InsertHistoryCo2;
 import gogreenserver.repositories.InsertHistoryRepository;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -28,13 +34,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -82,11 +86,11 @@ public class InsertHistoryTests {
         LOGGER.debug("=== checkNonexistentHistories() ===");
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/nobody")
-            .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON);
         mockMvc.perform(req).andExpect(status().is(404)).andReturn();
     }
 
-    @WithMockUser
+    @WithMockUser("Attila")
     @Test
     public void addHistory() throws Exception {
 
@@ -94,17 +98,26 @@ public class InsertHistoryTests {
 
         InsertHistory dummy = createDummyInsertHistory("Attila");
         RequestBuilder req = MockMvcRequestBuilders.post("/api/insertHistory")
-            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy))
-            .header("userName", dummy.getUserName());
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy))
+                .header("userName", dummy.getUserName());
         mockMvc.perform(req).andExpect(status().is(200));
 
-        manager.flush();
         // This is not how the real db works, but we don't have the real db, so...
         List<InsertHistory> found = historyRepo.findAll();
         assertThat(found).isNotNull();
         assertThat(found.size()).isEqualTo(1);
 
         manager.clear();
+    }
+
+    @WithMockUser("Hackerman")
+    @Test
+    public void addHistoryWithoutPermission() throws Exception {
+        InsertHistory dummy = createDummyInsertHistory("Attila");
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/insertHistory")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy))
+                .header("userName", dummy.getUserName());
+        mockMvc.perform(req).andExpect(status().is(401));
     }
 
     @WithMockUser
@@ -128,9 +141,9 @@ public class InsertHistoryTests {
         manager.flush();
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/Theta")
-            .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON);
         JsonNode list = mapper.readTree(mockMvc.perform(req).andExpect(status().is(200)).andReturn()
-            .getResponse().getContentAsString());
+                .getResponse().getContentAsString());
 
         JsonNode alpha = list.get(0);
         JsonNode beta = list.get(1);
@@ -142,6 +155,31 @@ public class InsertHistoryTests {
         assertThat(beta.get("insertDate").asText()).isEqualTo("2019-01-01T02:01:00");
 
         manager.clear();
+    }
+
+    @WithMockUser
+    @Test
+    public void checkNoLimitHeader() throws Exception {
+        int historyAmount = new Random().nextInt(45) + 20;
+        InsertHistoryCo2[] histories = new InsertHistoryCo2[historyAmount];
+        for (int i = 0; i < historyAmount; i++) {
+            histories[i] = manager.persist(createDummyInsertHistoryCo2("Dio"));
+        }
+        manager.flush();
+
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/Dio")
+                .accept(MediaType.APPLICATION_JSON).header("limit", -1);
+        JsonNode list = mapper.readTree(mockMvc.perform(req).andExpect(status().is(200)).andReturn()
+                .getResponse().getContentAsString());
+
+        assertThat(list.size()).isEqualTo(historyAmount);
+
+        RequestBuilder twentyreq = MockMvcRequestBuilders.get("/api/insertHistory/Dio")
+                .accept(MediaType.APPLICATION_JSON).header("limit", 20);
+        JsonNode twentylist = mapper.readTree(mockMvc.perform(twentyreq).andExpect(status().is(200))
+                .andReturn().getResponse().getContentAsString());
+
+        assertThat(twentylist.size()).isEqualTo(20);
     }
 
     @WithMockUser
@@ -165,10 +203,10 @@ public class InsertHistoryTests {
         manager.flush();
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/days/Theta")
-            .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON);
 
         String res = mockMvc.perform(req).andExpect(status().is(200)).andReturn().getResponse()
-            .getContentAsString();
+                .getContentAsString();
         LOGGER.debug(res);
 
         assertThat(res).isEqualTo("3");
@@ -197,15 +235,24 @@ public class InsertHistoryTests {
         manager.flush();
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/amount/Theta")
-            .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON);
 
         String res = mockMvc.perform(req).andExpect(status().is(200)).andReturn().getResponse()
-            .getContentAsString();
+                .getContentAsString();
         LOGGER.debug(res);
 
         assertThat(res).isEqualTo("3");
 
         manager.clear();
+    }
+
+    @WithMockUser
+    @Test
+    public void testEmptyHistory() throws Exception {
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/insertHistory/days/me")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(req).andExpect(status().is(404)).andReturn();
     }
 
     private InsertHistory createDummyInsertHistory(String name) {
