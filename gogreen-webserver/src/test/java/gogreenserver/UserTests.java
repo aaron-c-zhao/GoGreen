@@ -1,10 +1,10 @@
 package gogreenserver;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.User;
@@ -26,6 +26,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -69,6 +71,9 @@ public class UserTests {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private UserDetailsService userfinder;
 
     @Before
     public void setup() {
@@ -160,34 +165,32 @@ public class UserTests {
 
     @Test
     public void addUsernameTaken() throws Exception {
-        
+
         LOGGER.debug("=== addUsernameTaken() ===");
-        
+
         User dummy = manager.persistAndFlush(createDummyUser("BoatyMcBoatFace"));
-        
+
         RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(dummy));
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
 
         mockMvc.perform(req).andExpect(status().is(400));
-        
+
         manager.clear();
     }
-    
+
     @WithMockUser("Hackerman")
     @Test
     public void updateWitoutPermission() throws Exception {
-        
+
         LOGGER.debug("=== updateWitoutPermission() ===");
-        
+
         User dummy = manager.persistAndFlush(createDummyUser("TrainMcTrainface"));
-        
+
         RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(dummy));
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
 
         mockMvc.perform(req).andExpect(status().is(400));
-        
+
         manager.clear();
     }
 
@@ -230,7 +233,26 @@ public class UserTests {
         mockMvc.perform(req).andExpect(status().is(200));
     }
 
-    private User createDummyUser(String name) {
+    @Test
+    public void checkAuthChecker() {
+
+        User dummy = createDummyUser("Yeet");
+
+        assertThatThrownBy(() -> {
+            userfinder.loadUserByUsername(dummy.getUsername());
+        }).isInstanceOf(UsernameNotFoundException.class);
+        
+        manager.persistAndFlush(dummy);
+        
+        assertThat(userfinder.loadUserByUsername(dummy.getUsername())).isNotNull();
+    }
+
+    /**
+     * Creates a mock User instance.
+     * 
+     * @param name The username.
+     */
+    public static User createDummyUser(String name) {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com",
                 LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),

@@ -67,7 +67,7 @@ public class AddSolarpanelsController {
             + auth.getName());
 
         if (!auth.getName().equals(userName)) {
-            new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
 
         addSolarpanels.setUserName(userName);
