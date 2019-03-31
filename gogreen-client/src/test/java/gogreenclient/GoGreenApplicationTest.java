@@ -21,7 +21,6 @@ public class GoGreenApplicationTest {
             public void run() {
                 try {
                     Application.launch(GoGreenApplication.class);
-                    test = true;
                 } catch (Throwable t) {
                     if (t.getCause() != null && t.getCause().getClass().equals(InterruptedException.class)) {
                         test = true;

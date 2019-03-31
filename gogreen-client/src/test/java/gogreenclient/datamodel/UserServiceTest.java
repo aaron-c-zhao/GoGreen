@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,10 +17,10 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RunWith(SpringRunner.class)
@@ -63,5 +64,14 @@ public class UserServiceTest {
             .andExpect(method(HttpMethod.GET))
             .andRespond(withSuccess("success", MediaType.APPLICATION_JSON));
         assertTrue(userService.findUser("Alin"));
+    }
+
+    @Test
+    public void findUserFail() throws Exception {
+        server.reset();
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.NOT_FOUND));
+        assertFalse(userService.findUser("Alin"));
     }
 }

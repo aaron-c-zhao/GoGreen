@@ -94,6 +94,7 @@
                     <excludes>
                         <exclude>gogreenclient/screens/**/*</exclude>
                         <exclude>gogreenclient/config/**/*</exclude>
+                        <exclude>**/*UserInputValidator.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
