@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class AddTransportController implements SceneController {
@@ -128,7 +129,7 @@ public class AddTransportController implements SceneController {
         insert.setActivityName(usualTransport);
         insert.setAlternateActivity(alterTransport);
         insert.setTransportDistanceKm(difference);
-        insert.setInsertDate(LocalDate.now());
+        insert.setInsertDate(LocalDateTime.now());
     }
 
 

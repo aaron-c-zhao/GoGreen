@@ -1,12 +1,13 @@
 package gogreenclient.datamodel;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class InsertHistory {
 
 
-    private LocalDate insertDate;
+    private LocalDateTime insertDate;
 
     private String userName;
 
@@ -40,7 +41,7 @@ public class InsertHistory {
     public InsertHistory(String userName) {
         this.userName = userName;
         this.activityName = "login";
-        this.insertDate = LocalDate.now();
+        this.insertDate = LocalDateTime.now();
         this.activityPrice = null;
         this.alternateActivity = null;
         this.alternateActivityPrice = null;
@@ -52,11 +53,11 @@ public class InsertHistory {
         this.energyActivityTempDegreesDecreased = null;
     }
 
-    public LocalDate getInsertDate() {
+    public LocalDateTime getInsertDate() {
         return insertDate;
     }
 
-    public void setInsertDate(LocalDate insertDate) {
+    public void setInsertDate(LocalDateTime insertDate) {
         this.insertDate = insertDate;
     }
 
