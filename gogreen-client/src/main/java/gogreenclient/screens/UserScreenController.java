@@ -33,7 +33,7 @@ public class UserScreenController implements SceneController {
         Image image=new Image("/static/green-hibiscus-md.png");
         myCircle.setFill(Color.SEAGREEN);
         myCircle.setFill(new ImagePattern(image));
-        myCircle.setEffect(new DropShadow(+25d,0d,2d,Color.DARKSEAGREEN));
+        myCircle.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
     }
 
 
@@ -52,6 +52,10 @@ public class UserScreenController implements SceneController {
         screens.startScreen().getScene().setRoot(screens.achievementsScene().getRoot());
     }
 
+    public void showFriends() {
+        screens.startScreen().getScene().setRoot(screens.friendsScene().getRoot());
+    }
+
     public void switchStatistics() {
         screens.startScreen().getScene().setRoot(screens.statisticScene().getRoot());
     }
@@ -61,18 +65,22 @@ public class UserScreenController implements SceneController {
         screens.exitDialog().showAndWait();
     }
 
-    public void passwordChanger() {
-        //do your thing Zhao
+    @FXML
+    public void changePassword() {
+        screens.changePasswordDialog().show();
     }
 
-    public void bdateChanger() {
-        //here as well
+    @FXML
+    public void changeEmail() {
+        screens.changeEmailDialog().show();    }
+
+    @FXML
+    public void changeBirthdate() {
+        screens.changeBdayDialog().show();    }
+
+    @FXML
+    public void deleteAccount() {
+        screens.deleteAccountDialog().show();
     }
 
-    public void userDelete() {
-        //and here
-    }
-    //public void showInspiration(){
-      //  InspirationPopupController.display();
-   //}
 }
