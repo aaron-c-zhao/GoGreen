@@ -251,6 +251,18 @@ public class ScreenConfiguration {
         return new AchievementsController(this);
     }
 
+    @Bean
+    public SwitchabScene userScene() {
+        return new SwitchabScene(userScreenController(), getClass()
+            .getResource("/views/UserScreen.fxml"));
+    }
+
+    @Bean
+    UserScreenController userScreenController() {
+        return new UserScreenController(this);
+    }
+
+    @Bean
     public SwitchabScene friendsScene() {
         return new SwitchabScene(showFriendsController(), getClass()
             .getResource("/views/ShowFriends.fxml"));

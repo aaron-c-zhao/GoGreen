@@ -118,7 +118,10 @@ public class StatisticController implements SceneController {
         screens.startScreen().getScene().setRoot(screens.friendsScene().getRoot());
     }
 
-
+    @FXML
+    public void switchUserScene(){
+        screens.startScreen().getScene().setRoot(screens.userScene().getRoot());
+    }
     private void statisticInitialize() {
         totalSaved.setText(String.valueOf(Math.round(records.getSavedCo2Total())));
     }
