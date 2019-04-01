@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.screens.window.ConfirmDialogController;
 import gogreenclient.screens.window.Windows;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 public class ChangeDetailsController implements ConfirmDialogController {
@@ -53,21 +52,30 @@ public class ChangeDetailsController implements ConfirmDialogController {
         dialog.close();
     }
 
-    public void changePassword(){
+    /**
+     * check for the passwords. send the new one.
+     */
+    public void changePassword() {
         password.getText().toString();
         newPassword.getText().toString();
         confirmNewPassword.getText().toString();
     }
-    public void changeEmail(){
+
+    /**
+     * check for correct password and matching emails.send them.
+     */
+    public void changeEmail() {
         password.getText().toString();
         email.getText().toString();
         newPassword.getText().toString();
     }
-    public void changeBirthdate(){
+
+    public void changeBirthdate() {
         password.getText().toString();
         birthDate.getValue();
     }
-    public void deleteAccount(){
+
+    public void deleteAccount() {
         password.getText().toString();
         deleteBox.getText().toString();
     }

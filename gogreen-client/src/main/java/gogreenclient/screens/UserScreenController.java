@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -27,21 +26,21 @@ public class UserScreenController implements SceneController {
     @FXML
     private Circle myCircle;
 
-    public void initialize() {
-        Image profilePic = new Image("https://pbs.twimg.com/profile_images/746333186377060352/Vl3n8CzI_400x400.jpg");
-        myCircle.setStroke(Color.SEAGREEN);
-        Image image=new Image("/static/green-hibiscus-md.png");
-        myCircle.setFill(Color.SEAGREEN);
-        myCircle.setFill(new ImagePattern(image));
-        myCircle.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
-    }
-
-
     private ScreenConfiguration screens;
-
 
     public UserScreenController(ScreenConfiguration screens) {
         this.screens = screens;
+    }
+
+    /**
+     * initializing the circle picture.
+     */
+    public void initialize() {
+        Image profilePic = new Image("https://pbs.twimg.com/profile_images/746333186377060352/Vl3n8CzI_400x400.jpg");
+        myCircle.setStroke(Color.SEAGREEN);
+        Image image = new Image("/static/green-hibiscus-md.png");
+        myCircle.setFill(new ImagePattern(image));
+        myCircle.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
     }
 
     public void addActivity() {
@@ -72,11 +71,13 @@ public class UserScreenController implements SceneController {
 
     @FXML
     public void changeEmail() {
-        screens.changeEmailDialog().show();    }
+        screens.changeEmailDialog().show();
+    }
 
     @FXML
     public void changeBirthdate() {
-        screens.changeBdayDialog().show();    }
+        screens.changeBdayDialog().show();
+    }
 
     @FXML
     public void deleteAccount() {
