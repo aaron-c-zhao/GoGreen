@@ -10,6 +10,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -64,6 +69,9 @@ public class StatisticController implements SceneController {
     @FXML
     private Label totalDays;
 
+    @FXML
+    private Circle circlePic;
+
     private List<Achievements> achievementsList;
 
     private List<InsertHistoryCo2> insertHistoryList;
@@ -92,12 +100,17 @@ public class StatisticController implements SceneController {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        /*
         if (!getLastAchievements().equals("Blue")) {
             achievement.setText(getLastAchievements());
         } else {
             achievement.setText("No achievement earned yet.Go and earn some!");
-        }
+        }*/
         totalAchievements.setText(getAchievementsAmount());
+        Image image = new Image("/static/green-hibiscus-md.png");
+        circlePic.setStroke(Color.SEAGREEN);
+        circlePic.setFill(new ImagePattern(image));
+        circlePic.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
         recentActivityInit();
         totalActivitiesInit();
         totalActiveDays();
@@ -118,6 +131,10 @@ public class StatisticController implements SceneController {
         screens.startScreen().getScene().setRoot(screens.friendsScene().getRoot());
     }
 
+    @FXML
+    public void switchUserScene() {
+        screens.startScreen().getScene().setRoot(screens.userScene().getRoot());
+    }
 
     private void statisticInitialize() {
         totalSaved.setText(String.valueOf(Math.round(records.getSavedCo2Total())));

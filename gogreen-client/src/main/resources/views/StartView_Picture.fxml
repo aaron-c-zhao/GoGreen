@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
@@ -112,7 +113,7 @@
                         <Font name="Segoe UI Light" size="44.0" />
                     </font>
                 </Label>
-                <PieChart fx:id="pieChart" layoutX="23.0" layoutY="255.0" prefHeight="307.0" prefWidth="436.0" />
+                <PieChart fx:id="pieChart" layoutX="26.0" layoutY="254.0" prefHeight="307.0" prefWidth="436.0" />
                 <Label layoutX="26.0" layoutY="95.0" text="Total green activities:">
                     <font>
                         <Font name="Segoe UI Light" size="18.0" />
@@ -152,49 +153,50 @@
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="210.0" style="-fx-background-color: #00AB66;" HBox.hgrow="ALWAYS">
             <children>
-                <AnchorPane layoutY="193.0" prefHeight="285.0" prefWidth="210.0" style="-fx-background-color: #5F9EA0;">
+                <AnchorPane layoutX="1.0" layoutY="294.0" prefHeight="274.0" prefWidth="184.0">
                     <children>
-                        <Label layoutX="21.0" prefHeight="36.0" prefWidth="170.0" text="Latest activities:" textFill="#eaeaea" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="19.0">
+                  <AnchorPane layoutX="9.0" prefHeight="274.0" prefWidth="189.0" style="-fx-background-color: #3CB371;" />
+                        <Label layoutX="21.0" prefHeight="36.0" prefWidth="168.0" text="Latest activities:" textFill="#eaeaea" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="19.0">
                             <font>
                                 <Font name="Segoe UI Light" size="25.0" />
                             </font>
                         </Label>
-                        <Label fx:id="recentActivityOne" alignment="TOP_LEFT" layoutX="27.0" layoutY="36.0" prefHeight="66.0" prefWidth="180.0" text="Set_activity type" textFill="#eaeaea" wrapText="true" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="3.0">
+                        <Label fx:id="recentActivityOne" alignment="TOP_LEFT" layoutX="27.0" layoutY="36.0" prefHeight="66.0" prefWidth="166.0" text="Set_activity type" textFill="#eaeaea" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="13.0">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="firstActivityDate" layoutX="25.0" layoutY="101.0" prefHeight="26.0" prefWidth="170.0" text="Set_date" textFill="#eaeaea" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="15.0">
+                        <Label fx:id="firstActivityDate" layoutX="25.0" layoutY="101.0" prefHeight="26.0" prefWidth="166.0" text="Set_date" textFill="#eaeaea" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="15.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0" />
                             </font>
                         </Label>
-                        <Label fx:id="firstActivityAmount" layoutX="26.0" layoutY="127.0" prefHeight="26.0" prefWidth="170.0" text="Set_saved_amount" textFill="SKYBLUE" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="14.0">
+                        <Label fx:id="firstActivityAmount" layoutX="26.0" layoutY="127.0" prefHeight="26.0" prefWidth="166.0" text="Set_saved_amount" textFill="SKYBLUE" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="14.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0" />
                             </font>
                         </Label>
-                        <Label layoutX="11.0" layoutY="36.0" prefHeight="30.0" prefWidth="18.0" text="1." textFill="#eaeaea" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="183.0">
+                        <Label layoutX="11.0" layoutY="36.0" prefHeight="30.0" prefWidth="18.0" text="1." textFill="#eaeaea" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="183.0">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="recentActivityTwo" alignment="TOP_LEFT" layoutX="26.0" layoutY="154.0" prefHeight="66.0" prefWidth="170.0" text="Set_activity type" textFill="#eaeaea" wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="14.0">
+                        <Label fx:id="recentActivityTwo" alignment="TOP_LEFT" layoutX="26.0" layoutY="154.0" prefHeight="66.0" prefWidth="166.0" text="Set_activity type" textFill="#eaeaea" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="14.0">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="secondActivityDate" layoutX="26.0" layoutY="219.0" prefHeight="26.0" prefWidth="170.0" text="Set_date" textFill="#eaeaea" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="14.0">
+                        <Label fx:id="secondActivityDate" layoutX="26.0" layoutY="219.0" prefHeight="26.0" prefWidth="170.0" text="Set_date" textFill="#eaeaea" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="10.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0" />
                             </font>
                         </Label>
-                        <Label fx:id="secondActivityAmount" layoutX="25.0" layoutY="245.0" prefHeight="26.0" prefWidth="137.0" text="Set_saved_amount" textFill="SKYBLUE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+                        <Label fx:id="secondActivityAmount" layoutX="25.0" layoutY="245.0" prefHeight="26.0" prefWidth="166.0" text="Set_saved_amount" textFill="SKYBLUE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="15.0">
                             <font>
                                 <Font name="Segoe UI Light" size="17.0" />
                             </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="154.0" text="2." textFill="#eaeaea" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="184.4">
+                        <Label layoutX="10.0" layoutY="154.0" prefHeight="30.0" prefWidth="20.0" text="2." textFill="#eaeaea" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="176.0">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0" />
                             </font>
@@ -204,7 +206,7 @@
                         <DropShadow height="2.0" radius="0.0" spread="0.16" width="0.0" />
                     </effect>
                 </AnchorPane>
-                <VBox layoutX="6.0" layoutY="33.0" prefHeight="66.0" prefWidth="198.0">
+                <VBox layoutX="6.0" layoutY="130.0" prefHeight="66.0" prefWidth="198.0">
                     <children>
                         <Label fx:id="userName" alignment="CENTER" onMouseClicked="#switchUserScene" prefHeight="39.0" prefWidth="200.0" text="Stranger" textAlignment="CENTER" textFill="#eaeaea" VBox.vgrow="ALWAYS">
                             <font>
@@ -233,13 +235,13 @@
                         </HBox>
                     </children>
                 </VBox>
-                <Label layoutX="45.0" layoutY="112.0" prefHeight="39.0" prefWidth="130.0" text="Total CO  saved:" textAlignment="CENTER" textFill="#eaeaea" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="35.0">
+                <Label layoutX="45.0" layoutY="209.0" prefHeight="39.0" prefWidth="130.0" text="Total CO  saved:" textAlignment="CENTER" textFill="#eaeaea" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="35.0">
                     <font>
                         <Font name="Segoe UI Light" size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="110.0" layoutY="132.0" prefHeight="18.0" prefWidth="11.0" text="2" textFill="#eaeaea" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="93.0" />
-                <HBox alignment="CENTER" layoutX="-1.0" layoutY="148.0" prefHeight="32.0" prefWidth="210.0">
+                <Label layoutX="110.0" layoutY="229.0" prefHeight="18.0" prefWidth="11.0" text="2" textFill="#eaeaea" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="93.0" />
+                <HBox alignment="CENTER" layoutX="-1.0" layoutY="245.0" prefHeight="32.0" prefWidth="210.0">
                     <children>
                         <Label fx:id="totalSaved" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="59.0" text="set_total" textAlignment="RIGHT" textFill="SKYBLUE">
                             <font>
@@ -253,16 +255,9 @@
                         </Label>
                     </children>
                 </HBox>
-                <Label layoutX="5.0" layoutY="501.0" prefHeight="36.0" prefWidth="198.0" text="Latest achievement:" textFill="#eaeaea">
-                    <font>
-                        <Font name="Segoe UI Light" size="24.0" />
-                    </font>
-                </Label>
-                <Label fx:id="achievement" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="530.0" prefHeight="36.0" prefWidth="198.0" text="Fresher" textAlignment="CENTER" textFill="SKYBLUE">
-                    <font>
-                        <Font name="Segoe UI Light" size="22.0" />
-                    </font>
-                </Label>
+            <AnchorPane prefHeight="85.0" prefWidth="210.0" style="-fx-background-color: #3CB371;" />
+            <Circle fill="MEDIUMSEAGREEN" layoutX="105.0" layoutY="77.0" radius="53.0" stroke="MEDIUMSEAGREEN" strokeType="INSIDE" />
+            <Circle fx:id="circlePic" fill="DODGERBLUE" layoutX="105.0" layoutY="78.0" onMouseClicked="#switchUserScene" radius="53.0" stroke="MEDIUMSEAGREEN" strokeType="INSIDE" />
             </children>
             <effect>
                 <DropShadow />

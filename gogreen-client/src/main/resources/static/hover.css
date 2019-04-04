@@ -15,5 +15,9 @@
 
 .button1 {
     -fx-background-color: #50C878;
-
 }
+.datePicker{
+    -fx-font-size: 15;
+    -fx-font-style: italic;
+}
+

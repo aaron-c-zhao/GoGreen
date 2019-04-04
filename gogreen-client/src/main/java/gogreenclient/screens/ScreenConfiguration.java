@@ -81,6 +81,39 @@ public class ScreenConfiguration {
         return new ExitController(this);
     }
 
+    /**
+     * beans for the popups regarding change details/delete account.
+     * @return beans for them.
+     */
+    @Bean
+    public ConfirmDialog changePasswordDialog() {
+        return new ConfirmDialog(changeDetailsController(), getClass()
+            .getResource("/views/ChangePassword.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    public ConfirmDialog changeEmailDialog() {
+        return new ConfirmDialog(changeDetailsController(), getClass()
+            .getResource("/views/ChangeEmail.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    public ConfirmDialog changeBdayDialog() {
+        return new ConfirmDialog(changeDetailsController(), getClass()
+            .getResource("/views/ChangeBirthday.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    public ConfirmDialog deleteAccountDialog() {
+        return new ConfirmDialog(changeDetailsController(), getClass()
+            .getResource("/views/Delete_account.fxml"), primaryStage, StageStyle.DECORATED);
+    }
+
+    @Bean
+    ChangeDetailsController changeDetailsController() {
+        return new ChangeDetailsController(this);
+    }
+
     @Bean
     public ConfirmDialog addFriendDialog() {
         return new ConfirmDialog(addFriendPopController(), getClass()
@@ -227,7 +260,7 @@ public class ScreenConfiguration {
     @Bean
     public SwitchabScene statisticScene() {
         return new SwitchabScene(statisticController(), getClass()
-            .getResource("/views/StartView_Alt.fxml"));
+            .getResource("/views/StartView_Picture.fxml"));
     }
 
     @Bean
@@ -251,6 +284,18 @@ public class ScreenConfiguration {
         return new AchievementsController(this);
     }
 
+    @Bean
+    public SwitchabScene userScene() {
+        return new SwitchabScene(userScreenController(), getClass()
+            .getResource("/views/UserScreen.fxml"));
+    }
+
+    @Bean
+    UserScreenController userScreenController() {
+        return new UserScreenController(this);
+    }
+
+    @Bean
     public SwitchabScene friendsScene() {
         return new SwitchabScene(showFriendsController(), getClass()
             .getResource("/views/ShowFriends.fxml"));
