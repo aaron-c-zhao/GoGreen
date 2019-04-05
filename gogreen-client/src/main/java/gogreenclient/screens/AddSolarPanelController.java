@@ -76,7 +76,8 @@ public class AddSolarPanelController implements SceneController {
             .getWindow().getScene().setRoot(screens.plantTreeScene().getRoot());
     }
 
-    /**.
+    /**
+     * .
      * Connecting the button to the actual action of sending the solarpanels info to the server
      */
     @FXML
@@ -86,12 +87,18 @@ public class AddSolarPanelController implements SceneController {
             addSolarpanels.setArea(Float.parseFloat(sizeOfSolarPanel.getText()));
             addSolarpanels.setProducedKwh(0.0F);
             ResponseEntity<String> response = restTemplate
-                    .postForEntity(URL, addSolarpanels, String.class);
+                .postForEntity(URL, addSolarpanels, String.class);
             if (response != null && response.getStatusCode() == HttpStatus.OK) {
                 screens.statisticController().initialize();
+                clearBox();
             }
         } else {
             fillAll.setVisible(true);
         }
+    }
+
+    private void clearBox() {
+        sizeOfSolarPanel.setText(null);
+        date.setValue(null);
     }
 }
