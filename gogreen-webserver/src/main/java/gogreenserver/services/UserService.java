@@ -47,9 +47,9 @@ public class UserService {
         userRepository.deleteById(user);
     }
 
-    /**
-     * . converting the multipartfile recieved by http request into an image and
-     * writing this image inside User_photos folder in server side
+    /**.
+     * converting the multipartfile recieved by http request into an image and
+     * writing this image inside profile_pictures folder in server side
      * 
      * @param file the photo to save on disk
      * @throws IOException image could not be written
@@ -57,8 +57,9 @@ public class UserService {
 
     public void save(MultipartFile file, String userName) throws IOException {
         BufferedImage image = ImageIO.read(file.getInputStream());
-        File imgLoc = new File(
-                req.getServletContext().getRealPath("/profile_pictures/" + userName + ".png"));
+        File imgLoc = new File("C:/Users/prund/Programare//"
+                + "OOPP/gogreen-webserver/src/main/profile_pictures/"
+                + userName + ".png");
         imgLoc.createNewFile();
         ImageIO.write(image, "png", imgLoc);
     }

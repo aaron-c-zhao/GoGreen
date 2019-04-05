@@ -1,5 +1,6 @@
 package gogreenclient.config;
 
+import gogreenclient.datamodel.AddSolarpanels;
 import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserCareerService;
@@ -84,6 +85,13 @@ public class AppConfig {
         return new InsertHistory(username);
     }
 
+    @Bean
+    @Scope("prototype")
+    AddSolarpanels addSolarpanels() {
+        AddSolarpanels solarpanels = new AddSolarpanels();
+        solarpanels.setUserName(username);
+        return solarpanels;
+    }
 
     @Bean
     @Scope("prototype")
