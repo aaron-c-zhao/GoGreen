@@ -72,13 +72,13 @@ public class AchievementsController implements SceneController {
         });
         ObservableList<Achievements> achievements = FXCollections.observableArrayList();
         Achievements treeHugger = new Achievements("Tree Hugger",
-            "Yes", "Saved more than 100 kg carbon dioxide");
+            "No", "Saved more than 100 kg carbon dioxide");
         Achievements anarchoPrimitivist = new Achievements("Anarcho Primitivist",
-            "Yes", "Saved more than 1 ton of carbon dioxide");
+            "No", "Saved more than 1 ton of carbon dioxide");
         Achievements celebi = new Achievements("Celebi",
             "No", "Saved more than 5 tons of carbon dioxide");
         Achievements stopCheating = new Achievements("Stop Cheating",
-            "Yes",
+            "No",
             "Saved 20 tons of carbon dioxide. Or, more likely, you're just cheating.");
         Achievements sunAbsorber = new Achievements("Sun Absorber",
             "No", "Your solar panels have produced more than 10 kw");

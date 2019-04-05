@@ -104,25 +104,9 @@ public class UserController {
     @PostMapping("/createUser/upload")
     @Consumes("multipart/form-data")
     public ResponseEntity<String> uploadPhoto(@RequestParam("profile_pic") MultipartFile file,
-            @RequestParam("username") String userName, Authentication auth) {
+            @RequestParam("username") String userName) {
 
         logger.debug("POST /createUser/upload/" + userName);
-
-        if (auth == null && !expectedaccounts.contains(userName)
-                || (auth != null && !auth.getName().equals(userName))) {
-
-            logger.warn("POST /createUser/upload/" + userName + "/ unathorised access");
-            if (auth != null) {
-                logger.warn("Attacker was logged in as: " + auth.getName());
-            } else {
-                logger.warn("Attacker was not logged in");
-            }
-
-            return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
-        }
-
-        expectedaccounts.remove(userName);
-
         String response = "";
         try {
             userService.save(file, userName);
