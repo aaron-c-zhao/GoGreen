@@ -3,6 +3,7 @@ package gogreenclient.screens;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.datamodel.AddSolarpanels;
+import gogreenclient.datamodel.SolarPanelService;
 import gogreenclient.datamodel.UserInputValidator;
 import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
@@ -28,12 +29,16 @@ public class AddSolarPanelController implements SceneController {
 
     private ScreenConfiguration screens;
 
+    private float solarSzie;
+
     @Autowired
     private UserInputValidator validator;
     @Autowired
     private AddSolarpanels addSolarpanels;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private SolarPanelService solarPanelService;
 
 
     public AddSolarPanelController(ScreenConfiguration screens) {
@@ -45,6 +50,8 @@ public class AddSolarPanelController implements SceneController {
      */
     public void initialize() {
         validator.validateFraction(sizeOfSolarPanel);
+        solarSzie = solarPanelService.getSolarPanelSize();
+        initialSize.setText(String.valueOf(Math.round(solarSzie)));
         fillAll.setVisible(false);
     }
 
@@ -84,13 +91,15 @@ public class AddSolarPanelController implements SceneController {
     public void submitCO2Saved() {
         if (date.getValue() != null && sizeOfSolarPanel.getText() != null) {
             addSolarpanels.setDate(date.getValue());
-            addSolarpanels.setArea(Float.parseFloat(sizeOfSolarPanel.getText()));
+            float addingSize = Float.parseFloat(sizeOfSolarPanel.getText());
+            addSolarpanels.setArea(addingSize + solarSzie);
             addSolarpanels.setProducedKwh(0.0F);
             ResponseEntity<String> response = restTemplate
                 .postForEntity(URL, addSolarpanels, String.class);
             if (response != null && response.getStatusCode() == HttpStatus.OK) {
                 screens.statisticController().initialize();
                 clearBox();
+                initialize();
             }
         } else {
             fillAll.setVisible(true);
@@ -98,7 +107,7 @@ public class AddSolarPanelController implements SceneController {
     }
 
     private void clearBox() {
-        sizeOfSolarPanel.setText(null);
+        sizeOfSolarPanel.setText("");
         date.setValue(null);
     }
 }

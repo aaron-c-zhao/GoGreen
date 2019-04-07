@@ -3,6 +3,7 @@ package gogreenclient.config;
 import gogreenclient.datamodel.AddSolarpanels;
 import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.InsertHistory;
+import gogreenclient.datamodel.SolarPanelService;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.ScreenConfiguration;
@@ -55,7 +56,7 @@ public class AppConfig {
     private RestTemplate restTemplate;
     private String username;
     private String password;
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -108,6 +109,14 @@ public class AppConfig {
         friendService.setUsername(username);
         friendService.setUrl(URL);
         return friendService;
+    }
+
+    @Bean
+    SolarPanelService solarPanelService() {
+        SolarPanelService solarPanelService = new SolarPanelService();
+        solarPanelService.setUrl(URL);
+        solarPanelService.setUserName(username);
+        return solarPanelService;
     }
 
     /**
