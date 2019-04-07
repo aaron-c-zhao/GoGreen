@@ -1,16 +1,23 @@
 package gogreenclient.datamodel;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import org.apache.http.util.ByteArrayBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * A service class which will provide the service of retrieving user career from database,
@@ -142,6 +149,30 @@ public class UserCareerService {
             days = response.getBody();
         }
         return days;
+    }
+
+    /**.
+     * Method to send the request to server in order to get user profile pic
+     * @return the profile pic as byte array
+     * @throws IOException in case it fails
+     */
+    public Image showPhoto() {
+        ResponseEntity<byte []> response = restTemplate
+            .getForEntity(url + "/user/photo/" + username, byte[].class);
+        BufferedImage imgBuffer;
+        try {
+            if (response.getBody().length > 10) {
+                ByteArrayInputStream inp = new ByteArrayInputStream(response.getBody());
+                imgBuffer = ImageIO.read(inp);
+            } else {
+                File file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
+                imgBuffer = ImageIO.read(file);
+            }
+            return SwingFXUtils.toFXImage(imgBuffer, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

@@ -4,24 +4,26 @@ import gogreenserver.entity.User;
 import gogreenserver.services.UserService;
 
 import org.apache.logging.log4j.Logger;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.mockito.internal.util.io.IOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 
 @RestController
@@ -65,6 +67,32 @@ public class UserController {
             return new ResponseEntity<String>("success", HttpStatus.OK);
         }
         return new ResponseEntity<String>("fail", HttpStatus.NOT_FOUND);
+    }
+
+    /**.
+     * Endpoint controller for returning user profile picture from the server
+     * @param username User name
+     * @return User's profile picture
+     * @throws IOException exception
+     */
+    @RequestMapping(value = "/user/photo/{username}", method = RequestMethod.GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte []> showPhoto (@PathVariable("username") String username) throws IOException {
+        logger.debug("GET/user/photo/" + username + "/ accessed");
+        String pathname = "gogreen-webserver/src/main/profile_pictures/"
+                + username + ".png";
+        File file = new File(pathname);
+        boolean exists = file.exists();
+        if (exists) {
+            BufferedImage bufimag = ImageIO.read(file);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufimag, "png", byteArrayOutputStream);
+            byte [] img = byteArrayOutputStream.toByteArray();
+            return new ResponseEntity<>(img, HttpStatus.OK);
+        } else {
+            byte[] resp = new byte[2];
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
     }
 
     /**

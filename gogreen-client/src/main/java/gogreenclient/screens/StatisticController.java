@@ -7,6 +7,7 @@ import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
@@ -17,6 +18,11 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -107,13 +113,13 @@ public class StatisticController implements SceneController {
             achievement.setText("No achievement earned yet.Go and earn some!");
         }*/
         totalAchievements.setText(getAchievementsAmount());
-        Image image = new Image("/static/green-hibiscus-md.png");
-        circlePic.setStroke(Color.SEAGREEN);
-        circlePic.setFill(new ImagePattern(image));
-        circlePic.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
-        recentActivityInit();
-        totalActivitiesInit();
-        totalActiveDays();
+            Image image = userCareerService.showPhoto();
+            circlePic.setStroke(Color.SEAGREEN);
+            circlePic.setFill(new ImagePattern(image));
+            circlePic.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
+            recentActivityInit();
+            totalActivitiesInit();
+            totalActiveDays();
     }
 
     @FXML
