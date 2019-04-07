@@ -9,14 +9,11 @@ import gogreenclient.screens.window.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 
 public class AddSolarPanelController implements SceneController {
-
-    private static final String URL = "https://localhost:8443/api/addSolarpanel";
 
     @FXML
     private JFXTextField sizeOfSolarPanel;

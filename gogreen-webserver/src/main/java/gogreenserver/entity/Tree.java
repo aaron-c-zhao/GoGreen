@@ -15,7 +15,7 @@ public class Tree {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tree_id")
-    private Long Id;
+    private Long id;
 
     @Column(name = "username")
     private String userName;
