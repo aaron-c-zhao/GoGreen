@@ -2,22 +2,23 @@ package gogreenclient.datamodel;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import org.apache.http.util.ByteArrayBuffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import javax.imageio.ImageIO;
 
 /**
  * A service class which will provide the service of retrieving user career from database,

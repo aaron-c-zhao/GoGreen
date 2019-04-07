@@ -2,7 +2,6 @@ package gogreenclient.screens;
 
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -11,11 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 
 public class UserScreenController implements SceneController {

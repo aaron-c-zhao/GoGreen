@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import gogreenclient.datamodel.Achievements;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.screens.window.SceneController;
 import javafx.beans.property.ObjectProperty;
@@ -20,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -28,11 +26,11 @@ import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 
 public class AchievementsController implements SceneController {
 
@@ -62,24 +60,31 @@ public class AchievementsController implements SceneController {
                 new JFXTreeTableColumn<>("");
         achPhoto.setPrefWidth(100);
         achPhoto.setStyle("-fx-alignment: CENTER;");
-        achPhoto.setCellValueFactory((TreeTableColumn.CellDataFeatures<Achievements, Achievements.AchievementImage> x) ->
-                achPhoto.validateValue(x) ? x.getValue().getValue().imgProperty() : achPhoto.getComputedValue(x));
+        achPhoto.setCellValueFactory((TreeTableColumn
+                                              .CellDataFeatures<Achievements, Achievements
+                .AchievementImage> ax) ->
+                achPhoto.validateValue(ax) ? ax.getValue().getValue()
+                        .imgProperty() : achPhoto.getComputedValue(ax));
         achPhoto.setCellFactory(new Callback<TreeTableColumn<Achievements,
-                                        Achievements.AchievementImage>, TreeTableCell<Achievements, Achievements.AchievementImage>>() {
+                                        Achievements.AchievementImage>, TreeTableCell<Achievements,
+                Achievements.AchievementImage>>() {
             @Override
-            public TreeTableCell<Achievements, Achievements.AchievementImage> call(TreeTableColumn<Achievements, Achievements.AchievementImage> param) {
+            public TreeTableCell<Achievements, Achievements.AchievementImage>
+                call(TreeTableColumn<Achievements, Achievements.AchievementImage> param) {
                 return new JFXTreeTableCell<Achievements, Achievements.AchievementImage>() {
                     ImageView imageView = new ImageView();
                     @Override
                     protected void updateItem(Achievements.AchievementImage img, boolean empty) {
                         try {
-                            boolean check = new ClassPathResource("static/" + img.getPhotoPath() + ".png").exists();
+                            boolean check = new ClassPathResource("static/"
+                                    + img.getPhotoPath() + ".png").exists();
                             File file;
                             if (!check) {
                                 file = new ClassPathResource("static/green-hibiscus-md.png")
                                         .getFile();
                             } else {
-                                file = new ClassPathResource("static/" + img.getPhotoPath() + ".png")
+                                file = new ClassPathResource("static/" + img.getPhotoPath()
+                                        + ".png")
                                         .getFile();
                             }
                                 BufferedImage imgBuffer = ImageIO.read(file);

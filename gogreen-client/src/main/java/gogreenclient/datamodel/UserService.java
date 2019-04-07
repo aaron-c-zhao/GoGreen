@@ -1,6 +1,5 @@
 package gogreenclient.datamodel;
 
-import javafx.scene.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;

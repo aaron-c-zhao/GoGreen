@@ -81,7 +81,6 @@ public class FriendService {
             );
         } catch (HttpServerErrorException e) {
             exceptionHandler.internalServerErrorHandler(e);
-            return null;
         } catch (HttpClientErrorException e) {
             exceptionHandler.notFoundHandler(e, username + "'s friends");
         }
