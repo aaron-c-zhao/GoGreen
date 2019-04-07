@@ -35,6 +35,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
 @ContextConfiguration(classes = AppConfig.class)
@@ -120,14 +121,22 @@ public class FriendServiceTest {
     }
 
     @Test
-    public void getFriendRecordsInternalServerError() throws Exception {
-        setUpGetRecordsError(HttpStatus.INTERNAL_SERVER_ERROR, HttpServerErrorException.class);
+    public void getFriendRecordsInternalServerError() {
+        server.reset();
+        server.expect(requestTo(url + "friend/record/gru"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond((response) -> {throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR);});
+        Mockito.doNothing().when(msg).showMessage("Server error, please try again");
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
     @Test
     public void getFriendRecordsNotFound() throws Exception {
-        setUpGetRecordsError(HttpStatus.NOT_FOUND, HttpClientErrorException.class);
+        server.reset();
+        server.expect(requestTo(url + "friend/record/gru"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond((response) -> {throw new HttpClientErrorException(HttpStatus.NOT_FOUND);});
+        Mockito.doNothing().when(msg).showMessage("gru's friends" + " not found. Please try again.");;
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
@@ -137,16 +146,6 @@ public class FriendServiceTest {
         server.expect(requestTo(url + "friend"))
                 .andExpect(method(HttpMethod.POST))
                 .andRespond(withStatus(status).body(resp));
-    }
-
-    public void setUpGetRecordsError(HttpStatus status, Class error) throws Exception {
-        RestTemplate restTemplate = mock(RestTemplate.class);
-        friendService.setRestTemplate(restTemplate);
-        Mockito.doThrow(error).when(restTemplate).exchange(
-                eq(url + "friend/record/igor"),
-                eq(HttpMethod.GET),
-                eq(null),
-                any(ParameterizedTypeReference.class));
     }
 
     public void setUpGetRecordsOk(HttpStatus status) throws Exception {

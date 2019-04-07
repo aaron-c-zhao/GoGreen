@@ -74,7 +74,7 @@ public class AppConfig {
     }
 
     @Bean
-    UserService userModel() {
+    UserService userService() {
         UserService userService = new UserService();
         userService.setUrl(URL);
         return userService;

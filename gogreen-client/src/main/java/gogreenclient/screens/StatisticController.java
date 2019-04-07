@@ -107,10 +107,10 @@ public class StatisticController implements SceneController {
             achievement.setText("No achievement earned yet.Go and earn some!");
         }*/
         totalAchievements.setText(getAchievementsAmount());
-        Image image = new Image("/static/green-hibiscus-md.png");
+        Image image = userCareerService.showPhoto();
         circlePic.setStroke(Color.SEAGREEN);
         circlePic.setFill(new ImagePattern(image));
-        circlePic.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
+        circlePic.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
         recentActivityInit();
         totalActivitiesInit();
         totalActiveDays();
