@@ -2,9 +2,12 @@ package gogreenclient.datamodel;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class SolarPanelService {
@@ -44,8 +47,20 @@ public class SolarPanelService {
                 return 0;
             }
         }
-        addSolarpanels = response.getBody();
+        if(response != null & response.getStatusCode() == HttpStatus.OK)
+            addSolarpanels = response.getBody();
         return addSolarpanels.getArea();
+    }
 
+    public ResponseEntity<String> incrementSize(AddSolarpanels addSolarpanels) {
+        ResponseEntity<String> response = null;
+        response = restTemplate
+            .postForEntity(url+"/addSolarpanel", addSolarpanels, String.class);
+        if(response.getStatusCode() == HttpStatus.OK){
+            restTemplate
+                .postForEntity(url + "/insertHistory",
+                    new InsertHistory(userName), String.class);
+        }
+        return response;
     }
 }

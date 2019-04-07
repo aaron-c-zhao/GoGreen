@@ -94,9 +94,8 @@ public class AddSolarPanelController implements SceneController {
             float addingSize = Float.parseFloat(sizeOfSolarPanel.getText());
             addSolarpanels.setArea(addingSize + solarSzie);
             addSolarpanels.setProducedKwh(0.0F);
-            ResponseEntity<String> response = restTemplate
-                .postForEntity(URL, addSolarpanels, String.class);
-            if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            ResponseEntity<String> response = solarPanelService.incrementSize(addSolarpanels);
+            if (response != null) {
                 screens.statisticController().initialize();
                 clearBox();
                 initialize();
