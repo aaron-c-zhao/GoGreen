@@ -3,6 +3,8 @@ package gogreenserver.entity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +13,10 @@ import javax.persistence.Table;
 public class Tree {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tree_id")
+    private Long id;
+
     @Column(name = "username")
     private String userName;
 
@@ -22,6 +28,7 @@ public class Tree {
 
     @Column(name = "co2_saved", nullable = true)
     private float co2Saved;
+
 
     public String getUserName() {
         return userName;

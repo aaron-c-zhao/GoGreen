@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gogreenclient.config.AppConfig;
 import gogreenclient.datamodel.ExceptionHandler;
+import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.UserAccountValidator;
 import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
@@ -126,6 +127,8 @@ public class LoginController implements WindowController {
         }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
             appConfig.setRestTemplate(restTemplate);
+            restTemplate.postForEntity("https://localhost:8443/api/insertHistory",
+                new InsertHistory(username.getText()), String.class);
             dialog.close();
             screens.startScreen().show();
         } else {
