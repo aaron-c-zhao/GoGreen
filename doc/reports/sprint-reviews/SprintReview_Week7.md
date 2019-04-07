@@ -13,10 +13,10 @@ Sprint retrospective
 
 # Gio
 #### Problems encountered:
-Had difficulty finding the location of several resources withing the database URL's, making me unable to connect several pieces of information into the user screen. Several of the database triggers worked sligthly different than expected, a different approach had to be taken for testing the database
+Had difficulty finding the location of several resources withing the database url's, making me unable to connect several pieces of information into the user screen. Several of the database triggers worked sligthly different than expected, a different approach had to be taken for testing the database
 
 #### Adjustments for next sprint:
-Further understanding of testing database triggers to help insure there will never be calculation errors after server input, as well as finding resource locations within database fetching URL's
+Further understanding of testing database triggers to help insure there will never be calculation errors after server input, as well as finding resource locations within database fetching url's
 
 #### Adjustments from last sprint:
 Due to more understanding of javafx and how the GUI works, I was able to do more work on the GUI quicker. The database is also much more stable and the triggers are set so that changes to the functionalities of the application are easier to implement into the calculations
