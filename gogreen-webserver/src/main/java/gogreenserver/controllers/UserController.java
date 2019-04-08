@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,8 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
@@ -34,10 +32,6 @@ import javax.ws.rs.Consumes;
 @RequestMapping("/api")
 public class UserController {
     private final Logger logger;
-    // set of user(name)s that have been created, but have not their profile
-    // pictures set yet.
-    // use this to allow unauthenticated accounts to edit pictures.
-    private final Set<String> expectedaccounts;
     private UserService userService;
 
     /**
@@ -47,7 +41,6 @@ public class UserController {
     public UserController(UserService userService, Logger logger) {
         this.userService = userService;
         this.logger = logger;
-        expectedaccounts = new HashSet<String>();
     }
 
     @GetMapping("/login")
@@ -73,26 +66,66 @@ public class UserController {
         return new ResponseEntity<String>("fail", HttpStatus.NOT_FOUND);
     }
 
-    /**.
-     * Endpoint controller for returning user profile picture from the server
+    /**
+     * Returns the url to be used a profile picture.
+     * 
+     * @param username the user to use.
+     */
+    @GetMapping("/user/photourl/{user}")
+    public ResponseEntity<String> getPicUrl(@PathVariable("user") String username,
+            Authentication auth) {
+
+        logger.debug("GET /user/photourl/" + username + " accessed by :" + auth.getName());
+
+        Optional<User> user = userService.findById(username);
+        return new ResponseEntity<String>(user.isPresent() ? user.get().getPfpUrl() : "",
+                user.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Sets the user picture.
+     * 
+     * @param username the user in question
+     * @param body     A string containing the url.
+     */
+    @PostMapping("/user/photourl/{user}")
+    public ResponseEntity<String> setPicUrl(@PathVariable("user") String username,
+            @RequestBody String body, Authentication auth) {
+
+        logger.debug("GET /user/photourl/" + username + " accessed by :" + auth.getName());
+
+        if (!auth.getName().equals(username)) {
+            return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+
+        User user = userService.findById(username).orElse(null);
+        if (user == null) {
+            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+        }
+        user.setPfpUrl(body);
+        userService.updateUser(user);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    /**
+     * . Endpoint controller for returning user profile picture from the server
+     * 
      * @param username User name
      * @return User's profile picture
      * @throws IOException exception
      */
-    @RequestMapping(value = "/user/photo/{username}", method = RequestMethod.GET,
-            produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte []> showPhoto(@PathVariable("username") String username)
+    @GetMapping(value = "/user/photo/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> showPhoto(@PathVariable("username") String username)
             throws IOException {
         logger.debug("GET/user/photo/" + username + "/ accessed");
-        String pathname = "gogreen-webserver/src/main/profile_pictures/"
-                + username + ".png";
+        String pathname = "gogreen-webserver/src/main/profile_pictures/" + username + ".png";
         File file = new File(pathname);
         boolean exists = file.exists();
         if (exists) {
             BufferedImage bufimag = ImageIO.read(file);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(bufimag, "png", byteArrayOutputStream);
-            byte [] img = byteArrayOutputStream.toByteArray();
+            byte[] img = byteArrayOutputStream.toByteArray();
             return new ResponseEntity<>(img, HttpStatus.OK);
         } else {
             byte[] resp = new byte[2];
@@ -104,24 +137,35 @@ public class UserController {
      * This method creates a new User entry in the "User" table.
      */
     @PostMapping("/createUser")
-    public ResponseEntity<Object> addUser(@RequestBody User theUser, Authentication auth) {
+    public ResponseEntity<Object> addUser(@RequestBody User theUser) {
         logger.debug("POST /createUser/ accessed");
 
-        if ((auth == null || !auth.getName().equals(theUser.getUsername()))
-                && userService.findById(theUser.getUsername()).isPresent()) {
-            logger.warn("POST /createUser/ unauthorized update of " + theUser.getUsername());
-            if (auth != null) {
-                logger.warn("Attacker was logged in as: " + auth.getName());
-            } else {
-                logger.warn("Attacker was not logged in");
-            }
-
+        if (userService.findById(theUser.getUsername()).isPresent()) {
             return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
         }
 
         userService.createUser(theUser);
-        expectedaccounts.add(theUser.getUsername());
         return new ResponseEntity<>(theUser, HttpStatus.OK);
+    }
+
+    /**
+     * This method updates the existing users.
+     */
+    @PostMapping("/updateUser")
+    public ResponseEntity<String> updateUser(@RequestBody User theUser, Authentication auth) {
+        logger.debug("POST /updateUser/ accessed by: " + auth.getName());
+
+        if (!auth.getName().equals(theUser.getUsername())) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+
+        if (userService.findById(theUser.getUsername()).isEmpty()) {
+            // This should be impossible, right?
+            return new ResponseEntity<>("User does not exist", HttpStatus.NOT_FOUND);
+        }
+
+        userService.updateUser(theUser);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     /**
