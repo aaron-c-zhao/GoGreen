@@ -7,7 +7,7 @@ public class AddSolarpanels  {
     private String userName;
     private Float area;
     private LocalDate date;
-    private int panelId;
+    private Long id;
     private Float producedKwh;
 
 
@@ -35,12 +35,12 @@ public class AddSolarpanels  {
         this.date = date;
     }
 
-    public int getPanelId() {
-        return panelId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPanelId(int panelId) {
-        this.panelId = panelId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Float getProducedKwh() {
@@ -57,7 +57,7 @@ public class AddSolarpanels  {
                 + "userName='" + userName + '\''
                 + ", area=" + area
                 + ", date=" + date
-                + ", panelId=" + panelId
+                + ", id=" + id
                 + ", producedKwh=" + producedKwh
                 + '}';
     }

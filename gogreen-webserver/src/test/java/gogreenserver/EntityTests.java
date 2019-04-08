@@ -67,9 +67,9 @@ public class EntityTests {
         solar.setDate(time);
         assertThat(solar.getDate()).isEqualTo(time);
 
-        int panelId = rgn.nextInt();
-        solar.setPanelId(panelId);
-        assertThat(solar.getPanelId()).isEqualTo(panelId);
+        Long panelId = rgn.nextLong();
+        solar.setId(panelId);
+        assertThat(solar.getId()).isEqualTo(panelId);
 
         float producedKwh = rgn.nextFloat();
         solar.setProducedKwh(producedKwh);

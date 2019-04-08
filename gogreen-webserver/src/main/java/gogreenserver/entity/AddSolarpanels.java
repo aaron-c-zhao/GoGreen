@@ -3,15 +3,21 @@ package gogreenserver.entity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "add_solarpanels")
 public class AddSolarpanels {
 
-    // Define Fields
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "panel_id")
+    private Long id;
+
     @Column(name = "username")
     private String userName;
 
@@ -21,8 +27,6 @@ public class AddSolarpanels {
     @Column(name = "date", nullable = true)
     private LocalDate date;
 
-    @Column(name = "panel_id", nullable = true)
-    private int panelId;
 
     @Column(name = "produced_kwh", nullable = true)
     private Float producedKwh;
@@ -53,12 +57,12 @@ public class AddSolarpanels {
         this.date = date;
     }
 
-    public int getPanelId() {
-        return panelId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPanelId(int panelId) {
-        this.panelId = panelId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Float getProducedKwh() {
@@ -77,7 +81,7 @@ public class AddSolarpanels {
             + "userName='" + userName + '\''
             + ", area=" + area
             + ", date=" + date
-            + ", panelId=" + panelId
+            + ", id=" + id
             + ", producedKwh=" + producedKwh
             + '}';
     }

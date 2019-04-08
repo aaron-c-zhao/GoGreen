@@ -1,15 +1,19 @@
 package gogreenclient.datamodel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 
 public class SolarPanelService {
 
-    private AddSolarpanels addSolarpanels;
+    private List<AddSolarpanels> addSolarpanels;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -35,19 +39,30 @@ public class SolarPanelService {
      * @return the current size of this user's solar panel. default value is 0.
      */
     public float getSolarPanelSize() {
-        ResponseEntity<AddSolarpanels> response = null;
+        ResponseEntity<List<AddSolarpanels>> response = null;
         try {
-            response = restTemplate
-                .getForEntity(url + "/addSolarpanel/" + userName, AddSolarpanels.class);
+            response = restTemplate.exchange(
+                url + "/addSolarpanel/" + userName,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<AddSolarpanels>>() {
+                }
+            );
+
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
                 return 0;
             }
         }
+        float totalSize = 0;
         if (response != null & response.getStatusCode() == HttpStatus.OK) {
             addSolarpanels = response.getBody();
+            for (AddSolarpanels a : addSolarpanels) {
+                totalSize += a.getArea();
+            }
+
         }
-        return addSolarpanels.getArea();
+        return totalSize;
     }
 
     /**

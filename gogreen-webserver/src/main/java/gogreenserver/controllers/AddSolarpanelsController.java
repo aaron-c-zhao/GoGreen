@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api")
@@ -43,11 +43,11 @@ public class AddSolarpanelsController {
      * @return The entry, or if not found, an error message.
      */
     @GetMapping(value = "/addSolarpanel/{username}")
-    public ResponseEntity<Optional<AddSolarpanels>> findbyUsername(
+    public ResponseEntity<List<AddSolarpanels>> findAllByUsername(
         @PathVariable("username") String username) {
-        Optional<AddSolarpanels> res = addSolarpanelsService.findById(username);
-        return new ResponseEntity<Optional<AddSolarpanels>>(res,
-            res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        List<AddSolarpanels> res = addSolarpanelsService.findAllByUserName(username);
+        return new ResponseEntity<List<AddSolarpanels>>(res,
+            res.size() != 0 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
