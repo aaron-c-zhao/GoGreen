@@ -130,7 +130,9 @@ public class UserController {
     }
 
     /**
-     * This method updates the email of a user.
+     * This method updates a single property of a user.
+     * @param username The user in question.
+     * @param property either "email", "password", "birthdate" or "photo".
      */
     @PostMapping("/updateUser/{username}/{property}")
     public ResponseEntity<String> updateUser(@PathVariable("username") String username,
@@ -143,11 +145,9 @@ public class UserController {
         if (!auth.getName().equals(username)) {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-        User user = userService.findById(username).orElse(null);
-        if (user == null) {
-            // This should be impossible, right?
-            return new ResponseEntity<>("User does not exist", HttpStatus.NOT_FOUND);
-        }
+        // This can never be null, because otherwise you wouldn't be able to authenticate in
+        // the first place
+        User user = userService.findById(username).get();
 
         logger.debug(body);
         switch (property) {
