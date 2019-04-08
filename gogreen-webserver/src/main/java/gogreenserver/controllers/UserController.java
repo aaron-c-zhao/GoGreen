@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
@@ -33,14 +35,16 @@ import javax.ws.rs.Consumes;
 public class UserController {
     private final Logger logger;
     private UserService userService;
+    private BCryptPasswordEncoder encoder;
 
     /**
      * Autowired constructor, do not touch.
      */
     @Autowired
-    public UserController(UserService userService, Logger logger) {
+    public UserController(UserService userService, Logger logger, BCryptPasswordEncoder encoder) {
         this.userService = userService;
         this.logger = logger;
+        this.encoder = encoder;
     }
 
     @GetMapping("/login")
@@ -80,31 +84,6 @@ public class UserController {
         Optional<User> user = userService.findById(username);
         return new ResponseEntity<String>(user.isPresent() ? user.get().getPfpUrl() : "",
                 user.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * Sets the user picture.
-     * 
-     * @param username the user in question
-     * @param body     A string containing the url.
-     */
-    @PostMapping("/user/photourl/{user}")
-    public ResponseEntity<String> setPicUrl(@PathVariable("user") String username,
-            @RequestBody String body, Authentication auth) {
-
-        logger.debug("GET /user/photourl/" + username + " accessed by :" + auth.getName());
-
-        if (!auth.getName().equals(username)) {
-            return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
-        }
-
-        User user = userService.findById(username).orElse(null);
-        if (user == null) {
-            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
-        }
-        user.setPfpUrl(body);
-        userService.updateUser(user);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
     /**
@@ -149,22 +128,43 @@ public class UserController {
     }
 
     /**
-     * This method updates the existing users.
+     * This method updates the email of a user.
      */
-    @PostMapping("/updateUser")
-    public ResponseEntity<String> updateUser(@RequestBody User theUser, Authentication auth) {
-        logger.debug("POST /updateUser/ accessed by: " + auth.getName());
+    @PostMapping("/updateUser/{username}/{property}")
+    public ResponseEntity<String> updateUserEmail(@RequestParam("username") String username,
+            @RequestParam("property") String property, @RequestBody String body,
+            Authentication auth) {
 
-        if (!auth.getName().equals(theUser.getUsername())) {
+        logger.debug("POST /updateUser/email/ accessed by: " + auth.getName());
+
+        if (!auth.getName().equals(username)) {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-
-        if (userService.findById(theUser.getUsername()).isEmpty()) {
+        User user = userService.findById(username).orElse(null);
+        if (user == null) {
             // This should be impossible, right?
             return new ResponseEntity<>("User does not exist", HttpStatus.NOT_FOUND);
         }
 
-        userService.updateUser(theUser);
+        switch (property) {
+            case "email":
+                user.setEmail(body);
+                break;
+            case "password":
+                user.setPassword(encoder.encode(body));
+                break;
+            case "birthday":
+                user.setBdate(LocalDate.parse(body));
+                break;
+            case "photo":
+                user.setPfpUrl(body);
+                break;
+            default:
+                return new ResponseEntity<>(property + " is not an user property",
+                        HttpStatus.BAD_REQUEST);
+        }
+
+        userService.updateUser(user);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 

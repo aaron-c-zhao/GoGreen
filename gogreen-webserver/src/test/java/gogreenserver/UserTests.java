@@ -256,6 +256,6 @@ public class UserTests {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com",
                 LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),
-                LocalDate.now());
+                LocalDate.now(), "http://example.com");
     }
 }
