@@ -141,7 +141,6 @@ public class UserController {
                 + auth.getName());
 
         if (!auth.getName().equals(username)) {
-            logger.error("INRUDER ALERT");
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         User user = userService.findById(username).orElse(null);
@@ -220,6 +219,7 @@ public class UserController {
         }
         logger.debug("DELETE /user/" + user + "/ accessed by " + auth.getName());
         userService.deleteUser(user);
+        new File("gogreen-webserver/src/main/profile_pictures/" + user + ".png").delete();
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 }
