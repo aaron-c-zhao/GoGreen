@@ -24,7 +24,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
@@ -131,13 +133,15 @@ public class UserController {
      * This method updates the email of a user.
      */
     @PostMapping("/updateUser/{username}/{property}")
-    public ResponseEntity<String> updateUserEmail(@RequestParam("username") String username,
-            @RequestParam("property") String property, @RequestBody String body,
+    public ResponseEntity<String> updateUser(@PathVariable("username") String username,
+            @PathVariable("property") String property, @RequestBody String body,
             Authentication auth) {
 
-        logger.debug("POST /updateUser/email/ accessed by: " + auth.getName());
+        logger.debug("POST /updateUser/" + username + "/" + property + "/ accessed by: "
+                + auth.getName());
 
         if (!auth.getName().equals(username)) {
+            logger.error("INRUDER ALERT");
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         User user = userService.findById(username).orElse(null);
@@ -146,6 +150,7 @@ public class UserController {
             return new ResponseEntity<>("User does not exist", HttpStatus.NOT_FOUND);
         }
 
+        logger.debug(body);
         switch (property) {
             case "email":
                 user.setEmail(body);
@@ -154,7 +159,13 @@ public class UserController {
                 user.setPassword(encoder.encode(body));
                 break;
             case "birthday":
-                user.setBdate(LocalDate.parse(body));
+                // for some reason, the local date is sent with quotes.
+                try {
+                    user.setBdate(
+                            LocalDate.parse(body, DateTimeFormatter.ofPattern("\"yyyy-MM-dd\"")));
+                } catch (DateTimeException e) {
+                    logger.catching(e);
+                }
                 break;
             case "photo":
                 user.setPfpUrl(body);
@@ -207,7 +218,7 @@ public class UserController {
         if (!user.equals(auth.getName())) {
             return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-        logger.debug("DELETE /user/" + user + "/ accessed by " + auth);
+        logger.debug("DELETE /user/" + user + "/ accessed by " + auth.getName());
         userService.deleteUser(user);
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
