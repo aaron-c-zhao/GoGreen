@@ -1,20 +1,19 @@
 package gogreenserver.services;
 
 import gogreenserver.entity.AddSolarpanels;
-import gogreenserver.repositories.AddSolarpanelsRepository;
+import gogreenserver.repositories.AddSolarPanelsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AddSolarpanelsService {
 
-    private AddSolarpanelsRepository addSolarpanelsRepo;
+    private AddSolarPanelsRepository addSolarpanelsRepo;
 
     @Autowired
-    public AddSolarpanelsService(AddSolarpanelsRepository addSolarpanelsRepo) {
+    public AddSolarpanelsService(AddSolarPanelsRepository addSolarpanelsRepo) {
         this.addSolarpanelsRepo = addSolarpanelsRepo;
     }
 
@@ -26,8 +25,8 @@ public class AddSolarpanelsService {
         return addSolarpanelsRepo.save(addSolarpanels);
     }
 
-    public Optional<AddSolarpanels> findById(String userName) {
-        return addSolarpanelsRepo.findById(userName);
+    public List<AddSolarpanels> findAllByUserName(String userName) {
+        return addSolarpanelsRepo.findAllByUserName(userName);
     }
 
 

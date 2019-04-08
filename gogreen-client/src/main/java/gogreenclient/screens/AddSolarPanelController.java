@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+
 
 
 public class AddSolarPanelController implements SceneController {
@@ -32,8 +32,7 @@ public class AddSolarPanelController implements SceneController {
     private UserInputValidator validator;
     @Autowired
     private AddSolarpanels addSolarpanels;
-    @Autowired
-    private RestTemplate restTemplate;
+
     @Autowired
     private SolarPanelService solarPanelService;
 
@@ -88,8 +87,7 @@ public class AddSolarPanelController implements SceneController {
     public void submitCO2Saved() {
         if (date.getValue() != null && sizeOfSolarPanel.getText() != null) {
             addSolarpanels.setDate(date.getValue());
-            float addingSize = Float.parseFloat(sizeOfSolarPanel.getText());
-            addSolarpanels.setArea(addingSize + solarSzie);
+            addSolarpanels.setArea(Float.parseFloat(sizeOfSolarPanel.getText()));
             addSolarpanels.setProducedKwh(0.0F);
             ResponseEntity<String> response = solarPanelService.incrementSize(addSolarpanels);
             if (response != null) {
