@@ -55,34 +55,34 @@ public class EntityTests {
                 + ", achievement='" + name + '\'' + ", achieveData=" + time.toString() + '}');
     }
 
-//    @Test
-//    public void addSolarpanels() {
-//        AddSolarpanels solar = new AddSolarpanels();
-//
-//        float area = rgn.nextFloat();
-//        solar.setArea(area);
-//        assertThat(solar.getArea()).isEqualTo(area);
-//
-//        LocalDate time = LocalDate.now();
-//        solar.setDate(time);
-//        assertThat(solar.getDate()).isEqualTo(time);
-//
-//        Long panelId = rgn.nextLong();
-//        solar.setId(panelId);
-//        assertThat(solar.getId()).isEqualTo(panelId);
-//
-//        float producedKwh = rgn.nextFloat();
-//        solar.setProducedKwh(producedKwh);
-//        assertThat(solar.getProducedKwh()).isEqualTo(producedKwh);
-//
-//        String username = RandomString.make();
-//        solar.setUserName(username);
-//        assertThat(solar.getUserName()).isEqualTo(username);
-//
-//        assertThat(solar.toString()).isEqualTo(
-//                "AddSolarpanels{" + "userName='" + username + '\'' + ", area=" + area + ", date="
-//                        + time + ", panelId=" + panelId + ", producedKwh=" + producedKwh + '}');
-//    }
+    @Test
+    public void addSolarpanels() {
+        AddSolarpanels solar = new AddSolarpanels();
+
+        float area = rgn.nextFloat();
+        solar.setArea(area);
+        assertThat(solar.getArea()).isEqualTo(area);
+
+        LocalDate time = LocalDate.now();
+        solar.setDate(time);
+        assertThat(solar.getDate()).isEqualTo(time);
+
+        Long panelId = rgn.nextLong();
+        solar.setId(panelId);
+        assertThat(solar.getId()).isEqualTo(panelId);
+
+        float producedKwh = rgn.nextFloat();
+        solar.setProducedKwh(producedKwh);
+        assertThat(solar.getProducedKwh()).isEqualTo(producedKwh);
+
+        String username = RandomString.make();
+        solar.setUserName(username);
+        assertThat(solar.getUserName()).isEqualTo(username);
+
+        assertThat(solar.toString()).isEqualTo(
+                "AddSolarpanels{" + "userName='" + username + '\'' + ", area=" + area + ", date="
+                        + time + ", id=" + panelId + ", producedKwh=" + producedKwh + '}');
+    }
 
     @Test
     public void insertHistory() {
@@ -301,7 +301,7 @@ public class EntityTests {
         user.setDateCreated(cday);
         assertThat(user.getDateCreated()).isEqualTo(cday);
         
-        assertThat(user.toString()).isEqualTo("Records{"
+        assertThat(user.toString()).isEqualTo("User{"
                 + "userName='" + username + '\''
                 + ", email='" + email + '\''
                 + ", bdate='" + bday + '\''
