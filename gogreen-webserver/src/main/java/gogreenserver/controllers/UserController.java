@@ -95,7 +95,7 @@ public class UserController {
      * @return User's profile picture
      * @throws IOException exception
      */
-    @GetMapping(value = "/user/photo/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/user/photo/{username}", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> getPicFromServer(@PathVariable("username") String username)
             throws IOException {
         logger.debug("GET/user/photo/" + username + "/ accessed");

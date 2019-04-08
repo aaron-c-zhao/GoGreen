@@ -13,8 +13,8 @@ Represents a single achievement achieved by some user
 
 | **Endpoint url** | **Method type** | **Input** | **Output** | **Authorization** | **Description** |
 |-|-|-|-|-|-|
-| /api/achievements | **GET** | *none* | 200, body: List<Achievements> | *any user* | Finds all achiements anyone has ever achieved |
-| /api/achievement/{username} | **GET** | *none* (uses url) | body: List<Achievements>; status code: 200 or 404, if list is empty | *any user* | Finds all achiements  of *username*. Note the 404 if the list is empty. |
+| /api/achievements | **GET** | *none* | 200, body: List\<Achievements\> | *any user* | Finds all achiements anyone has ever achieved |
+| /api/achievement/{username} | **GET** | *none* (uses url) | body: List\<Achievements\>; status code: 200 or 404, if list is empty | *any user* | Finds all achiements  of *username*. Note the 404 if the list is empty. |
 
 ---
 
@@ -32,8 +32,8 @@ Represents the solar panel setup of some user
 
 | **Endpoint url** | **Method type** | **Input** | **Output** | **Authorization** | **Description** |
 |-|-|-|-|-|-|
-| /api/addSolarpanels | **GET** | *none* | 200, body: List<AddSolarpanels> | *any user* | Finds all recorded solar panels |
-| /api/addSolarpanels/{username} | **GET** | *none* (uses url) | body: List<AddSolarpanels>; status code: 200 or 404, if the list is empty | *any user* |  Returns the installed solar panels of *username*. |
+| /api/addSolarpanels | **GET** | *none* | 200, body: List\<AddSolarpanels\> | *any user* | Finds all recorded solar panels |
+| /api/addSolarpanels/{username} | **GET** | *none* (uses url) | body: List\<AddSolarpanels\>; status code: 200 or 404, if the list is empty | *any user* |  Returns the installed solar panels of *username*. |
 | /api/addSolarpanels | **POST** | body: AddSolarpanel (JSON) | 200, body: "Successfully saved solarpanel entry for user : *username*" | be *username* | Sets the solarpanel for user. |
 
 ---
@@ -51,8 +51,8 @@ Represents a friendship pair
 
 | **Endpoint url** | **Method type** | **Input** | **Output** | **Authorization** | **Description** |
 |-|-|-|-|-|-|
-| /api/friend/{username} | **GET** | *none* (uses url) | body: List<Friend>; status code: 200 or 404, if list is empty | *any user* | Retrieves all friends (as a friend pair, not the user object) of *username* |
-| /api/friend/record/{username} | **GET** | *none* (uses url) | header: "friendAmount" (int) body: List<Records>, status code: 200 or 404, if list is empty. | *any user* | Returns the list of records achieved by all friends. *friendAmount* header contains the number of friends. |
+| /api/friend/{username} | **GET** | *none* (uses url) | body: List\<Friend\>; status code: 200 or 404, if list is empty | *any user* | Retrieves all friends (as a friend pair, not the user object) of *username* |
+| /api/friend/record/{username} | **GET** | *none* (uses url) | header: "friendAmount" (int) body: List\<Records\>, status code: 200 or 404, if list is empty. | *any user* | Returns the list of records achieved by all friends. *friendAmount* header contains the number of friends. |
 | /api/friend | **POST** | body: Friend (JSON) | 200, body: "successfully added friend", or 208, body: "friendship already exists", or 404, body: "User *friend.friendName* not found" if the requested friend does not exist. | be same as *userName* in body | Adds a friendship pair. Please leave *Id* null. |
 
 ### InsertHistory[Co2] :
@@ -80,7 +80,7 @@ Main activity entity. A combination of an username, the activity name and all po
 
 | **Endpoint url** | **Method type** | **Input** | **Output** | **Authorization** | **Description** |
 |-|-|-|-|-|-|
-| /api/insertHistory/{username} | **GET** | header: "limit" (int, optional  | body: List<InsertHistoryCo2>; status code: 200 or 404, if list is empty | *any user* | Retrieves all records of *username*. use *limit* to restrict to *x* most recent entries (10 by default) |
+| /api/insertHistory/{username} | **GET** | header: "limit" (int, optional  | body: List\<InsertHistoryCo2\>; status code: 200 or 404, if list is empty | *any user* | Retrieves all records of *username*. use *limit* to restrict to *x* most recent entries (10 by default) |
 | /api/insertHistory/amount/{username} | **GET** | *none* (uses url) | 200, body: int or 404, body: empty if *username* does not exist, or *username* has no histories at all | *any user* | Returns the amount of activities *username* has performed. |
 | /api/insertHistory/days/{username} | **GET** | *none* (uses url) | 200, body: int or 404, body: empty if *username* does not exist, or *username* has no histories at all | *any user* | Returns the time between the first and the last activity. |
 | /api/insertHistory | **POST** | body: InsertHistory | 200, body: "Successfully insertHistory for user : *usernames*" | be *InsertHistory.userName* | Add a new activity to the database. This is the most important part. Set only the fields that represent the activity performed, leave other fields as null. |
@@ -109,7 +109,7 @@ Represents all the statistics (records) of some user.
 
 | **Endpoint url** | **Method type** | **Input** | **Output** | **Authorization** | **Description** |
 |-|-|-|-|-|-|
-| /api/records | **GET** | *none* | 200, body: List<Records> | *any user* | Retrieves all records by all users. |
+| /api/records | **GET** | *none* | 200, body: List\<Records\> | *any user* | Retrieves all records by all users. |
 | /api/records/{username} | **GET** | *none* (uses url) |  200, body: Records, or 404, body: "null" if not found | *any user* | Retrieves a single record from *username*. |
 
 ---
@@ -123,13 +123,17 @@ Represents a single user and their profile details.
 | username | String, PK |
 | password | String |
 | email | String, Nullable |
-| birth date | LocalDate |
-| signup date | LocalDate |
+| bdate | LocalDate |
+| dateCreated | LocalDate |
 
 
 | **Endpoint url** | **Method type** | **Input** | **Output** | **Authorization** | **Description** |
 |-|-|-|-|-|-|
 | /api/user/findUser/{username}  | **Get** | *none* (uses url) | 200, body: "success" or 404, body: "fail" | *none* | Tells whether the the user {username} exists |
-| /api/createUser | **Post** | body: User (JSON) | 200, body: sent user (JSON) or 400, body: "User already exists" | *none* if the user does not exist, *be the same user as in body* to overwrite existing | Adds a new user to the db. The password will be hashed and salted. If the user already exists, the user will be overwritten. | 
+| /api/createUser | **Post** | body: User (JSON) | 200, body: sent user (JSON) or 400, body: "User already exists" | *none* | Adds a new user to the db. The password will be hashed and salted. |
+| /api/updateUser/{username}/{property} | **Post** | body: String or LocalDateTime | 200, body: "success" or 400, body: "*property* is not an user property" | be *username* | Change one of the user values (properties) to the content in body. Valid properties are: ```email```, ```password```, ```birthday```, ```photo```. email, photo (which is an url to a picture, e.g. *http://example.org/image.jpg*) and password are plain text (pass will be obv. hashed), birthday is expected to be as *"yyyy-MM-dd"* (with quotes). This is probably how Jackson serialises LocalDate by default, but if not, please change the server code to the correct format.  |
+| /api/createUser/upload | **Post** | multipart parameters: "username" (string), "profile_pic" (MIME: multipart/form-data) | 200, body: "success" or 500, body: "cannot save picture" if the picture could not be saved for any reason. | *none* (!) | Uploads a image to the GoGreen server and sets it as the profile picture of *username * |
+| /api/user/photo/{username} | **Get** | *none* (uses url) | body: png image (byte array); status code: 200 or 404 if null | *any user* | Returns an png image. Use it to access images stored on the GoGreen server. |
+| /api/user/photourl/{username} | **Get** | *none* (uses url) | body: url (String); status code: 200 or 404 if null | *any user* | Returns an url pointing to a image. Use this to have an picture without needing to uploading one yourself. |
 | /api/user/{username} | **Delete** | none (uses url) | 200, body: "success" | be *username* | Deletes the user from the db. |
 
