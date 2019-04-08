@@ -96,7 +96,7 @@ public class UserController {
      * @throws IOException exception
      */
     @GetMapping(value = "/user/photo/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> showPhoto(@PathVariable("username") String username)
+    public ResponseEntity<byte[]> getPicFromServer(@PathVariable("username") String username)
             throws IOException {
         logger.debug("GET/user/photo/" + username + "/ accessed");
         String pathname = "gogreen-webserver/src/main/profile_pictures/" + username + ".png";
@@ -109,8 +109,7 @@ public class UserController {
             byte[] img = byteArrayOutputStream.toByteArray();
             return new ResponseEntity<>(img, HttpStatus.OK);
         } else {
-            byte[] resp = new byte[2];
-            return new ResponseEntity<>(resp, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -131,6 +130,7 @@ public class UserController {
 
     /**
      * This method updates a single property of a user.
+     * 
      * @param username The user in question.
      * @param property either "email", "password", "birthdate" or "photo".
      */
@@ -145,7 +145,8 @@ public class UserController {
         if (!auth.getName().equals(username)) {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-        // This can never be null, because otherwise you wouldn't be able to authenticate in
+        // This can never be null, because otherwise you wouldn't be able to
+        // authenticate in
         // the first place
         User user = userService.findById(username).get();
 
@@ -194,16 +195,13 @@ public class UserController {
             @RequestParam("username") String userName) {
 
         logger.debug("POST /createUser/upload/" + userName);
-        String response = "";
         try {
-            userService.save(file, userName);
-            response = "success";
+            userService.saveProfilePicture(file, userName);
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error("Error saving photo", e);
-            response = "error";
+            return new ResponseEntity<>("cannot save picture", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     /**

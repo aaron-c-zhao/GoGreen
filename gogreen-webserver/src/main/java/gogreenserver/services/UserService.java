@@ -59,7 +59,7 @@ public class UserService {
      * @throws IOException image could not be written
      */
 
-    public void save(MultipartFile file, String userName) throws IOException {
+    public void saveProfilePicture(MultipartFile file, String userName) throws IOException {
         BufferedImage image = ImageIO.read(file.getInputStream());
         File imgLoc = new File("C:/Users/prund/Programare//"
                 + "OOPP/gogreen-webserver/src/main/profile_pictures/"
