@@ -40,7 +40,7 @@ public class StatisticController implements SceneController {
     private Label totalSaved;
 
     @FXML
-    private Label achievement;
+    private Label savedMoney;
 
     @FXML
     private Label totalAchievements;
@@ -114,6 +114,7 @@ public class StatisticController implements SceneController {
         recentActivityInit();
         totalActivitiesInit();
         totalActiveDays();
+        savedMoneyInit();
     }
 
     @FXML
@@ -218,6 +219,11 @@ public class StatisticController implements SceneController {
     private void totalActiveDays() {
         String days = userCareerService.getActiveDays();
         totalDays.setText((days.equals("")) ? "0" : days);
+    }
+
+    private void savedMoneyInit() {
+        String moneySaved = String.valueOf(Math.round(records.getSavedPriceTotal()));
+        savedMoney.setText(moneySaved + "€");
     }
 
     @FXML
