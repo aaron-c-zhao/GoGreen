@@ -1,6 +1,7 @@
 package gogreenclient.datamodel;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -60,4 +61,11 @@ public class UserInputValidator {
             throw new IllegalArgumentException(box.getId() + "is empty.");
         }
     }
+
+    public void isNull(JFXDatePicker datePicker) throws IllegalArgumentException {
+        if (datePicker.getValue() == null) {
+            throw new IllegalArgumentException(datePicker.getId() + "is empty.");
+        }
+    }
+
 }

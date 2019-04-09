@@ -4,6 +4,8 @@ import gogreenclient.datamodel.AddSolarpanels;
 import gogreenclient.datamodel.FriendService;
 import gogreenclient.datamodel.InsertHistory;
 import gogreenclient.datamodel.SolarPanelService;
+import gogreenclient.datamodel.Tree;
+import gogreenclient.datamodel.TreeService;
 import gogreenclient.datamodel.UserCareerService;
 import gogreenclient.datamodel.UserService;
 import gogreenclient.screens.ScreenConfiguration;
@@ -96,6 +98,14 @@ public class AppConfig {
 
     @Bean
     @Scope("prototype")
+    Tree tree() {
+        Tree tree = new Tree();
+        tree.setUserName(username);
+        return tree;
+    }
+
+    @Bean
+    @Scope("prototype")
     UserCareerService userCareerService() {
         UserCareerService userCareerService = new UserCareerService();
         userCareerService.setUsername(username);
@@ -117,6 +127,14 @@ public class AppConfig {
         solarPanelService.setUrl(URL);
         solarPanelService.setUserName(username);
         return solarPanelService;
+    }
+
+    @Bean
+    TreeService treeService() {
+        TreeService treeService = new TreeService();
+        treeService.setUrl(URL);
+        treeService.setUserName(username);
+        return treeService;
     }
 
     /**

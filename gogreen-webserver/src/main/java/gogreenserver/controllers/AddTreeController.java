@@ -50,7 +50,6 @@ public class AddTreeController {
             return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
 
-        tree.setUserName(userName);
         this.addingTreeService.addTree(tree);
         return new ResponseEntity<String>(
             "Successfully saved tree entry for user :" + userName, HttpStatus.OK);
