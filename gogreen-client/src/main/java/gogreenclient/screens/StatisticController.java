@@ -151,7 +151,7 @@ public class StatisticController implements SceneController {
         int transport = Math.round(records.getSavedCo2Transport());
         int solarPaner = Math.round(records.getSavedCo2Solarpanels());
         int temperature = Math.round(records.getSavedCo2Energy());
-        int tree = Math.round(records.getSavedCo2tree());;
+        int tree = Math.round(records.getSavedCo2tree());
         if (food == 0 && transport == 0 && solarPaner == 0 && temperature == 0 && tree == 0) {
             food = transport = solarPaner = temperature = tree = 10;
         }

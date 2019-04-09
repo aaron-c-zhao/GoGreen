@@ -10,14 +10,19 @@ import gogreenclient.screens.window.SceneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 public class PlantTreeController implements SceneController {
+
+    private ObservableList<String> treeList = FXCollections
+        .observableArrayList("ash", "basswood", "bur_oak", "buttonwood",
+            "cherry", "chestnut", "elm", "ginkgo", "hackberry", "hemlock",
+            "locust", "maple", "metasequoia", "pine", "red_maple",
+            "silver_maple", "sugar_maple", "tulip", "white_ash",
+            "white_oak", "yellow_birch", "zelvoka");
     @FXML
     private JFXComboBox<String> plantedTree;
 
@@ -38,13 +43,12 @@ public class PlantTreeController implements SceneController {
 
     @Autowired
     private Tree tree;
+    private ScreenConfiguration screens;
 
-    ObservableList<String> treeList = FXCollections
-        .observableArrayList("ash", "basswood", "bur_oak", "buttonwood",
-            "cherry", "chestnut", "elm", "ginkgo", "hackberry", "hemlock",
-            "locust", "maple", "metasequoia", "pine", "red_maple",
-            "silver_maple", "sugar_maple", "tulip", "white_ash",
-            "white_oak", "yellow_birch", "zelvoka");
+
+    public PlantTreeController(ScreenConfiguration screens) {
+        this.screens = screens;
+    }
 
 
     public void initialize() {
@@ -52,6 +56,11 @@ public class PlantTreeController implements SceneController {
         fillAll.setVisible(false);
     }
 
+
+    /**
+     * method for submit button, which will send a request to server. If the request is a success,
+     * then the textFields will be cleaned, and the statistic page will be refreshed.
+     */
     @FXML
     public void submit() {
         createInsertObjectTree();
@@ -62,12 +71,6 @@ public class PlantTreeController implements SceneController {
         }
     }
 
-
-    private ScreenConfiguration screens;
-
-    public PlantTreeController(ScreenConfiguration screens) {
-        this.screens = screens;
-    }
 
     @FXML
     public void switchFood() {
@@ -98,8 +101,10 @@ public class PlantTreeController implements SceneController {
         try {
             validator.isNull(plantedTree);
             validator.isNull(plantDate);
+            validator.isDateInPast(plantDate);
         } catch (IllegalArgumentException e) {
             exceptionHandler.illegalArgumentExceptionHandler(e);
+            return;
         }
         String chosenTree = plantedTree.getValue();
         tree.setTree(chosenTree);

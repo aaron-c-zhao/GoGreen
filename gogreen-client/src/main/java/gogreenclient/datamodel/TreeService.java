@@ -22,6 +22,13 @@ public class TreeService {
         this.userName = userName;
     }
 
+    /**
+     * Sending the newly planted tree to server. After server has saved it, a "login" request will
+     * be sent to insertHistory table to refresh co2_saved data.
+     *
+     * @param tree object to be sent to server.
+     * @return response entity.
+     */
     public ResponseEntity<String> plantingTree(Tree tree) {
         ResponseEntity<String> response = restTemplate
             .postForEntity(url + "/addTree", tree, String.class);
