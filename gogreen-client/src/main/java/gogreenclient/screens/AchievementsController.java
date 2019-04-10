@@ -64,14 +64,14 @@ public class AchievementsController implements SceneController {
                 ObservableValue<Achievements.AchievementImage>>() {
             @Override
             public ObservableValue<Achievements.AchievementImage>
-            call(TreeTableColumn.CellDataFeatures<Achievements,
+                call(TreeTableColumn.CellDataFeatures<Achievements,
                     Achievements.AchievementImage> param) {
                 return param.getValue().getValue().img;
             }
         });
         achPhoto.setCellFactory(param -> new JFXTreeTableCell<Achievements,
                 Achievements.AchievementImage>() {
-                        ImageView imageView = new ImageView();
+            ImageView imageView = new ImageView();
             @Override
             protected void updateItem(Achievements.AchievementImage img, boolean empty) {
                 super.updateItem(img, empty);
@@ -84,12 +84,10 @@ public class AchievementsController implements SceneController {
                             + img.getPhotoPath() + ".png").exists();
                     File file;
                     if (!check) {
-                        file = new ClassPathResource("static/green-hibiscus-md.png")
-                                .getFile();
+                        file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
                     } else {
                         file = new ClassPathResource("static/" + img.getPhotoPath()
-                                + ".png")
-                                .getFile();
+                                + ".png").getFile();
                     }
                         BufferedImage imgBuffer = ImageIO.read(file);
                         Image imgz = SwingFXUtils.toFXImage(imgBuffer, null);
@@ -173,20 +171,17 @@ public class AchievementsController implements SceneController {
                 "Your food choices have saved more 1 ton of carbon dioxide");
         Achievements pleaseEat = new Achievements("Please Eat",
                 "Your food choices have saved more 5 tons of carbon dioxide."
-                        +
-                        " Please make sure you're eating properly");
+                        + " Please make sure you're eating properly");
         Achievements dutch = new Achievements("Dutch",
                 "100 kg of carbon dioxide saved from transport choices,"
-                        +
-                        " isn't Holland great?");
+                        + " isn't Holland great?");
         Achievements niceLegs = new Achievements("Nice Legs",
                 "500 kg of carbon dioxide saved from transport choices, good work out");
         Achievements teleporter = new Achievements("Teleporter",
                 "1 ton of carbon dioxide saved from transport choices");
         Achievements neverSkipLegDay = new Achievements("Never Skip Leg Day",
                 "5 tons of carbon dioxide saved from transport choices."
-                        +
-                        " Eliud Kipchoge wants to know your location");
+                        + " Eliud Kipchoge wants to know your location");
         Achievements fatWallet = new Achievements("Fat Wallet",
                 "Saved 100 euros, get your wallet some hydroxycut");
         Achievements retirementFund = new Achievements("Retirement Fund",
