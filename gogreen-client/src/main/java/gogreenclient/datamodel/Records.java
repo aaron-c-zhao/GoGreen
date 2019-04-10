@@ -28,6 +28,16 @@ public class Records {
 
     private Float savedPriceTotal;
 
+    private Float savedCo2tree;
+
+    public Float getSavedCo2tree() {
+        return savedCo2tree;
+    }
+
+    public void setSavedCo2tree(Float savedCo2tree) {
+        this.savedCo2tree = savedCo2tree;
+    }
+
     // Define Getters/Setters for JACKSON
     public String getUserName() {
         return userName;

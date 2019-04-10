@@ -1,9 +1,12 @@
 package gogreenclient.datamodel;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 
 @Service
@@ -60,4 +63,29 @@ public class UserInputValidator {
             throw new IllegalArgumentException(box.getId() + "is empty.");
         }
     }
+
+    /**
+     * validate if a datepicker is empty.
+     *
+     * @param datePicker user's input.
+     * @throws IllegalArgumentException an exception which will contain the message of the error.
+     */
+    public void isNull(JFXDatePicker datePicker) throws IllegalArgumentException {
+        if (datePicker.getValue() == null) {
+            throw new IllegalArgumentException(datePicker.getId() + "is empty.");
+        }
+    }
+
+    /**
+     * validate if a date is in the future.
+     *
+     * @param datePicker date picker.
+     * @throws IllegalArgumentException an exception which will contain the message of the error.
+     */
+    public void isDateInPast(JFXDatePicker datePicker) throws IllegalArgumentException {
+        if (datePicker.getValue().compareTo(LocalDate.now()) > 0) {
+            throw new IllegalArgumentException(datePicker.getId() + "can not be in the future!");
+        }
+    }
+
 }

@@ -18,9 +18,6 @@ public class SolarPanelService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private ExceptionHandler exceptionHandler;
-
     private String url;
 
     private String userName;
@@ -72,8 +69,7 @@ public class SolarPanelService {
      * @return response entity.
      */
     public ResponseEntity<String> incrementSize(AddSolarpanels addSolarpanels) {
-        ResponseEntity<String> response = null;
-        response = restTemplate
+        ResponseEntity<String> response = restTemplate
             .postForEntity(url + "/addSolarpanel", addSolarpanels, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             restTemplate
