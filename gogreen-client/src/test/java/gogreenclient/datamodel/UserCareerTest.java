@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,18 +17,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.floatThat;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -88,7 +84,31 @@ public class UserCareerTest {
 
     @Test
     public void getAchievementsBadRequest() throws Exception {
-       badRequest("achievement", null);
+        badRequest("achievement", null, HttpStatus.BAD_REQUEST);
+        assertEquals(null, service.getAchievements());
+    }
+
+    @Test
+    public void getAchievementsNull() throws Exception {
+        RestTemplate template = mock(RestTemplate.class);
+        service.setRestTemplate(template);
+        when(template.exchange(anyString(),
+                eq(HttpMethod.GET),
+                eq(null),
+                eq(new ParameterizedTypeReference<List<Achievements>>() {})))
+                .thenReturn(null);
+        assertEquals(null, service.getAchievements());
+    }
+
+    @Test
+    public void getAchievementsNotOk() throws Exception {
+        RestTemplate template = mock(RestTemplate.class);
+        service.setRestTemplate(template);
+        when(template.exchange(anyString(),
+                eq(HttpMethod.GET),
+                eq(null),
+                eq(new ParameterizedTypeReference<List<Achievements>>() {})))
+                .thenReturn(new ResponseEntity<List<Achievements>>(HttpStatus.ACCEPTED));
         assertEquals(null, service.getAchievements());
     }
 
@@ -120,13 +140,31 @@ public class UserCareerTest {
     public void getRecentTwoInsertHistoryBadRequest() throws Exception{
         List<InsertHistoryCo2> list = new ArrayList<>();
         list.add(new InsertHistoryCo2());
-        badRequest("insertHistory", list);
+        badRequest("insertHistory", list, HttpStatus.BAD_REQUEST);
+        assertEquals(null, service.getRecentTwoInsertHistory());
+    }
+
+    @Test
+    public void getRecentTwoInsertHistoryNotOk() throws Exception{
+        RestTemplate template = mock(RestTemplate.class);
+        service.setRestTemplate(template);
+        when(template.exchange(anyString(),
+                eq(HttpMethod.GET),
+                eq(null),
+                eq(new ParameterizedTypeReference<List<InsertHistoryCo2>>() {})))
+                .thenReturn(new ResponseEntity<List<InsertHistoryCo2>>(HttpStatus.ACCEPTED));
         assertEquals(null, service.getRecentTwoInsertHistory());
     }
 
     @Test
     public void getRecentTwoInsertHistoryNull() throws Exception{
-        badRequest("insertHistory", null);
+        RestTemplate template = mock(RestTemplate.class);
+        service.setRestTemplate(template);
+        when(template.exchange(anyString(),
+                eq(HttpMethod.GET),
+                eq(null),
+                eq(new ParameterizedTypeReference<List<InsertHistoryCo2>>() {})))
+                .thenReturn(null);
         assertEquals(null, service.getRecentTwoInsertHistory());
     }
 
@@ -149,14 +187,20 @@ public class UserCareerTest {
     }
 
     @Test
-    public void getActivityAmountBadRequst() throws Exception {
-        badRequest("insertHistory/amount", "69");
+    public void getActivityAmountBadRequest() throws Exception {
+        badRequest("insertHistory/amount", "69", HttpStatus.BAD_REQUEST);
         assertEquals(null, service.getActivityAmount());
     }
 
     @Test
     public void getActivityAmountNull() throws Exception {
-        badRequest("insertHistory/amount", null);
+        badRequest("insertHistory/amount", null, HttpStatus.ACCEPTED);
+        assertEquals(null, service.getActivityAmount());
+    }
+
+    @Test
+    public void getActivityAmountNotOk() throws Exception {
+        badRequest("insertHistory/amount", "69", HttpStatus.ACCEPTED);
         assertEquals(null, service.getActivityAmount());
     }
 
@@ -175,13 +219,19 @@ public class UserCareerTest {
 
     @Test
     public void getActiveDaysBadRequest() throws Exception {
-        badRequest("insertHistory/days", "4");
+        badRequest("insertHistory/days", "4", HttpStatus.BAD_REQUEST);
+        assertEquals(null, service.getActiveDays());
+    }
+
+    @Test
+    public void getActiveDaysNotOkRequest() throws Exception {
+        badRequest("insertHistory/days", "4", HttpStatus.MULTI_STATUS);
         assertEquals(null, service.getActiveDays());
     }
 
     @Test
     public void getActiveDaysNull() throws Exception {
-        badRequest("insertHistory/days", null);
+        badRequest("insertHistory/days", null, HttpStatus.MULTI_STATUS);
         assertEquals(null, service.getActiveDays());
     }
 
@@ -192,13 +242,13 @@ public class UserCareerTest {
         assertTrue(service.getActiveDays().equals("27"));
     }
 
-    public void badRequest(String urii, Object obj) throws Exception {
+    public void badRequest(String urii, Object obj, HttpStatus status) throws Exception {
         String resp = objectMapper.writeValueAsString(obj);
         service.setUsername("johnny");
         server.reset();
         server.expect(requestTo(uri + urii + "/johnny"))
                 .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.BAD_REQUEST).body(resp));
+                .andRespond(withStatus(status).body(resp));
     }
 
     public void notFound(String urii) throws Exception {
@@ -213,16 +263,16 @@ public class UserCareerTest {
     public void setUp_Post(MockRestServiceServer server, String uri, String content, String json) throws Exception {
         server.reset();
         server.expect(requestTo(uri))
-            .andExpect(method(HttpMethod.POST))
-            .andExpect(content().string(content))
-            .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
+                .andExpect(method(HttpMethod.POST))
+                .andExpect(content().string(content))
+                .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
     }
 
     public void setUp_Get(MockRestServiceServer server, String urii, String json) throws Exception {
         server.reset();
         server.expect(requestTo(uri + urii))
-            .andExpect(method(HttpMethod.GET))
-            .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
     }
 
 }

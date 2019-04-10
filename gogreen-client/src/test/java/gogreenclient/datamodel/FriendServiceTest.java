@@ -2,31 +2,23 @@ package gogreenclient.datamodel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gogreenclient.config.AppConfig;
-import gogreenclient.screens.ScreenConfiguration;
-import org.apache.http.HttpException;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +27,10 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
 
 @ContextConfiguration(classes = AppConfig.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class FriendServiceTest {
 
     @Autowired
@@ -66,13 +57,13 @@ public class FriendServiceTest {
 
     @Test
     public void addFriendBadRequestTest() throws Exception {
-        setUpAddFriend(new Friend(), HttpStatus.BAD_REQUEST);
+        setUpAddFriend(new Friend(), HttpStatus.CONTINUE);
         assertEquals(-1, friendService.addFriend("mike"));
     }
 
     @Test
     public void addFriendNullTest() throws Exception {
-        setUpAddFriend(null, HttpStatus.BAD_REQUEST);
+        setUpAddFriend(null, HttpStatus.CONTINUE);
         assertEquals(-1, friendService.addFriend("mike"));
     }
 
@@ -84,6 +75,12 @@ public class FriendServiceTest {
     }
 
     @Test
+    public void addFriendOtherServerErrorTest() throws Exception {
+        setUpAddFriend(new Friend(), HttpStatus.BAD_GATEWAY);
+        assertEquals(-1, friendService.addFriend("mike"));
+    }
+
+    @Test
     public void addFriendNotFoundTest() throws Exception {
         setUpAddFriend(new Friend(), HttpStatus.NOT_FOUND);
         Mockito.doNothing().when(msg).showMessage("mike not found. Please try again.");
@@ -91,8 +88,20 @@ public class FriendServiceTest {
     }
 
     @Test
+    public void addFriendOtherClientErrorTest() throws Exception {
+        setUpAddFriend(new Friend(), HttpStatus.FORBIDDEN);
+        assertEquals(-1, friendService.addFriend("mike"));
+    }
+
+    @Test
     public void addFriendAlreadyReportedTest() throws Exception {
         setUpAddFriend(new Friend(), HttpStatus.ALREADY_REPORTED);
+        assertEquals(0, friendService.addFriend("mike"));
+    }
+
+    @Test
+    public void addFriendAlreadyReportedNullTest() throws Exception {
+        setUpAddFriend(null, HttpStatus.ALREADY_REPORTED);
         assertEquals(0, friendService.addFriend("mike"));
     }
 
@@ -104,19 +113,19 @@ public class FriendServiceTest {
 
     @Test
     public void getFriendRecordsOk() throws Exception {
-        setUpGetRecordsOk(HttpStatus.OK);
-        assertEquals(new ArrayList<>(), friendService.getFriendRecords());
+        setUpGetRecordsOk(HttpStatus.OK, 1);
+        assertEquals(null, friendService.getFriendRecords());
     }
 
     @Test
     public void getFriendRecordsBadRequest() throws Exception {
-        setUpGetRecordsOk(HttpStatus.BAD_REQUEST);
+        setUpGetRecordsOk(HttpStatus.BAD_REQUEST, 1);
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
     @Test
     public void getFriendRecordsNull() throws Exception {
-        setUpGetRecordsOk(HttpStatus.OK);
+        setUpGetRecordsOk(HttpStatus.OK, 0);
         assertEquals(new ArrayList<>(), friendService.getFriendRecords());
     }
 
@@ -148,18 +157,29 @@ public class FriendServiceTest {
                 .andRespond(withStatus(status).body(resp));
     }
 
-    public void setUpGetRecordsOk(HttpStatus status) throws Exception {
-        RestTemplate restTemplate = mock(RestTemplate.class);
+    public void setUpGetRecordsOk(HttpStatus status, int i) throws Exception {
         List<Records> body= new ArrayList<>();
         Records r = new Records();
         r.setSavedCo2Total((float) 4);
         body.add(r);
-        friendService.setRestTemplate(restTemplate);
-        ResponseEntity<List<Records>> recordz =  new ResponseEntity<>(body, status);
-        Mockito.doReturn(recordz).when(restTemplate).exchange(
-                eq(url + "friend/record/gru"),
+        RestTemplate mockrest = mock(RestTemplate.class);
+        friendService.setRestTemplate(mockrest);
+        ResponseEntity<List<Records>> response;
+        if (i == 1) {
+            response = new ResponseEntity<List<Records>>(status);
+        }
+        else {
+            response = null;
+        }
+        when(mockrest.exchange(anyString(),
                 eq(HttpMethod.GET),
                 eq(null),
-                any(ParameterizedTypeReference.class));
+                eq(new ParameterizedTypeReference<List<Records>>() {})))
+                .thenReturn(response);
+//        server.reset();
+//        server.expect(requestTo(url + "friend/record/gru"))
+//                .andExpect(method(HttpMethod.GET))
+//                .andRespond(withStatus(status).body(mapper.writeValueAsString(new ParameterizedTypeReference<List<Records>>() {
+//                })));
     }
 }
