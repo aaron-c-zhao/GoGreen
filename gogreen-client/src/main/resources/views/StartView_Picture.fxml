@@ -113,7 +113,7 @@
                         <Font name="Segoe UI Light" size="44.0" />
                     </font>
                 </Label>
-                <PieChart fx:id="pieChart" layoutX="26.0" layoutY="254.0" prefHeight="307.0" prefWidth="436.0" />
+                <PieChart fx:id="pieChart" layoutX="26.0" layoutY="254.0" prefHeight="307.0" prefWidth="436.0" stylesheets="@../static/pieChart.css" />
                 <Label layoutX="26.0" layoutY="95.0" text="Total green activities:">
                     <font>
                         <Font name="Segoe UI Light" size="18.0" />

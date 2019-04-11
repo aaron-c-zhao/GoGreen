@@ -149,7 +149,7 @@ public class InsertHistoryCo2 {
     }
 
     public String activityName() {
-        return alternateActivity + " instead of " + activityName;
+        return activityName + " instead of " + alternateActivity;
     }
 
 }
