@@ -59,7 +59,7 @@
                                 </RadialGradient>
                             </ripplerFill>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#switchStatistics" prefHeight="177.0" prefWidth="308.0" ripplerFill="SKYBLUE" text="Show statistics" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXButton graphicTextGap="12.0" onAction="#switchStatistics" prefHeight="177.0" prefWidth="308.0" ripplerFill="SKYBLUE" stylesheets="@../static/hover.css" text="Show statistics" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Segoe UI Light" size="24.0" />
                             </font>
@@ -70,7 +70,7 @@
                                 <Insets bottom="1.0" top="1.0" />
                             </padding>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#showFriends" prefHeight="143.0" prefWidth="263.0" ripplerFill="SKYBLUE" text="Show friends" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton graphicTextGap="12.0" onAction="#showFriends" prefHeight="143.0" prefWidth="263.0" ripplerFill="SKYBLUE" stylesheets="@../static/hover.css" text="Show friends" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Segoe UI Light" size="24.0" />
                             </font>
@@ -89,7 +89,7 @@
                                 <FontIcon fontSmoothingType="LCD" iconColor="#eaeaea" iconLiteral="fas-plus" iconSize="35" selectionFill="#00ff2b" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton prefHeight="98.0" prefWidth="238.0" ripplerFill="SKYBLUE" style="-fx-background-color: #4682B4;" stylesheets="@../static/hover.css" text="See all achivements" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <JFXButton prefHeight="98.0" prefWidth="238.0" ripplerFill="SKYBLUE" style="-fx-background-color: #4682B4;" text="See all achivements" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                             <font>
                                 <Font name="Segoe UI Light" size="24.0" />
                             </font>

@@ -72,7 +72,7 @@
                                 <Insets bottom="1.0" top="1.0" />
                             </padding>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#showFriends" prefHeight="143.0" prefWidth="263.0" ripplerFill="SKYBLUE" text="Show friends" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <JFXButton graphicTextGap="12.0" onAction="#showFriends" prefHeight="143.0" prefWidth="263.0" ripplerFill="SKYBLUE" stylesheets="@../static/hover.css" text="Show friends" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Segoe UI Light" size="24.0" />
                             </font>

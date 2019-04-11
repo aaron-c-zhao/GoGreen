@@ -11,6 +11,7 @@ import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,8 @@ public class LoginController implements WindowController {
     public Label combinationLabel;
     @FXML
     Hyperlink create;
+    @FXML
+    AnchorPane loadingPane;
 
     private Windows dialog;
 
@@ -126,11 +129,13 @@ public class LoginController implements WindowController {
             }
         }
         if (response != null && response.getStatusCode() == HttpStatus.OK) {
+            loadingPane.setVisible(true);
             appConfig.setRestTemplate(restTemplate);
             restTemplate.postForEntity("https://localhost:8443/api/insertHistory",
                 new InsertHistory(username.getText()), String.class);
-            dialog.close();
             screens.startScreen().show();
+            dialog.close();
+
         } else {
             return;
         }

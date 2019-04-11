@@ -60,7 +60,7 @@
                                 </RadialGradient>
                             </ripplerFill>
                         </JFXButton>
-                        <JFXButton graphicTextGap="12.0" onAction="#switchStatistics" prefHeight="177.0" prefWidth="308.0" ripplerFill="SKYBLUE" text="Show statistics" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <JFXButton graphicTextGap="12.0" onAction="#switchStatistics" prefHeight="177.0" prefWidth="308.0" ripplerFill="SKYBLUE" stylesheets="@../static/hover.css" text="Show statistics" textAlignment="CENTER" textFill="#eaeaea" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Segoe UI Light" size="24.0" />
                             </font>
