@@ -56,8 +56,8 @@ public class AchievementsController implements SceneController {
     public void initialize() {
         achievementsList = service.getAchievements();
         JFXTreeTableColumn<Achievements, Achievements.AchievementImage> achPhoto =
-                new JFXTreeTableColumn<>("");
-        achPhoto.setPrefWidth(100);
+                new JFXTreeTableColumn<>("Badge");
+        achPhoto.setPrefWidth(90);
         achPhoto.setStyle("-fx-alignment: CENTER;");
         achPhoto.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Achievements,
                 Achievements.AchievementImage>,
@@ -119,7 +119,7 @@ public class AchievementsController implements SceneController {
         });
 
         JFXTreeTableColumn<Achievements, String> achieved = new JFXTreeTableColumn<>("Achieved");
-        achieved.setPrefWidth(90);
+        achieved.setPrefWidth(70);
         achieved.setStyle("-fx-alignment: CENTER;");
         achieved.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Achievements,
                 String>, ObservableValue<String>>() {
@@ -132,7 +132,7 @@ public class AchievementsController implements SceneController {
 
         JFXTreeTableColumn<Achievements,
                 String> description = new JFXTreeTableColumn<>("Description");
-        description.setPrefWidth(800);
+        description.setPrefWidth(700);
         description.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Achievements,
                 String>, ObservableValue<String>>() {
             @Override

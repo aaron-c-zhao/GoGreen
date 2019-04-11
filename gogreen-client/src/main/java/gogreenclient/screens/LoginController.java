@@ -44,6 +44,8 @@ public class LoginController implements WindowController {
     Hyperlink create;
     @FXML
     AnchorPane loadingPane;
+    @FXML
+    AnchorPane pane;
 
     private Windows dialog;
 
@@ -67,6 +69,7 @@ public class LoginController implements WindowController {
      * initialize the login screen.
      */
     public void initialize() {
+        pane.setStyle("-fx-background-image: url(static/login_background.png);");
         dialog.setOnCloseRequest(e -> {
             e.consume();
             screens.exitDialog().showAndWait();

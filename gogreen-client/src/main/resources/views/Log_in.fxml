@@ -15,13 +15,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" style="-fx-background-image: url('static/login_background.png');" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.LoginController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" style="-fx-background-image: url('static/login_background.png');" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.LoginController">
     <children>
-        <ImageView fitHeight="650.0" fitWidth="895.0" layoutX="-4.0">
-            <image>
-                <Image url="@../static/login_background.png" />
-            </image>
-        </ImageView>
         <Pane layoutX="36.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
             <children>
                 <Label layoutX="61.0" layoutY="20.0" text="#G" textFill="#fffbfb">

@@ -11,6 +11,7 @@ import gogreenclient.screens.window.WindowController;
 import gogreenclient.screens.window.Windows;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,8 @@ public class CreateAccountController implements WindowController {
     Label errorLabel;
     @FXML
     Label textHideError;
+    @FXML
+    AnchorPane pane;
 
     private File file = null;
     private ScreenConfiguration screens;
@@ -72,6 +75,7 @@ public class CreateAccountController implements WindowController {
      * initialize the create account scene.
      */
     public void initialize() {
+        pane.setStyle("-fx-background-image: url(static/login_background.png);");
         dialog.setOnCloseRequest(e -> {
             e.consume();
             dialog.close();

@@ -18,26 +18,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" style="-fx-background-image: url('static/login_background.png');" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.CreateAccountController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.CreateAccountController">
     <children>
-        <ImageView fitHeight="650.0" fitWidth="658.0" layoutX="-169.0">
-            <image>
-                <Image url="@../static/login_background.png" />
-            </image>
-        </ImageView>
-        <Pane layoutX="36.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
+        <Pane layoutX="36.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0">
             <children>
-                <Label layoutX="57.0" layoutY="11.0" prefHeight="103.0" prefWidth="92.0" text="#G" textFill="#fffbfb">
+                <Label layoutX="65.0" layoutY="11.0" prefHeight="103.0" prefWidth="92.0" text="#G" textFill="#fffbfb">
                     <font>
                         <Font name="Agency FB" size="70.0" />
                     </font>
                 </Label>
-                <Label layoutX="202.0" layoutY="20.0" prefHeight="84.0" prefWidth="147.0" text="GREEN" textFill="#fffbfb">
+                <Label layoutX="208.0" layoutY="21.0" prefHeight="84.0" prefWidth="147.0" text="GREEN" textFill="#fffbfb">
                     <font>
                         <Font name="Agency FB" size="70.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="74.0" fitWidth="74.0" layoutX="128.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="74.0" fitWidth="74.0" layoutX="134.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../static/gg3.png" />
                     </image>
@@ -50,9 +45,9 @@
                 <DropShadow color="#229d0c80" />
             </effect>
         </Pane>
-        <Pane layoutX="36.0" layoutY="150.0" prefHeight="481.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
+        <Pane layoutX="36.0" layoutY="150.0" prefHeight="481.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0">
             <children>
-                <Label layoutX="76.0" text="Create an account" textFill="#fffbfb">
+                <Label layoutX="88.0" layoutY="4.0" text="Create an account" textFill="#fffbfb">
                     <font>
                         <Font name="Segoe UI" size="30.0" />
                     </font>
@@ -109,11 +104,23 @@
                                 <Font name="Segoe UI" size="16.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="username" focusColor="#fbfcff" promptText="username" unFocusColor="SEAGREEN" GridPane.columnIndex="2" />
-                        <JFXPasswordField fx:id="password" focusColor="#fbfcff" promptText="password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <JFXPasswordField fx:id="repeatPassword" focusColor="#fbfcff" promptText="repeat password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="username" focusColor="#fbfcff" promptText="username" unFocusColor="SEAGREEN" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Segoe UI Light" size="14.0" />
+                     </font></JFXTextField>
+                        <JFXPasswordField fx:id="password" focusColor="#fbfcff" promptText="password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Segoe UI Light" size="14.0" />
+                     </font></JFXPasswordField>
+                        <JFXPasswordField fx:id="repeatPassword" focusColor="#fbfcff" promptText="repeat password" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Segoe UI Light" size="14.0" />
+                     </font></JFXPasswordField>
                         <JFXDatePicker fx:id="bday" defaultColor="SEAGREEN" prefHeight="28.0" prefWidth="206.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <JFXTextField fx:id="email" focusColor="#fbfcff" prefHeight="25.0" prefWidth="204.0" promptText="email" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <JFXTextField fx:id="email" focusColor="#fbfcff" prefHeight="25.0" prefWidth="204.0" promptText="email" unFocusColor="SEAGREEN" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Segoe UI Light" size="14.0" />
+                     </font></JFXTextField>
                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="30.0" prefWidth="130.0" text="Profile picture:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="10">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
