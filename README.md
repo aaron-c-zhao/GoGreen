@@ -78,7 +78,7 @@ Maven 3.6.0
 
 Our project is consisted of three separate modules as follows:
 
-#### gogreen-client
+#### 1. gogreen-client
 
 This module contains a complete JavaFx application with Spring integrated. It will consume the RESTful service provided by our server. 
 
@@ -94,35 +94,45 @@ without maven installed
 ./mvnw compile exec:java
 ```
 
-#### gogreen-webserver
+#### 2. gogreen-webserver
 
 This module provides a RESTful service for our client, the endpoints are listed here [endpoints](doc/endpoints.md).The responses will be in JSON format. 
 
-*run the server in your IDE:*
+**Run the server in your IDE**
 
-1. If you have not install the whole project, you need to install it first:
+* Install the dependencies:
+
+With maven installed
 
 ```po
 mvn install
 ```
 
-if you have maven installed. Otherwise, you need to use the maven wrapper by:
+​      Without maven installed
 
 ```po
 ./mvnw install
 ```
 
-2. After all dependencies have been installed, you can either run the main class in your IDE.
+* After all dependencies have been installed, you can either run the main class in your IDE.
 
-*run the server through command line:*
+**Run the server throug command line**
 
-1.  package the application into a fat jar by:
+* package the application into a fat jar by:
+
+  With Maven installed
 
 ```po
 mvn package
 ```
 
-2. execute the command below:
+​	Withour Maven installed
+
+```po
+./mvnw package
+```
+
+* execute the command below:
 
 ```p
 java -jar gogreen-webserver/target/gogreen-webserver-1.0.0.jar
