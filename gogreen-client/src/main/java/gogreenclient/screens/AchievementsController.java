@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableRow;
@@ -43,6 +44,8 @@ public class AchievementsController implements SceneController {
 
     @FXML
     private JFXTreeTableView<Achievements> treeView;
+    @FXML
+    private Label count;
 
 
     public AchievementsController(ScreenConfiguration screens) {
@@ -59,6 +62,7 @@ public class AchievementsController implements SceneController {
                 new JFXTreeTableColumn<>("");
         achPhoto.setPrefWidth(100);
         achPhoto.setStyle("-fx-alignment: CENTER;");
+        count.setText(String.valueOf(achievementsList.size()));
         achPhoto.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Achievements,
                 Achievements.AchievementImage>,
                 ObservableValue<Achievements.AchievementImage>>() {
