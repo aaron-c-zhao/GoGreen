@@ -18,7 +18,63 @@ Maven 3.6.0
 
 ### Structure
 
-![Screenshot 2019-04-12 23.01.52](/Users/zhaochengrui/Dropbox/Screenshots/Screenshot 2019-04-12 23.01.52.png)
+```po
+
+├── CSE1105.checkstyle.xml
+├── LICENSE
+├── README.md
+├── gogreen-client
+│   ├── gogreen-client.iml
+│   ├── pom.xml
+│   ├── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── gogreenclient
+│       │   │       ├── GoGreenApplication.java
+│       │   │       ├── config
+│       │   │       ├── datamodel
+│       │   │       └── screens
+│       │   │           └── window
+│       │   └── resources
+│       │       ├── application.yml
+│       │       ├── identity.jks
+│       │       ├── static
+│       │       ├── truststore.jks
+│       │       └── views
+│       └── test
+│           └── java
+│               └── gogreenclient
+│                   ├── GoGreenApplicationTest.java
+│                   └── datamodel
+├── gogreen-webserver
+│   ├── gogreen-webserver.iml
+│   ├── pom.xml
+│   ├── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── gogreenserver
+│       │   │       ├── GogreenApplication.java
+│       │   │       ├── config
+│       │   │       ├── controllers
+│       │   │       ├── entity
+│       │   │       ├── repositories
+│       │   │       ├── security
+│       │   │       └── services
+│       │   ├── profile_pictures
+│       │   └── resources
+│       └── test
+│           ├── java
+│           │   └── gogreenserver
+│           └── resources
+├── gogreen.iml
+├── jacoco-aggregate
+│   └── pom.xml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+```
+
+
 
 Our project is consisted of three separate modules as follows:
 
