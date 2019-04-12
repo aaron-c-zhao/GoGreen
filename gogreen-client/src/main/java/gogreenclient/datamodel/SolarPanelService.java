@@ -18,9 +18,6 @@ public class SolarPanelService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private ExceptionHandler exceptionHandler;
-
     private String url;
 
     private String userName;
@@ -55,7 +52,7 @@ public class SolarPanelService {
             }
         }
         float totalSize = 0;
-        if (response != null & response.getStatusCode() == HttpStatus.OK) {
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
             addSolarpanels = response.getBody();
             for (AddSolarpanels a : addSolarpanels) {
                 totalSize += a.getArea();
@@ -72,8 +69,7 @@ public class SolarPanelService {
      * @return response entity.
      */
     public ResponseEntity<String> incrementSize(AddSolarpanels addSolarpanels) {
-        ResponseEntity<String> response = null;
-        response = restTemplate
+        ResponseEntity<String> response = restTemplate
             .postForEntity(url + "/addSolarpanel", addSolarpanels, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             restTemplate
@@ -81,5 +77,9 @@ public class SolarPanelService {
                     new InsertHistory(userName), String.class);
         }
         return response;
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 }

@@ -12,12 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
@@ -73,5 +76,15 @@ public class UserServiceTest {
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.NOT_FOUND));
         assertFalse(userService.findUser("Alin"));
+    }
+
+    @Test
+    public void findUserError() throws Exception {
+        server.reset();
+        server.expect(requestTo(new URI("https://localhost:8443/api/user/findUser/Alin")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond((response) -> {throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+                });
+        assertTrue(userService.findUser("Alin"));
     }
 }

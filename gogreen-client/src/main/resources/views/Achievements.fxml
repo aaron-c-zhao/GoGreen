@@ -113,7 +113,7 @@
                 </Label>
                 <HBox layoutX="57.0" layoutY="118.0" spacing="7.0">
                     <children>
-                        <Label text="achCount">
+                        <Label fx:id="count" text="achCount">
                             <font>
                                 <Font name="Segoe UI Light" size="20.0" />
                             </font>
@@ -138,7 +138,7 @@
                         <Insets />
                     </opaqueInsets>
                 </HBox>
-                <JFXTreeTableView fx:id="treeView" layoutX="48.0" layoutY="149.0" prefHeight="424.0" prefWidth="600.0" AnchorPane.bottomAnchor="18.8" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="47.200000000000045" AnchorPane.topAnchor="158.0" />
+                <JFXTreeTableView fx:id="treeView" layoutX="48.0" layoutY="149.0" prefHeight="424.0" prefWidth="600.0" stylesheets="@../static/AchievementsDesign.css" AnchorPane.bottomAnchor="18.8" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="47.200000000000045" AnchorPane.topAnchor="158.0" />
             </children>
         </AnchorPane>
     </children>
