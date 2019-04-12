@@ -108,7 +108,7 @@
         </AnchorPane>
         <AnchorPane prefHeight="587.0" prefWidth="501.0" HBox.hgrow="ALWAYS">
             <children>
-                <Label layoutX="164.0" layoutY="14.0" text="Statistics" textFill="#00ab66" AnchorPane.leftAnchor="164.0">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="164.0" layoutY="14.0" text="Statistics" textAlignment="CENTER" textFill="#00ab66" wrapText="true" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="166.40000000000003" AnchorPane.topAnchor="14.0">
                     <font>
                         <Font name="Segoe UI Light" size="44.0" />
                     </font>
@@ -144,7 +144,7 @@
                         <Font name="Segoe UI Light" size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="106.0" layoutY="215.0" text="Green activities distribution" textFill="#00ab66" AnchorPane.bottomAnchor="333.00000000000006" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="74.80000000000001" AnchorPane.topAnchor="215.0">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="106.0" layoutY="215.0" text="Green activities distribution" textAlignment="CENTER" textFill="#00ab66" wrapText="true" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="74.80000000000001" AnchorPane.topAnchor="215.0">
                     <font>
                         <Font name="Segoe UI Light" size="27.0" />
                     </font>
@@ -208,7 +208,7 @@
                 </AnchorPane>
                 <VBox layoutX="6.0" layoutY="130.0" prefHeight="66.0" prefWidth="198.0" AnchorPane.topAnchor="130.0">
                     <children>
-                        <Label fx:id="userName" alignment="CENTER" onMouseClicked="#switchUserScene" prefHeight="39.0" prefWidth="200.0" text="Stranger" textAlignment="CENTER" textFill="#eaeaea" VBox.vgrow="ALWAYS">
+                        <Label fx:id="userName" alignment="CENTER" prefHeight="39.0" prefWidth="200.0" text="Stranger" textAlignment="CENTER" textFill="#eaeaea" VBox.vgrow="ALWAYS">
                             <font>
                                 <Font name="Segoe UI Light" size="27.0" />
                             </font>
@@ -257,7 +257,7 @@
                 </HBox>
             <AnchorPane prefHeight="85.0" prefWidth="210.0" style="-fx-background-color: #3CB371;" AnchorPane.topAnchor="0.0" />
             <Circle fill="MEDIUMSEAGREEN" layoutX="105.0" layoutY="77.0" radius="53.0" stroke="MEDIUMSEAGREEN" strokeType="INSIDE" AnchorPane.topAnchor="25.0" />
-            <Circle fx:id="circlePic" fill="DODGERBLUE" layoutX="105.0" layoutY="78.0" onMouseClicked="#switchUserScene" radius="53.0" stroke="MEDIUMSEAGREEN" strokeType="INSIDE" AnchorPane.topAnchor="25.0" />
+            <Circle fx:id="circlePic" fill="DODGERBLUE" layoutX="105.0" layoutY="78.0" radius="53.0" stroke="MEDIUMSEAGREEN" strokeType="INSIDE" AnchorPane.topAnchor="25.0" />
             </children>
             <effect>
                 <DropShadow />

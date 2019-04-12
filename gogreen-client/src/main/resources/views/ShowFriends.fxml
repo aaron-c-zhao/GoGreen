@@ -107,7 +107,7 @@
         </AnchorPane>
         <AnchorPane prefHeight="587.0" prefWidth="702.0" HBox.hgrow="ALWAYS">
             <children>
-                <Label layoutX="265.0" layoutY="14.0" prefHeight="71.0" prefWidth="214.0" text="Friend List" textFill="#00ab66" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="217.0">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="265.0" layoutY="14.0" prefHeight="71.0" prefWidth="214.0" text="Friend List" textFill="#00ab66" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="217.0">
                     <font>
                         <Font name="Segoe UI Light" size="49.0" />
                     </font>
