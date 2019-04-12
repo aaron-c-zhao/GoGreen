@@ -1,5 +1,7 @@
 package gogreenclient.datamodel;
 
+import gogreenclient.config.AppConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
@@ -17,12 +19,13 @@ import java.time.LocalDate;
 
 public class UserService {
 
-
     @Autowired
     private RestTemplate loginRestTemplate;
 
-    private String url;
+    @Autowired
+    AppConfig config;
 
+    private String url;
 
     /**
      * Method that deals with the communication between server and client.
@@ -30,25 +33,25 @@ public class UserService {
      * @param username    the username retrived from the GUI, should be a string
      * @param password    the password retrived from the GUI, should be a string
      * @param bdate       the birthday of the user, should be of type localdate
-     * @param nationality the nationality of the user, retrived from the GUI, should be a string
+     * @param nationality the nationality of the user, retrived from the GUI, should
+     *                    be a string
      * @return this method will return a responseEntity
      * @throws Exception throw IOException
      */
     @SuppressWarnings("unchecked")
     public ResponseEntity<User> addUser(String username, String password, LocalDate bdate,
-                                        String nationality) throws URISyntaxException {
+            String nationality) throws URISyntaxException {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setBdate(bdate);
         user.setEmail(nationality);
-        return loginRestTemplate.postForEntity(url + "/createUser", user,
-            User.class);
+        return loginRestTemplate.postForEntity(url + "/createUser", user, User.class);
     }
 
     /**
-     * Find if a user exists in the DB. None of user's detail will be received,
-     * so this method is save to use
+     * Find if a user exists in the DB. None of user's detail will be received, so
+     * this method is save to use
      *
      * @param username username entered by user while creating account.
      * @return true - the username is already used, false if it is valid.
@@ -56,7 +59,7 @@ public class UserService {
     public boolean findUser(String username) {
         try {
             ResponseEntity<String> response = loginRestTemplate
-                .getForEntity(url + "/user/findUser/" + username, String.class);
+                    .getForEntity(url + "/user/findUser/" + username, String.class);
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
                 return false;
@@ -65,10 +68,11 @@ public class UserService {
         return true;
     }
 
-    /** .
-     *  * Method for uploading the photo from the user system and send it to
-     * server on /createUser/upload endpoint
-     * @param file the image to save
+    /**
+     * . * Method for uploading the photo from the user system and send it to server
+     * on /createUser/upload endpoint
+     * 
+     * @param file     the image to save
      * @param userName the name entered by the user inside the textfield
      * @return the response entity of the connection which transfers the
      *
@@ -81,7 +85,8 @@ public class UserService {
         body.add("profile_pic", new FileSystemResource(file));
         body.add("username", userName);
         HttpEntity request = new HttpEntity<>(body, headers);
-        return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser/upload", request, String.class);
+        return loginRestTemplate.postForEntity("https://localhost:8443/api/createUser/upload",
+                request, String.class);
     }
 
     public void setRestTemplate(RestTemplate loginRestTemplate) {
@@ -90,5 +95,26 @@ public class UserService {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    /**
+     * Change a single user value.
+     * @param attr A {@linkplain UserAttribute} to select what to change.
+     * @param value The value to set it to.
+     */
+    public void changeDetail(UserAttribute attr, String value) {
+        loginRestTemplate.postForEntity(
+                url + "/updateUser/" + config.getUsername() + "/" + attr.value, value,
+                String.class);
+    }
+
+    public enum UserAttribute {
+        EMAIL("email"), PASS("password"), PURL("photo"), BDAY("birthday");
+
+        private String value;
+
+        private UserAttribute(String value) {
+            this.value = value;
+        }
     }
 }
