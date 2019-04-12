@@ -257,8 +257,8 @@ public class UserCareerTest {
         service.setRestTemplate(restTemplate);
         when(restTemplate.getForEntity(
                 anyString(),
-                eq(byte[].class)
-        )).thenReturn(new ResponseEntity<byte[]>(new byte[2], HttpStatus.OK));
+                eq(File.class)
+        )).thenReturn(new ResponseEntity<File>(HttpStatus.NO_CONTENT));
         File file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
         BufferedImage imgBuffer = ImageIO.read(file);
         BufferedImage img2 = imgBuffer;
@@ -272,12 +272,10 @@ public class UserCareerTest {
         service.setRestTemplate(restTemplate);
         File file = new ClassPathResource("static/fish.jpg").getFile();
         BufferedImage imgBuffer = ImageIO.read(file);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ImageIO.write(imgBuffer, "jpg", out);
         when(restTemplate.getForEntity(
                 anyString(),
-                eq(byte[].class)
-        )).thenReturn(new ResponseEntity<byte[]>(out.toByteArray(), HttpStatus.OK));
+                eq(File.class)
+        )).thenReturn(new ResponseEntity<File>(file, HttpStatus.OK));
         BufferedImage img2 = imgBuffer;
         SwingFXUtils.fromFXImage(service.showPhoto(), img2);
         assertEquals(imgBuffer.getData().getDataBuffer().getSize(), img2.getData().getDataBuffer().getSize());
