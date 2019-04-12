@@ -1,5 +1,6 @@
 package gogreenclient.datamodel;
 
+
 public class Records {
 
     private String userName;
@@ -30,8 +31,16 @@ public class Records {
 
     private Float savedCo2tree;
 
+    /**.
+     * return the saved emission from planting a tree
+     * @return the value
+     */
     public Float getSavedCo2tree() {
-        return savedCo2tree;
+        if (savedCo2tree != null) {
+            return savedCo2tree;
+        } else {
+            return 0.0F;
+        }
     }
 
     public void setSavedCo2tree(Float savedCo2tree) {

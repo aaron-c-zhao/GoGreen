@@ -143,7 +143,11 @@ public class CreateAccountController implements WindowController {
      * @return the response of the actual sending method
      */
     public ResponseEntity<String> uploadPhoto() {
-        String userName = username.getText();
-        return userService.uploadPhoto(file, userName);
+        if (file != null) {
+            String userName = username.getText();
+            return userService.uploadPhoto(file, userName);
+        } else {
+            return new ResponseEntity<String>("No Picture", HttpStatus.OK);
+        }
     }
 }

@@ -46,7 +46,7 @@ public class TreeServiceTest {
         RestTemplate template = mock(RestTemplate.class);
         service.setRestTemplate(template);
         service.setUserName("Ka");
-        ResponseEntity<String> responseEntity = new ResponseEntity<String>("wazzap", HttpStatus.ACCEPTED);
+        ResponseEntity<String> responseEntity = new ResponseEntity<String>("wazzap", HttpStatus.OK);
         when(template.postForEntity(
                 anyString(),
                 eq(new InsertHistory("Ka")),
