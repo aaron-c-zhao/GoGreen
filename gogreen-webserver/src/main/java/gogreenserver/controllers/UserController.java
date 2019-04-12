@@ -165,14 +165,16 @@ public class UserController {
                             LocalDate.parse(body, DateTimeFormatter.ofPattern("\"yyyy-MM-dd\"")));
                 } catch (DateTimeException e) {
                     logger.catching(e);
+                    return new ResponseEntity<>("Invalid date format.",
+                            HttpStatus.BAD_REQUEST);
                 }
                 break;
             case "photo":
                 user.setPfpUrl(body);
                 break;
             default:
-                return new ResponseEntity<>(property + " is not an user property",
-                        HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Invalid user property",
+                        HttpStatus.NOT_FOUND);
         }
 
         userService.updateUser(user);

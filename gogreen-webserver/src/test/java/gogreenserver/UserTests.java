@@ -151,8 +151,43 @@ public class UserTests {
 
         User dummy = manager.persistAndFlush(createDummyUser("TrainMcTrainface"));
 
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        RequestBuilder req = MockMvcRequestBuilders
+                .post("/api/updateUser/" + dummy.getUsername() + "/email")
+                .contentType(MediaType.TEXT_PLAIN).content("hackerman@example.org");
+
+        mockMvc.perform(req).andExpect(status().is(401));
+
+        manager.clear();
+    }
+
+    @WithMockUser("hunter")
+    @Test
+    public void updateInvalidProp() throws Exception {
+
+        LOGGER.debug("=== updateInvalidProp() ===");
+
+        User dummy = manager.persistAndFlush(createDummyUser("hunter"));
+
+        RequestBuilder req = MockMvcRequestBuilders
+                .post("/api/updateUser/" + dummy.getUsername() + "/username")
+                .contentType(MediaType.TEXT_PLAIN).content("hunter2");
+
+        mockMvc.perform(req).andExpect(status().is(404));
+
+        manager.clear();
+    }
+
+    @WithMockUser("Merica")
+    @Test
+    public void updateInvalidDate() throws Exception {
+
+        LOGGER.debug("=== updateInvalidDate() ===");
+
+        User dummy = manager.persistAndFlush(createDummyUser("Merica"));
+
+        RequestBuilder req = MockMvcRequestBuilders
+                .post("/api/updateUser/" + dummy.getUsername() + "/birthday")
+                .contentType(MediaType.TEXT_PLAIN).content("July 6th, 1776");
 
         mockMvc.perform(req).andExpect(status().is(400));
 
@@ -201,11 +236,11 @@ public class UserTests {
     @WithMockUser("V")
     @Test
     public void checkChanges() throws Exception {
-        
+
         LOGGER.debug("=== checkChanges() ===");
-        
+
         User dummy = manager.persistAndFlush(createDummyUser("V"));
-        //because somehow (I am not sure), the manager auto-syncs dummy to all changes.
+        // because somehow (I am not sure), the manager auto-syncs dummy to all changes.
         String password = dummy.getPassword();
 
         LocalDate newtime = LocalDate.now().plusDays(1);
@@ -217,9 +252,9 @@ public class UserTests {
             RequestBuilder req = MockMvcRequestBuilders
                     .post("/api/updateUser/" + dummy.getUsername() + "/" + propertynames[i])
                     .contentType(MediaType.APPLICATION_JSON).content(propertyvalues[i]);
-            
+
             LOGGER.debug("Sent " + propertynames[i]);
-            
+
             mockMvc.perform(req).andExpect(status().is(200));
         }
         manager.flush();
@@ -233,8 +268,33 @@ public class UserTests {
 
     }
 
+    @WithMockUser
+    @Test
+    public void getPic() throws Exception {
+
+        LOGGER.debug("=== getPic() ===");
+
+        User dummy = createDummyUser("Fab");
+
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/user/photourl/" + dummy.getUsername())
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(req).andExpect(status().is(404));
+
+        manager.persistAndFlush(dummy);
+
+        RequestBuilder req2 = MockMvcRequestBuilders
+                .get("/api/user/photourl/" + dummy.getUsername())
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        MvcResult res = mockMvc.perform(req2).andExpect(status().is(200)).andReturn();
+        assertThat(res.getResponse().getContentAsString()).isEqualTo(dummy.getPfpUrl());
+
+        manager.clear();
+    }
+       
     @Test
     public void checkAuthChecker() {
+
+        LOGGER.debug("=== checkAuthChecker() ===");
 
         User dummy = createDummyUser("Yeet");
 

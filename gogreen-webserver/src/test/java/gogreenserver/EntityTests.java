@@ -9,6 +9,7 @@ import gogreenserver.entity.Friend;
 import gogreenserver.entity.InsertHistory;
 import gogreenserver.entity.InsertHistoryCo2;
 import gogreenserver.entity.Records;
+import gogreenserver.entity.Tree;
 import gogreenserver.entity.User;
 
 import net.bytebuddy.utility.RandomString;
@@ -268,13 +269,18 @@ public class EntityTests {
         stats.setSavedPriceTransport(pricetrans);
         assertThat(stats.getSavedPriceTransport()).isEqualTo(pricetrans);
 
+        float savedtree = rgn.nextFloat();
+        stats.setSavedCo2Tree(savedtree);
+        assertThat(stats.getSavedCo2Tree()).isEqualTo(savedtree);
+
         assertThat(stats.toString()).isEqualTo("Records{" + "userName='" + username + '\''
                 + ", kwhProducedSolarpanels=" + solarprod + ", savedKwhEnergy=" + savedelectro
                 + ", savedCo2Solarpanels=" + savedsolar + ", savedCo2Food=" + savedFood
                 + ", savedCo2Energy=" + savedco2energy + ", savedCo2Transport=" + savedtrans
-                + ", savedCo2Total=" + savedtotal + ", savedPriceFood=" + pricefood
-                + ", savedPriceSolarpanels=" + pricesolar + ", savedPriceTransport=" + pricetrans
-                + ", savedPriceEnergy=" + priceenergy + ", savedPriceTotal=" + pricetotal + '}');
+                + ", savedCo2Tree=" + savedtree + ", savedCo2Total=" + savedtotal
+                + ", savedPriceFood=" + pricefood + ", savedPriceSolarpanels=" + pricesolar
+                + ", savedPriceTransport=" + pricetrans + ", savedPriceEnergy=" + priceenergy
+                + ", savedPriceTotal=" + pricetotal + '}');
     }
 
     @Test
@@ -300,41 +306,57 @@ public class EntityTests {
         LocalDate cday = LocalDate.now();
         user.setDateCreated(cday);
         assertThat(user.getDateCreated()).isEqualTo(cday);
-        
-        assertThat(user.toString()).isEqualTo("User{"
-                + "userName='" + username + '\''
-                + ", email='" + email + '\''
-                + ", bdate='" + bday + '\''
-                + ", dateCreated='" + cday + '\''
-                + '}');
+
+        assertThat(user.toString()).isEqualTo("User{" + "userName='" + username + '\'' + ", email='"
+                + email + '\'' + ", bdate='" + bday + '\'' + ", dateCreated='" + cday + '\'' + '}');
+    }
+
+    @Test
+    public void tree() {
+        Tree tree = new Tree();
+
+        String username = RandomString.make();
+        tree.setUserName(username);
+        assertThat(tree.getUserName()).isEqualTo(username);
+
+        String treetype = RandomString.make();
+        tree.setTree(treetype);
+        assertThat(tree.getTree()).isEqualTo(treetype);
+
+        LocalDateTime time = LocalDateTime.now();
+        tree.setAddingDate(time);
+        assertThat(tree.getAddingDate()).isEqualTo(time);
+
+        float co2saved = rgn.nextFloat();
+        tree.setCo2Saved(co2saved);
+        assertThat(tree.getCo2Saved()).isEqualTo(co2saved);
+
+        assertThat(tree.toString()).isEqualTo("Tree{" + "userName='" + username + "', tree='"
+                + treetype + "', addingDate=" + time + ", co2Saved=" + co2saved + '}');
     }
 
     @Test
     public void friend() {
         Friend friend = new Friend();
-        
+
         long id = rgn.nextLong();
         friend.setId(id);
-        assertThat(friend.getId()).isEqualTo(id); 
-        
+        assertThat(friend.getId()).isEqualTo(id);
+
         String username = RandomString.make();
         friend.setUserName(username);
         assertThat(friend.getUserName()).isEqualTo(username);
-        
+
         String friendname = RandomString.make();
         friend.setFriendName(friendname);
         assertThat(friend.getFriendName()).isEqualTo(friendname);
-        
+
         LocalDateTime addtime = LocalDateTime.now();
         friend.setAddTime(addtime);
         assertThat(friend.getAddTime()).isEqualTo(addtime);
-        
-        assertThat(friend.toString()).isEqualTo("Friend{"
-            + "id=" + id
-            + ", addTime=" + addtime
-            + ", userName='" + username + '\''
-            + ", friendName='" + friendname + '\''
-            + '}');
+
+        assertThat(friend.toString()).isEqualTo("Friend{" + "id=" + id + ", addTime=" + addtime
+                + ", userName='" + username + '\'' + ", friendName='" + friendname + '\'' + '}');
     }
 
 }

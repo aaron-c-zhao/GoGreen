@@ -133,7 +133,7 @@ public class CreateAccountController implements WindowController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose an image");
         fileChooser.getExtensionFilters().addAll(new FileChooser
-            .ExtensionFilter("JPEG", "*.jpg"));
+            .ExtensionFilter("Image files (JPEG, PNG)", "*.jpg", "*.png"));
         file = fileChooser.showOpenDialog(null);
         uploadPath.setText(file.getName());
     }
