@@ -52,7 +52,7 @@ public class SolarPanelService {
             }
         }
         float totalSize = 0;
-        if (response != null & response.getStatusCode() == HttpStatus.OK) {
+        if (response != null && response.getStatusCode() == HttpStatus.OK) {
             addSolarpanels = response.getBody();
             for (AddSolarpanels a : addSolarpanels) {
                 totalSize += a.getArea();
@@ -77,5 +77,9 @@ public class SolarPanelService {
                     new InsertHistory(userName), String.class);
         }
         return response;
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 }

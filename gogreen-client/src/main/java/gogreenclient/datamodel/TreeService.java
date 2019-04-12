@@ -40,4 +40,7 @@ public class TreeService {
         return response;
     }
 
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 }
