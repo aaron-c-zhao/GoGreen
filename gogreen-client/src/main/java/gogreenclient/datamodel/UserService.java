@@ -23,7 +23,7 @@ public class UserService {
     private RestTemplate loginRestTemplate;
 
     @Autowired
-    AppConfig config;
+    private AppConfig config;
 
     private String url;
 
