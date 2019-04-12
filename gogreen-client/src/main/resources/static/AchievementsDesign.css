@@ -1,6 +1,6 @@
 .tree-table-view{
-    -fx-tree-table-color: rgba(0, 150, 0, 0.8);
-    -fx-tree-table-rippler-color : rgba(255, 0, 0, 0.9);
+    -fx-tree-table-color: #00AB66;
+    -fx-tree-table-rippler-color : #29AB87;
 }
 .tree-table-view:focused .tree-table-row-cell:selected {
     -fx-background-color: -fx-tree-table-color  ;
@@ -45,7 +45,7 @@
     -fx-padding : 16 0 16 0 ;
     -fx-font-family: cursive;
     -fx-font-size: 16px;
-    -fx-text-fill: rgba(240,60,20,0.7);
+    -fx-text-fill: #FFFFFF;
 }
 
 .tree-table-view .column-overlay{
@@ -71,11 +71,11 @@
 .tree-table-row-cell{
     -fx-background-color: rgba(3,68,11,0.3);
     -fx-border-style: solid;
-    -fx-border-color: white;
+    -fx-border-color: #FFFFFF;
     -fx-border-width: 5px;
 }
 .tree-table-view:row-selection .tree-table-row-cell:filled:hover {
-    -fx-background-color: rgba(0, 150, 0, 0.8);
+    -fx-background-color:-fx-tree-table-rippler-color;
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-text-fill: -fx-text-inner-color;
+    -fx-text-fill: skyblue;
 }
