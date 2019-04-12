@@ -6,7 +6,6 @@ import gogreenserver.services.UserService;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,11 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -29,7 +27,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import javax.imageio.ImageIO;
 import javax.ws.rs.Consumes;
 
 @RestController
@@ -95,21 +92,18 @@ public class UserController {
      * @return User's profile picture
      * @throws IOException exception
      */
-    @GetMapping(value = "/user/photo/{username}", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> getPicFromServer(@PathVariable("username") String username)
+    @GetMapping("/user/photo/{username}")
+    @ResponseBody
+    public ResponseEntity<File> getPicFromServer(@PathVariable("username") String username)
             throws IOException {
         logger.debug("GET/user/photo/" + username + "/ accessed");
         String pathname = "gogreen-webserver/src/main/profile_pictures/" + username + ".png";
         File file = new File(pathname);
         boolean exists = file.exists();
         if (exists) {
-            BufferedImage bufimag = ImageIO.read(file);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufimag, "png", byteArrayOutputStream);
-            byte[] img = byteArrayOutputStream.toByteArray();
-            return new ResponseEntity<>(img, HttpStatus.OK);
+            return new ResponseEntity<File>(file, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

@@ -13,7 +13,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -159,13 +158,12 @@ public class UserCareerService {
         try {
             return SwingFXUtils.toFXImage(ImageIO.read(new URL(remoteUrl.getBody())), null);
         } catch (IOException | NullPointerException e) {
-            ResponseEntity<byte[]> response = restTemplate
-                    .getForEntity(url + "/user/photo/" + username, byte[].class);
+            ResponseEntity<File> response = restTemplate
+                    .getForEntity(url + "/user/photo/" + username, File.class);
             BufferedImage imgBuffer;
             try {
-                if (response.getBody().length > 10) {
-                    ByteArrayInputStream inp = new ByteArrayInputStream(response.getBody());
-                    imgBuffer = ImageIO.read(inp);
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    imgBuffer = ImageIO.read(response.getBody());
                 } else {
                     File file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
                     imgBuffer = ImageIO.read(file);
