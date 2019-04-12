@@ -74,9 +74,7 @@ Maven 3.6.0
 ├── pom.xml
 ```
 
-
-
-Our project is consisted of three separate modules as follows:
+The project is consisted of three separate modules as follows:
 
 #### 1. gogreen-client
 
@@ -140,7 +138,7 @@ java -jar gogreen-webserver/target/gogreen-webserver-1.0.0.jar
 
 
 
-#### jacoco-aggregate
+#### 3. jacoco-aggregate
 
 This is the module used to generate the code coverage report.
 
