@@ -61,8 +61,8 @@ public class UserService {
 
     public void saveProfilePicture(MultipartFile file, String userName) throws IOException {
         BufferedImage image = ImageIO.read(file.getInputStream());
-        File imgLoc = new File("C:/Users/prund/Programare//"
-                + "OOPP/gogreen-webserver/src/main/profile_pictures/"
+        String pathname = "gogreen-webserver/src/main/profile_pictures/";
+        File imgLoc = new File(pathname
                 + userName + ".png");
         imgLoc.createNewFile();
         ImageIO.write(image, "png", imgLoc);
