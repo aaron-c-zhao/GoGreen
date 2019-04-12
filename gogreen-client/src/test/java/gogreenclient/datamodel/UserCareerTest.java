@@ -2,12 +2,15 @@ package gogreenclient.datamodel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gogreenclient.config.AppConfig;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +20,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -240,6 +248,39 @@ public class UserCareerTest {
         service.setUsername("pablo");
         setUp_Get(server, "insertHistory/days/pablo", "27");
         assertTrue(service.getActiveDays().equals("27"));
+    }
+
+
+    @Test
+    public void showPhotoTestDefault() throws IOException {
+        RestTemplate restTemplate = mock(RestTemplate.class);
+        service.setRestTemplate(restTemplate);
+        when(restTemplate.getForEntity(
+                anyString(),
+                eq(byte[].class)
+        )).thenReturn(new ResponseEntity<byte[]>(new byte[2], HttpStatus.OK));
+        File file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
+        BufferedImage imgBuffer = ImageIO.read(file);
+        BufferedImage img2 = imgBuffer;
+        SwingFXUtils.fromFXImage(service.showPhoto(), img2);
+        assertEquals(imgBuffer.getData().getDataBuffer().getSize(), img2.getData().getDataBuffer().getSize());
+    }
+
+    @Test
+    public void showPhotoTestNewPhoto() throws IOException {
+        RestTemplate restTemplate = mock(RestTemplate.class);
+        service.setRestTemplate(restTemplate);
+        File file = new ClassPathResource("static/fish.jpg").getFile();
+        BufferedImage imgBuffer = ImageIO.read(file);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(imgBuffer, "jpg", out);
+        when(restTemplate.getForEntity(
+                anyString(),
+                eq(byte[].class)
+        )).thenReturn(new ResponseEntity<byte[]>(out.toByteArray(), HttpStatus.OK));
+        BufferedImage img2 = imgBuffer;
+        SwingFXUtils.fromFXImage(service.showPhoto(), img2);
+        assertEquals(imgBuffer.getData().getDataBuffer().getSize(), img2.getData().getDataBuffer().getSize());
     }
 
     public void badRequest(String urii, Object obj, HttpStatus status) throws Exception {
