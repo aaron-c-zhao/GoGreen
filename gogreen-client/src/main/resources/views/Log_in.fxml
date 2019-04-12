@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -19,12 +18,12 @@
     <children>
         <Pane layoutX="36.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
             <children>
-                <Label layoutX="61.0" layoutY="20.0" text="#G" textFill="#fffbfb">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="20.0" text="#G" textFill="#fffbfb">
                     <font>
                         <Font name="Agency FB" size="70.0" />
                     </font>
                 </Label>
-                <Label layoutX="202.0" layoutY="20.0" prefHeight="84.0" prefWidth="147.0" text="GREEN" textFill="#fffbfb">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="20.0" prefHeight="84.0" prefWidth="147.0" text="GREEN" textFill="#fffbfb">
                     <font>
                         <Font name="Agency FB" size="70.0" />
                     </font>
@@ -51,7 +50,6 @@
                 </Label>
                 <JFXTextField fx:id="username" focusColor="#fbfcff" layoutX="81.0" layoutY="99.0" prefHeight="37.0" prefWidth="242.0" promptText="Username" unFocusColor="SEAGREEN" />
                 <JFXPasswordField fx:id="password" focusColor="#fbfcff" layoutX="81.0" layoutY="156.0" prefHeight="31.0" prefWidth="242.0" promptText="Password" unFocusColor="SEAGREEN" />
-                <JFXCheckBox layoutX="81.0" layoutY="200.0" text="Rember me" textFill="#fffdfd" />
                 <JFXButton buttonType="RAISED" layoutX="115.0" layoutY="239.0" onAction="#login" prefHeight="64.0" prefWidth="174.0" ripplerFill="#f8fffb" stylesheets="@../static/hover.css" text="Sign In" textFill="#fffbfb">
                <font>
                   <Font name="Segoe UI Light" size="22.0" />

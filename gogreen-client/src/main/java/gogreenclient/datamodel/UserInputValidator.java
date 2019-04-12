@@ -48,7 +48,7 @@ public class UserInputValidator {
      */
     public void isNull(JFXTextField input) throws IllegalArgumentException {
         if (input.getText().equals("")) {
-            throw new IllegalArgumentException(input.getId() + "is empty.");
+            throw new IllegalArgumentException(input.getId() + " is empty.");
         }
     }
 
@@ -60,7 +60,7 @@ public class UserInputValidator {
      */
     public void isNull(JFXComboBox<String> box) throws IllegalArgumentException {
         if (box.getValue().equals("")) {
-            throw new IllegalArgumentException(box.getId() + "is empty.");
+            throw new IllegalArgumentException(box.getId() + " is empty.");
         }
     }
 
@@ -72,7 +72,7 @@ public class UserInputValidator {
      */
     public void isNull(JFXDatePicker datePicker) throws IllegalArgumentException {
         if (datePicker.getValue() == null) {
-            throw new IllegalArgumentException(datePicker.getId() + "is empty.");
+            throw new IllegalArgumentException(datePicker.getId() + " is empty.");
         }
     }
 
@@ -84,7 +84,7 @@ public class UserInputValidator {
      */
     public void isDateInPast(JFXDatePicker datePicker) throws IllegalArgumentException {
         if (datePicker.getValue().compareTo(LocalDate.now()) > 0) {
-            throw new IllegalArgumentException(datePicker.getId() + "can not be in the future!");
+            throw new IllegalArgumentException(datePicker.getId() + " can not be in the future!");
         }
     }
 
