@@ -20,7 +20,7 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gogreenclient.screens.CreateAccountController">
     <children>
-        <Pane layoutX="36.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0">
+        <Pane layoutX="38.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
             <children>
                 <Label layoutX="65.0" layoutY="11.0" prefHeight="103.0" prefWidth="92.0" text="#G" textFill="#fffbfb">
                     <font>
@@ -45,7 +45,7 @@
                 <DropShadow color="#229d0c80" />
             </effect>
         </Pane>
-        <Pane layoutX="36.0" layoutY="150.0" prefHeight="481.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0">
+        <Pane layoutX="38.0" layoutY="148.0" prefHeight="481.0" prefWidth="404.0" style="-fx-background-color: #00FA9A;">
             <children>
                 <Label layoutX="88.0" layoutY="4.0" text="Create an account" textFill="#fffbfb">
                     <font>
@@ -130,7 +130,7 @@
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Label>
-                <JFXButton alignment="CENTER" onAction="#savePhoto" prefHeight="30.0" prefWidth="74.0" ripplerFill="#75ffaf" styleClass="button1" stylesheets="@../static/hover.css" text="Choose" textFill="WHITE" translateX="20.0" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                <JFXButton alignment="CENTER" onAction="#savePhoto" prefHeight="30.0" prefWidth="74.0" ripplerFill="#f8fffb" styleClass="button1" stylesheets="@../static/hover.css" text="Choose" textFill="WHITE" translateX="20.0" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="10">
                     <effect>
                         <InnerShadow />
                     </effect>
