@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class UserScreenController implements SceneController {
+
     @FXML
     private Label setEmail;
 
@@ -46,6 +47,7 @@ public class UserScreenController implements SceneController {
         myCircle.setFill(new ImagePattern(image));
         myCircle.setEffect(new DropShadow(+25d,0d,+2d,Color.DARKSEAGREEN));
     }
+
 
     public void addActivity() {
         screens.activityScreen().show();
