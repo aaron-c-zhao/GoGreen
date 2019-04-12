@@ -51,14 +51,14 @@ public class Records {
     private Float savedPriceTotal;
 
     @Column(name = "saved_co2_trees")
-    private Float savedCo2tree;
+    private Float savedCo2Tree;
 
-    public Float getSavedCo2tree() {
-        return savedCo2tree;
+    public Float getSavedCo2Tree() {
+        return savedCo2Tree;
     }
 
-    public void setSavedCo2tree(Float savedCo2tree) {
-        this.savedCo2tree = savedCo2tree;
+    public void setSavedCo2Tree(Float savedCo2tree) {
+        this.savedCo2Tree = savedCo2tree;
     }
 
     // Define Getters/Setters for JACKSON
@@ -177,6 +177,7 @@ public class Records {
             + ", savedCo2Food=" + savedCo2Food
             + ", savedCo2Energy=" + savedCo2Energy
             + ", savedCo2Transport=" + savedCo2Transport
+            + ", savedCo2Tree=" + savedCo2Tree
             + ", savedCo2Total=" + savedCo2Total
             + ", savedPriceFood=" + savedPriceFood
             + ", savedPriceSolarpanels=" + savedPriceSolarpanels

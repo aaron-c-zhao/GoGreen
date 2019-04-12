@@ -2,6 +2,7 @@ package gogreenclient.datamodel;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ClassPathResource;
@@ -15,14 +16,16 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 
 /**
- * A service class which will provide the service of retrieving user career from database,
- * updating user career in the database.
+ * A service class which will provide the service of retrieving user career from
+ * database, updating user career in the database.
  */
 
 public class UserCareerService {
@@ -34,10 +37,10 @@ public class UserCareerService {
 
     private String username;
 
-
     /**
-     * Get userCareer from database. If there is no usrCareer existing in the database,
-     * then a new userCareer tuple will be created with the username logged in.
+     * Get userCareer from database. If there is no usrCareer existing in the
+     * database, then a new userCareer tuple will be created with the username
+     * logged in.
      *
      * @return userCareer of the current user who has logged in.
      * @throws Exception threw by restTemplate.
@@ -60,13 +63,9 @@ public class UserCareerService {
         ResponseEntity<List<Achievements>> response = null;
         List<Achievements> achievements = null;
         try {
-            response = restTemplate.exchange(
-                url + "/achievement/" + username,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Achievements>>() {
-                }
-            );
+            response = restTemplate.exchange(url + "/achievement/" + username, HttpMethod.GET, null,
+                    new ParameterizedTypeReference<List<Achievements>>() {
+                    });
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
                 achievements = new ArrayList<>();
@@ -88,13 +87,9 @@ public class UserCareerService {
         ResponseEntity<List<InsertHistoryCo2>> response = null;
         List<InsertHistoryCo2> insertHistories = null;
         try {
-            response = restTemplate.exchange(
-                url + "/insertHistory/" + username,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<InsertHistoryCo2>>() {
-                }
-            );
+            response = restTemplate.exchange(url + "/insertHistory/" + username, HttpMethod.GET,
+                    null, new ParameterizedTypeReference<List<InsertHistoryCo2>>() {
+                    });
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
                 insertHistories = new ArrayList<>();
@@ -115,8 +110,7 @@ public class UserCareerService {
         ResponseEntity<String> response = null;
         String amount = null;
         try {
-            response = restTemplate
-                .getForEntity(url + "/insertHistory/amount/" + username,
+            response = restTemplate.getForEntity(url + "/insertHistory/amount/" + username,
                     String.class);
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
@@ -138,8 +132,7 @@ public class UserCareerService {
         ResponseEntity<String> response = null;
         String days = null;
         try {
-            response = restTemplate
-                .getForEntity(url + "/insertHistory/days/" + username,
+            response = restTemplate.getForEntity(url + "/insertHistory/days/" + username,
                     String.class);
         } catch (HttpClientErrorException e) {
             if (e instanceof HttpClientErrorException.NotFound) {
@@ -152,30 +145,39 @@ public class UserCareerService {
         return days;
     }
 
-    /**.
-     * Method to send the request to server in order to get user profile pic
+    /**
+     * . Method to send the request to server in order to get user profile pic
+     * 
      * @return the profile pic as byte array
      * @throws IOException in case it fails
      */
     public Image showPhoto() {
-        ResponseEntity<byte []> response = restTemplate
-            .getForEntity(url + "/user/photo/" + username, byte[].class);
-        BufferedImage imgBuffer;
-        try {
-            if (response.getBody().length > 10) {
-                ByteArrayInputStream inp = new ByteArrayInputStream(response.getBody());
-                imgBuffer = ImageIO.read(inp);
-            } else {
-                File file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
-                imgBuffer = ImageIO.read(file);
-            }
-            return SwingFXUtils.toFXImage(imgBuffer, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
+        ResponseEntity<String> remoteUrl = restTemplate
+                .getForEntity(url + "/user/photourl/" + username, String.class);
+
+        try {
+            return SwingFXUtils.toFXImage(ImageIO.read(new URL(remoteUrl.getBody())), null);
+        } catch (IOException | NullPointerException e) {
+            ResponseEntity<byte[]> response = restTemplate
+                    .getForEntity(url + "/user/photo/" + username, byte[].class);
+            BufferedImage imgBuffer;
+            try {
+                if (response.getBody().length > 10) {
+                    ByteArrayInputStream inp = new ByteArrayInputStream(response.getBody());
+                    imgBuffer = ImageIO.read(inp);
+                } else {
+                    File file = new ClassPathResource("static/green-hibiscus-md.png").getFile();
+                    imgBuffer = ImageIO.read(file);
+                }
+                return SwingFXUtils.toFXImage(imgBuffer, null);
+            } catch (IOException fatal) {
+                fatal.printStackTrace();
+                return null;
+            }
+        }
+
+    }
 
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

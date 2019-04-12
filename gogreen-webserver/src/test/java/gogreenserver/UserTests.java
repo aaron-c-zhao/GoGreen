@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.User;
 
-import net.bytebuddy.utility.RandomString;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
@@ -130,39 +128,6 @@ public class UserTests {
         manager.clear();
     }
 
-    @WithMockUser("Ben")
-    @Test
-    public void updateUser() throws Exception {
-
-        LOGGER.debug("=== updateUser() ===");
-
-        User dummy = manager.persistAndFlush(createDummyUser("Ben"));
-        User newdummy = new User();
-        newdummy.setUsername(dummy.getUsername());
-        newdummy.setPassword(dummy.getPassword());
-        newdummy.setEmail(RandomString.make());
-
-        LOGGER.debug("Old user: " + dummy);
-        LOGGER.debug("User change: " + newdummy);
-
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(newdummy));
-
-        LOGGER.debug("Old user just before req: " + dummy);
-        mockMvc.perform(req).andExpect(status().is(200));
-        // so apparently, our dummy object will be updated after db change.
-        LOGGER.debug("Old user just after req: " + dummy);
-
-        User found = manager.find(User.class, dummy.getUsername());
-
-        LOGGER.debug("Merged User: " + found);
-
-        assertThat(found).isEqualToComparingFieldByField(dummy);
-
-        manager.clear();
-    }
-
     @Test
     public void addUsernameTaken() throws Exception {
 
@@ -186,8 +151,43 @@ public class UserTests {
 
         User dummy = manager.persistAndFlush(createDummyUser("TrainMcTrainface"));
 
-        RequestBuilder req = MockMvcRequestBuilders.post("/api/createUser")
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        RequestBuilder req = MockMvcRequestBuilders
+                .post("/api/updateUser/" + dummy.getUsername() + "/email")
+                .contentType(MediaType.TEXT_PLAIN).content("hackerman@example.org");
+
+        mockMvc.perform(req).andExpect(status().is(401));
+
+        manager.clear();
+    }
+
+    @WithMockUser("hunter")
+    @Test
+    public void updateInvalidProp() throws Exception {
+
+        LOGGER.debug("=== updateInvalidProp() ===");
+
+        User dummy = manager.persistAndFlush(createDummyUser("hunter"));
+
+        RequestBuilder req = MockMvcRequestBuilders
+                .post("/api/updateUser/" + dummy.getUsername() + "/username")
+                .contentType(MediaType.TEXT_PLAIN).content("hunter2");
+
+        mockMvc.perform(req).andExpect(status().is(404));
+
+        manager.clear();
+    }
+
+    @WithMockUser("Merica")
+    @Test
+    public void updateInvalidDate() throws Exception {
+
+        LOGGER.debug("=== updateInvalidDate() ===");
+
+        User dummy = manager.persistAndFlush(createDummyUser("Merica"));
+
+        RequestBuilder req = MockMvcRequestBuilders
+                .post("/api/updateUser/" + dummy.getUsername() + "/birthday")
+                .contentType(MediaType.TEXT_PLAIN).content("July 6th, 1776");
 
         mockMvc.perform(req).andExpect(status().is(400));
 
@@ -233,17 +233,77 @@ public class UserTests {
         mockMvc.perform(req).andExpect(status().is(200));
     }
 
+    @WithMockUser("V")
+    @Test
+    public void checkChanges() throws Exception {
+
+        LOGGER.debug("=== checkChanges() ===");
+
+        User dummy = manager.persistAndFlush(createDummyUser("V"));
+        // because somehow (I am not sure), the manager auto-syncs dummy to all changes.
+        String password = dummy.getPassword();
+
+        LocalDate newtime = LocalDate.now().plusDays(1);
+        String[] propertynames = { "email", "password", "birthday", "photo" };
+        String[] propertyvalues = { "yeet", "wololo", mapper.writeValueAsString(newtime),
+            "http://example.org" };
+
+        for (int i = 0; i < propertynames.length; i++) {
+            RequestBuilder req = MockMvcRequestBuilders
+                    .post("/api/updateUser/" + dummy.getUsername() + "/" + propertynames[i])
+                    .contentType(MediaType.APPLICATION_JSON).content(propertyvalues[i]);
+
+            LOGGER.debug("Sent " + propertynames[i]);
+
+            mockMvc.perform(req).andExpect(status().is(200));
+        }
+        manager.flush();
+        User result = manager.find(User.class, dummy.getUsername());
+
+        // because we cannot recreate the salt.
+        assertThat(result.getPassword()).isNotEqualTo(password);
+        assertThat(result.getEmail()).isEqualTo(propertyvalues[0]);
+        assertThat(result.getBdate()).isEqualTo(newtime);
+        assertThat(result.getPfpUrl()).isEqualTo(propertyvalues[3]);
+
+    }
+
+    @WithMockUser
+    @Test
+    public void getPic() throws Exception {
+
+        LOGGER.debug("=== getPic() ===");
+
+        User dummy = createDummyUser("Fab");
+
+        RequestBuilder req = MockMvcRequestBuilders.get("/api/user/photourl/" + dummy.getUsername())
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(req).andExpect(status().is(404));
+
+        manager.persistAndFlush(dummy);
+
+        RequestBuilder req2 = MockMvcRequestBuilders
+                .get("/api/user/photourl/" + dummy.getUsername())
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        MvcResult res = mockMvc.perform(req2).andExpect(status().is(200)).andReturn();
+        assertThat(res.getResponse().getContentAsString()).isEqualTo(dummy.getPfpUrl());
+
+        manager.clear();
+    }
+       
     @Test
     public void checkAuthChecker() {
+
+        LOGGER.debug("=== checkAuthChecker() ===");
 
         User dummy = createDummyUser("Yeet");
 
         assertThatThrownBy(() -> {
             userfinder.loadUserByUsername(dummy.getUsername());
         }).isInstanceOf(UsernameNotFoundException.class);
-        
+
         manager.persistAndFlush(dummy);
-        
+
         assertThat(userfinder.loadUserByUsername(dummy.getUsername())).isNotNull();
     }
 
@@ -256,6 +316,6 @@ public class UserTests {
         Random rgn = new Random(name.hashCode());
         return new User(name, "pass" + name, name + "@example.com",
                 LocalDate.of(1950 + rgn.nextInt(60), rgn.nextInt(12) + 1, rgn.nextInt(29)),
-                LocalDate.now());
+                LocalDate.now(), "http://example.com/" + name + ".png");
     }
 }

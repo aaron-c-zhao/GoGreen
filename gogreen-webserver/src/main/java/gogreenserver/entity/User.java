@@ -27,8 +27,10 @@ public class User {
     @Column(name = "date_created")
     private LocalDate dateCreated;
 
+    @Column(name = "profile_pic_url", nullable = true)
+    private String pfpUrl;
 
-    // define constructors 
+    // define constructors
     public User() {
 
     }
@@ -42,13 +44,14 @@ public class User {
      * @param bdate       Birthdate of user.
      * @param dateCreated date created of account.
      */
-    public User(String username, String password, String email,
-                LocalDate bdate, LocalDate dateCreated) {
+    public User(String username, String password, String email, LocalDate bdate,
+            LocalDate dateCreated, String pfpUrl) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.bdate = bdate;
         this.dateCreated = dateCreated;
+        this.pfpUrl = pfpUrl;
     }
 
     // define getters and setters
@@ -92,14 +95,18 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    public String getPfpUrl() {
+        return pfpUrl;
+    }
+
+    public void setPfpUrl(String pfpUrl) {
+        this.pfpUrl = pfpUrl;
+    }
+
     @Override
     public String toString() {
-        return "Records{"
-                + "userName='" + username + '\''
-                + ", email='" + email + '\''
-                + ", bdate='" + bdate + '\''
-                + ", dateCreated='" + dateCreated + '\''
-                + '}';
+        return "User{" + "userName='" + username + '\'' + ", email='" + email + '\''
+                + ", bdate='" + bdate + '\'' + ", dateCreated='" + dateCreated + '\'' + '}';
     }
 }

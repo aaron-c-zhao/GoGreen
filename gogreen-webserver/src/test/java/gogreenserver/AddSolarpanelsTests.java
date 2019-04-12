@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gogreenserver.entity.AddSolarpanels;
+import gogreenserver.repositories.AddSolarPanelsRepository;
+import gogreenserver.services.AddSolarpanelsService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,6 +63,9 @@ public class AddSolarpanelsTests {
 
     @Autowired
     private TestEntityManager manager;
+    
+    @Autowired
+    private AddSolarpanelsService service;
 
     @Autowired
     private WebApplicationContext context;
@@ -73,80 +78,80 @@ public class AddSolarpanelsTests {
     /**
      * Check if /api/addSolarpanels/ and /api/addSolarpanel/{username} works.
      */
-//    @WithMockUser
-//    @Test
-//    public void checkAddSolarpanels() throws Exception {
-//
-//        LOGGER.debug("=== checkAddSolarpanels() ===");
-//
-//        AddSolarpanels[] dummies = new AddSolarpanels[3];
-//        dummies[0] = manager.persist(createDummyAddSolarpanels("Silica"));
-//        dummies[1] = manager.persist(createDummyAddSolarpanels("Boron"));
-//        dummies[2] = manager.persist(createDummyAddSolarpanels("Electon"));
-//        manager.flush();
-//
-//        RequestBuilder ereq = MockMvcRequestBuilders.get("/api/addSolarpanels")
-//            .accept(MediaType.APPLICATION_JSON);
-//
-//        MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
-//
-//        JsonNode list = mapper.readTree(eres.getResponse().getContentAsString());
-//
-//        LOGGER.debug("Returned Json: " + list);
-//
-//        int solarcount = 0;
-//        for (JsonNode solar : list) {
-//            LOGGER.debug("Solar panel " + solarcount + ": " + solar);
-//            RequestBuilder achreq = MockMvcRequestBuilders
-//                .get("/api/addSolarpanel/" + solar.get("userName").asText())
-//                .accept(MediaType.APPLICATION_JSON);
-//            MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
-//
-////            assertThat(ures.getResponse().getContentAsString())
-////                .isEqualTo(mapper.writeValueAsString(dummies[solarcount]));
-//
-//            solarcount++;
-//        }
-//        LOGGER.debug("Solar panel installations amount: " + solarcount);
-//        assertThat(solarcount).isEqualTo(3);
-//
-//        manager.clear();
-//
-//    }
+    @WithMockUser
+    @Test
+    public void checkAddSolarpanels() throws Exception {
 
-//    @WithMockUser("Sunny")
-//    @Test
-//    public void addSolar() throws Exception {
-//
-//        LOGGER.debug("=== addSolar() ===");
-//
-//        AddSolarpanels dummy = createDummyAddSolarpanels("Sunny");
-//
-//        RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
-//            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
-//        mockMvc.perform(req).andExpect(status().is(200)).andReturn();
-//
-//        assertThat(manager.find(AddSolarpanels.class, dummy.getUserName())).isNotNull();
-//
-//        manager.clear();
-//    }
-    
-//    @WithMockUser("Hackerman")
-//    @Test
-//    public void addSolarWitoutPermission() throws Exception {
-//
-//        LOGGER.debug("=== addSolarWitoutPermission() ===");
-//
-//        AddSolarpanels dummy = createDummyAddSolarpanels("Moony");
-//
-//        RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
-//            .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
-//        mockMvc.perform(req).andExpect(status().is(401)).andReturn();
-//
-//        assertThat(manager.find(AddSolarpanels.class, dummy.getUserName())).isNull();
-//
-//        manager.clear();
-//    }
+        LOGGER.debug("=== checkAddSolarpanels() ===");
+
+        AddSolarpanels[] dummies = new AddSolarpanels[3];
+        dummies[0] = manager.persist(createDummyAddSolarpanels("Silica"));
+        dummies[1] = manager.persist(createDummyAddSolarpanels("Boron"));
+        dummies[2] = manager.persist(createDummyAddSolarpanels("Electon"));
+        manager.flush();
+
+        RequestBuilder ereq = MockMvcRequestBuilders.get("/api/addSolarpanels")
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult eres = mockMvc.perform(ereq).andExpect(status().is(200)).andReturn();
+
+        JsonNode list = mapper.readTree(eres.getResponse().getContentAsString());
+
+        LOGGER.debug("Returned Json: " + list);
+
+        int solarcount = 0;
+        for (JsonNode solar : list) {
+            LOGGER.debug("Solar panel " + solarcount + ": " + solar);
+            RequestBuilder achreq = MockMvcRequestBuilders
+                    .get("/api/addSolarpanel/" + solar.get("userName").asText())
+                    .accept(MediaType.APPLICATION_JSON);
+            MvcResult ures = mockMvc.perform(achreq).andExpect(status().is(200)).andReturn();
+
+            assertThat(ures.getResponse().getContentAsString())
+                    .isEqualTo("[" + mapper.writeValueAsString(dummies[solarcount]) + "]");
+
+            solarcount++;
+        }
+        LOGGER.debug("Solar panel installations amount: " + solarcount);
+        assertThat(solarcount).isEqualTo(3);
+
+        manager.clear();
+
+    }
+
+    @WithMockUser("Sunny")
+    @Test
+    public void addSolar() throws Exception {
+
+        LOGGER.debug("=== addSolar() ===");
+
+        AddSolarpanels dummy = createDummyAddSolarpanels("Sunny");
+
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        mockMvc.perform(req).andExpect(status().is(200)).andReturn();
+
+        assertThat(service.findAllByUserName(dummy.getUserName())).isNotEmpty();
+
+        manager.clear();
+    }
+
+    @WithMockUser("Hackerman")
+    @Test
+    public void addSolarWitoutPermission() throws Exception {
+
+        LOGGER.debug("=== addSolarWitoutPermission() ===");
+
+        AddSolarpanels dummy = createDummyAddSolarpanels("Moony");
+
+        RequestBuilder req = MockMvcRequestBuilders.post("/api/addSolarpanel")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(dummy));
+        mockMvc.perform(req).andExpect(status().is(401)).andReturn();
+
+        assertThat(service.findAllByUserName(dummy.getUserName())).isNullOrEmpty();
+
+        manager.clear();
+    }
 
     @WithMockUser
     @Test
@@ -155,7 +160,7 @@ public class AddSolarpanelsTests {
         LOGGER.debug("=== checkNonexistentSolar() ===");
 
         RequestBuilder req = MockMvcRequestBuilders.get("/api/addSolarpanel/nobody")
-            .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON);
         mockMvc.perform(req).andExpect(status().is(404)).andReturn();
     }
 
