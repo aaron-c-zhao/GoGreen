@@ -158,7 +158,7 @@ public class UserCareerService {
 
         try {
             return SwingFXUtils.toFXImage(ImageIO.read(new URL(remoteUrl.getBody())), null);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             ResponseEntity<byte[]> response = restTemplate
                     .getForEntity(url + "/user/photo/" + username, byte[].class);
             BufferedImage imgBuffer;
