@@ -23,7 +23,7 @@ public class AddTransportController implements SceneController {
     private static final String URL = "https://localhost:8443/api/insertHistory";
 
     ObservableList<String> transportList = FXCollections
-        .observableArrayList("walk", "bike", "train", "bus", "car", "motorcycle", "plane");
+        .observableArrayList("walk", "bike", "bus", "car", "motorbike", "plane");
 
     @FXML
     private JFXComboBox<String> takenTransportBox;

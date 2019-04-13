@@ -26,9 +26,9 @@ public class AddFoodController implements SceneController {
     //list for the tree view
     ObservableList<String> mealList = FXCollections
         .observableArrayList("beans", "vegetables", "cheese",
-            "chocolate", "fruit", "lentils", "milk", "nuts", "pannenkoeken",
-            "poffertjes", "potatoes", "rice", "stroopwafels", "tofu", "beef",
-            "bitterballen", "chicken", "eggs", "kroketten", "lamb",
+            "chocolate", "fruit", "lentils", "milk", "nuts", "pannekoeken",
+            "poffertjes", "potatoes", "rice", "stroopwafel", "tofu", "beef",
+            "bitterballen", "chicken", "eggs", "kroket", "lamb",
             "pork", "tuna", "turkey");
     @FXML
     private JFXTextField costTaken;
